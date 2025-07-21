@@ -1,0 +1,36 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc -b",
+    "start": "node ./dist/index.js",
+    "dev:worker": "node --watch ./dist/bg_jobs/process_pdf_queue/worker.js",
+    "dev:server": "npm run build && npm run start",
+    "dev": "concurrently \"npm:dev:server\" \"npm:dev:worker\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@huggingface/transformers": "^3.6.3",
+    "@langchain/community": "^0.3.49",
+    "@langchain/core": "^0.3.66",
+    "@langchain/qdrant": "^0.1.2",
+    "@langchain/textsplitters": "^0.1.0",
+    "bullmq": "^5.56.5",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "multer": "^2.0.2",
+    "pdf-parse": "^1.1.1"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/cors": "^2.8.12",
+    "@types/express": "^5.0.3",
+    "@types/multer": "^2.0.0",
+    "concurrently": "^9.2.0",
+    "typescript": "^5.8.3"
+  }
+}
