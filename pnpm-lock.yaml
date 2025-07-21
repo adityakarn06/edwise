@@ -25,10 +25,16 @@ importers:
         version: 3.6.3
       '@langchain/community':
         specifier: ^0.3.49
-        version: 0.3.49(@browserbasehq/stagehand@1.14.0)(@huggingface/transformers@3.6.3)(@ibm-cloud/watsonx-ai@1.6.8)(@langchain/core@0.3.66)(axios@1.10.0)(ibm-cloud-sdk-core@5.4.0)(openai@5.10.1)(pdf-parse@1.1.1)
+        version: 0.3.49(@browserbasehq/stagehand@1.14.0)(@huggingface/transformers@3.6.3)(@ibm-cloud/watsonx-ai@1.6.8)(@langchain/core@0.3.66)(@langchain/google-genai@0.2.15)(axios@1.10.0)(ibm-cloud-sdk-core@5.4.0)(openai@5.10.1)(pdf-parse@1.1.1)
       '@langchain/core':
         specifier: ^0.3.66
         version: 0.3.66(openai@5.10.1)
+      '@langchain/google-genai':
+        specifier: ^0.2.15
+        version: 0.2.15(@langchain/core@0.3.66)
+      '@langchain/openai':
+        specifier: ^0.6.2
+        version: 0.6.2(@langchain/core@0.3.66)
       '@langchain/qdrant':
         specifier: ^0.1.2
         version: 0.1.2(@langchain/core@0.3.66)(typescript@5.8.3)
@@ -44,6 +50,9 @@ importers:
       express:
         specifier: ^5.1.0
         version: 5.1.0
+      langchain:
+        specifier: ^0.3.30
+        version: 0.3.30(@langchain/core@0.3.66)(@langchain/google-genai@0.2.15)(axios@1.10.0)(openai@5.10.1)
       multer:
         specifier: ^2.0.2
         version: 2.0.2
@@ -356,6 +365,11 @@ packages:
       levn: 0.4.1
     dev: true
 
+  /@google/generative-ai@0.24.1:
+    resolution: {integrity: sha512-MqO+MLfM6kjxcKoy0p1wRzG3b4ZZXtPI+z2IE26UogS2Cm/XHO+7gGRBh6gcJsOiIVoH93UwKvW4HdgiOZCy9Q==}
+    engines: {node: '>=18.0.0'}
+    dev: false
+
   /@graphql-typed-document-node/core@3.2.0(graphql@16.11.0):
     resolution: {integrity: sha512-mB9oAsNCm9aM3/SOv4YtBMqZbYj10R7dkq8byBqxGY/ncFwhf2oQzMV+LCRlWoDSEBJ3COiR1yeDvMtsoOsuFQ==}
     peerDependencies:
@@ -659,7 +673,7 @@ packages:
     resolution: {integrity: sha512-iUKgm52T8HOE/makSxjqoWhe95ZJA1/G1sYsGev2JDKUSS14KAgg1LHb+Ba+IPow0xflbnSkOsZcO08C7w1gYw==}
     dev: false
 
-  /@langchain/community@0.3.49(@browserbasehq/stagehand@1.14.0)(@huggingface/transformers@3.6.3)(@ibm-cloud/watsonx-ai@1.6.8)(@langchain/core@0.3.66)(axios@1.10.0)(ibm-cloud-sdk-core@5.4.0)(openai@5.10.1)(pdf-parse@1.1.1):
+  /@langchain/community@0.3.49(@browserbasehq/stagehand@1.14.0)(@huggingface/transformers@3.6.3)(@ibm-cloud/watsonx-ai@1.6.8)(@langchain/core@0.3.66)(@langchain/google-genai@0.2.15)(axios@1.10.0)(ibm-cloud-sdk-core@5.4.0)(openai@5.10.1)(pdf-parse@1.1.1):
     resolution: {integrity: sha512-1AAo9mvr1FmqYHUpXhYI8P4NBPC4t9TfUAuvefEImrtb3gZ60fPelVu17ljWlKJcHC1hPSHYpPJWm0Yx7yRvrw==}
     engines: {node: '>=18'}
     peerDependencies:
@@ -1053,7 +1067,7 @@ packages:
       flat: 5.0.2
       ibm-cloud-sdk-core: 5.4.0
       js-yaml: 4.1.0
-      langchain: 0.3.30(@langchain/core@0.3.66)(axios@1.10.0)(openai@5.10.1)
+      langchain: 0.3.30(@langchain/core@0.3.66)(@langchain/google-genai@0.2.15)(axios@1.10.0)(openai@5.10.1)
       langsmith: 0.3.46(openai@5.10.1)
       openai: 5.10.1(zod@3.25.76)
       pdf-parse: 1.1.1
@@ -1102,6 +1116,17 @@ packages:
       - '@opentelemetry/exporter-trace-otlp-proto'
       - '@opentelemetry/sdk-trace-base'
       - openai
+    dev: false
+
+  /@langchain/google-genai@0.2.15(@langchain/core@0.3.66):
+    resolution: {integrity: sha512-fAD3xjzd5TxWQCKlttNeEc+b5tUX43hBqKH3rk3g+wbl1ToLqe3ocWawKRmGotEuI5jhDVmoHjDxoNMifFDgmg==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      '@langchain/core': '>=0.3.58 <0.4.0'
+    dependencies:
+      '@google/generative-ai': 0.24.1
+      '@langchain/core': 0.3.66(openai@5.10.1)
+      uuid: 11.1.0
     dev: false
 
   /@langchain/openai@0.6.2(@langchain/core@0.3.66):
@@ -3757,7 +3782,7 @@ packages:
       json-buffer: 3.0.1
     dev: true
 
-  /langchain@0.3.30(@langchain/core@0.3.66)(axios@1.10.0)(openai@5.10.1):
+  /langchain@0.3.30(@langchain/core@0.3.66)(@langchain/google-genai@0.2.15)(axios@1.10.0)(openai@5.10.1):
     resolution: {integrity: sha512-UyVsfwHDpHbrnWrjWuhJHqi8Non+Zcsf2kdpDTqyJF8NXrHBOpjdHT5LvPuW9fnE7miDTWf5mLcrWAGZgcrznQ==}
     engines: {node: '>=18'}
     peerDependencies:
@@ -3816,6 +3841,7 @@ packages:
         optional: true
     dependencies:
       '@langchain/core': 0.3.66(openai@5.10.1)
+      '@langchain/google-genai': 0.2.15(@langchain/core@0.3.66)
       '@langchain/openai': 0.6.2(@langchain/core@0.3.66)
       '@langchain/textsplitters': 0.1.0(@langchain/core@0.3.66)
       axios: 1.10.0(debug@4.4.1)
@@ -5628,6 +5654,11 @@ packages:
 
   /uuid@10.0.0:
     resolution: {integrity: sha512-8XkAphELsDnEGrDxUOHB3RGvXz6TeuYSGEZBOjtTtPm2lwhGBjLgOzLHB63IUWfBpNucQjND6d3AOudO+H3RWQ==}
+    hasBin: true
+    dev: false
+
+  /uuid@11.1.0:
+    resolution: {integrity: sha512-0/A9rDy9P7cJ+8w1c9WD9V//9Wj15Ce2MPz8Ri6032usz+NfePxx5AcN3bN+r6ZL6jEo066/yNYB3tn4pQEx+A==}
     hasBin: true
     dev: false
 
