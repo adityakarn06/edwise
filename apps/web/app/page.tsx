@@ -1,5 +1,5 @@
 "use client"
-import { BookCheck, BookOpen, BotMessageSquare } from "lucide-react";
+import { BookCheck, BookOpen, BotMessageSquare, SquareArrowOutUpRight } from "lucide-react";
 import FeatureComponent from "../components/featureComponent";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
@@ -13,10 +13,10 @@ export default function Page() {
         <Sidebar />
       </div>
       <div className="w-[82%] h-screen flex flex-col">
-        <div className="h-7%]">
-          <Navbar />
+        <div className="h-[8%]">
+        <Navbar ctaIcon={<SquareArrowOutUpRight className="h-4 w-4" />} ctaText="Upgrade" />
         </div>
-        <div className="flex flex-col justify-center items-center h-[93%] p-[11vw] bg-black/90">
+        <div className="flex flex-col justify-center items-center h-[92%] p-[11vw] bg-black/90">
           <div className="flex flex-col items-center justify-center text-center">
             <h1 className="text-white/80 text-3xl font-medium p-4">Welcome to Edwise</h1>
             <p className="text-white/40 text-md max-w-2xl mb-8">
