@@ -26,7 +26,8 @@
     "express": "^5.1.0",
     "langchain": "^0.3.30",
     "multer": "^2.0.2",
-    "pdf-parse": "^1.1.1"
+    "pdf-parse": "^1.1.1",
+    "peggy": "^5.0.5"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
