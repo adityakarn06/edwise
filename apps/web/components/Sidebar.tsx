@@ -1,5 +1,5 @@
 "use client";
-import { BookCheck, BookOpen, BotMessageSquare, ChevronLeft, FileText, House, Library, MessageSquare, PanelRight, Plus, Search } from "lucide-react";
+import { BookCheck, BookOpen, BotMessageSquare, ChevronLeft, FileText, HandCoins, House, Library, MessageCircleQuestionMark, MessageSquare, PanelRight, Plus, Search } from "lucide-react";
 import SidebarItem from "./SidebarItem";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
@@ -30,7 +30,8 @@ const Sidebar = () => {
           <SidebarItem onClickFn={() => router.push("/community")} text="Study groups" icon={<BookOpen className="h-4 w-4 text-white/60" />} />
         </div>
         <div>
-          UPGRADE
+          <SidebarItem onClickFn={() => router.push("/invite")} text="Invite & Earn" icon={<HandCoins className="h-4 w-4 text-white/60" />} />
+          <SidebarItem onClickFn={() => router.push("/help")} text="Feedback" icon={<MessageCircleQuestionMark className="h-4 w-4 text-white/60" />} />
         </div>  
       </div>
       

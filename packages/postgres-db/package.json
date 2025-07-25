@@ -1,23 +1,28 @@
 {
-  "name": "postgres-db",
+  "name": "@repo/postgres-db",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "exports": {
+    "./client": "./src/index.ts"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "postinstall": "prisma generate",
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate dev --skip-generate",
+    "db:deploy": "prisma migrate deploy"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@prisma/client": "6.12.0",
-    "prisma": "^6.12.0",
+    "@prisma/extension-accelerate": "^2.0.2",
     "typescript": "^5.8.3"
   },
   "devDependencies": {
-    "@repo/typescript-config": "workspace:*"
-  },
-  "exports": {
-    ".": "./src/index.ts"
+    "@repo/typescript-config": "workspace:*",
+    "@types/node": "^22.15.30",
+    "prisma": "^6.12.0"
   }
 }

@@ -1,6 +1,11 @@
 {
   "extends": "@repo/typescript-config/nextjs.json",
   "compilerOptions": {
+    "paths": {
+      "@/*": ["./*"],
+      "@prisma/client": ["@repo/db/client/*"]
+    },
+    "baseUrl": ".",
     "plugins": [
       {
         "name": "next"
