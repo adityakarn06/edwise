@@ -15,7 +15,7 @@ const Sidebar = () => {
           width={140}
           height={140}
           className="cursor-pointer"
-          onClick={() => router.push("/")}
+          onClick={() => router.push("/dashboard")}
         />
         <button className="rounded-md p-1 cursor-pointer hover:bg-slate-700">
           <PanelRight size={20} />
@@ -23,7 +23,7 @@ const Sidebar = () => {
       </div>
       <div className="flex flex-col h-full justify-between p-2">
         <div>
-          <SidebarItem onClickFn={() => router.push("/")} text="Home" icon={<House className="h-4 w-4 text-white/60" />} />
+          <SidebarItem onClickFn={() => router.push("/dashboard")} text="Dashboard" icon={<House className="h-4 w-4 text-white/60" />} />
           <SidebarItem onClickFn={() => router.push("/ask-pdf")} text="Ask your pdf" icon={<BotMessageSquare className="h-4 w-4 text-white/60" />} />
           <SidebarItem onClickFn={() => router.push("/mcq-generator")} text="MCQ generator" icon={<BookCheck className="h-4 w-4 text-white/60" />} />
           <SidebarItem onClickFn={() => router.push("/resources")} text="Your resources" icon={<Library className="h-4 w-4 text-white/60" />} />

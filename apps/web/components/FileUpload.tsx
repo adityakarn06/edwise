@@ -1,14 +1,41 @@
 "use client";
-import axios from "axios";
 import { useRef, useState } from "react";
-import { BACKEND_URL } from "../config/config";
 import { Upload } from "lucide-react";
+import { useSession } from "next-auth/react";
+import api from "@/lib/api";
 
 export default function FileUpload() {
+  const { data: session, status } = useSession();
   const [file, setFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  if (status === "loading") {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[40vh] p-8">
+        <div className="text-gray-600">Loading...</div>
+      </div>
+    );
+  }
+
+  // Show login prompt if not authenticated
+  if (status === "unauthenticated") {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[40vh] p-8">
+        <div className="text-center">
+          <h1 className="text-2xl font-semibold mb-4">Authentication Required</h1>
+          <p className="text-gray-600 mb-6">Please sign in to upload files</p>
+          <a
+            href="/sign-in"
+            className="px-6 py-2 rounded bg-blue-600 text-white font-semibold shadow hover:bg-blue-700 transition"
+          >
+            Sign In
+          </a>
+        </div>
+      </div>
+    );
+  }
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -20,6 +47,7 @@ export default function FileUpload() {
   const handleUpload = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!file) return;
+    
     setUploading(true);
     setMessage(null);
 
@@ -27,14 +55,27 @@ export default function FileUpload() {
     formData.append("pdf", file);
 
     try {
-      await axios.post(`${BACKEND_URL}/upload/pdf`, formData, {
+      const result = await api.post('/upload/pdf', formData, {
         headers: { "Content-Type": "multipart/form-data" }
       });
-      setMessage("Upload successful!");
-      setFile(null);
-      if (inputRef.current) inputRef.current.value = "";
+      
+      if (result.status === 200) {
+        setMessage("Upload successful!");
+        setFile(null);
+        if (inputRef.current) inputRef.current.value = "";
+      }
     } catch (err: any) {
-      setMessage(err?.message || "Error uploading file");
+      console.error('Upload error:', err);
+      
+      if (err.response?.status === 401) {
+        setMessage("Authentication failed. Please sign in again.");
+      } else if (err.response?.status === 413) {
+        setMessage("File too large. Please upload a smaller PDF.");
+      } else if (err.response?.status === 400) {
+        setMessage("Invalid file format. Please upload a PDF file.");
+      } else {
+        setMessage(`${err.response?.data?.error || err.message || "Error uploading file"}`);
+      }
     } finally {
       setUploading(false);
     }
@@ -42,7 +83,12 @@ export default function FileUpload() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[40vh] p-8">
-      <h1 className="text-2xl font-semibold mb-6">Upload your PDF</h1>
+      <div className="text-center mb-6">
+        <h1 className="text-2xl font-semibold mb-2">Upload your PDF</h1>
+        <p className="text-sm text-gray-600">
+          Welcome, {session?.user?.name || session?.user?.email}! 👋
+        </p>
+      </div>
       <form onSubmit={handleUpload} className="flex flex-col items-center gap-4">
         <label
           htmlFor="pdf-upload"

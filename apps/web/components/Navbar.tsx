@@ -1,9 +1,9 @@
 "use client";
-import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
-import { dark } from "@clerk/themes";
-import { User } from "lucide-react";
+import { User, LogOut } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+import { signOut, useSession } from "next-auth/react";
+import Image from "next/image";
 
 interface NavbarProps {
     headingIcon?: React.ReactNode;
@@ -14,7 +14,28 @@ interface NavbarProps {
 }
 
 export default function Navbar({ headingIcon, headingText, ctaText, ctaIcon, onCtaClick }: NavbarProps) {
+  const { data: session } = useSession()
   const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    }
+    
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const handleLogout = () => {
+    signOut();
+    setIsOpen(false);
+  };
+
   return (
     <div className="flex h-full items-center justify-between px-4 py-2 border border-white/10 bg-black/95 text-white">
       <div className="flex items-center gap-2 p-2 rounded-md">
@@ -33,29 +54,38 @@ export default function Navbar({ headingIcon, headingText, ctaText, ctaIcon, onC
           {ctaIcon}
           {ctaText}
         </button>
-        <SignedOut>
-          <div className="relative">
+          <div className="relative" ref={dropdownRef}>
             <div 
-              className="h-8 w-8 p-1 rounded-4xl bg-white/70 flex items-center justify-center cursor-pointer"
+              className="h-8 w-8 p-1 rounded-4xl bg-white/90 flex items-center justify-center cursor-pointer hover:bg-white/80 transition-colors"
               onClick={() => setIsOpen(!isOpen)}
             >
-              <User className="h-4 w-4 text-black/80" />
+              {session?.user?.image ? (
+                <Image 
+                  src={session.user.image}
+                  alt="User Avatar"
+                  width={24}
+                  height={24}
+                  className="h-6 w-6 rounded-full"
+                />
+              ) : (
+                <User className="h-4 w-4 text-black/80" />
+              )}
             </div>
+            
             {isOpen && (
-              <div className="absolute right-0 mt-2 w-48 py-2 bg-black/50 rounded-md shadow-xl border border-white/20 z-10">
-                <Link href="/sign-in" className="block px-4 py-2 text-sm text-white hover:bg-white/10">
-                  Sign In
-                </Link>
-                <Link href="/sign-up" className="block px-4 py-2 text-sm text-white hover:bg-white/10">
-                  Sign Up
-                </Link>
+              <div className="absolute right-0 mt-2 w-48 bg-gray-900 border border-gray-700 rounded-lg shadow-lg z-50">
+                <div className="py-1">
+                  <button
+                    onClick={handleLogout}
+                    className="flex items-center gap-2 w-full px-4 py-2 text-sm text-white hover:bg-gray-800 transition-colors"
+                  >
+                    <LogOut className="h-4 w-4" />
+                    Sign out
+                  </button>
+                </div>
               </div>
             )}
           </div>
-        </SignedOut>
-        <SignedIn>
-          <UserButton />
-        </SignedIn>
       </div>
     </div>
   );

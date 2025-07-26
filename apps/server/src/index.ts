@@ -1,35 +1,38 @@
+import 'dotenv/config'
 import express from "express";
 import cors from 'cors';
-import { createMulterUpload } from "./lib/multer";
+import cookieParser from 'cookie-parser';
 import uploadRouter from "./routes/uploadRoute";
 import chatRouter from "./routes/chatRouter";
 import { PrismaClient } from "@repo/postgres-db/client";
+import { createMulterUpload } from "./lib/multer";
+import { authenticateToken } from "./middleware/auth";
 
 const prisma = new PrismaClient();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-app.use(cors());
+
+app.use(cors({
+    origin: process.env.FRONTEND_URL || 'http://localhost:3001',
+    credentials: true
+}));
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 const upload = createMulterUpload();
 
-app.post("/test", async (req, res) => {
-  const user = await prisma.user.create({
-    data: {
-      id: "123456",
-      name: "Test User 2",
-      email: "test1@gmail.com",
-      avatarUrl: "",
-    },
-  })
-  res.status(200).json({ message: "Test endpoint hit successfully", user });
+// Public routes
+app.get("/health", (req, res) => {
+    res.status(200).json({ message: "Server is healthy" });
 });
 
-app.use('/upload', upload.single('pdf'), uploadRouter);
-app.use('/chat', chatRouter);
+// Protected routes
+app.use('/upload', authenticateToken, upload.single('pdf'), uploadRouter);
+app.use('/chat', authenticateToken, chatRouter);
+
 
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+    console.log(`Server is running on http://localhost:${PORT}`);
 })

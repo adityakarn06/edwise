@@ -8,13 +8,18 @@ import { vectorCollectionName } from '../../config/config';
 const worker = new Worker('file-upload-queue', async job => {
   try {
     if (!job.data) throw new Error('Job data is missing');
-    if (typeof job.data !== 'string') throw new Error('Job data must be a string');
-    const data = JSON.parse(job.data);
-    if (!data.filename || !data.filePath) throw new Error('Job data must contain filename and filePath');
+    
+    const data = job.data;
+    
+    if (!data.filename || !data.filePath) {
+      throw new Error('Job data must contain filename and filePath');
+    }
 
     const docs = await loadPDF(data.filePath);
+    
     const textSplitter = createTextSplitter();
     const splitDocs = await textSplitter.splitDocuments(docs);
+    
     const embeddings = createEmbeddings();
 
     await QdrantVectorStore.fromDocuments(
@@ -29,7 +34,13 @@ const worker = new Worker('file-upload-queue', async job => {
       }
     );
 
-    return { status: 'success', message: 'PDF processed successfully' };
+    return { 
+      status: 'success', 
+      message: 'PDF processed successfully',
+      filename: data.filename,
+      chunks: splitDocs.length,
+      userId: data.userId
+    };
   } catch (error) {
     console.error('Error processing PDF:', error);
     throw error;

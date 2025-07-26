@@ -7,9 +7,10 @@ CREATE TYPE "FileType" AS ENUM ('PDF');
 -- CreateTable
 CREATE TABLE "users" (
     "id" TEXT NOT NULL,
-    "email" TEXT NOT NULL,
-    "password" TEXT NOT NULL,
+    "email" TEXT,
     "name" TEXT,
+    "password" TEXT,
+    "avatarUrl" TEXT,
     "role" "UserRole" NOT NULL DEFAULT 'STUDENT',
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,

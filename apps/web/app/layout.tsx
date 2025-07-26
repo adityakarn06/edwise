@@ -3,8 +3,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import { Toaster } from "react-hot-toast";
-import { ClerkProvider } from '@clerk/nextjs'
-import { dark } from "@clerk/themes";
+import AuthProvider from "@/context/AuthProvider";
 
 const geist = Geist({ subsets: ["latin"] });
 
@@ -19,16 +18,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ClerkProvider
-    appearance={{
-      baseTheme: dark,
-    }}>
       <html lang="en">
-        <body className={geist.className}>
-          <Toaster />
-          {children}
-        </body>
+        <AuthProvider>
+          <body className={geist.className}>
+            <Toaster />
+            {children}
+          </body>
+        </AuthProvider>
       </html>
-    </ClerkProvider>
   );
 }
