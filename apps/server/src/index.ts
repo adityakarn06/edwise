@@ -4,11 +4,9 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import uploadRouter from "./routes/uploadRoute";
 import chatRouter from "./routes/chatRouter";
-import { PrismaClient } from "@repo/postgres-db/client";
 import { createMulterUpload } from "./lib/multer";
 import { authenticateToken } from "./middleware/auth";
-
-const prisma = new PrismaClient();
+import docRouter from './routes/docRouter';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -31,6 +29,7 @@ app.get("/health", (req, res) => {
 // Protected routes
 app.use('/upload', authenticateToken, upload.single('pdf'), uploadRouter);
 app.use('/chat', authenticateToken, chatRouter);
+app.use('/document', authenticateToken, docRouter);
 
 
 app.listen(PORT, () => {

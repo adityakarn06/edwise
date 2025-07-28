@@ -40,22 +40,11 @@ export namespace $Enums {
 
 export type UserRole = (typeof UserRole)[keyof typeof UserRole]
 
-
-export const FileType: {
-  PDF: 'PDF'
-};
-
-export type FileType = (typeof FileType)[keyof typeof FileType]
-
 }
 
 export type UserRole = $Enums.UserRole
 
 export const UserRole: typeof $Enums.UserRole
-
-export type FileType = $Enums.FileType
-
-export const FileType: typeof $Enums.FileType
 
 /**
  * ##  Prisma Client ʲˢ
@@ -2292,15 +2281,26 @@ export namespace Prisma {
 
   export type AggregateUploadedDocs = {
     _count: UploadedDocsCountAggregateOutputType | null
+    _avg: UploadedDocsAvgAggregateOutputType | null
+    _sum: UploadedDocsSumAggregateOutputType | null
     _min: UploadedDocsMinAggregateOutputType | null
     _max: UploadedDocsMaxAggregateOutputType | null
+  }
+
+  export type UploadedDocsAvgAggregateOutputType = {
+    fileSize: number | null
+  }
+
+  export type UploadedDocsSumAggregateOutputType = {
+    fileSize: number | null
   }
 
   export type UploadedDocsMinAggregateOutputType = {
     id: string | null
     fileName: string | null
     fileUrl: string | null
-    fileType: $Enums.FileType | null
+    fileSize: number | null
+    fileType: string | null
     uploadedById: string | null
     topic: string | null
     createdAt: Date | null
@@ -2310,7 +2310,8 @@ export namespace Prisma {
     id: string | null
     fileName: string | null
     fileUrl: string | null
-    fileType: $Enums.FileType | null
+    fileSize: number | null
+    fileType: string | null
     uploadedById: string | null
     topic: string | null
     createdAt: Date | null
@@ -2320,6 +2321,7 @@ export namespace Prisma {
     id: number
     fileName: number
     fileUrl: number
+    fileSize: number
     fileType: number
     uploadedById: number
     topic: number
@@ -2328,10 +2330,19 @@ export namespace Prisma {
   }
 
 
+  export type UploadedDocsAvgAggregateInputType = {
+    fileSize?: true
+  }
+
+  export type UploadedDocsSumAggregateInputType = {
+    fileSize?: true
+  }
+
   export type UploadedDocsMinAggregateInputType = {
     id?: true
     fileName?: true
     fileUrl?: true
+    fileSize?: true
     fileType?: true
     uploadedById?: true
     topic?: true
@@ -2342,6 +2353,7 @@ export namespace Prisma {
     id?: true
     fileName?: true
     fileUrl?: true
+    fileSize?: true
     fileType?: true
     uploadedById?: true
     topic?: true
@@ -2352,6 +2364,7 @@ export namespace Prisma {
     id?: true
     fileName?: true
     fileUrl?: true
+    fileSize?: true
     fileType?: true
     uploadedById?: true
     topic?: true
@@ -2397,6 +2410,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: UploadedDocsAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: UploadedDocsSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: UploadedDocsMinAggregateInputType
@@ -2427,6 +2452,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: UploadedDocsCountAggregateInputType | true
+    _avg?: UploadedDocsAvgAggregateInputType
+    _sum?: UploadedDocsSumAggregateInputType
     _min?: UploadedDocsMinAggregateInputType
     _max?: UploadedDocsMaxAggregateInputType
   }
@@ -2435,11 +2462,14 @@ export namespace Prisma {
     id: string
     fileName: string
     fileUrl: string
-    fileType: $Enums.FileType
+    fileSize: number
+    fileType: string
     uploadedById: string
     topic: string | null
     createdAt: Date
     _count: UploadedDocsCountAggregateOutputType | null
+    _avg: UploadedDocsAvgAggregateOutputType | null
+    _sum: UploadedDocsSumAggregateOutputType | null
     _min: UploadedDocsMinAggregateOutputType | null
     _max: UploadedDocsMaxAggregateOutputType | null
   }
@@ -2462,6 +2492,7 @@ export namespace Prisma {
     id?: boolean
     fileName?: boolean
     fileUrl?: boolean
+    fileSize?: boolean
     fileType?: boolean
     uploadedById?: boolean
     topic?: boolean
@@ -2475,6 +2506,7 @@ export namespace Prisma {
     id?: boolean
     fileName?: boolean
     fileUrl?: boolean
+    fileSize?: boolean
     fileType?: boolean
     uploadedById?: boolean
     topic?: boolean
@@ -2486,6 +2518,7 @@ export namespace Prisma {
     id?: boolean
     fileName?: boolean
     fileUrl?: boolean
+    fileSize?: boolean
     fileType?: boolean
     uploadedById?: boolean
     topic?: boolean
@@ -2497,13 +2530,14 @@ export namespace Prisma {
     id?: boolean
     fileName?: boolean
     fileUrl?: boolean
+    fileSize?: boolean
     fileType?: boolean
     uploadedById?: boolean
     topic?: boolean
     createdAt?: boolean
   }
 
-  export type UploadedDocsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "fileName" | "fileUrl" | "fileType" | "uploadedById" | "topic" | "createdAt", ExtArgs["result"]["uploadedDocs"]>
+  export type UploadedDocsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "fileName" | "fileUrl" | "fileSize" | "fileType" | "uploadedById" | "topic" | "createdAt", ExtArgs["result"]["uploadedDocs"]>
   export type UploadedDocsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     uploadedBy?: boolean | UserDefaultArgs<ExtArgs>
     aiChatHistories?: boolean | UploadedDocs$aiChatHistoriesArgs<ExtArgs>
@@ -2526,7 +2560,8 @@ export namespace Prisma {
       id: string
       fileName: string
       fileUrl: string
-      fileType: $Enums.FileType
+      fileSize: number
+      fileType: string
       uploadedById: string
       topic: string | null
       createdAt: Date
@@ -2958,7 +2993,8 @@ export namespace Prisma {
     readonly id: FieldRef<"UploadedDocs", 'String'>
     readonly fileName: FieldRef<"UploadedDocs", 'String'>
     readonly fileUrl: FieldRef<"UploadedDocs", 'String'>
-    readonly fileType: FieldRef<"UploadedDocs", 'FileType'>
+    readonly fileSize: FieldRef<"UploadedDocs", 'Int'>
+    readonly fileType: FieldRef<"UploadedDocs", 'String'>
     readonly uploadedById: FieldRef<"UploadedDocs", 'String'>
     readonly topic: FieldRef<"UploadedDocs", 'String'>
     readonly createdAt: FieldRef<"UploadedDocs", 'DateTime'>
@@ -4520,6 +4556,7 @@ export namespace Prisma {
     id: 'id',
     fileName: 'fileName',
     fileUrl: 'fileUrl',
+    fileSize: 'fileSize',
     fileType: 'fileType',
     uploadedById: 'uploadedById',
     topic: 'topic',
@@ -4631,16 +4668,16 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'FileType'
+   * Reference to a field of type 'Int'
    */
-  export type EnumFileTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FileType'>
+  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
     
 
 
   /**
-   * Reference to a field of type 'FileType[]'
+   * Reference to a field of type 'Int[]'
    */
-  export type ListEnumFileTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FileType[]'>
+  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
     
 
 
@@ -4659,16 +4696,16 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Int'
+   * Reference to a field of type 'Float'
    */
-  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
     
 
 
   /**
-   * Reference to a field of type 'Int[]'
+   * Reference to a field of type 'Float[]'
    */
-  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
   /**
    * Deep Input Types
@@ -4755,7 +4792,8 @@ export namespace Prisma {
     id?: StringFilter<"UploadedDocs"> | string
     fileName?: StringFilter<"UploadedDocs"> | string
     fileUrl?: StringFilter<"UploadedDocs"> | string
-    fileType?: EnumFileTypeFilter<"UploadedDocs"> | $Enums.FileType
+    fileSize?: IntFilter<"UploadedDocs"> | number
+    fileType?: StringFilter<"UploadedDocs"> | string
     uploadedById?: StringFilter<"UploadedDocs"> | string
     topic?: StringNullableFilter<"UploadedDocs"> | string | null
     createdAt?: DateTimeFilter<"UploadedDocs"> | Date | string
@@ -4767,6 +4805,7 @@ export namespace Prisma {
     id?: SortOrder
     fileName?: SortOrder
     fileUrl?: SortOrder
+    fileSize?: SortOrder
     fileType?: SortOrder
     uploadedById?: SortOrder
     topic?: SortOrderInput | SortOrder
@@ -4782,7 +4821,8 @@ export namespace Prisma {
     NOT?: UploadedDocsWhereInput | UploadedDocsWhereInput[]
     fileName?: StringFilter<"UploadedDocs"> | string
     fileUrl?: StringFilter<"UploadedDocs"> | string
-    fileType?: EnumFileTypeFilter<"UploadedDocs"> | $Enums.FileType
+    fileSize?: IntFilter<"UploadedDocs"> | number
+    fileType?: StringFilter<"UploadedDocs"> | string
     uploadedById?: StringFilter<"UploadedDocs"> | string
     topic?: StringNullableFilter<"UploadedDocs"> | string | null
     createdAt?: DateTimeFilter<"UploadedDocs"> | Date | string
@@ -4794,13 +4834,16 @@ export namespace Prisma {
     id?: SortOrder
     fileName?: SortOrder
     fileUrl?: SortOrder
+    fileSize?: SortOrder
     fileType?: SortOrder
     uploadedById?: SortOrder
     topic?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     _count?: UploadedDocsCountOrderByAggregateInput
+    _avg?: UploadedDocsAvgOrderByAggregateInput
     _max?: UploadedDocsMaxOrderByAggregateInput
     _min?: UploadedDocsMinOrderByAggregateInput
+    _sum?: UploadedDocsSumOrderByAggregateInput
   }
 
   export type UploadedDocsScalarWhereWithAggregatesInput = {
@@ -4810,7 +4853,8 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"UploadedDocs"> | string
     fileName?: StringWithAggregatesFilter<"UploadedDocs"> | string
     fileUrl?: StringWithAggregatesFilter<"UploadedDocs"> | string
-    fileType?: EnumFileTypeWithAggregatesFilter<"UploadedDocs"> | $Enums.FileType
+    fileSize?: IntWithAggregatesFilter<"UploadedDocs"> | number
+    fileType?: StringWithAggregatesFilter<"UploadedDocs"> | string
     uploadedById?: StringWithAggregatesFilter<"UploadedDocs"> | string
     topic?: StringNullableWithAggregatesFilter<"UploadedDocs"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"UploadedDocs"> | Date | string
@@ -4973,7 +5017,8 @@ export namespace Prisma {
     id?: string
     fileName: string
     fileUrl: string
-    fileType?: $Enums.FileType
+    fileSize: number
+    fileType: string
     topic?: string | null
     createdAt?: Date | string
     uploadedBy: UserCreateNestedOneWithoutUploadedDocsInput
@@ -4984,7 +5029,8 @@ export namespace Prisma {
     id?: string
     fileName: string
     fileUrl: string
-    fileType?: $Enums.FileType
+    fileSize: number
+    fileType: string
     uploadedById: string
     topic?: string | null
     createdAt?: Date | string
@@ -4995,7 +5041,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     fileName?: StringFieldUpdateOperationsInput | string
     fileUrl?: StringFieldUpdateOperationsInput | string
-    fileType?: EnumFileTypeFieldUpdateOperationsInput | $Enums.FileType
+    fileSize?: IntFieldUpdateOperationsInput | number
+    fileType?: StringFieldUpdateOperationsInput | string
     topic?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     uploadedBy?: UserUpdateOneRequiredWithoutUploadedDocsNestedInput
@@ -5006,7 +5053,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     fileName?: StringFieldUpdateOperationsInput | string
     fileUrl?: StringFieldUpdateOperationsInput | string
-    fileType?: EnumFileTypeFieldUpdateOperationsInput | $Enums.FileType
+    fileSize?: IntFieldUpdateOperationsInput | number
+    fileType?: StringFieldUpdateOperationsInput | string
     uploadedById?: StringFieldUpdateOperationsInput | string
     topic?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5017,7 +5065,8 @@ export namespace Prisma {
     id?: string
     fileName: string
     fileUrl: string
-    fileType?: $Enums.FileType
+    fileSize: number
+    fileType: string
     uploadedById: string
     topic?: string | null
     createdAt?: Date | string
@@ -5027,7 +5076,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     fileName?: StringFieldUpdateOperationsInput | string
     fileUrl?: StringFieldUpdateOperationsInput | string
-    fileType?: EnumFileTypeFieldUpdateOperationsInput | $Enums.FileType
+    fileSize?: IntFieldUpdateOperationsInput | number
+    fileType?: StringFieldUpdateOperationsInput | string
     topic?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -5036,7 +5086,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     fileName?: StringFieldUpdateOperationsInput | string
     fileUrl?: StringFieldUpdateOperationsInput | string
-    fileType?: EnumFileTypeFieldUpdateOperationsInput | $Enums.FileType
+    fileSize?: IntFieldUpdateOperationsInput | number
+    fileType?: StringFieldUpdateOperationsInput | string
     uploadedById?: StringFieldUpdateOperationsInput | string
     topic?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -5276,11 +5327,15 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type EnumFileTypeFilter<$PrismaModel = never> = {
-    equals?: $Enums.FileType | EnumFileTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.FileType[] | ListEnumFileTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.FileType[] | ListEnumFileTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumFileTypeFilter<$PrismaModel> | $Enums.FileType
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
   }
 
   export type UserScalarRelationFilter = {
@@ -5292,16 +5347,22 @@ export namespace Prisma {
     id?: SortOrder
     fileName?: SortOrder
     fileUrl?: SortOrder
+    fileSize?: SortOrder
     fileType?: SortOrder
     uploadedById?: SortOrder
     topic?: SortOrder
     createdAt?: SortOrder
   }
 
+  export type UploadedDocsAvgOrderByAggregateInput = {
+    fileSize?: SortOrder
+  }
+
   export type UploadedDocsMaxOrderByAggregateInput = {
     id?: SortOrder
     fileName?: SortOrder
     fileUrl?: SortOrder
+    fileSize?: SortOrder
     fileType?: SortOrder
     uploadedById?: SortOrder
     topic?: SortOrder
@@ -5312,20 +5373,31 @@ export namespace Prisma {
     id?: SortOrder
     fileName?: SortOrder
     fileUrl?: SortOrder
+    fileSize?: SortOrder
     fileType?: SortOrder
     uploadedById?: SortOrder
     topic?: SortOrder
     createdAt?: SortOrder
   }
 
-  export type EnumFileTypeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.FileType | EnumFileTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.FileType[] | ListEnumFileTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.FileType[] | ListEnumFileTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumFileTypeWithAggregatesFilter<$PrismaModel> | $Enums.FileType
+  export type UploadedDocsSumOrderByAggregateInput = {
+    fileSize?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
     _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumFileTypeFilter<$PrismaModel>
-    _max?: NestedEnumFileTypeFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
   }
   export type JsonNullableFilter<$PrismaModel = never> =
     | PatchUndefined<
@@ -5530,8 +5602,12 @@ export namespace Prisma {
     connect?: AiChatHistoryWhereUniqueInput | AiChatHistoryWhereUniqueInput[]
   }
 
-  export type EnumFileTypeFieldUpdateOperationsInput = {
-    set?: $Enums.FileType
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type UserUpdateOneRequiredWithoutUploadedDocsNestedInput = {
@@ -5724,21 +5800,31 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type NestedEnumFileTypeFilter<$PrismaModel = never> = {
-    equals?: $Enums.FileType | EnumFileTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.FileType[] | ListEnumFileTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.FileType[] | ListEnumFileTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumFileTypeFilter<$PrismaModel> | $Enums.FileType
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
   }
 
-  export type NestedEnumFileTypeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.FileType | EnumFileTypeFieldRefInput<$PrismaModel>
-    in?: $Enums.FileType[] | ListEnumFileTypeFieldRefInput<$PrismaModel>
-    notIn?: $Enums.FileType[] | ListEnumFileTypeFieldRefInput<$PrismaModel>
-    not?: NestedEnumFileTypeWithAggregatesFilter<$PrismaModel> | $Enums.FileType
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumFileTypeFilter<$PrismaModel>
-    _max?: NestedEnumFileTypeFilter<$PrismaModel>
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
   }
   export type NestedJsonNullableFilter<$PrismaModel = never> =
     | PatchUndefined<
@@ -5768,7 +5854,8 @@ export namespace Prisma {
     id?: string
     fileName: string
     fileUrl: string
-    fileType?: $Enums.FileType
+    fileSize: number
+    fileType: string
     topic?: string | null
     createdAt?: Date | string
     aiChatHistories?: AiChatHistoryCreateNestedManyWithoutResourceInput
@@ -5778,7 +5865,8 @@ export namespace Prisma {
     id?: string
     fileName: string
     fileUrl: string
-    fileType?: $Enums.FileType
+    fileSize: number
+    fileType: string
     topic?: string | null
     createdAt?: Date | string
     aiChatHistories?: AiChatHistoryUncheckedCreateNestedManyWithoutResourceInput
@@ -5845,7 +5933,8 @@ export namespace Prisma {
     id?: StringFilter<"UploadedDocs"> | string
     fileName?: StringFilter<"UploadedDocs"> | string
     fileUrl?: StringFilter<"UploadedDocs"> | string
-    fileType?: EnumFileTypeFilter<"UploadedDocs"> | $Enums.FileType
+    fileSize?: IntFilter<"UploadedDocs"> | number
+    fileType?: StringFilter<"UploadedDocs"> | string
     uploadedById?: StringFilter<"UploadedDocs"> | string
     topic?: StringNullableFilter<"UploadedDocs"> | string | null
     createdAt?: DateTimeFilter<"UploadedDocs"> | Date | string
@@ -6021,7 +6110,8 @@ export namespace Prisma {
     id?: string
     fileName: string
     fileUrl: string
-    fileType?: $Enums.FileType
+    fileSize: number
+    fileType: string
     topic?: string | null
     createdAt?: Date | string
     uploadedBy: UserCreateNestedOneWithoutUploadedDocsInput
@@ -6031,7 +6121,8 @@ export namespace Prisma {
     id?: string
     fileName: string
     fileUrl: string
-    fileType?: $Enums.FileType
+    fileSize: number
+    fileType: string
     uploadedById: string
     topic?: string | null
     createdAt?: Date | string
@@ -6092,7 +6183,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     fileName?: StringFieldUpdateOperationsInput | string
     fileUrl?: StringFieldUpdateOperationsInput | string
-    fileType?: EnumFileTypeFieldUpdateOperationsInput | $Enums.FileType
+    fileSize?: IntFieldUpdateOperationsInput | number
+    fileType?: StringFieldUpdateOperationsInput | string
     topic?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     uploadedBy?: UserUpdateOneRequiredWithoutUploadedDocsNestedInput
@@ -6102,7 +6194,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     fileName?: StringFieldUpdateOperationsInput | string
     fileUrl?: StringFieldUpdateOperationsInput | string
-    fileType?: EnumFileTypeFieldUpdateOperationsInput | $Enums.FileType
+    fileSize?: IntFieldUpdateOperationsInput | number
+    fileType?: StringFieldUpdateOperationsInput | string
     uploadedById?: StringFieldUpdateOperationsInput | string
     topic?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6112,7 +6205,8 @@ export namespace Prisma {
     id?: string
     fileName: string
     fileUrl: string
-    fileType?: $Enums.FileType
+    fileSize: number
+    fileType: string
     topic?: string | null
     createdAt?: Date | string
   }
@@ -6130,7 +6224,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     fileName?: StringFieldUpdateOperationsInput | string
     fileUrl?: StringFieldUpdateOperationsInput | string
-    fileType?: EnumFileTypeFieldUpdateOperationsInput | $Enums.FileType
+    fileSize?: IntFieldUpdateOperationsInput | number
+    fileType?: StringFieldUpdateOperationsInput | string
     topic?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     aiChatHistories?: AiChatHistoryUpdateManyWithoutResourceNestedInput
@@ -6140,7 +6235,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     fileName?: StringFieldUpdateOperationsInput | string
     fileUrl?: StringFieldUpdateOperationsInput | string
-    fileType?: EnumFileTypeFieldUpdateOperationsInput | $Enums.FileType
+    fileSize?: IntFieldUpdateOperationsInput | number
+    fileType?: StringFieldUpdateOperationsInput | string
     topic?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     aiChatHistories?: AiChatHistoryUncheckedUpdateManyWithoutResourceNestedInput
@@ -6150,7 +6246,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     fileName?: StringFieldUpdateOperationsInput | string
     fileUrl?: StringFieldUpdateOperationsInput | string
-    fileType?: EnumFileTypeFieldUpdateOperationsInput | $Enums.FileType
+    fileSize?: IntFieldUpdateOperationsInput | number
+    fileType?: StringFieldUpdateOperationsInput | string
     topic?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

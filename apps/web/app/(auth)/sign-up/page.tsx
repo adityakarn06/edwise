@@ -65,7 +65,7 @@ export default function SignUp() {
                 router.push("/sign-in");
             } else {
                 toast.success("Successfully signed in!");
-                router.push("/");
+                router.push("/dashboard");
                 router.refresh();
             }
         } catch (error: any) {
@@ -77,7 +77,7 @@ export default function SignUp() {
 
     const handleGoogleSignIn = async () => {
         try {
-            await signIn("google", { callbackUrl: "/" });
+            await signIn("google", { callbackUrl: "/dashboard" });
         } catch (error) {
             toast.error("Google sign in failed");
         }

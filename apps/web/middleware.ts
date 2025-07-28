@@ -14,7 +14,7 @@ export async function middleware(request: NextRequest) {
 
     // Redirect authenticated users away from auth pages
     if (token && isAuthRoute) {
-        return NextResponse.redirect(new URL('/', request.url))
+        return NextResponse.redirect(new URL('/dashboard', request.url))
     }
 
     // Redirect unauthenticated users from protected pages
@@ -31,7 +31,7 @@ export const config = {
         '/profile/:path*', 
         '/uploadfile/:path*',
         '/ask-pdf/:path*',
-    '/sign-in',
+        '/sign-in',
         '/sign-up'
     ],
 }

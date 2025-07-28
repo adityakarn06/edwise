@@ -23,6 +23,7 @@
     "@langchain/textsplitters": "^0.1.0",
     "@repo/postgres-db": "workspace:*",
     "bullmq": "^5.56.5",
+    "cloudinary": "^2.7.0",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "express": "^5.1.0",

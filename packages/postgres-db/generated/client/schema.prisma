@@ -33,7 +33,8 @@ model UploadedDocs {
   id           String   @id @default(uuid())
   fileName     String
   fileUrl      String
-  fileType     FileType @default(PDF)
+  fileSize     Int
+  fileType     String
   uploadedById String
   uploadedBy   User     @relation("UserDocs", fields: [uploadedById], references: [id], onDelete: Cascade)
   topic        String?
@@ -42,11 +43,6 @@ model UploadedDocs {
   aiChatHistories AiChatHistory[] @relation("DocChats")
 
   @@map("uploaded_docs")
-}
-
-enum FileType {
-  PDF
-  // will add IMAGE, TEXT, etc. later
 }
 
 model AiChatHistory {

@@ -135,6 +135,7 @@ exports.Prisma.UploadedDocsScalarFieldEnum = {
   id: 'id',
   fileName: 'fileName',
   fileUrl: 'fileUrl',
+  fileSize: 'fileSize',
   fileType: 'fileType',
   uploadedById: 'uploadedById',
   topic: 'topic',
@@ -179,10 +180,6 @@ exports.Prisma.JsonNullValueFilter = {
 exports.UserRole = exports.$Enums.UserRole = {
   STUDENT: 'STUDENT',
   ADMIN: 'ADMIN'
-};
-
-exports.FileType = exports.$Enums.FileType = {
-  PDF: 'PDF'
 };
 
 exports.Prisma.ModelName = {
