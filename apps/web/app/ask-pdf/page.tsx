@@ -10,7 +10,7 @@ import { useEffect } from "react";
 import { getAllDoc } from "@/utils/getDoc";
 
 export default function AskPdf() {
-  const [currentPdfUrl, setCurrentPdfUrl] = useState<string>("https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf");
+  const [currentPdfUrl, setCurrentPdfUrl] = useState<string>("");
   const [pdfUrls, setPdfUrls] = useState<string[]>([]);
 
   useEffect(() => {
@@ -18,7 +18,6 @@ export default function AskPdf() {
       console.log("Fetched documents:", docs);
       if (docs && docs.length > 0) {
         const urls = docs.map((doc: { fileUrl: string }) => doc.fileUrl);
-        console.log("Extracted URLs:", urls);
         setPdfUrls(urls);
         if (urls.length > 0 && urls[0]) {
           console.log("Setting current PDF URL to:", urls[0]);
@@ -40,9 +39,9 @@ export default function AskPdf() {
         <div className="h-[8%]">
           <Navbar headingIcon={<Bot className="h-4 w-4 text-white"/>} headingText="Chat with pdf" ctaIcon={<Plus className="h-4 w-4" />} ctaText="New chat" />
         </div>
-        {pdfUrls.length === 0 ? (
+        {!currentPdfUrl ? (
             <div className="flex items-center justify-center h-[92%] w-full bg-black/90">
-              <FileUpload />
+              <FileUpload setCurrentPdfUrl={setCurrentPdfUrl} />
             </div>
         ) : (
             <div className="flex flex-row h-[92%]">

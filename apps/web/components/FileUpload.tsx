@@ -1,59 +1,64 @@
 "use client";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { CloudUpload, Info, Upload } from "lucide-react";
-import { useSession } from "next-auth/react";
 import api from "@/lib/api";
+import { toast } from "react-hot-toast";
+import { useDropzone } from "react-dropzone";
+import { useRouter } from "next/navigation";
 
-export default function FileUpload() {
-  const { data: session, status } = useSession();
-  const [file, setFile] = useState<File | null>(null);
+interface FileUploadProp {
+  setCurrentPdfUrl: React.Dispatch<React.SetStateAction<string>>
+}
+
+export default function FileUpload({ setCurrentPdfUrl }: FileUploadProp) {
+  const router = useRouter();
   const [uploading, setUploading] = useState(false);
-  const [message, setMessage] = useState<string | null>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      setFile(e.target.files[0]);
-      setMessage(null);
-    }
-  };
-
-  const handleUpload = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!file) return;
-    
-    setUploading(true);
-    setMessage(null);
-
-    const formData = new FormData();
-    formData.append("pdf", file);
-
-    try {
-      const result = await api.post('/upload/pdf', formData, {
-        headers: { "Content-Type": "multipart/form-data" }
-      });
-      
-      if (result.status === 200) {
-        setMessage("Upload successful!");
-        setFile(null);
-        if (inputRef.current) inputRef.current.value = "";
+  const { getRootProps, getInputProps } = useDropzone({
+    accept: { 'application/pdf': ['.pdf'] },
+    maxFiles: 1,
+    onDrop: async (acceptedFiles) => {
+      const file = acceptedFiles[0];
+      if (!file) {
+        toast.error("Please select a PDF file to upload.");
+        return;
       }
-    } catch (err: any) {
-      console.error('Upload error:', err);
-      
-      if (err.response?.status === 401) {
-        setMessage("Authentication failed. Please sign in again.");
-      } else if (err.response?.status === 413) {
-        setMessage("File too large. Please upload a smaller PDF.");
-      } else if (err.response?.status === 400) {
-        setMessage("Invalid file format. Please upload a PDF file.");
-      } else {
-        setMessage(`${err.response?.data?.error || err.message || "Error uploading file"}`);
+      if (file.size > 10 * 1024 * 1024) {
+        // bigger than 10 mb
+        toast.error("Please upload a smaller file");
+        return;
       }
-    } finally {
-      setUploading(false);
-    }
-  };
+      try {
+        setUploading(true);
+        const formData = new FormData();
+        formData.append("pdf", file);
+        
+        const result = await api.post('/upload/pdf', formData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        });
+        if (result.status === 200) {
+          toast.success("Upload successful!");
+          setCurrentPdfUrl (result.data.fileUrl);
+        }  
+      } catch (error: any) {
+        console.error('Upload error:', error);
+        setUploading(false);
+        if (error.response?.status === 401) {
+          toast.error("Authentication failed. Please sign in again.");
+        } else if (error.response?.status === 413) {
+          toast.error("File too large. Please upload a smaller PDF.");
+        } else if (error.response?.status === 400) {
+          toast.error("Invalid file format. Please upload a PDF file.");
+        } else {
+          toast.error(error.response?.data?.error || error.message || "Error uploading file");
+        }
+      } finally {
+        setUploading(false);
+        router.refresh();
+      }
+    },
+  }
+  );
 
   return (
       <div className="flex flex-col p-8 z-10 h-[60vh] w-[28vw] bg-[#262626] rounded-lg shadow-lg">
@@ -71,47 +76,29 @@ export default function FileUpload() {
             Please ensure the PDF is not larger than 10MB and contains text data for optimal results.
           </p>
         </div>
-        <form onSubmit={handleUpload} className="flex flex-col items-center gap-4">
-          <label
-            htmlFor="pdf-upload"
-            className="w-full border border-white/40 border-dashed cursor-pointer mb-4"
-          >
-            <div className="flex flex-col items-center justify-center w-full py-6 hover:scale-105 transition-transform">
-              <div className="p-2 border border-white/30 rounded-lg mb-2">
-                <CloudUpload size={20} color="white" />
-              </div>
-              <p className="text-white/90 text-sm">Drag and drop your PDF here or</p>
-              <p className="text-blue-300 text-sm underline">click to upload</p>
+        <div {...getRootProps({
+          className: "w-full h-40 border-2 border-dashed border-white/40 rounded-lg flex items-center justify-center cursor-pointer hover:border-blue-500 transition-colors"
+        })}>
+          <input {...getInputProps()} />
+          <>
+            <div className="flex flex-col items-center">
+              <CloudUpload size={24} color="white" />
+              <p className="text-white/90 text-sm mt-2">Drag and drop your PDF here or</p>
+              <button
+                className="text-blue-300 text-sm underline mt-1"
+              >
+                click to upload
+              </button>
             </div>
-            <input
-              id="pdf-upload"
-              type="file"
-              accept=".pdf"
-              ref={inputRef}
-              onChange={handleFileChange}
-              className="hidden"
-            />
-          </label>
-          {file && (
-            <span className="text-sm text-gray-700 font-medium">{file.name}</span>
-          )}
-          <button
+          </>
+        </div>
+        <button
             type="submit"
-            disabled={!file || uploading}
-            className="w-full px-6 py-2 rounded-xl bg-blue-600 text-white font-semibold shadow hover:bg-blue-700 transition disabled:opacity-50"
+            disabled={true}
+            className="mt-4 w-full px-6 py-2 rounded-xl bg-blue-600 text-white font-semibold shadow hover:bg-blue-700 transition disabled:opacity-50"
           >
             {uploading ? "Uploading..." : "Next"}
-          </button>
-          {message && (
-            <span
-              className={`text-sm font-medium ${
-                message === "Upload successful!" ? "text-green-600" : "text-red-600"
-              }`}
-            >
-              {message}
-            </span>
-          )}
-        </form>
+        </button>
       </div>
     
   );

@@ -7,17 +7,6 @@ const requiredEnvVars = {
   CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET,
 };
 
-// Check for missing environment variables
-const missingVars = Object.entries(requiredEnvVars)
-  .filter(([key, value]) => !value)
-  .map(([key]) => key);
-
-if (missingVars.length > 0) {
-  console.error('❌ Missing required Cloudinary environment variables:', missingVars.join(', '));
-  console.error('Please add these to your .env file in apps/server/');
-  console.error('Get credentials from: https://cloudinary.com/console');
-}
-
 // Configure Cloudinary
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,

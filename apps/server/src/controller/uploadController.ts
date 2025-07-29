@@ -1,5 +1,5 @@
 import { Response } from 'express';
-import { Queue, tryCatch } from "bullmq";
+import { Queue } from "bullmq";
 import { AuthenticatedRequest } from '../middleware/auth';
 import { PrismaClient } from "@repo/postgres-db/client";
 import fs from 'fs';

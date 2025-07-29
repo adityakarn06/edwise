@@ -24,10 +24,9 @@ const ChatComponent: React.FC = () => {
 
       const references = data?.sources
         ? data.sources.map((source: any) => {
-            // Extract just the filename from the full path
-            const fullPath = source.metadata.source;
-            const fileName = fullPath.split("/").pop();
-            return fileName;
+        return source.title && source.section 
+          ? `${source.title} - ${source.section}`
+          : source.title || "Unknown source";
           })
         : [];
 
