@@ -26,7 +26,7 @@ const worker = new Worker('file-upload-queue', async job => {
       splitDocs,
       embeddings,
       {
-        url: 'http://localhost:6333',
+        url: process.env.QDRANT_URL || 'http://localhost:6333',
         collectionName: vectorCollectionName,
         collectionConfig: {
           vectors: { size: 384, distance: "Cosine" }

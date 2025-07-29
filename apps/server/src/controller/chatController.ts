@@ -1,6 +1,6 @@
 import { Response } from 'express';
 import { llm } from '../services/llm';
-import { selfQueryRetriever } from '../services/retriever';
+import { retriever } from '../services/retriever';
 import { PrismaClient } from "@repo/postgres-db/client";
 import { AuthenticatedRequest } from '../middleware/auth';
 import parseLlmJsonResponse from '../lib/llmResParser';
@@ -9,12 +9,12 @@ const prisma = new PrismaClient();
 
 const chatController = async (req: AuthenticatedRequest, res: Response) => {
     try {
-        const userQuery = req.query.message || "tell me about aditya?";
+        const userQuery = req.query.message;
         if (typeof userQuery !== "string") {
             return res.status(400).json({ error: "Query parameter 'message' must be a string." });
         }
 
-        const docs = await selfQueryRetriever.invoke(userQuery);
+        const docs = await retriever.invoke(userQuery);
         console.log("Retrieved context:", docs);
         const context = docs.map(doc => ({
             content: doc.pageContent,
@@ -29,8 +29,12 @@ const chatController = async (req: AuthenticatedRequest, res: Response) => {
             role: "system",
             content: `You are "Senior Dost," an AI educational assistant for B.Tech students. Your persona is that of a friendly, knowledgeable, and approachable college senior. Your primary goal is to help your "juniors" (the users) understand concepts from their course materials by answering their questions based on the context provided from their uploaded PDFs.
 
-            CONTEXT:
+            ---
+            ### Context
+            START CONTEXT BLOCK:
             ${JSON.stringify(context)}
+            END CONTEXT BLOCK
+            ---
 
             ### Core Task
             You will be given context retrieved from user-provided documents and a user's query. Your task is to generate a helpful answer based **strictly** on the provided context, format it correctly, and cite your sources from the metadata.

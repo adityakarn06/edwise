@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import AuthProvider from "@/context/AuthProvider";
+import QueryProvider from "@/context/QueryProvider";
 
 const geist = Geist({ subsets: ["latin"] });
 
@@ -20,10 +21,12 @@ export default function RootLayout({
   return (
       <html lang="en">
         <AuthProvider>
-          <body className={geist.className}>
-            <Toaster />
-            {children}
-          </body>
+          <QueryProvider>
+            <body className={geist.className}>
+              <Toaster />
+              {children}
+            </body>
+          </QueryProvider>
         </AuthProvider>
       </html>
   );
