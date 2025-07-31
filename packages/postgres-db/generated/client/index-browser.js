@@ -146,20 +146,15 @@ exports.Prisma.AiChatHistoryScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   resourceId: 'resourceId',
-  prompt: 'prompt',
+  userQuery: 'userQuery',
   response: 'response',
-  context: 'context',
+  sources: 'sources',
   timestamp: 'timestamp'
 };
 
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
-};
-
-exports.Prisma.NullableJsonNullValueInput = {
-  DbNull: Prisma.DbNull,
-  JsonNull: Prisma.JsonNull
 };
 
 exports.Prisma.QueryMode = {
@@ -170,12 +165,6 @@ exports.Prisma.QueryMode = {
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
-};
-
-exports.Prisma.JsonNullValueFilter = {
-  DbNull: Prisma.DbNull,
-  JsonNull: Prisma.JsonNull,
-  AnyNull: Prisma.AnyNull
 };
 exports.UserRole = exports.$Enums.UserRole = {
   STUDENT: 'STUDENT',

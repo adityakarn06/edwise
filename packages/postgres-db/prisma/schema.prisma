@@ -1,7 +1,6 @@
-
 generator client {
   provider = "prisma-client-js"
-  output = "../generated/client"
+  output   = "../generated/client"
 }
 
 datasource db {
@@ -10,19 +9,19 @@ datasource db {
 }
 
 model User {
-  id        String    @id @default(uuid())
-  email     String?    @unique
+  id        String   @id @default(uuid())
+  email     String?  @unique
   name      String?
   password  String?
   avatarUrl String?
-  role      UserRole  @default(STUDENT)
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  role      UserRole @default(STUDENT)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  uploadedDocs UploadedDocs[] @relation("UserDocs")
-  aiChatHistories   AiChatHistory[]  @relation("UserChats")
+  uploadedDocs    UploadedDocs[]  @relation("UserDocs")
+  aiChatHistories AiChatHistory[] @relation("UserChats")
 
-  @@map("users") 
+  @@map("users")
 }
 
 enum UserRole {
@@ -31,15 +30,15 @@ enum UserRole {
 }
 
 model UploadedDocs {
-  id          String         @id @default(uuid())
-  fileName    String
-  fileUrl     String 
-  fileSize    Int
-  fileType    String
+  id           String   @id @default(uuid())
+  fileName     String
+  fileUrl      String
+  fileSize     Int
+  fileType     String
   uploadedById String
-  uploadedBy  User           @relation("UserDocs", fields: [uploadedById], references: [id], onDelete: Cascade)
-  topic       String?
-  createdAt   DateTime       @default(now())
+  uploadedBy   User     @relation("UserDocs", fields: [uploadedById], references: [id], onDelete: Cascade)
+  topic        String?
+  createdAt    DateTime @default(now())
 
   aiChatHistories AiChatHistory[] @relation("DocChats")
 
@@ -47,15 +46,15 @@ model UploadedDocs {
 }
 
 model AiChatHistory {
-  id             String    @id @default(uuid())
-  userId         String
-  user           User      @relation("UserChats", fields: [userId], references: [id], onDelete: Cascade)
-  resourceId     String
-  resource       UploadedDocs @relation("DocChats", fields: [resourceId], references: [id], onDelete: Cascade)
-  prompt         String
-  response       String
-  context        Json?
-  timestamp      DateTime  @default(now())
+  id         Int          @id @default(autoincrement())
+  userId     String
+  user       User         @relation("UserChats", fields: [userId], references: [id], onDelete: Cascade)
+  resourceId String
+  resource   UploadedDocs @relation("DocChats", fields: [resourceId], references: [id], onDelete: Cascade)
+  userQuery  String
+  response   String
+  sources    String[]
+  timestamp  DateTime     @default(now())
 
   @@map("ai_chat_history")
 }

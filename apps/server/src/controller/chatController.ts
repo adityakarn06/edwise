@@ -15,7 +15,6 @@ const chatController = async (req: AuthenticatedRequest, res: Response) => {
         }
 
         const docs = await retriever.invoke(userQuery);
-        console.log("Retrieved context:", docs);
         const context = docs.map(doc => ({
             content: doc.pageContent,
             metadata: doc.metadata
@@ -82,6 +81,23 @@ const chatController = async (req: AuthenticatedRequest, res: Response) => {
         }
 
         const parsedResponse = parseLlmJsonResponse(response.text);
+
+        if (req.user?.id) {
+            try {
+                const saveChat = await prisma.aiChatHistory.create({
+                    data: {
+                        userId: req.user.id,
+                        resourceId: req.query.resourceId as string, // Assuming resourceId is passed as a query parameter
+                        userQuery: userQuery,
+                        response: parsedResponse.answer,
+                        sources: parsedResponse.sources,
+                        timestamp: new Date()
+                    }
+                })      
+            } catch (error) {
+                console.error("Error saving chat history:", error);
+            }
+        }
 
         return res.json({
             message: parsedResponse.answer,

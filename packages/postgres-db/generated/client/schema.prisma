@@ -46,14 +46,14 @@ model UploadedDocs {
 }
 
 model AiChatHistory {
-  id         String       @id @default(uuid())
+  id         Int          @id @default(autoincrement())
   userId     String
   user       User         @relation("UserChats", fields: [userId], references: [id], onDelete: Cascade)
   resourceId String
   resource   UploadedDocs @relation("DocChats", fields: [resourceId], references: [id], onDelete: Cascade)
-  prompt     String
+  userQuery  String
   response   String
-  context    Json?
+  sources    String[]
   timestamp  DateTime     @default(now())
 
   @@map("ai_chat_history")
