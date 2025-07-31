@@ -7,7 +7,7 @@ import parseLlmJsonResponse from '../lib/llmResParser';
 
 const prisma = new PrismaClient();
 
-const chatController = async (req: AuthenticatedRequest, res: Response) => {
+const aiChatController = async (req: AuthenticatedRequest, res: Response) => {
     try {
         const userQuery = req.query.message;
         if (typeof userQuery !== "string") {
@@ -87,13 +87,12 @@ const chatController = async (req: AuthenticatedRequest, res: Response) => {
                 const saveChat = await prisma.aiChatHistory.create({
                     data: {
                         userId: req.user.id,
-                        resourceId: req.query.resourceId as string, // Assuming resourceId is passed as a query parameter
                         userQuery: userQuery,
                         response: parsedResponse.answer,
-                        sources: parsedResponse.sources,
+                        sources: parsedResponse.sources[0] ? parsedResponse.sources : [],
                         timestamp: new Date()
-                    }
-                })      
+                    },
+                });
             } catch (error) {
                 console.error("Error saving chat history:", error);
             }
@@ -115,4 +114,31 @@ const chatController = async (req: AuthenticatedRequest, res: Response) => {
     }
 };
 
-export { chatController };
+const getChatHistoryController = async (req: AuthenticatedRequest, res: Response) => {
+    try {
+        const userId = req.user?.id;
+        if (!userId) {
+            return res.status(401).json({ error: "Unauthorized" });
+        }
+
+        const chatHistory = await prisma.aiChatHistory.findMany({
+            where: { userId },
+            orderBy: { timestamp: 'asc' }
+        });
+
+        return res.json({
+            history: chatHistory.map(chat => ({
+                id: chat.id,
+                userQuery: chat.userQuery,
+                response: chat.response,
+                sources: chat.sources,
+                timestamp: chat.timestamp
+            }))
+        });
+    } catch (error) {
+        console.error("Error fetching chat history:", error);
+        return res.status(500).json({ error: "An error occurred while fetching chat history." });
+    }
+}
+
+export { aiChatController, getChatHistoryController };

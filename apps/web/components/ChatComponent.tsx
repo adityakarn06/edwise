@@ -21,6 +21,16 @@ const ThinkingAnimation: React.FC = () => (
   </div>
 );
 
+const getChatHistory = async () => {
+  try {
+    const { data } = await api.get(`/chat/history`);
+    return data;  // This should have a 'history' property
+  } catch (error) {
+    console.error("Error fetching chat history:", error);
+    return { history: [] };
+  }
+}
+
 const ChatComponent: React.FC = () => {
   const { data: session, status } = useSession();
   const [message, setMessage] = React.useState<string>("");
@@ -34,7 +44,42 @@ const ChatComponent: React.FC = () => {
 
   React.useEffect(() => {
     scrollToBottom();
-  }, [message, isLoading]);
+    getChatHistory().then((history) => {
+      if (history && history.history && history.history.length > 0) {
+        const formattedMessages = history.history.map((msg: any) => ({
+          role: msg.userQuery ? "user" : "assistant",
+          content: msg.userQuery || msg.response,
+          refference: msg.sources || [],
+          sources: msg.sources || []
+        }));
+        
+        // Create pairs of messages (user query followed by assistant response)
+        const messagePairs: IMessages[] = [];
+        history.history.forEach((msg: any) => {
+          if (msg.userQuery) {
+            messagePairs.push({
+              role: "user",
+              content: msg.userQuery,
+              sources: []
+            });
+          }
+          if (msg.response) {
+            messagePairs.push({
+              role: "assistant",
+              content: msg.response,
+              refference: msg.sources || [],
+              sources: msg.sources || []
+            });
+          }
+        });
+        
+        setMessages(messagePairs);
+      }
+    }).catch((error) => {
+      console.error("Error fetching chat history:", error);
+      setMessages([]);
+    })
+  }, []);  // Only run on component mount
 
   const handleSendChatMessage = async () => {
     if (!message.trim()) return;
@@ -50,7 +95,7 @@ const ChatComponent: React.FC = () => {
     setIsLoading(true);
     
     try {
-      const { data } = await api.get(`/chat?message=${encodeURIComponent(message)}`);
+      const { data } = await api.get(`/chat/ai?message=${encodeURIComponent(message)}`);
 
       const references = data?.sources
         ? data.sources.map((source: any) => {

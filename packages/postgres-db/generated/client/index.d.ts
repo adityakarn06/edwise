@@ -3612,7 +3612,7 @@ export namespace Prisma {
   export type AiChatHistoryGroupByOutputType = {
     id: number
     userId: string
-    resourceId: string
+    resourceId: string | null
     userQuery: string
     response: string
     sources: string[]
@@ -3647,7 +3647,7 @@ export namespace Prisma {
     sources?: boolean
     timestamp?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
-    resource?: boolean | UploadedDocsDefaultArgs<ExtArgs>
+    resource?: boolean | AiChatHistory$resourceArgs<ExtArgs>
   }, ExtArgs["result"]["aiChatHistory"]>
 
   export type AiChatHistorySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -3659,7 +3659,7 @@ export namespace Prisma {
     sources?: boolean
     timestamp?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
-    resource?: boolean | UploadedDocsDefaultArgs<ExtArgs>
+    resource?: boolean | AiChatHistory$resourceArgs<ExtArgs>
   }, ExtArgs["result"]["aiChatHistory"]>
 
   export type AiChatHistorySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -3671,7 +3671,7 @@ export namespace Prisma {
     sources?: boolean
     timestamp?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
-    resource?: boolean | UploadedDocsDefaultArgs<ExtArgs>
+    resource?: boolean | AiChatHistory$resourceArgs<ExtArgs>
   }, ExtArgs["result"]["aiChatHistory"]>
 
   export type AiChatHistorySelectScalar = {
@@ -3687,27 +3687,27 @@ export namespace Prisma {
   export type AiChatHistoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "resourceId" | "userQuery" | "response" | "sources" | "timestamp", ExtArgs["result"]["aiChatHistory"]>
   export type AiChatHistoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
-    resource?: boolean | UploadedDocsDefaultArgs<ExtArgs>
+    resource?: boolean | AiChatHistory$resourceArgs<ExtArgs>
   }
   export type AiChatHistoryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
-    resource?: boolean | UploadedDocsDefaultArgs<ExtArgs>
+    resource?: boolean | AiChatHistory$resourceArgs<ExtArgs>
   }
   export type AiChatHistoryIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
-    resource?: boolean | UploadedDocsDefaultArgs<ExtArgs>
+    resource?: boolean | AiChatHistory$resourceArgs<ExtArgs>
   }
 
   export type $AiChatHistoryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "AiChatHistory"
     objects: {
       user: Prisma.$UserPayload<ExtArgs>
-      resource: Prisma.$UploadedDocsPayload<ExtArgs>
+      resource: Prisma.$UploadedDocsPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       userId: string
-      resourceId: string
+      resourceId: string | null
       userQuery: string
       response: string
       sources: string[]
@@ -4107,7 +4107,7 @@ export namespace Prisma {
   export interface Prisma__AiChatHistoryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    resource<T extends UploadedDocsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UploadedDocsDefaultArgs<ExtArgs>>): Prisma__UploadedDocsClient<$Result.GetResult<Prisma.$UploadedDocsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    resource<T extends AiChatHistory$resourceArgs<ExtArgs> = {}>(args?: Subset<T, AiChatHistory$resourceArgs<ExtArgs>>): Prisma__UploadedDocsClient<$Result.GetResult<Prisma.$UploadedDocsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4540,6 +4540,25 @@ export namespace Prisma {
   }
 
   /**
+   * AiChatHistory.resource
+   */
+  export type AiChatHistory$resourceArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UploadedDocs
+     */
+    select?: UploadedDocsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UploadedDocs
+     */
+    omit?: UploadedDocsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UploadedDocsInclude<ExtArgs> | null
+    where?: UploadedDocsWhereInput
+  }
+
+  /**
    * AiChatHistory without action
    */
   export type AiChatHistoryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4869,19 +4888,19 @@ export namespace Prisma {
     NOT?: AiChatHistoryWhereInput | AiChatHistoryWhereInput[]
     id?: IntFilter<"AiChatHistory"> | number
     userId?: StringFilter<"AiChatHistory"> | string
-    resourceId?: StringFilter<"AiChatHistory"> | string
+    resourceId?: StringNullableFilter<"AiChatHistory"> | string | null
     userQuery?: StringFilter<"AiChatHistory"> | string
     response?: StringFilter<"AiChatHistory"> | string
     sources?: StringNullableListFilter<"AiChatHistory">
     timestamp?: DateTimeFilter<"AiChatHistory"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
-    resource?: XOR<UploadedDocsScalarRelationFilter, UploadedDocsWhereInput>
+    resource?: XOR<UploadedDocsNullableScalarRelationFilter, UploadedDocsWhereInput> | null
   }
 
   export type AiChatHistoryOrderByWithRelationInput = {
     id?: SortOrder
     userId?: SortOrder
-    resourceId?: SortOrder
+    resourceId?: SortOrderInput | SortOrder
     userQuery?: SortOrder
     response?: SortOrder
     sources?: SortOrder
@@ -4896,19 +4915,19 @@ export namespace Prisma {
     OR?: AiChatHistoryWhereInput[]
     NOT?: AiChatHistoryWhereInput | AiChatHistoryWhereInput[]
     userId?: StringFilter<"AiChatHistory"> | string
-    resourceId?: StringFilter<"AiChatHistory"> | string
+    resourceId?: StringNullableFilter<"AiChatHistory"> | string | null
     userQuery?: StringFilter<"AiChatHistory"> | string
     response?: StringFilter<"AiChatHistory"> | string
     sources?: StringNullableListFilter<"AiChatHistory">
     timestamp?: DateTimeFilter<"AiChatHistory"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
-    resource?: XOR<UploadedDocsScalarRelationFilter, UploadedDocsWhereInput>
+    resource?: XOR<UploadedDocsNullableScalarRelationFilter, UploadedDocsWhereInput> | null
   }, "id">
 
   export type AiChatHistoryOrderByWithAggregationInput = {
     id?: SortOrder
     userId?: SortOrder
-    resourceId?: SortOrder
+    resourceId?: SortOrderInput | SortOrder
     userQuery?: SortOrder
     response?: SortOrder
     sources?: SortOrder
@@ -4926,7 +4945,7 @@ export namespace Prisma {
     NOT?: AiChatHistoryScalarWhereWithAggregatesInput | AiChatHistoryScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"AiChatHistory"> | number
     userId?: StringWithAggregatesFilter<"AiChatHistory"> | string
-    resourceId?: StringWithAggregatesFilter<"AiChatHistory"> | string
+    resourceId?: StringNullableWithAggregatesFilter<"AiChatHistory"> | string | null
     userQuery?: StringWithAggregatesFilter<"AiChatHistory"> | string
     response?: StringWithAggregatesFilter<"AiChatHistory"> | string
     sources?: StringNullableListFilter<"AiChatHistory">
@@ -5104,13 +5123,13 @@ export namespace Prisma {
     sources?: AiChatHistoryCreatesourcesInput | string[]
     timestamp?: Date | string
     user: UserCreateNestedOneWithoutAiChatHistoriesInput
-    resource: UploadedDocsCreateNestedOneWithoutAiChatHistoriesInput
+    resource?: UploadedDocsCreateNestedOneWithoutAiChatHistoriesInput
   }
 
   export type AiChatHistoryUncheckedCreateInput = {
     id?: number
     userId: string
-    resourceId: string
+    resourceId?: string | null
     userQuery: string
     response: string
     sources?: AiChatHistoryCreatesourcesInput | string[]
@@ -5123,13 +5142,13 @@ export namespace Prisma {
     sources?: AiChatHistoryUpdatesourcesInput | string[]
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutAiChatHistoriesNestedInput
-    resource?: UploadedDocsUpdateOneRequiredWithoutAiChatHistoriesNestedInput
+    resource?: UploadedDocsUpdateOneWithoutAiChatHistoriesNestedInput
   }
 
   export type AiChatHistoryUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
     userId?: StringFieldUpdateOperationsInput | string
-    resourceId?: StringFieldUpdateOperationsInput | string
+    resourceId?: NullableStringFieldUpdateOperationsInput | string | null
     userQuery?: StringFieldUpdateOperationsInput | string
     response?: StringFieldUpdateOperationsInput | string
     sources?: AiChatHistoryUpdatesourcesInput | string[]
@@ -5139,7 +5158,7 @@ export namespace Prisma {
   export type AiChatHistoryCreateManyInput = {
     id?: number
     userId: string
-    resourceId: string
+    resourceId?: string | null
     userQuery: string
     response: string
     sources?: AiChatHistoryCreatesourcesInput | string[]
@@ -5156,7 +5175,7 @@ export namespace Prisma {
   export type AiChatHistoryUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
     userId?: StringFieldUpdateOperationsInput | string
-    resourceId?: StringFieldUpdateOperationsInput | string
+    resourceId?: NullableStringFieldUpdateOperationsInput | string | null
     userQuery?: StringFieldUpdateOperationsInput | string
     response?: StringFieldUpdateOperationsInput | string
     sources?: AiChatHistoryUpdatesourcesInput | string[]
@@ -5410,9 +5429,9 @@ export namespace Prisma {
     isEmpty?: boolean
   }
 
-  export type UploadedDocsScalarRelationFilter = {
-    is?: UploadedDocsWhereInput
-    isNot?: UploadedDocsWhereInput
+  export type UploadedDocsNullableScalarRelationFilter = {
+    is?: UploadedDocsWhereInput | null
+    isNot?: UploadedDocsWhereInput | null
   }
 
   export type AiChatHistoryCountOrderByAggregateInput = {
@@ -5644,10 +5663,12 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAiChatHistoriesInput, UserUpdateWithoutAiChatHistoriesInput>, UserUncheckedUpdateWithoutAiChatHistoriesInput>
   }
 
-  export type UploadedDocsUpdateOneRequiredWithoutAiChatHistoriesNestedInput = {
+  export type UploadedDocsUpdateOneWithoutAiChatHistoriesNestedInput = {
     create?: XOR<UploadedDocsCreateWithoutAiChatHistoriesInput, UploadedDocsUncheckedCreateWithoutAiChatHistoriesInput>
     connectOrCreate?: UploadedDocsCreateOrConnectWithoutAiChatHistoriesInput
     upsert?: UploadedDocsUpsertWithoutAiChatHistoriesInput
+    disconnect?: UploadedDocsWhereInput | boolean
+    delete?: UploadedDocsWhereInput | boolean
     connect?: UploadedDocsWhereUniqueInput
     update?: XOR<XOR<UploadedDocsUpdateToOneWithWhereWithoutAiChatHistoriesInput, UploadedDocsUpdateWithoutAiChatHistoriesInput>, UploadedDocsUncheckedUpdateWithoutAiChatHistoriesInput>
   }
@@ -5842,12 +5863,12 @@ export namespace Prisma {
     response: string
     sources?: AiChatHistoryCreatesourcesInput | string[]
     timestamp?: Date | string
-    resource: UploadedDocsCreateNestedOneWithoutAiChatHistoriesInput
+    resource?: UploadedDocsCreateNestedOneWithoutAiChatHistoriesInput
   }
 
   export type AiChatHistoryUncheckedCreateWithoutUserInput = {
     id?: number
-    resourceId: string
+    resourceId?: string | null
     userQuery: string
     response: string
     sources?: AiChatHistoryCreatesourcesInput | string[]
@@ -5916,7 +5937,7 @@ export namespace Prisma {
     NOT?: AiChatHistoryScalarWhereInput | AiChatHistoryScalarWhereInput[]
     id?: IntFilter<"AiChatHistory"> | number
     userId?: StringFilter<"AiChatHistory"> | string
-    resourceId?: StringFilter<"AiChatHistory"> | string
+    resourceId?: StringNullableFilter<"AiChatHistory"> | string | null
     userQuery?: StringFilter<"AiChatHistory"> | string
     response?: StringFilter<"AiChatHistory"> | string
     sources?: StringNullableListFilter<"AiChatHistory">
@@ -6166,7 +6187,7 @@ export namespace Prisma {
 
   export type AiChatHistoryCreateManyUserInput = {
     id?: number
-    resourceId: string
+    resourceId?: string | null
     userQuery: string
     response: string
     sources?: AiChatHistoryCreatesourcesInput | string[]
@@ -6210,12 +6231,12 @@ export namespace Prisma {
     response?: StringFieldUpdateOperationsInput | string
     sources?: AiChatHistoryUpdatesourcesInput | string[]
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
-    resource?: UploadedDocsUpdateOneRequiredWithoutAiChatHistoriesNestedInput
+    resource?: UploadedDocsUpdateOneWithoutAiChatHistoriesNestedInput
   }
 
   export type AiChatHistoryUncheckedUpdateWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
-    resourceId?: StringFieldUpdateOperationsInput | string
+    resourceId?: NullableStringFieldUpdateOperationsInput | string | null
     userQuery?: StringFieldUpdateOperationsInput | string
     response?: StringFieldUpdateOperationsInput | string
     sources?: AiChatHistoryUpdatesourcesInput | string[]
@@ -6224,7 +6245,7 @@ export namespace Prisma {
 
   export type AiChatHistoryUncheckedUpdateManyWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
-    resourceId?: StringFieldUpdateOperationsInput | string
+    resourceId?: NullableStringFieldUpdateOperationsInput | string | null
     userQuery?: StringFieldUpdateOperationsInput | string
     response?: StringFieldUpdateOperationsInput | string
     sources?: AiChatHistoryUpdatesourcesInput | string[]

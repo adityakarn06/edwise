@@ -1,8 +1,9 @@
 import express, { Router } from "express";
-import { chatController } from "../controller/chatController";
+import { aiChatController, getChatHistoryController } from "../controller/chatController";
 
 const chatRouter: Router = express.Router();
 
-chatRouter.get("/", chatController);
+chatRouter.get("/ai", aiChatController);
+chatRouter.get("/history", getChatHistoryController);
 
 export default chatRouter;
