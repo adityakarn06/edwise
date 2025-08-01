@@ -16,6 +16,7 @@
     "@prisma/client": "6.12.0",
     "@react-pdf-viewer/core": "^3.12.0",
     "@react-pdf-viewer/default-layout": "^3.12.0",
+    "@react-pdf-viewer/toolbar": "^3.12.0",
     "@repo/postgres-db": "workspace:*",
     "@repo/ui": "workspace:*",
     "@tanstack/react-query": "^5.83.0",

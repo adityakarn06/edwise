@@ -1,15 +1,26 @@
 "use client";
-import * as React from "react";
 import { PlaceholdersAndVanishInput } from "./ui/placeholders-and-vanish-input";
 import api from "@/lib/api";
 import { useSession } from "next-auth/react";
 import { TypeAnimation } from 'react-type-animation';
+import SummaryGenComponent from "./SummaryGen";
+import GenImpQuesComponent from "./ImpQuestions";
+import { useEffect, useState } from "react";
 
 interface IMessages {
   role: "assistant" | "user";
   content?: string;
   refference?: string[];
   sources?: any[];
+}
+
+interface ImportantQuestion {
+  question: string;
+  answer: string;
+}
+
+interface ChatComponentProps {
+  currentPdfUrl: string;
 }
 
 const ThinkingAnimation: React.FC = () => (
@@ -24,26 +35,23 @@ const ThinkingAnimation: React.FC = () => (
 const getChatHistory = async () => {
   try {
     const { data } = await api.get(`/chat/history`);
-    return data;  // This should have a 'history' property
+    return data; 
   } catch (error) {
     console.error("Error fetching chat history:", error);
     return { history: [] };
   }
 }
 
-const ChatComponent: React.FC = () => {
+const ChatComponent: React.FC<ChatComponentProps> = ({currentPdfUrl}) => {
   const { data: session, status } = useSession();
-  const [message, setMessage] = React.useState<string>("");
-  const [messages, setMessages] = React.useState<IMessages[]>([]);
-  const [isLoading, setIsLoading] = React.useState<boolean>(false);
-  const messagesEndRef = React.useRef<HTMLDivElement>(null);
+  const [message, setMessage] = useState<string>("");
+  const [messages, setMessages] = useState<IMessages[]>([]);
+  const [latestAssistantMessageId, setLatestAssistantMessageId] = useState<number | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [importantQuestions, setImportantQuestions] = useState<ImportantQuestion[]>([]);
+  const [showQuestions, setShowQuestions] = useState<boolean>(false);
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  React.useEffect(() => {
-    scrollToBottom();
+  useEffect(() => {
     getChatHistory().then((history) => {
       if (history && history.history && history.history.length > 0) {
         const formattedMessages = history.history.map((msg: any) => ({
@@ -79,7 +87,7 @@ const ChatComponent: React.FC = () => {
       console.error("Error fetching chat history:", error);
       setMessages([]);
     })
-  }, []);  // Only run on component mount
+  }, []);
 
   const handleSendChatMessage = async () => {
     if (!message.trim()) return;
@@ -105,53 +113,168 @@ const ChatComponent: React.FC = () => {
         })
         : [];
 
-      setMessages((prev) => [
-        ...prev,
-        {
-          role: "assistant",
-          content: data.message,
-          refference: references,
-          sources: data.sources,
-        },
-      ]);
+      setMessages((prev) => {
+        const newMessages = [
+          ...prev,
+          {
+            role: "assistant" as const,
+            content: data.message,
+            refference: references,
+            sources: data.sources,
+          },
+        ];
+        // Set the latest assistant message index
+        setLatestAssistantMessageId(newMessages.length - 1);
+        return newMessages;
+      });
 
     } catch (error) {
       console.error("Error fetching response:", error);
-      setMessages((prev) => [
-        ...prev,
-        {
-          role: "assistant",
-          content:
-            "Sorry, I encountered an error while processing your request.",
-        },
-      ]);
+      setMessages((prev) => {
+        const newMessages = [
+          ...prev,
+          {
+            role: "assistant" as const,
+            content:
+              "Sorry, I encountered an error while processing your request.",
+          },
+        ];
+        setLatestAssistantMessageId(newMessages.length - 1);
+        return newMessages;
+      });
     } finally {
       setIsLoading(false);
       setMessage("");
     }
   };
 
-  const renderMessageContent = (msg: IMessages) => {
+  const handleImportantQuestionClick = (question: string) => {
+    setMessage(question);
+    
+    // Add the user message immediately
+    setMessages((prev) => [
+      ...prev,
+      {
+        role: "user",
+        content: question,
+      },
+    ]);
+    
+    setIsLoading(true);
+    
+    api.get(`/chat/ai?message=${encodeURIComponent(question)}`)
+      .then(({ data }) => {
+        const references = data?.sources
+          ? data.sources.map((source: any) => {
+            return source.title && source.section 
+              ? `${source.title} - ${source.section}`
+              : source.title || "Unknown source";
+          })
+          : [];
+
+        setMessages((prev) => {
+          const newMessages = [
+            ...prev,
+            {
+              role: "assistant" as const,
+              content: data.message,
+              refference: references,
+              sources: data.sources,
+            },
+          ];
+          setLatestAssistantMessageId(newMessages.length - 1);
+          return newMessages;
+        });
+      })
+      .catch((error) => {
+        console.error("Error fetching response:", error);
+        setMessages((prev) => {
+          const newMessages = [
+            ...prev,
+            {
+              role: "assistant" as const,
+              content: "Sorry, I encountered an error while processing your request.",
+            },
+          ];
+          setLatestAssistantMessageId(newMessages.length - 1);
+          return newMessages;
+        });
+      })
+      .finally(() => {
+        setIsLoading(false);
+        setMessage("");
+      });
+  };
+
+  const renderMessageContent = (msg: IMessages, index: number) => {
     if (msg.role === "user") {
       return <div>{msg.content}</div>;
     } else {
-      return (
-        <TypeAnimation
-          sequence={[msg.content || ""]}
-          wrapper="div"
-          speed={95}
-          cursor={false}
-        />
-      );
+      if (index === latestAssistantMessageId) {
+        return (
+          <TypeAnimation
+            sequence={[msg.content || ""]}
+            wrapper="div"
+            speed={95}
+            cursor={false}
+          />
+        );
+      } else {
+        return <div>{msg.content}</div>;
+      }
+    }
+  };
+
+  const handleImportantQuestionsGenerated = (questions: ImportantQuestion[]) => {
+    setImportantQuestions(questions);
+    setShowQuestions(true);
+  };
+
+  const toggleQuestions = () => {
+    if (importantQuestions.length > 0) {
+      setShowQuestions(!showQuestions);
     }
   };
 
   return (
     <div className="flex flex-col h-full bg-black/90">
       {messages.length === 0 ? (
-        <div className="flex flex-col gap-2 items-center justify-center h-full text-gray-500">
-          <p className="text-3xl">Welcome, {session?.user?.name || session?.user?.email}! 👋</p>
-          <p className="text-lg">How can I help you today?</p>
+        <div className="flex flex-col gap-2 items-center justify-center h-full p-4">
+          <p className="text-3xl text-gray-500">Welcome, {session?.user?.name || session?.user?.email}! 👋</p>
+          <p className="text-lg text-gray-500">How can I help you today?</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-4">
+            <SummaryGenComponent />
+            <GenImpQuesComponent 
+              currentPdfUrl={currentPdfUrl} 
+              onQuestionsGenerated={handleImportantQuestionsGenerated}
+            />
+          </div>
+
+          {importantQuestions.length > 0 && (
+            <div className="mt-6 w-full max-w-4xl max-h-96 overflow-y-auto">
+              <button 
+                onClick={toggleQuestions}
+                className="text-sm text-blue-400 hover:text-blue-300 mb-2"
+              >
+                {showQuestions ? "Hide Questions" : "Show Questions"}
+              </button>
+              
+              {showQuestions && (
+                <div className="space-y-4 mt-2">
+                  {importantQuestions.map((question, index) => (
+                    <div 
+                      key={index} 
+                      className="border border-white/15 rounded-lg p-4 bg-white/5 cursor-pointer hover:bg-white/10 transition-colors"
+                      onClick={() => handleImportantQuestionClick(question.question)}
+                    >
+                      <h3 className="font-medium text-white/90 mb-2">Q{index + 1}: {question.question}</h3>
+                      <p className="text-white/70 text-sm">{question.answer}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
         </div>
       ) : (
         <div className="flex-1 overflow-y-auto p-4">
@@ -169,7 +292,7 @@ const ChatComponent: React.FC = () => {
                     : "bg-gray-200 text-black"
                 }`}
               >
-                {renderMessageContent(msg)}
+                {renderMessageContent(msg, index)}
                 
                 {msg.refference && msg.refference.length > 0 && (
                   <div className="mt-2 text-xs text-gray-500">
@@ -192,10 +315,35 @@ const ChatComponent: React.FC = () => {
               </div>
             </div>
           )}
-          
-          <div ref={messagesEndRef} />
+
+          {importantQuestions.length > 0 && (
+            <div className="mt-4 max-h-96 overflow-y-auto">
+              <button 
+                onClick={toggleQuestions}
+                className="text-sm text-blue-400 hover:text-blue-300 mb-2"
+              >
+                {showQuestions ? "Hide Questions" : "Show Questions"}
+              </button>
+              
+              {showQuestions && (
+                <div className="space-y-4 mt-2">
+                  {importantQuestions.map((question, index) => (
+                    <div 
+                      key={index} 
+                      className="border border-white/15 rounded-lg p-4 bg-white/5 cursor-pointer hover:bg-white/10 transition-colors"
+                      onClick={() => handleImportantQuestionClick(question.question)}
+                    >
+                      <h3 className="font-medium text-white/90 mb-2">Q{index + 1}: {question.question}</h3>
+                      <p className="text-white/70 text-sm">{question.answer}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
         </div>
       )}
+      
       <div className="p-4">
         <div className="flex items-center w-full">
           <PlaceholdersAndVanishInput

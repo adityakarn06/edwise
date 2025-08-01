@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { CloudUpload, Info, Upload } from "lucide-react";
+import { CloudUpload, Info } from "lucide-react";
 import api from "@/lib/api";
 import { toast } from "react-hot-toast";
 import { useDropzone } from "react-dropzone";
@@ -24,6 +24,7 @@ export default function FileUpload({ setCurrentPdfUrl }: FileUploadProp) {
       const result = await api.post("/upload/pdf", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
+      console.log("got the result")
       return result.data.fileUrl;
     },
   });
@@ -44,8 +45,11 @@ export default function FileUpload({ setCurrentPdfUrl }: FileUploadProp) {
       }
       mutate(file, {
         onSuccess: (fileUrl) => {
+          console.log("mutating 1")
           setUploading(false);
+          console.log("mutating 2")
           setCurrentPdfUrl(fileUrl);
+          console.log("mutating 3")
           toast.success("Upload successful!");
           router.refresh();
         },

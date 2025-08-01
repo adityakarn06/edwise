@@ -44,6 +44,12 @@ importers:
       '@repo/postgres-db':
         specifier: workspace:*
         version: link:../../packages/postgres-db
+      '@types/pdf-parse':
+        specifier: ^1.1.5
+        version: 1.1.5
+      axios:
+        specifier: ^1.10.0
+        version: 1.11.0(debug@4.4.1)
       bullmq:
         specifier: ^5.56.5
         version: 5.56.5
@@ -56,9 +62,15 @@ importers:
       cors:
         specifier: ^2.8.5
         version: 2.8.5
+      dotenv:
+        specifier: ^17.2.1
+        version: 17.2.1
       express:
         specifier: ^5.1.0
         version: 5.1.0
+      fs:
+        specifier: 0.0.1-security
+        version: 0.0.1-security
       jose:
         specifier: ^6.0.12
         version: 6.0.12
@@ -99,6 +111,9 @@ importers:
       '@types/multer':
         specifier: ^2.0.0
         version: 2.0.0
+      '@types/node':
+        specifier: ^22.15.30
+        version: 22.15.30
       concurrently:
         specifier: ^9.2.0
         version: 9.2.0
@@ -121,6 +136,9 @@ importers:
         specifier: ^3.12.0
         version: 3.12.0(pdfjs-dist@3.11.174)(react-dom@19.1.0)(react@19.1.0)
       '@react-pdf-viewer/default-layout':
+        specifier: ^3.12.0
+        version: 3.12.0(pdfjs-dist@3.11.174)(react-dom@19.1.0)(react@19.1.0)
+      '@react-pdf-viewer/toolbar':
         specifier: ^3.12.0
         version: 3.12.0(pdfjs-dist@3.11.174)(react-dom@19.1.0)(react@19.1.0)
       '@repo/postgres-db':
@@ -416,7 +434,7 @@ packages:
       - encoding
     dev: false
 
-  /@browserbasehq/stagehand@1.14.0(@playwright/test@1.54.1)(deepmerge@4.3.1)(dotenv@16.6.1)(openai@5.10.2)(zod@3.25.76):
+  /@browserbasehq/stagehand@1.14.0(@playwright/test@1.54.1)(deepmerge@4.3.1)(dotenv@17.2.1)(openai@5.10.2)(zod@3.25.76):
     resolution: {integrity: sha512-Hi/EzgMFWz+FKyepxHTrqfTPjpsuBS4zRy3e9sbMpBgLPv+9c0R+YZEvS7Bw4mTS66QtvvURRT6zgDGFotthVQ==}
     peerDependencies:
       '@playwright/test': ^1.42.1
@@ -429,7 +447,7 @@ packages:
       '@browserbasehq/sdk': 2.6.0
       '@playwright/test': 1.54.1
       deepmerge: 4.3.1
-      dotenv: 16.6.1
+      dotenv: 17.2.1
       openai: 5.10.2(zod@3.25.76)
       ws: 8.18.3
       zod: 3.25.76
@@ -1239,7 +1257,7 @@ packages:
       youtubei.js:
         optional: true
     dependencies:
-      '@browserbasehq/stagehand': 1.14.0(@playwright/test@1.54.1)(deepmerge@4.3.1)(dotenv@16.6.1)(openai@5.10.2)(zod@3.25.76)
+      '@browserbasehq/stagehand': 1.14.0(@playwright/test@1.54.1)(deepmerge@4.3.1)(dotenv@17.2.1)(openai@5.10.2)(zod@3.25.76)
       '@huggingface/transformers': 3.6.3
       '@ibm-cloud/watsonx-ai': 1.6.9
       '@langchain/core': 0.3.66(openai@5.10.2)
@@ -2397,6 +2415,12 @@ packages:
     dependencies:
       undici-types: 6.21.0
 
+  /@types/pdf-parse@1.1.5:
+    resolution: {integrity: sha512-kBfrSXsloMnUJOKi25s3+hRmkycHfLK6A09eRGqF/N8BkQoPUmaCr+q8Cli5FnfohEz/rsv82zAiPz/LXtOGhA==}
+    dependencies:
+      '@types/node': 22.15.30
+    dev: false
+
   /@types/qs@6.14.0:
     resolution: {integrity: sha512-eOunJqu0K1923aExK6y8p6fsihYEn/BYuQ4g0CxAAgFc4b/ZLN4CrsRZ55srTdqoiLzU2B2evC+apEIxprEzkQ==}
     dev: true
@@ -3406,6 +3430,11 @@ packages:
     engines: {node: '>=12'}
     dev: false
 
+  /dotenv@17.2.1:
+    resolution: {integrity: sha512-kQhDYKZecqnM0fCnzI5eIv5L4cAe/iRI+HqMbO/hbRdTAeXDG+M9FjipUxNfbARuEg4iHIbhnhs78BCHNbSxEQ==}
+    engines: {node: '>=12'}
+    dev: false
+
   /dunder-proto@1.0.1:
     resolution: {integrity: sha512-KIN/nDJBQRcXw0MLVhZE9iQHmG68qAVIBg9CqmUYjmQIhgij9U5MFvrqkUL5FbtyyzZuOeOt0zdeRe4UY7ct+A==}
     engines: {node: '>= 0.4'}
@@ -4021,6 +4050,10 @@ packages:
     requiresBuild: true
     dev: false
     optional: true
+
+  /fs@0.0.1-security:
+    resolution: {integrity: sha512-3XY9e1pP0CVEUCdj5BmfIZxRBTSDycnbqhIOGec9QYtmVH2fbLpj86CFWkrNOkt/Fvty4KZG5lTglL9j/gJ87w==}
+    dev: false
 
   /fsevents@2.3.2:
     resolution: {integrity: sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==}

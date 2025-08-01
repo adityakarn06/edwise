@@ -39,13 +39,10 @@ const uploadpdf = async (req: AuthenticatedRequest, res: Response) => {
         });
 
         try {
-            console.log("started")
-            // Upload to Cloudinary
             const cloudinaryResult = await uploadFileToCloudinary(req.file.path, {
                 folder: `pdfs/${req.user.id}`, // Organize by user ID
                 resource_type: "auto"
             });
-            console.log("saving to db")
 
             const document = await prisma.uploadedDocs.create({
                 data: {
@@ -56,10 +53,7 @@ const uploadpdf = async (req: AuthenticatedRequest, res: Response) => {
                     fileType: req.file.mimetype,
                 }
             });
-            console.log("done")
 
-            // Remove file from server after successful upload
-            // fs.unlinkSync(req.file.path);
 
             return res.json({ 
                 message: "File uploaded successfully to Cloudinary",
@@ -72,11 +66,6 @@ const uploadpdf = async (req: AuthenticatedRequest, res: Response) => {
         } catch (cloudinaryError) {
             console.error('Cloudinary upload error:', cloudinaryError);
             
-            // Clean up local file if Cloudinary upload fails
-            if (fs.existsSync(req.file.path)) {
-                fs.unlinkSync(req.file.path);
-            }
-            
             return res.status(500).json({ 
                 error: "Failed to upload to Cloudinary",
                 details: cloudinaryError instanceof Error ? cloudinaryError.message : "Unknown error"
@@ -86,7 +75,6 @@ const uploadpdf = async (req: AuthenticatedRequest, res: Response) => {
     } catch (error) {
         console.error('Upload error:', error);
         
-        // Clean up local file if any error occurs
         if (req.file && fs.existsSync(req.file.path)) {
             fs.unlinkSync(req.file.path);
         }

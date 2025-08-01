@@ -77,8 +77,8 @@ export default function PdfViewer({ pdfUrl }: { pdfUrl: string }) {
   );
 
   const defaultLayoutPluginInstance = defaultLayoutPlugin({
-    renderToolbar,
     sidebarTabs: () => [],
+    renderToolbar,
   });
 
   return (

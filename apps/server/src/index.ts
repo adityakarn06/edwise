@@ -1,12 +1,16 @@
-import 'dotenv/config'
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 import express from "express";
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import uploadRouter from "./routes/uploadRoute";
 import chatRouter from "./routes/chatRouter";
+import mcqRouter from "./routes/mcqRouter";
 import { createMulterUpload } from "./lib/multer";
 import { authenticateToken } from "./middleware/auth";
 import docRouter from './routes/docRouter';
+import ImpQuesRouter from './routes/ImpQuesRouter';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -30,6 +34,8 @@ app.get("/health", (req, res) => {
 app.use('/upload', authenticateToken, upload.single('pdf'), uploadRouter);
 app.use('/chat', authenticateToken, chatRouter);
 app.use('/document', authenticateToken, docRouter);
+app.use('/imp-ques', authenticateToken, ImpQuesRouter);
+app.use('/mcq', authenticateToken, mcqRouter);
 
 
 app.listen(PORT, () => {

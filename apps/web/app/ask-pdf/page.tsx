@@ -49,7 +49,7 @@ export default function AskPdf() {
                 <DocumentView pdfUrl={currentPdfUrl} />
               </div>
               <div className="w-[50%]">
-                <ChatComponent />
+                <ChatComponent currentPdfUrl={currentPdfUrl} />
               </div>
             </div>
         )}
