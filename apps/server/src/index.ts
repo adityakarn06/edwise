@@ -37,7 +37,7 @@ app.use('/chat', authenticateToken, chatRouter);
 app.use('/document', authenticateToken, docRouter);
 app.use('/imp-ques', authenticateToken, ImpQuesRouter);
 app.use('/summary', authenticateToken, summaryRouter);
-app.use('/mcq', authenticateToken, mcqRouter);
+app.use('/mcq', authenticateToken, upload.single('pdf'), mcqRouter);
 
 
 app.listen(PORT, () => {
