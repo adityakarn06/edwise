@@ -11,6 +11,7 @@ import { createMulterUpload } from "./lib/multer";
 import { authenticateToken } from "./middleware/auth";
 import docRouter from './routes/docRouter';
 import ImpQuesRouter from './routes/ImpQuesRouter';
+import summaryRouter from './routes/summaryRoute';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -35,6 +36,7 @@ app.use('/upload', authenticateToken, upload.single('pdf'), uploadRouter);
 app.use('/chat', authenticateToken, chatRouter);
 app.use('/document', authenticateToken, docRouter);
 app.use('/imp-ques', authenticateToken, ImpQuesRouter);
+app.use('/summary', authenticateToken, summaryRouter);
 app.use('/mcq', authenticateToken, mcqRouter);
 
 

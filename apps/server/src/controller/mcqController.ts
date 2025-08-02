@@ -35,21 +35,23 @@ const McqController = async (req: AuthenticatedRequest, res: Response) => {
         }
 
         const query = `
+            You are an expert in generating MCQ for students.
+
             You are an expert in generating MCQs for students.
 
-            Given the following content, generate 5 important questions that can be asked in exam.
-            Please ensure the questions are clear, concise, and relevant to the content provided.
-            Also provide the answer to each question in detail and simple words.
+            Given the following content, generate  multiple choice questions.
+            Include 4 options and indicate the correct answer clearly.
 
             Content:
             ${extractedText}
 
             Format your response as a JSON object with the following structure:
             {
-                "questions": [
+                "mcqs": [
                     {
-                        "question": "Question text here",
-                        "answer": "Detailed answer here"
+                    "question": "question text here",
+                    "options": ["A", "B", "C", "D"],
+                    "answer": "B"
                     },
                     ...
                 ]
@@ -61,31 +63,23 @@ const McqController = async (req: AuthenticatedRequest, res: Response) => {
             return res.status(500).json({ error: "No response from the LLM." });
         }
 
-        const importantQuesWithAns = JSON.parse(response.text);
-        if (req.user?.id) {
-            try {
-                await prisma.aiChatHistory.create({
-                    data: {
-                        userId: req.user.id,
-                        userQuery: 'Important Questions',
-                        resourceId: document.id,
-                        response: response.text,
-                        sources: [document.fileName],
-                        timestamp: new Date()
-                    },
-                });
-            } catch (error) {
-                console.error("Error saving chat history:", error);
-            }
+        let jsonText = response.text;
+        const jsonMatch = response.text.match(/```(?:json)?\s*([\s\S]*?)\s*```/);
+        if (jsonMatch) {
+            jsonText = jsonMatch[1] || response.text;
         }
+
+        const MCQs = JSON.parse(jsonText);
+
         return res.json({
-            importantQuestions: importantQuesWithAns.questions.map((q: any) => ({
+            MCQs: MCQs.questions.map((q: any) => ({
                 question: q.question,
+                options: q.options,
                 answer: q.answer
             }))
         });
     } catch (error) {
-        console.error("Error in ImpQuesController:", error);
+        console.error("Error in McqController:", error);
         return res.status(500).json({ error: "An error occurred while processing your request." });
     }
 };

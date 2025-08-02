@@ -38,32 +38,28 @@ const worker = new Worker('file-upload-queue', async job => {
       }
     );
 
-    async function checkCloudinaryUpload() {
-      const findCloudinaryUpload = await prisma.uploadedDocs.findFirst({
-        where: {
-          fileName: data.filename
-        }
-      });
-      return findCloudinaryUpload;
-    }
-
     try {
-      console.log("Deleting local file after processing...");
-      const result = await checkCloudinaryUpload();
-      console.log("result", result);
+      async function checkCloudinaryUpload() {
+        const findCloudinaryUpload = await prisma.uploadedDocs.findFirst({
+          where: {
+            fileName: data.filename
+          }
+        });
+        return findCloudinaryUpload;
+      }
 
-      if (result) {
-        if (fs.existsSync(data.filePath)) {
-          fs.unlinkSync(data.filePath);
-          console.log("Deleted file from server");
+      setTimeout(async () => {
+        const result = await checkCloudinaryUpload();
+        if (result) {
+          if (fs.existsSync(data.filePath)) {
+            fs.unlinkSync(data.filePath);
+          }
+        } else {
+          console.error("File not found in Cloudinary. so can't delete local file");
         }
-      }
+      }, 8000);
     } catch (error) {
-      console.log("failed to delete file from server");
-      const result = await checkCloudinaryUpload();
-      if (result) {
-        console.log("deleted finally");
-      }
+      console.error('Error checking Cloudinary upload:', error);
     }
 
     return { 

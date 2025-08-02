@@ -19,6 +19,11 @@ interface ImportantQuestion {
   answer: string;
 }
 
+interface Summary {
+  section: string;
+  text: string;
+}
+
 interface ChatComponentProps {
   currentPdfUrl: string;
 }
@@ -50,6 +55,8 @@ const ChatComponent: React.FC<ChatComponentProps> = ({currentPdfUrl}) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [importantQuestions, setImportantQuestions] = useState<ImportantQuestion[]>([]);
   const [showQuestions, setShowQuestions] = useState<boolean>(false);
+  const [summary, setSummary] = useState<Summary[]>([]);
+  const [showSumnmary, setShowSummary] = useState<boolean>(false);
 
   useEffect(() => {
     getChatHistory().then((history) => {
@@ -230,6 +237,17 @@ const ChatComponent: React.FC<ChatComponentProps> = ({currentPdfUrl}) => {
     setShowQuestions(true);
   };
 
+  const handleSummaryGenerated = (summary: Summary[]) => {
+    setSummary(summary);
+    setShowSummary(true);
+  };
+
+  const toggleSummary = () => {
+    if (summary.length > 0) {
+      setShowSummary(!showSumnmary);
+    }
+  };
+
   const toggleQuestions = () => {
     if (importantQuestions.length > 0) {
       setShowQuestions(!showQuestions);
@@ -243,12 +261,40 @@ const ChatComponent: React.FC<ChatComponentProps> = ({currentPdfUrl}) => {
           <p className="text-3xl text-gray-500">Welcome, {session?.user?.name || session?.user?.email}! 👋</p>
           <p className="text-lg text-gray-500">How can I help you today?</p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-4">
-            <SummaryGenComponent />
+            <SummaryGenComponent
+              currentPdfUrl={currentPdfUrl} 
+              onSummaryGenerated={handleSummaryGenerated}
+            />
             <GenImpQuesComponent 
               currentPdfUrl={currentPdfUrl} 
               onQuestionsGenerated={handleImportantQuestionsGenerated}
             />
           </div>
+
+          {showSumnmary && summary.length > 0 && (
+            <div className="mt-6 w-full max-w-4xl max-h-96 overflow-y-auto">
+              <button 
+                onClick={toggleSummary}
+                className="text-sm text-blue-400 hover:text-blue-300 mb-2"
+              >
+                {showSumnmary ? "Hide Summary" : "Show Summary"}
+              </button>
+              
+              {showSumnmary && (
+                <div className="space-y-4 mt-2">
+                  {summary.map((sec, index) => (
+                    <div 
+                      key={index} 
+                      className="border border-white/15 rounded-lg p-4 bg-white/5 cursor-pointer hover:bg-white/10 transition-colors"
+                    >
+                      <h3 className="font-medium text-white/90 mb-2">{sec.section}</h3>
+                      <p className="text-white/70 text-sm">{sec.text}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
 
           {importantQuestions.length > 0 && (
             <div className="mt-6 w-full max-w-4xl max-h-96 overflow-y-auto">
@@ -335,6 +381,31 @@ const ChatComponent: React.FC<ChatComponentProps> = ({currentPdfUrl}) => {
                     >
                       <h3 className="font-medium text-white/90 mb-2">Q{index + 1}: {question.question}</h3>
                       <p className="text-white/70 text-sm">{question.answer}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+
+          {summary.length > 0 && (
+            <div className="mt-4 max-h-96 overflow-y-auto">
+              <button 
+                onClick={toggleSummary}
+                className="text-sm text-blue-400 hover:text-blue-300 mb-2"
+              >
+                {showSumnmary ? "Hide Summary" : "Show Summary"}
+              </button>
+              
+              {showSumnmary && (
+                <div className="space-y-4 mt-2">
+                  {summary.map((sec, index) => (
+                    <div 
+                      key={index} 
+                      className="border border-white/15 rounded-lg p-4 bg-white/5 cursor-pointer hover:bg-white/10 transition-colors"
+                    >
+                      <h3 className="font-medium text-white/90 mb-2">{sec.section}</h3>
+                      <p className="text-white/70 text-sm">{sec.text}</p>
                     </div>
                   ))}
                 </div>

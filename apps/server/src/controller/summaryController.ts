@@ -6,7 +6,7 @@ import { extractTextFromPDF } from '../services/getPdfText';
 
 const prisma = new PrismaClient();
 
-const ImpQuesController = async (req: AuthenticatedRequest, res: Response) => {
+const summaryController = async (req: AuthenticatedRequest, res: Response) => {
     if (!req.user) {
         return res.status(401).json({ error: "User not authenticated" });
     }
@@ -35,21 +35,20 @@ const ImpQuesController = async (req: AuthenticatedRequest, res: Response) => {
         }
 
         const query = `
-            You are an expert in generating Important Question to study for exam for students.
+            You are an expert in generating summary from a given content for students.
 
-            Given the following content, generate 5 important questions that can be asked in exam.
-            Please ensure the questions are clear, concise, and relevant to the content provided.
-            Also provide the answer to each question in detail and simple words.
+            Given the following content, generate a summary that summarizes the whole content.
+            Please ensure the summary are clear, concise, and relevant to the content provided.
 
             Content:
             ${extractedText}
 
             Format your response as a JSON object with the following structure:
             {
-                "questions": [
+                "summary": [
                     {
-                        "question": "Question text here",
-                        "answer": "Detailed answer here"
+                        "section": "Section title here"
+                        "text": "Summary text here",
                     },
                     ...
                 ]
@@ -67,33 +66,17 @@ const ImpQuesController = async (req: AuthenticatedRequest, res: Response) => {
             jsonText = jsonMatch[1] || response.text;
         }
 
-        const importantQuesWithAns = JSON.parse(jsonText);
-        // if (req.user?.id) {
-        //     try {
-        //         await prisma.aiChatHistory.create({
-        //             data: {
-        //                 userId: req.user.id,
-        //                 userQuery: 'Important Questions',
-        //                 resourceId: document.id,
-        //                 response: importantQuesWithAns,
-        //                 sources: [document.fileName],
-        //                 timestamp: new Date()
-        //             },
-        //         });
-        //     } catch (error) {
-        //         console.error("Error saving chat history:", error);
-        //     }
-        // }
+        const summary = JSON.parse(jsonText);
         return res.json({
-            importantQuestions: importantQuesWithAns.questions.map((q: any) => ({
-                question: q.question,
-                answer: q.answer
+            summary: summary.summary.map((s: any) => ({
+                section: s.section,
+                text: s.text
             }))
         });
     } catch (error) {
-        console.error("Error in ImpQuesController:", error);
+        console.error("Error in SummaryController:", error);
         return res.status(500).json({ error: "An error occurred while processing your request." });
     }
 };
 
-export { ImpQuesController };
+export { summaryController };
