@@ -4,6 +4,7 @@ import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
 import toast from "react-hot-toast";
 import SearchBar from "@/components/SearchBar";
+import Image from "next/image";
 
 const resourceOptions = [
     { label: "Books", icon: <SquareArrowOutUpRight className="h-4 w-4" />, onClick: () => toast.success("This button has no functionality yet!") },
@@ -64,8 +65,14 @@ export default function Page() {
                         
                         <div className="mt-6 grid grid-cols-4 gap-8">
                             {BookImages.map((image, index) => (
-                                <div key={index} className="rounded-lg overflow-hidden shadow-lg shadow-white/20"> 
-                                    <img src={image} alt={`Book ${index + 1}`} className="w-full h-full object-cover rounded-lg" />   
+                                <div key={index} className="rounded-lg overflow-hidden shadow-md shadow-white/20 cursor-pointer hover:shadow-white/30 hover:shadow-xl transition-shadow"> 
+                                    <Image
+                                    src={image}
+                                    alt={`Book ${index + 1}`}
+                                    width={200}
+                                    height={300}
+                                    className="w-full h-full object-cover rounded-lg"
+                                    />
                                 </div>
                             ))}
                         </div>

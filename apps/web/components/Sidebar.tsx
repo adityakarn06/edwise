@@ -24,9 +24,9 @@ const Sidebar = () => {
       <div className="flex flex-col h-full justify-between p-2">
         <div>
           <SidebarItem onClickFn={() => router.push("/dashboard")} text="Dashboard" icon={<House className="h-4 w-4 text-white/60" />} />
+          <SidebarItem onClickFn={() => router.push("/resources")} text="Your resources" icon={<Library className="h-4 w-4 text-white/60" />} />
           <SidebarItem onClickFn={() => router.push("/ask-pdf")} text="Ask your pdf" icon={<BotMessageSquare className="h-4 w-4 text-white/60" />} />
           <SidebarItem onClickFn={() => router.push("/mcq-generator")} text="MCQ generator" icon={<BookCheck className="h-4 w-4 text-white/60" />} />
-          <SidebarItem onClickFn={() => router.push("/resources")} text="Your resources" icon={<Library className="h-4 w-4 text-white/60" />} />
           <SidebarItem onClickFn={() => router.push("/community")} text="Study groups" icon={<BookOpen className="h-4 w-4 text-white/60" />} />
         </div>
         <div>

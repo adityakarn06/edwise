@@ -20,8 +20,8 @@ export default function Page() {
         </div>
         <div className="flex flex-col justify-center items-center h-[92%] p-[11vw] bg-black/90">
           <div className="flex flex-col items-center justify-center text-center">
-            <h1 className="text-white/80 text-3xl font-medium p-4">Welcome to Edwise</h1>
-            <p className="text-white/40 text-md max-w-2xl mb-8">
+            <h1 className="text-white/90 text-5xl font-medium p-4">Welcome to Edwise</h1>
+            <p className="text-white/60 text-md max-w-2xl mb-8">
               Your AI-powered study companion. Upload PDFs, generate quizzes, and collaborate with peers to maximize your learning potential.
             </p>
           </div>
