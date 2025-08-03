@@ -1,6 +1,8 @@
+"use client";
 import { SquareArrowOutUpRight } from "lucide-react";
 import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
+import toast from "react-hot-toast";
 
 export default function Page() {
     return (
@@ -10,7 +12,7 @@ export default function Page() {
             </div>
             <div className="w-[82%] h-screen flex flex-col">
                 <div className="h-[8%]">
-                    <Navbar ctaIcon={<SquareArrowOutUpRight className="h-4 w-4" />} ctaText="Upgrade" />
+                    <Navbar ctaIcon={<SquareArrowOutUpRight className="h-4 w-4" />} ctaText="Upgrade" onCtaClick={() => toast.success("This button has no functionality yet!")} />
                 </div>
                 <div className="flex items-center justify-center h-[92%] bg-black/90 text-white/80 text-2xl font-medium">
                     <h1>Under construction...</h1>

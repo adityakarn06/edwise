@@ -12,6 +12,7 @@ import { authenticateToken } from "./middleware/auth";
 import docRouter from './routes/docRouter';
 import ImpQuesRouter from './routes/ImpQuesRouter';
 import summaryRouter from './routes/summaryRoute';
+import resourceRouter from './routes/resourceRouter';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -38,6 +39,7 @@ app.use('/document', authenticateToken, docRouter);
 app.use('/imp-ques', authenticateToken, ImpQuesRouter);
 app.use('/summary', authenticateToken, summaryRouter);
 app.use('/mcq', authenticateToken, mcqRouter);
+app.use('/resources', authenticateToken, resourceRouter);
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);

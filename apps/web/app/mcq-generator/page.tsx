@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import McqGeneratorUI from "@/components/McqGenerator";
 import ExamComponent from "@/components/ExamComponent";
 import api from "@/lib/api";
+import toast from "react-hot-toast";
 
 interface McqData {
     question: string;
@@ -49,7 +50,7 @@ export default function Page() {
       </div>
       <div className="w-[82%] h-screen flex flex-col">
         <div className="h-[8%]">
-          <Navbar headingIcon={<BookOpenCheck className="h-4 w-4 text-white"/>} headingText="MCQ from PDF" ctaIcon={<Plus className="h-4 w-4" />} ctaText="New Exam" />
+          <Navbar headingIcon={<BookOpenCheck className="h-4 w-4 text-white"/>} headingText="MCQ from PDF" ctaIcon={<Plus className="h-4 w-4" />} ctaText="New Exam" onCtaClick={() => toast.success("This button has no functionality yet!")} />
         </div>
         {!mcqData || mcqData.length === 0 ? (
             <div className="flex items-center justify-center h-[92%] w-full bg-[#131313]">

@@ -56,7 +56,7 @@ export default function Navbar({ headingIcon, headingText, ctaText, ctaIcon, onC
         </button>
           <div className="relative" ref={dropdownRef}>
             <div 
-              className="h-8 w-8 p-1 rounded-4xl bg-white/90 flex items-center justify-center cursor-pointer hover:bg-white/80 transition-colors"
+              className="h-8 w-8 rounded-4xl bg-white/90 flex items-center justify-center cursor-pointer hover:bg-white/80 transition-colors"
               onClick={() => setIsOpen(!isOpen)}
             >
               {session?.user?.image ? (
@@ -65,7 +65,7 @@ export default function Navbar({ headingIcon, headingText, ctaText, ctaIcon, onC
                   alt="User Avatar"
                   width={24}
                   height={24}
-                  className="h-6 w-6 rounded-full"
+                  className="h-8 w-8 rounded-full"
                 />
               ) : (
                 <User className="h-4 w-4 text-black/80" />

@@ -8,6 +8,7 @@ import { useState } from "react";
 import FileUpload from "@/components/FileUpload";
 import { useEffect } from "react";
 import { getAllDoc } from "@/utils/getDoc";
+import toast from "react-hot-toast";
 
 export default function AskPdf() {
   const [currentPdfUrl, setCurrentPdfUrl] = useState<string>("");
@@ -37,7 +38,7 @@ export default function AskPdf() {
       </div>
       <div className="w-[82%] h-screen flex flex-col">
         <div className="h-[8%]">
-          <Navbar headingIcon={<Bot className="h-4 w-4 text-white"/>} headingText="Chat with pdf" ctaIcon={<Plus className="h-4 w-4" />} ctaText="New chat" />
+          <Navbar headingIcon={<Bot className="h-4 w-4 text-white"/>} headingText="Chat with pdf" ctaIcon={<Plus className="h-4 w-4" />} ctaText="New chat" onCtaClick={() => toast.success("This button has no functionality yet!")} />
         </div>
         {!currentPdfUrl ? (
             <div className="flex items-center justify-center h-[92%] w-full bg-black/90">

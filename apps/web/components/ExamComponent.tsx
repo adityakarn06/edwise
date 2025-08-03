@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { CircleCheckBig, Circle, XCircle, Clock } from "lucide-react";
+import toast from "react-hot-toast";
 
 interface ExamComponentProps {
     mcqData: {
@@ -200,7 +201,9 @@ export default function ExamComponent({ mcqData }: ExamComponentProps) {
                     </div>
                 </div>
                 <div>
-                    <button className="px-8 py-2 text-md bg-white/90 text-black/90 rounded-lg hover:bg-white cursor-pointer transition">
+                    <button
+                        onClick={() => toast.success("This button has no purpose buddy!")}
+                        className="px-8 py-2 text-md bg-white/90 text-black/90 rounded-lg hover:bg-white cursor-pointer transition">
                         Submit
                     </button>
                 </div>
