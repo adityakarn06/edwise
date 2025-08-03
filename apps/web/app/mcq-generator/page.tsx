@@ -4,6 +4,7 @@ import Sidebar from "../../components/Sidebar";
 import { BookOpenCheck, Plus } from "lucide-react";
 import { useState } from "react";
 import McqGeneratorUI from "@/components/McqGenerator";
+import ExamComponent from "@/components/ExamComponent";
 
 interface McqData {
     question: string;
@@ -13,6 +14,17 @@ interface McqData {
 
 export default function Page() {
   const [mcqData, setMcqData] = useState<McqData[]>([]);
+  const [selectedOption, setSelectedOption] = useState<string[]>([]);
+
+   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+   const checkedId = event.target.value;
+    if (event.target.checked) {
+      setSelectedOption([...selectedOption, checkedId]);
+    } else {
+      setSelectedOption(selectedOption.filter(id => id !== checkedId));
+    }
+   }
+
 
   return (
     <div className="flex h-screen w-screen">
@@ -29,19 +41,7 @@ export default function Page() {
             </div>
         ) : (
             <div className="flex flex-row h-[92%] overflow-y-auto bg-black/80">
-              <div className="w-full">
-            {mcqData.map((mcq, index) => (
-              <div key={index} className="p-4 border-b border-white/20">
-                <h2 className="text-lg font-semibold text-white">{mcq.question}</h2>
-                <ul className="list-disc pl-5">
-                  {mcq.options.map((option, optIndex) => (
-                <li key={optIndex} className="text-white/80">{option}</li>
-                  ))}
-                </ul>
-                <p className="text-green-400">Answer: {mcq.answer}</p>
-              </div>
-            ))}
-              </div>
+              <ExamComponent mcqData={mcqData} />
             </div>
         )}
       </div>
