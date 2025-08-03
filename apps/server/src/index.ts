@@ -37,8 +37,7 @@ app.use('/chat', authenticateToken, chatRouter);
 app.use('/document', authenticateToken, docRouter);
 app.use('/imp-ques', authenticateToken, ImpQuesRouter);
 app.use('/summary', authenticateToken, summaryRouter);
-app.use('/mcq', authenticateToken, upload.single('pdf'), mcqRouter);
-
+app.use('/mcq', authenticateToken, mcqRouter);
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);

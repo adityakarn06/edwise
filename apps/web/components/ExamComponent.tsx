@@ -10,6 +10,13 @@ interface ExamComponentProps {
 }
 
 export default function ExamComponent({ mcqData }: ExamComponentProps) {
+    if (!mcqData || mcqData.length === 0) {
+        return (
+            <div className="flex items-center justify-center w-full h-full text-white">
+                No MCQs available. Please upload a PDF to generate MCQs.
+            </div>
+        );
+    }
     const [selectedOptions, setSelectedOptions] = useState<Map<number, Set<number>>>(
         new Map()
     );

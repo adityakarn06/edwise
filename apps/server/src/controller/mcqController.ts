@@ -4,6 +4,7 @@ import { AuthenticatedRequest } from "../middleware/auth";
 import { llm } from "../services/llm";
 import { extractTextFromPDF } from "../services/getPdfText";
 import { uploadFileToCloudinary } from "../lib/cloudinary";
+import fs from "fs";
 
 const prisma = new PrismaClient();
 
@@ -71,6 +72,31 @@ const McqController = async (req: AuthenticatedRequest, res: Response) => {
 
     const MCQs = JSON.parse(jsonText);
 
+    const mcqSet = await prisma.mCQSet.create({
+      data: {
+        userId: req.user.id,
+        fileUrl: fileUrl,
+        mcqs: {
+          create: MCQs.mcqs.map((mcq: any) => ({
+            question: mcq.question,
+            options: mcq.options,
+            answer: mcq.answer,
+          })),
+        },
+      },
+      include: {
+        mcqs: true,
+      },
+    });
+
+    if (!mcqSet) {
+      return res.status(500).json({ error: "Failed to create MCQ set in db" });
+    }
+
+    if (fs.existsSync(req.file.path)) {
+        fs.unlinkSync(req.file.path);
+    }
+
     return res.json({
       MCQs: MCQs.mcqs.map((mcq: any) => ({
         question: mcq.question,
@@ -86,4 +112,47 @@ const McqController = async (req: AuthenticatedRequest, res: Response) => {
   }
 };
 
-export { McqController };
+const getMCQData = async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const userId = req.user?.id;
+    if (!userId) {
+      return res.status(401).json({ error: "User not authenticated" });
+    }
+
+    const mcqSets = await prisma.mCQSet.findMany({
+      where: { userId },
+      include: {
+        mcqs: {
+          select: {
+            question: true,
+            options: true,
+            answer: true,
+          },
+        },
+      },  
+    });
+
+    if (!mcqSets || mcqSets.length === 0) {
+      return res.status(404).json({ error: "No MCQs found for this user" });
+    }
+
+    // Transform data to match McqController response format
+    // Flatten all MCQs from all sets into a single array
+    const transformedData = {
+      MCQs: mcqSets.flatMap(mcqSet => 
+      mcqSet.mcqs.map(mcq => ({
+        question: mcq.question,
+        options: mcq.options,
+        answer: mcq.answer,
+      }))
+      )
+    };
+
+    return res.json(transformedData);
+  } catch (error) {
+    console.error("Error fetching MCQ data:", error);
+    return res.status(500).json({ error: "Failed to fetch MCQ data" });
+  }
+};
+
+export { McqController, getMCQData };

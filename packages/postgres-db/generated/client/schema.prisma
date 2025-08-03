@@ -20,6 +20,7 @@ model User {
 
   uploadedDocs    UploadedDocs[]  @relation("UserDocs")
   aiChatHistories AiChatHistory[] @relation("UserChats")
+  mcqSets         MCQSet[]        @relation("UserMCQSets")
 
   @@map("users")
 }
@@ -57,4 +58,25 @@ model AiChatHistory {
   timestamp  DateTime      @default(now())
 
   @@map("ai_chat_history")
+}
+
+model MCQSet {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation("UserMCQSets", fields: [userId], references: [id])
+  fileUrl   String
+  mcqs      MCQ[]    @relation("MCQsInSet")
+  createdAt DateTime @default(now())
+}
+
+model MCQ {
+  id        String   @id @default(uuid())
+  question  String
+  options   String[]
+  answer    String
+  mcqSetId  String
+  mcqSet    MCQSet   @relation("MCQsInSet", fields: [mcqSetId], references: [id])
+  createdAt DateTime @default(now())
+
+  @@map("mcqs")
 }

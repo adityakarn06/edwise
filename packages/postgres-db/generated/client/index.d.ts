@@ -28,6 +28,16 @@ export type UploadedDocs = $Result.DefaultSelection<Prisma.$UploadedDocsPayload>
  * 
  */
 export type AiChatHistory = $Result.DefaultSelection<Prisma.$AiChatHistoryPayload>
+/**
+ * Model MCQSet
+ * 
+ */
+export type MCQSet = $Result.DefaultSelection<Prisma.$MCQSetPayload>
+/**
+ * Model MCQ
+ * 
+ */
+export type MCQ = $Result.DefaultSelection<Prisma.$MCQPayload>
 
 /**
  * Enums
@@ -200,6 +210,26 @@ export class PrismaClient<
     * ```
     */
   get aiChatHistory(): Prisma.AiChatHistoryDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.mCQSet`: Exposes CRUD operations for the **MCQSet** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more MCQSets
+    * const mCQSets = await prisma.mCQSet.findMany()
+    * ```
+    */
+  get mCQSet(): Prisma.MCQSetDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.mCQ`: Exposes CRUD operations for the **MCQ** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more MCQS
+    * const mCQS = await prisma.mCQ.findMany()
+    * ```
+    */
+  get mCQ(): Prisma.MCQDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -642,7 +672,9 @@ export namespace Prisma {
   export const ModelName: {
     User: 'User',
     UploadedDocs: 'UploadedDocs',
-    AiChatHistory: 'AiChatHistory'
+    AiChatHistory: 'AiChatHistory',
+    MCQSet: 'MCQSet',
+    MCQ: 'MCQ'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -661,7 +693,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "uploadedDocs" | "aiChatHistory"
+      modelProps: "user" | "uploadedDocs" | "aiChatHistory" | "mCQSet" | "mCQ"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -887,6 +919,154 @@ export namespace Prisma {
           }
         }
       }
+      MCQSet: {
+        payload: Prisma.$MCQSetPayload<ExtArgs>
+        fields: Prisma.MCQSetFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MCQSetFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MCQSetPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MCQSetFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MCQSetPayload>
+          }
+          findFirst: {
+            args: Prisma.MCQSetFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MCQSetPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MCQSetFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MCQSetPayload>
+          }
+          findMany: {
+            args: Prisma.MCQSetFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MCQSetPayload>[]
+          }
+          create: {
+            args: Prisma.MCQSetCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MCQSetPayload>
+          }
+          createMany: {
+            args: Prisma.MCQSetCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MCQSetCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MCQSetPayload>[]
+          }
+          delete: {
+            args: Prisma.MCQSetDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MCQSetPayload>
+          }
+          update: {
+            args: Prisma.MCQSetUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MCQSetPayload>
+          }
+          deleteMany: {
+            args: Prisma.MCQSetDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MCQSetUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.MCQSetUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MCQSetPayload>[]
+          }
+          upsert: {
+            args: Prisma.MCQSetUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MCQSetPayload>
+          }
+          aggregate: {
+            args: Prisma.MCQSetAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMCQSet>
+          }
+          groupBy: {
+            args: Prisma.MCQSetGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MCQSetGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MCQSetCountArgs<ExtArgs>
+            result: $Utils.Optional<MCQSetCountAggregateOutputType> | number
+          }
+        }
+      }
+      MCQ: {
+        payload: Prisma.$MCQPayload<ExtArgs>
+        fields: Prisma.MCQFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MCQFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MCQPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MCQFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MCQPayload>
+          }
+          findFirst: {
+            args: Prisma.MCQFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MCQPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MCQFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MCQPayload>
+          }
+          findMany: {
+            args: Prisma.MCQFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MCQPayload>[]
+          }
+          create: {
+            args: Prisma.MCQCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MCQPayload>
+          }
+          createMany: {
+            args: Prisma.MCQCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MCQCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MCQPayload>[]
+          }
+          delete: {
+            args: Prisma.MCQDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MCQPayload>
+          }
+          update: {
+            args: Prisma.MCQUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MCQPayload>
+          }
+          deleteMany: {
+            args: Prisma.MCQDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MCQUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.MCQUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MCQPayload>[]
+          }
+          upsert: {
+            args: Prisma.MCQUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MCQPayload>
+          }
+          aggregate: {
+            args: Prisma.MCQAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMCQ>
+          }
+          groupBy: {
+            args: Prisma.MCQGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MCQGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MCQCountArgs<ExtArgs>
+            result: $Utils.Optional<MCQCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -974,6 +1154,8 @@ export namespace Prisma {
     user?: UserOmit
     uploadedDocs?: UploadedDocsOmit
     aiChatHistory?: AiChatHistoryOmit
+    mCQSet?: MCQSetOmit
+    mCQ?: MCQOmit
   }
 
   /* Types for Logging */
@@ -1070,11 +1252,13 @@ export namespace Prisma {
   export type UserCountOutputType = {
     uploadedDocs: number
     aiChatHistories: number
+    mcqSets: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     uploadedDocs?: boolean | UserCountOutputTypeCountUploadedDocsArgs
     aiChatHistories?: boolean | UserCountOutputTypeCountAiChatHistoriesArgs
+    mcqSets?: boolean | UserCountOutputTypeCountMcqSetsArgs
   }
 
   // Custom InputTypes
@@ -1100,6 +1284,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountAiChatHistoriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: AiChatHistoryWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountMcqSetsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MCQSetWhereInput
   }
 
 
@@ -1131,6 +1322,37 @@ export namespace Prisma {
    */
   export type UploadedDocsCountOutputTypeCountAiChatHistoriesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: AiChatHistoryWhereInput
+  }
+
+
+  /**
+   * Count Type MCQSetCountOutputType
+   */
+
+  export type MCQSetCountOutputType = {
+    mcqs: number
+  }
+
+  export type MCQSetCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    mcqs?: boolean | MCQSetCountOutputTypeCountMcqsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * MCQSetCountOutputType without action
+   */
+  export type MCQSetCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MCQSetCountOutputType
+     */
+    select?: MCQSetCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * MCQSetCountOutputType without action
+   */
+  export type MCQSetCountOutputTypeCountMcqsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MCQWhereInput
   }
 
 
@@ -1328,6 +1550,7 @@ export namespace Prisma {
     updatedAt?: boolean
     uploadedDocs?: boolean | User$uploadedDocsArgs<ExtArgs>
     aiChatHistories?: boolean | User$aiChatHistoriesArgs<ExtArgs>
+    mcqSets?: boolean | User$mcqSetsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1368,6 +1591,7 @@ export namespace Prisma {
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     uploadedDocs?: boolean | User$uploadedDocsArgs<ExtArgs>
     aiChatHistories?: boolean | User$aiChatHistoriesArgs<ExtArgs>
+    mcqSets?: boolean | User$mcqSetsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1378,6 +1602,7 @@ export namespace Prisma {
     objects: {
       uploadedDocs: Prisma.$UploadedDocsPayload<ExtArgs>[]
       aiChatHistories: Prisma.$AiChatHistoryPayload<ExtArgs>[]
+      mcqSets: Prisma.$MCQSetPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -1784,6 +2009,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     uploadedDocs<T extends User$uploadedDocsArgs<ExtArgs> = {}>(args?: Subset<T, User$uploadedDocsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UploadedDocsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     aiChatHistories<T extends User$aiChatHistoriesArgs<ExtArgs> = {}>(args?: Subset<T, User$aiChatHistoriesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AiChatHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    mcqSets<T extends User$mcqSetsArgs<ExtArgs> = {}>(args?: Subset<T, User$mcqSetsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MCQSetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2254,6 +2480,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: AiChatHistoryScalarFieldEnum | AiChatHistoryScalarFieldEnum[]
+  }
+
+  /**
+   * User.mcqSets
+   */
+  export type User$mcqSetsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MCQSet
+     */
+    select?: MCQSetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MCQSet
+     */
+    omit?: MCQSetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MCQSetInclude<ExtArgs> | null
+    where?: MCQSetWhereInput
+    orderBy?: MCQSetOrderByWithRelationInput | MCQSetOrderByWithRelationInput[]
+    cursor?: MCQSetWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MCQSetScalarFieldEnum | MCQSetScalarFieldEnum[]
   }
 
   /**
@@ -4578,6 +4828,2148 @@ export namespace Prisma {
 
 
   /**
+   * Model MCQSet
+   */
+
+  export type AggregateMCQSet = {
+    _count: MCQSetCountAggregateOutputType | null
+    _min: MCQSetMinAggregateOutputType | null
+    _max: MCQSetMaxAggregateOutputType | null
+  }
+
+  export type MCQSetMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    fileUrl: string | null
+    createdAt: Date | null
+  }
+
+  export type MCQSetMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    fileUrl: string | null
+    createdAt: Date | null
+  }
+
+  export type MCQSetCountAggregateOutputType = {
+    id: number
+    userId: number
+    fileUrl: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type MCQSetMinAggregateInputType = {
+    id?: true
+    userId?: true
+    fileUrl?: true
+    createdAt?: true
+  }
+
+  export type MCQSetMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    fileUrl?: true
+    createdAt?: true
+  }
+
+  export type MCQSetCountAggregateInputType = {
+    id?: true
+    userId?: true
+    fileUrl?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type MCQSetAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MCQSet to aggregate.
+     */
+    where?: MCQSetWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MCQSets to fetch.
+     */
+    orderBy?: MCQSetOrderByWithRelationInput | MCQSetOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MCQSetWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MCQSets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MCQSets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned MCQSets
+    **/
+    _count?: true | MCQSetCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MCQSetMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MCQSetMaxAggregateInputType
+  }
+
+  export type GetMCQSetAggregateType<T extends MCQSetAggregateArgs> = {
+        [P in keyof T & keyof AggregateMCQSet]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMCQSet[P]>
+      : GetScalarType<T[P], AggregateMCQSet[P]>
+  }
+
+
+
+
+  export type MCQSetGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MCQSetWhereInput
+    orderBy?: MCQSetOrderByWithAggregationInput | MCQSetOrderByWithAggregationInput[]
+    by: MCQSetScalarFieldEnum[] | MCQSetScalarFieldEnum
+    having?: MCQSetScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MCQSetCountAggregateInputType | true
+    _min?: MCQSetMinAggregateInputType
+    _max?: MCQSetMaxAggregateInputType
+  }
+
+  export type MCQSetGroupByOutputType = {
+    id: string
+    userId: string
+    fileUrl: string
+    createdAt: Date
+    _count: MCQSetCountAggregateOutputType | null
+    _min: MCQSetMinAggregateOutputType | null
+    _max: MCQSetMaxAggregateOutputType | null
+  }
+
+  type GetMCQSetGroupByPayload<T extends MCQSetGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MCQSetGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MCQSetGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MCQSetGroupByOutputType[P]>
+            : GetScalarType<T[P], MCQSetGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MCQSetSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    fileUrl?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    mcqs?: boolean | MCQSet$mcqsArgs<ExtArgs>
+    _count?: boolean | MCQSetCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["mCQSet"]>
+
+  export type MCQSetSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    fileUrl?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["mCQSet"]>
+
+  export type MCQSetSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    fileUrl?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["mCQSet"]>
+
+  export type MCQSetSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    fileUrl?: boolean
+    createdAt?: boolean
+  }
+
+  export type MCQSetOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "fileUrl" | "createdAt", ExtArgs["result"]["mCQSet"]>
+  export type MCQSetInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    mcqs?: boolean | MCQSet$mcqsArgs<ExtArgs>
+    _count?: boolean | MCQSetCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type MCQSetIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type MCQSetIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $MCQSetPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "MCQSet"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      mcqs: Prisma.$MCQPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      fileUrl: string
+      createdAt: Date
+    }, ExtArgs["result"]["mCQSet"]>
+    composites: {}
+  }
+
+  type MCQSetGetPayload<S extends boolean | null | undefined | MCQSetDefaultArgs> = $Result.GetResult<Prisma.$MCQSetPayload, S>
+
+  type MCQSetCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MCQSetFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MCQSetCountAggregateInputType | true
+    }
+
+  export interface MCQSetDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MCQSet'], meta: { name: 'MCQSet' } }
+    /**
+     * Find zero or one MCQSet that matches the filter.
+     * @param {MCQSetFindUniqueArgs} args - Arguments to find a MCQSet
+     * @example
+     * // Get one MCQSet
+     * const mCQSet = await prisma.mCQSet.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MCQSetFindUniqueArgs>(args: SelectSubset<T, MCQSetFindUniqueArgs<ExtArgs>>): Prisma__MCQSetClient<$Result.GetResult<Prisma.$MCQSetPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one MCQSet that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MCQSetFindUniqueOrThrowArgs} args - Arguments to find a MCQSet
+     * @example
+     * // Get one MCQSet
+     * const mCQSet = await prisma.mCQSet.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MCQSetFindUniqueOrThrowArgs>(args: SelectSubset<T, MCQSetFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MCQSetClient<$Result.GetResult<Prisma.$MCQSetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MCQSet that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MCQSetFindFirstArgs} args - Arguments to find a MCQSet
+     * @example
+     * // Get one MCQSet
+     * const mCQSet = await prisma.mCQSet.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MCQSetFindFirstArgs>(args?: SelectSubset<T, MCQSetFindFirstArgs<ExtArgs>>): Prisma__MCQSetClient<$Result.GetResult<Prisma.$MCQSetPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MCQSet that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MCQSetFindFirstOrThrowArgs} args - Arguments to find a MCQSet
+     * @example
+     * // Get one MCQSet
+     * const mCQSet = await prisma.mCQSet.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MCQSetFindFirstOrThrowArgs>(args?: SelectSubset<T, MCQSetFindFirstOrThrowArgs<ExtArgs>>): Prisma__MCQSetClient<$Result.GetResult<Prisma.$MCQSetPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more MCQSets that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MCQSetFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all MCQSets
+     * const mCQSets = await prisma.mCQSet.findMany()
+     * 
+     * // Get first 10 MCQSets
+     * const mCQSets = await prisma.mCQSet.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const mCQSetWithIdOnly = await prisma.mCQSet.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends MCQSetFindManyArgs>(args?: SelectSubset<T, MCQSetFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MCQSetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a MCQSet.
+     * @param {MCQSetCreateArgs} args - Arguments to create a MCQSet.
+     * @example
+     * // Create one MCQSet
+     * const MCQSet = await prisma.mCQSet.create({
+     *   data: {
+     *     // ... data to create a MCQSet
+     *   }
+     * })
+     * 
+     */
+    create<T extends MCQSetCreateArgs>(args: SelectSubset<T, MCQSetCreateArgs<ExtArgs>>): Prisma__MCQSetClient<$Result.GetResult<Prisma.$MCQSetPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many MCQSets.
+     * @param {MCQSetCreateManyArgs} args - Arguments to create many MCQSets.
+     * @example
+     * // Create many MCQSets
+     * const mCQSet = await prisma.mCQSet.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MCQSetCreateManyArgs>(args?: SelectSubset<T, MCQSetCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many MCQSets and returns the data saved in the database.
+     * @param {MCQSetCreateManyAndReturnArgs} args - Arguments to create many MCQSets.
+     * @example
+     * // Create many MCQSets
+     * const mCQSet = await prisma.mCQSet.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many MCQSets and only return the `id`
+     * const mCQSetWithIdOnly = await prisma.mCQSet.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MCQSetCreateManyAndReturnArgs>(args?: SelectSubset<T, MCQSetCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MCQSetPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a MCQSet.
+     * @param {MCQSetDeleteArgs} args - Arguments to delete one MCQSet.
+     * @example
+     * // Delete one MCQSet
+     * const MCQSet = await prisma.mCQSet.delete({
+     *   where: {
+     *     // ... filter to delete one MCQSet
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MCQSetDeleteArgs>(args: SelectSubset<T, MCQSetDeleteArgs<ExtArgs>>): Prisma__MCQSetClient<$Result.GetResult<Prisma.$MCQSetPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one MCQSet.
+     * @param {MCQSetUpdateArgs} args - Arguments to update one MCQSet.
+     * @example
+     * // Update one MCQSet
+     * const mCQSet = await prisma.mCQSet.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MCQSetUpdateArgs>(args: SelectSubset<T, MCQSetUpdateArgs<ExtArgs>>): Prisma__MCQSetClient<$Result.GetResult<Prisma.$MCQSetPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more MCQSets.
+     * @param {MCQSetDeleteManyArgs} args - Arguments to filter MCQSets to delete.
+     * @example
+     * // Delete a few MCQSets
+     * const { count } = await prisma.mCQSet.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MCQSetDeleteManyArgs>(args?: SelectSubset<T, MCQSetDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MCQSets.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MCQSetUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many MCQSets
+     * const mCQSet = await prisma.mCQSet.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MCQSetUpdateManyArgs>(args: SelectSubset<T, MCQSetUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MCQSets and returns the data updated in the database.
+     * @param {MCQSetUpdateManyAndReturnArgs} args - Arguments to update many MCQSets.
+     * @example
+     * // Update many MCQSets
+     * const mCQSet = await prisma.mCQSet.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more MCQSets and only return the `id`
+     * const mCQSetWithIdOnly = await prisma.mCQSet.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends MCQSetUpdateManyAndReturnArgs>(args: SelectSubset<T, MCQSetUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MCQSetPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one MCQSet.
+     * @param {MCQSetUpsertArgs} args - Arguments to update or create a MCQSet.
+     * @example
+     * // Update or create a MCQSet
+     * const mCQSet = await prisma.mCQSet.upsert({
+     *   create: {
+     *     // ... data to create a MCQSet
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the MCQSet we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MCQSetUpsertArgs>(args: SelectSubset<T, MCQSetUpsertArgs<ExtArgs>>): Prisma__MCQSetClient<$Result.GetResult<Prisma.$MCQSetPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of MCQSets.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MCQSetCountArgs} args - Arguments to filter MCQSets to count.
+     * @example
+     * // Count the number of MCQSets
+     * const count = await prisma.mCQSet.count({
+     *   where: {
+     *     // ... the filter for the MCQSets we want to count
+     *   }
+     * })
+    **/
+    count<T extends MCQSetCountArgs>(
+      args?: Subset<T, MCQSetCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MCQSetCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a MCQSet.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MCQSetAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MCQSetAggregateArgs>(args: Subset<T, MCQSetAggregateArgs>): Prisma.PrismaPromise<GetMCQSetAggregateType<T>>
+
+    /**
+     * Group by MCQSet.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MCQSetGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MCQSetGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MCQSetGroupByArgs['orderBy'] }
+        : { orderBy?: MCQSetGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MCQSetGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMCQSetGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the MCQSet model
+   */
+  readonly fields: MCQSetFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for MCQSet.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MCQSetClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    mcqs<T extends MCQSet$mcqsArgs<ExtArgs> = {}>(args?: Subset<T, MCQSet$mcqsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MCQPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the MCQSet model
+   */
+  interface MCQSetFieldRefs {
+    readonly id: FieldRef<"MCQSet", 'String'>
+    readonly userId: FieldRef<"MCQSet", 'String'>
+    readonly fileUrl: FieldRef<"MCQSet", 'String'>
+    readonly createdAt: FieldRef<"MCQSet", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * MCQSet findUnique
+   */
+  export type MCQSetFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MCQSet
+     */
+    select?: MCQSetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MCQSet
+     */
+    omit?: MCQSetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MCQSetInclude<ExtArgs> | null
+    /**
+     * Filter, which MCQSet to fetch.
+     */
+    where: MCQSetWhereUniqueInput
+  }
+
+  /**
+   * MCQSet findUniqueOrThrow
+   */
+  export type MCQSetFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MCQSet
+     */
+    select?: MCQSetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MCQSet
+     */
+    omit?: MCQSetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MCQSetInclude<ExtArgs> | null
+    /**
+     * Filter, which MCQSet to fetch.
+     */
+    where: MCQSetWhereUniqueInput
+  }
+
+  /**
+   * MCQSet findFirst
+   */
+  export type MCQSetFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MCQSet
+     */
+    select?: MCQSetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MCQSet
+     */
+    omit?: MCQSetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MCQSetInclude<ExtArgs> | null
+    /**
+     * Filter, which MCQSet to fetch.
+     */
+    where?: MCQSetWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MCQSets to fetch.
+     */
+    orderBy?: MCQSetOrderByWithRelationInput | MCQSetOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MCQSets.
+     */
+    cursor?: MCQSetWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MCQSets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MCQSets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MCQSets.
+     */
+    distinct?: MCQSetScalarFieldEnum | MCQSetScalarFieldEnum[]
+  }
+
+  /**
+   * MCQSet findFirstOrThrow
+   */
+  export type MCQSetFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MCQSet
+     */
+    select?: MCQSetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MCQSet
+     */
+    omit?: MCQSetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MCQSetInclude<ExtArgs> | null
+    /**
+     * Filter, which MCQSet to fetch.
+     */
+    where?: MCQSetWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MCQSets to fetch.
+     */
+    orderBy?: MCQSetOrderByWithRelationInput | MCQSetOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MCQSets.
+     */
+    cursor?: MCQSetWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MCQSets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MCQSets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MCQSets.
+     */
+    distinct?: MCQSetScalarFieldEnum | MCQSetScalarFieldEnum[]
+  }
+
+  /**
+   * MCQSet findMany
+   */
+  export type MCQSetFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MCQSet
+     */
+    select?: MCQSetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MCQSet
+     */
+    omit?: MCQSetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MCQSetInclude<ExtArgs> | null
+    /**
+     * Filter, which MCQSets to fetch.
+     */
+    where?: MCQSetWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MCQSets to fetch.
+     */
+    orderBy?: MCQSetOrderByWithRelationInput | MCQSetOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing MCQSets.
+     */
+    cursor?: MCQSetWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MCQSets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MCQSets.
+     */
+    skip?: number
+    distinct?: MCQSetScalarFieldEnum | MCQSetScalarFieldEnum[]
+  }
+
+  /**
+   * MCQSet create
+   */
+  export type MCQSetCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MCQSet
+     */
+    select?: MCQSetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MCQSet
+     */
+    omit?: MCQSetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MCQSetInclude<ExtArgs> | null
+    /**
+     * The data needed to create a MCQSet.
+     */
+    data: XOR<MCQSetCreateInput, MCQSetUncheckedCreateInput>
+  }
+
+  /**
+   * MCQSet createMany
+   */
+  export type MCQSetCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many MCQSets.
+     */
+    data: MCQSetCreateManyInput | MCQSetCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * MCQSet createManyAndReturn
+   */
+  export type MCQSetCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MCQSet
+     */
+    select?: MCQSetSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MCQSet
+     */
+    omit?: MCQSetOmit<ExtArgs> | null
+    /**
+     * The data used to create many MCQSets.
+     */
+    data: MCQSetCreateManyInput | MCQSetCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MCQSetIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MCQSet update
+   */
+  export type MCQSetUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MCQSet
+     */
+    select?: MCQSetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MCQSet
+     */
+    omit?: MCQSetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MCQSetInclude<ExtArgs> | null
+    /**
+     * The data needed to update a MCQSet.
+     */
+    data: XOR<MCQSetUpdateInput, MCQSetUncheckedUpdateInput>
+    /**
+     * Choose, which MCQSet to update.
+     */
+    where: MCQSetWhereUniqueInput
+  }
+
+  /**
+   * MCQSet updateMany
+   */
+  export type MCQSetUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update MCQSets.
+     */
+    data: XOR<MCQSetUpdateManyMutationInput, MCQSetUncheckedUpdateManyInput>
+    /**
+     * Filter which MCQSets to update
+     */
+    where?: MCQSetWhereInput
+    /**
+     * Limit how many MCQSets to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * MCQSet updateManyAndReturn
+   */
+  export type MCQSetUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MCQSet
+     */
+    select?: MCQSetSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MCQSet
+     */
+    omit?: MCQSetOmit<ExtArgs> | null
+    /**
+     * The data used to update MCQSets.
+     */
+    data: XOR<MCQSetUpdateManyMutationInput, MCQSetUncheckedUpdateManyInput>
+    /**
+     * Filter which MCQSets to update
+     */
+    where?: MCQSetWhereInput
+    /**
+     * Limit how many MCQSets to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MCQSetIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MCQSet upsert
+   */
+  export type MCQSetUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MCQSet
+     */
+    select?: MCQSetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MCQSet
+     */
+    omit?: MCQSetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MCQSetInclude<ExtArgs> | null
+    /**
+     * The filter to search for the MCQSet to update in case it exists.
+     */
+    where: MCQSetWhereUniqueInput
+    /**
+     * In case the MCQSet found by the `where` argument doesn't exist, create a new MCQSet with this data.
+     */
+    create: XOR<MCQSetCreateInput, MCQSetUncheckedCreateInput>
+    /**
+     * In case the MCQSet was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MCQSetUpdateInput, MCQSetUncheckedUpdateInput>
+  }
+
+  /**
+   * MCQSet delete
+   */
+  export type MCQSetDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MCQSet
+     */
+    select?: MCQSetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MCQSet
+     */
+    omit?: MCQSetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MCQSetInclude<ExtArgs> | null
+    /**
+     * Filter which MCQSet to delete.
+     */
+    where: MCQSetWhereUniqueInput
+  }
+
+  /**
+   * MCQSet deleteMany
+   */
+  export type MCQSetDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MCQSets to delete
+     */
+    where?: MCQSetWhereInput
+    /**
+     * Limit how many MCQSets to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * MCQSet.mcqs
+   */
+  export type MCQSet$mcqsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MCQ
+     */
+    select?: MCQSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MCQ
+     */
+    omit?: MCQOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MCQInclude<ExtArgs> | null
+    where?: MCQWhereInput
+    orderBy?: MCQOrderByWithRelationInput | MCQOrderByWithRelationInput[]
+    cursor?: MCQWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MCQScalarFieldEnum | MCQScalarFieldEnum[]
+  }
+
+  /**
+   * MCQSet without action
+   */
+  export type MCQSetDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MCQSet
+     */
+    select?: MCQSetSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MCQSet
+     */
+    omit?: MCQSetOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MCQSetInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model MCQ
+   */
+
+  export type AggregateMCQ = {
+    _count: MCQCountAggregateOutputType | null
+    _min: MCQMinAggregateOutputType | null
+    _max: MCQMaxAggregateOutputType | null
+  }
+
+  export type MCQMinAggregateOutputType = {
+    id: string | null
+    question: string | null
+    answer: string | null
+    mcqSetId: string | null
+    createdAt: Date | null
+  }
+
+  export type MCQMaxAggregateOutputType = {
+    id: string | null
+    question: string | null
+    answer: string | null
+    mcqSetId: string | null
+    createdAt: Date | null
+  }
+
+  export type MCQCountAggregateOutputType = {
+    id: number
+    question: number
+    options: number
+    answer: number
+    mcqSetId: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type MCQMinAggregateInputType = {
+    id?: true
+    question?: true
+    answer?: true
+    mcqSetId?: true
+    createdAt?: true
+  }
+
+  export type MCQMaxAggregateInputType = {
+    id?: true
+    question?: true
+    answer?: true
+    mcqSetId?: true
+    createdAt?: true
+  }
+
+  export type MCQCountAggregateInputType = {
+    id?: true
+    question?: true
+    options?: true
+    answer?: true
+    mcqSetId?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type MCQAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MCQ to aggregate.
+     */
+    where?: MCQWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MCQS to fetch.
+     */
+    orderBy?: MCQOrderByWithRelationInput | MCQOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MCQWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MCQS from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MCQS.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned MCQS
+    **/
+    _count?: true | MCQCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MCQMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MCQMaxAggregateInputType
+  }
+
+  export type GetMCQAggregateType<T extends MCQAggregateArgs> = {
+        [P in keyof T & keyof AggregateMCQ]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMCQ[P]>
+      : GetScalarType<T[P], AggregateMCQ[P]>
+  }
+
+
+
+
+  export type MCQGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MCQWhereInput
+    orderBy?: MCQOrderByWithAggregationInput | MCQOrderByWithAggregationInput[]
+    by: MCQScalarFieldEnum[] | MCQScalarFieldEnum
+    having?: MCQScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MCQCountAggregateInputType | true
+    _min?: MCQMinAggregateInputType
+    _max?: MCQMaxAggregateInputType
+  }
+
+  export type MCQGroupByOutputType = {
+    id: string
+    question: string
+    options: string[]
+    answer: string
+    mcqSetId: string
+    createdAt: Date
+    _count: MCQCountAggregateOutputType | null
+    _min: MCQMinAggregateOutputType | null
+    _max: MCQMaxAggregateOutputType | null
+  }
+
+  type GetMCQGroupByPayload<T extends MCQGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MCQGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MCQGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MCQGroupByOutputType[P]>
+            : GetScalarType<T[P], MCQGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MCQSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    question?: boolean
+    options?: boolean
+    answer?: boolean
+    mcqSetId?: boolean
+    createdAt?: boolean
+    mcqSet?: boolean | MCQSetDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["mCQ"]>
+
+  export type MCQSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    question?: boolean
+    options?: boolean
+    answer?: boolean
+    mcqSetId?: boolean
+    createdAt?: boolean
+    mcqSet?: boolean | MCQSetDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["mCQ"]>
+
+  export type MCQSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    question?: boolean
+    options?: boolean
+    answer?: boolean
+    mcqSetId?: boolean
+    createdAt?: boolean
+    mcqSet?: boolean | MCQSetDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["mCQ"]>
+
+  export type MCQSelectScalar = {
+    id?: boolean
+    question?: boolean
+    options?: boolean
+    answer?: boolean
+    mcqSetId?: boolean
+    createdAt?: boolean
+  }
+
+  export type MCQOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "question" | "options" | "answer" | "mcqSetId" | "createdAt", ExtArgs["result"]["mCQ"]>
+  export type MCQInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    mcqSet?: boolean | MCQSetDefaultArgs<ExtArgs>
+  }
+  export type MCQIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    mcqSet?: boolean | MCQSetDefaultArgs<ExtArgs>
+  }
+  export type MCQIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    mcqSet?: boolean | MCQSetDefaultArgs<ExtArgs>
+  }
+
+  export type $MCQPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "MCQ"
+    objects: {
+      mcqSet: Prisma.$MCQSetPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      question: string
+      options: string[]
+      answer: string
+      mcqSetId: string
+      createdAt: Date
+    }, ExtArgs["result"]["mCQ"]>
+    composites: {}
+  }
+
+  type MCQGetPayload<S extends boolean | null | undefined | MCQDefaultArgs> = $Result.GetResult<Prisma.$MCQPayload, S>
+
+  type MCQCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MCQFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MCQCountAggregateInputType | true
+    }
+
+  export interface MCQDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MCQ'], meta: { name: 'MCQ' } }
+    /**
+     * Find zero or one MCQ that matches the filter.
+     * @param {MCQFindUniqueArgs} args - Arguments to find a MCQ
+     * @example
+     * // Get one MCQ
+     * const mCQ = await prisma.mCQ.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MCQFindUniqueArgs>(args: SelectSubset<T, MCQFindUniqueArgs<ExtArgs>>): Prisma__MCQClient<$Result.GetResult<Prisma.$MCQPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one MCQ that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MCQFindUniqueOrThrowArgs} args - Arguments to find a MCQ
+     * @example
+     * // Get one MCQ
+     * const mCQ = await prisma.mCQ.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MCQFindUniqueOrThrowArgs>(args: SelectSubset<T, MCQFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MCQClient<$Result.GetResult<Prisma.$MCQPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MCQ that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MCQFindFirstArgs} args - Arguments to find a MCQ
+     * @example
+     * // Get one MCQ
+     * const mCQ = await prisma.mCQ.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MCQFindFirstArgs>(args?: SelectSubset<T, MCQFindFirstArgs<ExtArgs>>): Prisma__MCQClient<$Result.GetResult<Prisma.$MCQPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MCQ that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MCQFindFirstOrThrowArgs} args - Arguments to find a MCQ
+     * @example
+     * // Get one MCQ
+     * const mCQ = await prisma.mCQ.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MCQFindFirstOrThrowArgs>(args?: SelectSubset<T, MCQFindFirstOrThrowArgs<ExtArgs>>): Prisma__MCQClient<$Result.GetResult<Prisma.$MCQPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more MCQS that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MCQFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all MCQS
+     * const mCQS = await prisma.mCQ.findMany()
+     * 
+     * // Get first 10 MCQS
+     * const mCQS = await prisma.mCQ.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const mCQWithIdOnly = await prisma.mCQ.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends MCQFindManyArgs>(args?: SelectSubset<T, MCQFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MCQPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a MCQ.
+     * @param {MCQCreateArgs} args - Arguments to create a MCQ.
+     * @example
+     * // Create one MCQ
+     * const MCQ = await prisma.mCQ.create({
+     *   data: {
+     *     // ... data to create a MCQ
+     *   }
+     * })
+     * 
+     */
+    create<T extends MCQCreateArgs>(args: SelectSubset<T, MCQCreateArgs<ExtArgs>>): Prisma__MCQClient<$Result.GetResult<Prisma.$MCQPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many MCQS.
+     * @param {MCQCreateManyArgs} args - Arguments to create many MCQS.
+     * @example
+     * // Create many MCQS
+     * const mCQ = await prisma.mCQ.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MCQCreateManyArgs>(args?: SelectSubset<T, MCQCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many MCQS and returns the data saved in the database.
+     * @param {MCQCreateManyAndReturnArgs} args - Arguments to create many MCQS.
+     * @example
+     * // Create many MCQS
+     * const mCQ = await prisma.mCQ.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many MCQS and only return the `id`
+     * const mCQWithIdOnly = await prisma.mCQ.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MCQCreateManyAndReturnArgs>(args?: SelectSubset<T, MCQCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MCQPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a MCQ.
+     * @param {MCQDeleteArgs} args - Arguments to delete one MCQ.
+     * @example
+     * // Delete one MCQ
+     * const MCQ = await prisma.mCQ.delete({
+     *   where: {
+     *     // ... filter to delete one MCQ
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MCQDeleteArgs>(args: SelectSubset<T, MCQDeleteArgs<ExtArgs>>): Prisma__MCQClient<$Result.GetResult<Prisma.$MCQPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one MCQ.
+     * @param {MCQUpdateArgs} args - Arguments to update one MCQ.
+     * @example
+     * // Update one MCQ
+     * const mCQ = await prisma.mCQ.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MCQUpdateArgs>(args: SelectSubset<T, MCQUpdateArgs<ExtArgs>>): Prisma__MCQClient<$Result.GetResult<Prisma.$MCQPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more MCQS.
+     * @param {MCQDeleteManyArgs} args - Arguments to filter MCQS to delete.
+     * @example
+     * // Delete a few MCQS
+     * const { count } = await prisma.mCQ.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MCQDeleteManyArgs>(args?: SelectSubset<T, MCQDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MCQS.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MCQUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many MCQS
+     * const mCQ = await prisma.mCQ.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MCQUpdateManyArgs>(args: SelectSubset<T, MCQUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MCQS and returns the data updated in the database.
+     * @param {MCQUpdateManyAndReturnArgs} args - Arguments to update many MCQS.
+     * @example
+     * // Update many MCQS
+     * const mCQ = await prisma.mCQ.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more MCQS and only return the `id`
+     * const mCQWithIdOnly = await prisma.mCQ.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends MCQUpdateManyAndReturnArgs>(args: SelectSubset<T, MCQUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MCQPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one MCQ.
+     * @param {MCQUpsertArgs} args - Arguments to update or create a MCQ.
+     * @example
+     * // Update or create a MCQ
+     * const mCQ = await prisma.mCQ.upsert({
+     *   create: {
+     *     // ... data to create a MCQ
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the MCQ we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MCQUpsertArgs>(args: SelectSubset<T, MCQUpsertArgs<ExtArgs>>): Prisma__MCQClient<$Result.GetResult<Prisma.$MCQPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of MCQS.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MCQCountArgs} args - Arguments to filter MCQS to count.
+     * @example
+     * // Count the number of MCQS
+     * const count = await prisma.mCQ.count({
+     *   where: {
+     *     // ... the filter for the MCQS we want to count
+     *   }
+     * })
+    **/
+    count<T extends MCQCountArgs>(
+      args?: Subset<T, MCQCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MCQCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a MCQ.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MCQAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MCQAggregateArgs>(args: Subset<T, MCQAggregateArgs>): Prisma.PrismaPromise<GetMCQAggregateType<T>>
+
+    /**
+     * Group by MCQ.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MCQGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MCQGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MCQGroupByArgs['orderBy'] }
+        : { orderBy?: MCQGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MCQGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMCQGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the MCQ model
+   */
+  readonly fields: MCQFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for MCQ.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MCQClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    mcqSet<T extends MCQSetDefaultArgs<ExtArgs> = {}>(args?: Subset<T, MCQSetDefaultArgs<ExtArgs>>): Prisma__MCQSetClient<$Result.GetResult<Prisma.$MCQSetPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the MCQ model
+   */
+  interface MCQFieldRefs {
+    readonly id: FieldRef<"MCQ", 'String'>
+    readonly question: FieldRef<"MCQ", 'String'>
+    readonly options: FieldRef<"MCQ", 'String[]'>
+    readonly answer: FieldRef<"MCQ", 'String'>
+    readonly mcqSetId: FieldRef<"MCQ", 'String'>
+    readonly createdAt: FieldRef<"MCQ", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * MCQ findUnique
+   */
+  export type MCQFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MCQ
+     */
+    select?: MCQSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MCQ
+     */
+    omit?: MCQOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MCQInclude<ExtArgs> | null
+    /**
+     * Filter, which MCQ to fetch.
+     */
+    where: MCQWhereUniqueInput
+  }
+
+  /**
+   * MCQ findUniqueOrThrow
+   */
+  export type MCQFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MCQ
+     */
+    select?: MCQSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MCQ
+     */
+    omit?: MCQOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MCQInclude<ExtArgs> | null
+    /**
+     * Filter, which MCQ to fetch.
+     */
+    where: MCQWhereUniqueInput
+  }
+
+  /**
+   * MCQ findFirst
+   */
+  export type MCQFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MCQ
+     */
+    select?: MCQSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MCQ
+     */
+    omit?: MCQOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MCQInclude<ExtArgs> | null
+    /**
+     * Filter, which MCQ to fetch.
+     */
+    where?: MCQWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MCQS to fetch.
+     */
+    orderBy?: MCQOrderByWithRelationInput | MCQOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MCQS.
+     */
+    cursor?: MCQWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MCQS from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MCQS.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MCQS.
+     */
+    distinct?: MCQScalarFieldEnum | MCQScalarFieldEnum[]
+  }
+
+  /**
+   * MCQ findFirstOrThrow
+   */
+  export type MCQFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MCQ
+     */
+    select?: MCQSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MCQ
+     */
+    omit?: MCQOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MCQInclude<ExtArgs> | null
+    /**
+     * Filter, which MCQ to fetch.
+     */
+    where?: MCQWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MCQS to fetch.
+     */
+    orderBy?: MCQOrderByWithRelationInput | MCQOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MCQS.
+     */
+    cursor?: MCQWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MCQS from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MCQS.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MCQS.
+     */
+    distinct?: MCQScalarFieldEnum | MCQScalarFieldEnum[]
+  }
+
+  /**
+   * MCQ findMany
+   */
+  export type MCQFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MCQ
+     */
+    select?: MCQSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MCQ
+     */
+    omit?: MCQOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MCQInclude<ExtArgs> | null
+    /**
+     * Filter, which MCQS to fetch.
+     */
+    where?: MCQWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MCQS to fetch.
+     */
+    orderBy?: MCQOrderByWithRelationInput | MCQOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing MCQS.
+     */
+    cursor?: MCQWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MCQS from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MCQS.
+     */
+    skip?: number
+    distinct?: MCQScalarFieldEnum | MCQScalarFieldEnum[]
+  }
+
+  /**
+   * MCQ create
+   */
+  export type MCQCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MCQ
+     */
+    select?: MCQSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MCQ
+     */
+    omit?: MCQOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MCQInclude<ExtArgs> | null
+    /**
+     * The data needed to create a MCQ.
+     */
+    data: XOR<MCQCreateInput, MCQUncheckedCreateInput>
+  }
+
+  /**
+   * MCQ createMany
+   */
+  export type MCQCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many MCQS.
+     */
+    data: MCQCreateManyInput | MCQCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * MCQ createManyAndReturn
+   */
+  export type MCQCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MCQ
+     */
+    select?: MCQSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MCQ
+     */
+    omit?: MCQOmit<ExtArgs> | null
+    /**
+     * The data used to create many MCQS.
+     */
+    data: MCQCreateManyInput | MCQCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MCQIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MCQ update
+   */
+  export type MCQUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MCQ
+     */
+    select?: MCQSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MCQ
+     */
+    omit?: MCQOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MCQInclude<ExtArgs> | null
+    /**
+     * The data needed to update a MCQ.
+     */
+    data: XOR<MCQUpdateInput, MCQUncheckedUpdateInput>
+    /**
+     * Choose, which MCQ to update.
+     */
+    where: MCQWhereUniqueInput
+  }
+
+  /**
+   * MCQ updateMany
+   */
+  export type MCQUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update MCQS.
+     */
+    data: XOR<MCQUpdateManyMutationInput, MCQUncheckedUpdateManyInput>
+    /**
+     * Filter which MCQS to update
+     */
+    where?: MCQWhereInput
+    /**
+     * Limit how many MCQS to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * MCQ updateManyAndReturn
+   */
+  export type MCQUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MCQ
+     */
+    select?: MCQSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MCQ
+     */
+    omit?: MCQOmit<ExtArgs> | null
+    /**
+     * The data used to update MCQS.
+     */
+    data: XOR<MCQUpdateManyMutationInput, MCQUncheckedUpdateManyInput>
+    /**
+     * Filter which MCQS to update
+     */
+    where?: MCQWhereInput
+    /**
+     * Limit how many MCQS to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MCQIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MCQ upsert
+   */
+  export type MCQUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MCQ
+     */
+    select?: MCQSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MCQ
+     */
+    omit?: MCQOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MCQInclude<ExtArgs> | null
+    /**
+     * The filter to search for the MCQ to update in case it exists.
+     */
+    where: MCQWhereUniqueInput
+    /**
+     * In case the MCQ found by the `where` argument doesn't exist, create a new MCQ with this data.
+     */
+    create: XOR<MCQCreateInput, MCQUncheckedCreateInput>
+    /**
+     * In case the MCQ was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MCQUpdateInput, MCQUncheckedUpdateInput>
+  }
+
+  /**
+   * MCQ delete
+   */
+  export type MCQDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MCQ
+     */
+    select?: MCQSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MCQ
+     */
+    omit?: MCQOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MCQInclude<ExtArgs> | null
+    /**
+     * Filter which MCQ to delete.
+     */
+    where: MCQWhereUniqueInput
+  }
+
+  /**
+   * MCQ deleteMany
+   */
+  export type MCQDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MCQS to delete
+     */
+    where?: MCQWhereInput
+    /**
+     * Limit how many MCQS to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * MCQ without action
+   */
+  export type MCQDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MCQ
+     */
+    select?: MCQSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MCQ
+     */
+    omit?: MCQOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MCQInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -4630,6 +7022,28 @@ export namespace Prisma {
   };
 
   export type AiChatHistoryScalarFieldEnum = (typeof AiChatHistoryScalarFieldEnum)[keyof typeof AiChatHistoryScalarFieldEnum]
+
+
+  export const MCQSetScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    fileUrl: 'fileUrl',
+    createdAt: 'createdAt'
+  };
+
+  export type MCQSetScalarFieldEnum = (typeof MCQSetScalarFieldEnum)[keyof typeof MCQSetScalarFieldEnum]
+
+
+  export const MCQScalarFieldEnum: {
+    id: 'id',
+    question: 'question',
+    options: 'options',
+    answer: 'answer',
+    mcqSetId: 'mcqSetId',
+    createdAt: 'createdAt'
+  };
+
+  export type MCQScalarFieldEnum = (typeof MCQScalarFieldEnum)[keyof typeof MCQScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -4748,6 +7162,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"User"> | Date | string
     uploadedDocs?: UploadedDocsListRelationFilter
     aiChatHistories?: AiChatHistoryListRelationFilter
+    mcqSets?: MCQSetListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -4761,6 +7176,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     uploadedDocs?: UploadedDocsOrderByRelationAggregateInput
     aiChatHistories?: AiChatHistoryOrderByRelationAggregateInput
+    mcqSets?: MCQSetOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -4777,6 +7193,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"User"> | Date | string
     uploadedDocs?: UploadedDocsListRelationFilter
     aiChatHistories?: AiChatHistoryListRelationFilter
+    mcqSets?: MCQSetListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -4952,6 +7369,119 @@ export namespace Prisma {
     timestamp?: DateTimeWithAggregatesFilter<"AiChatHistory"> | Date | string
   }
 
+  export type MCQSetWhereInput = {
+    AND?: MCQSetWhereInput | MCQSetWhereInput[]
+    OR?: MCQSetWhereInput[]
+    NOT?: MCQSetWhereInput | MCQSetWhereInput[]
+    id?: StringFilter<"MCQSet"> | string
+    userId?: StringFilter<"MCQSet"> | string
+    fileUrl?: StringFilter<"MCQSet"> | string
+    createdAt?: DateTimeFilter<"MCQSet"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    mcqs?: MCQListRelationFilter
+  }
+
+  export type MCQSetOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    fileUrl?: SortOrder
+    createdAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    mcqs?: MCQOrderByRelationAggregateInput
+  }
+
+  export type MCQSetWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: MCQSetWhereInput | MCQSetWhereInput[]
+    OR?: MCQSetWhereInput[]
+    NOT?: MCQSetWhereInput | MCQSetWhereInput[]
+    userId?: StringFilter<"MCQSet"> | string
+    fileUrl?: StringFilter<"MCQSet"> | string
+    createdAt?: DateTimeFilter<"MCQSet"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    mcqs?: MCQListRelationFilter
+  }, "id">
+
+  export type MCQSetOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    fileUrl?: SortOrder
+    createdAt?: SortOrder
+    _count?: MCQSetCountOrderByAggregateInput
+    _max?: MCQSetMaxOrderByAggregateInput
+    _min?: MCQSetMinOrderByAggregateInput
+  }
+
+  export type MCQSetScalarWhereWithAggregatesInput = {
+    AND?: MCQSetScalarWhereWithAggregatesInput | MCQSetScalarWhereWithAggregatesInput[]
+    OR?: MCQSetScalarWhereWithAggregatesInput[]
+    NOT?: MCQSetScalarWhereWithAggregatesInput | MCQSetScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"MCQSet"> | string
+    userId?: StringWithAggregatesFilter<"MCQSet"> | string
+    fileUrl?: StringWithAggregatesFilter<"MCQSet"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"MCQSet"> | Date | string
+  }
+
+  export type MCQWhereInput = {
+    AND?: MCQWhereInput | MCQWhereInput[]
+    OR?: MCQWhereInput[]
+    NOT?: MCQWhereInput | MCQWhereInput[]
+    id?: StringFilter<"MCQ"> | string
+    question?: StringFilter<"MCQ"> | string
+    options?: StringNullableListFilter<"MCQ">
+    answer?: StringFilter<"MCQ"> | string
+    mcqSetId?: StringFilter<"MCQ"> | string
+    createdAt?: DateTimeFilter<"MCQ"> | Date | string
+    mcqSet?: XOR<MCQSetScalarRelationFilter, MCQSetWhereInput>
+  }
+
+  export type MCQOrderByWithRelationInput = {
+    id?: SortOrder
+    question?: SortOrder
+    options?: SortOrder
+    answer?: SortOrder
+    mcqSetId?: SortOrder
+    createdAt?: SortOrder
+    mcqSet?: MCQSetOrderByWithRelationInput
+  }
+
+  export type MCQWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: MCQWhereInput | MCQWhereInput[]
+    OR?: MCQWhereInput[]
+    NOT?: MCQWhereInput | MCQWhereInput[]
+    question?: StringFilter<"MCQ"> | string
+    options?: StringNullableListFilter<"MCQ">
+    answer?: StringFilter<"MCQ"> | string
+    mcqSetId?: StringFilter<"MCQ"> | string
+    createdAt?: DateTimeFilter<"MCQ"> | Date | string
+    mcqSet?: XOR<MCQSetScalarRelationFilter, MCQSetWhereInput>
+  }, "id">
+
+  export type MCQOrderByWithAggregationInput = {
+    id?: SortOrder
+    question?: SortOrder
+    options?: SortOrder
+    answer?: SortOrder
+    mcqSetId?: SortOrder
+    createdAt?: SortOrder
+    _count?: MCQCountOrderByAggregateInput
+    _max?: MCQMaxOrderByAggregateInput
+    _min?: MCQMinOrderByAggregateInput
+  }
+
+  export type MCQScalarWhereWithAggregatesInput = {
+    AND?: MCQScalarWhereWithAggregatesInput | MCQScalarWhereWithAggregatesInput[]
+    OR?: MCQScalarWhereWithAggregatesInput[]
+    NOT?: MCQScalarWhereWithAggregatesInput | MCQScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"MCQ"> | string
+    question?: StringWithAggregatesFilter<"MCQ"> | string
+    options?: StringNullableListFilter<"MCQ">
+    answer?: StringWithAggregatesFilter<"MCQ"> | string
+    mcqSetId?: StringWithAggregatesFilter<"MCQ"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"MCQ"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     email?: string | null
@@ -4963,6 +7493,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     uploadedDocs?: UploadedDocsCreateNestedManyWithoutUploadedByInput
     aiChatHistories?: AiChatHistoryCreateNestedManyWithoutUserInput
+    mcqSets?: MCQSetCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -4976,6 +7507,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     uploadedDocs?: UploadedDocsUncheckedCreateNestedManyWithoutUploadedByInput
     aiChatHistories?: AiChatHistoryUncheckedCreateNestedManyWithoutUserInput
+    mcqSets?: MCQSetUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -4989,6 +7521,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     uploadedDocs?: UploadedDocsUpdateManyWithoutUploadedByNestedInput
     aiChatHistories?: AiChatHistoryUpdateManyWithoutUserNestedInput
+    mcqSets?: MCQSetUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -5002,6 +7535,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     uploadedDocs?: UploadedDocsUncheckedUpdateManyWithoutUploadedByNestedInput
     aiChatHistories?: AiChatHistoryUncheckedUpdateManyWithoutUserNestedInput
+    mcqSets?: MCQSetUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -5182,6 +7716,120 @@ export namespace Prisma {
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type MCQSetCreateInput = {
+    id?: string
+    fileUrl: string
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutMcqSetsInput
+    mcqs?: MCQCreateNestedManyWithoutMcqSetInput
+  }
+
+  export type MCQSetUncheckedCreateInput = {
+    id?: string
+    userId: string
+    fileUrl: string
+    createdAt?: Date | string
+    mcqs?: MCQUncheckedCreateNestedManyWithoutMcqSetInput
+  }
+
+  export type MCQSetUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fileUrl?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutMcqSetsNestedInput
+    mcqs?: MCQUpdateManyWithoutMcqSetNestedInput
+  }
+
+  export type MCQSetUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    fileUrl?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mcqs?: MCQUncheckedUpdateManyWithoutMcqSetNestedInput
+  }
+
+  export type MCQSetCreateManyInput = {
+    id?: string
+    userId: string
+    fileUrl: string
+    createdAt?: Date | string
+  }
+
+  export type MCQSetUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fileUrl?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MCQSetUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    fileUrl?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MCQCreateInput = {
+    id?: string
+    question: string
+    options?: MCQCreateoptionsInput | string[]
+    answer: string
+    createdAt?: Date | string
+    mcqSet: MCQSetCreateNestedOneWithoutMcqsInput
+  }
+
+  export type MCQUncheckedCreateInput = {
+    id?: string
+    question: string
+    options?: MCQCreateoptionsInput | string[]
+    answer: string
+    mcqSetId: string
+    createdAt?: Date | string
+  }
+
+  export type MCQUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    question?: StringFieldUpdateOperationsInput | string
+    options?: MCQUpdateoptionsInput | string[]
+    answer?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mcqSet?: MCQSetUpdateOneRequiredWithoutMcqsNestedInput
+  }
+
+  export type MCQUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    question?: StringFieldUpdateOperationsInput | string
+    options?: MCQUpdateoptionsInput | string[]
+    answer?: StringFieldUpdateOperationsInput | string
+    mcqSetId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MCQCreateManyInput = {
+    id?: string
+    question: string
+    options?: MCQCreateoptionsInput | string[]
+    answer: string
+    mcqSetId: string
+    createdAt?: Date | string
+  }
+
+  export type MCQUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    question?: StringFieldUpdateOperationsInput | string
+    options?: MCQUpdateoptionsInput | string[]
+    answer?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MCQUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    question?: StringFieldUpdateOperationsInput | string
+    options?: MCQUpdateoptionsInput | string[]
+    answer?: StringFieldUpdateOperationsInput | string
+    mcqSetId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -5242,6 +7890,12 @@ export namespace Prisma {
     none?: AiChatHistoryWhereInput
   }
 
+  export type MCQSetListRelationFilter = {
+    every?: MCQSetWhereInput
+    some?: MCQSetWhereInput
+    none?: MCQSetWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -5252,6 +7906,10 @@ export namespace Prisma {
   }
 
   export type AiChatHistoryOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type MCQSetOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -5470,6 +8128,67 @@ export namespace Prisma {
     id?: SortOrder
   }
 
+  export type MCQListRelationFilter = {
+    every?: MCQWhereInput
+    some?: MCQWhereInput
+    none?: MCQWhereInput
+  }
+
+  export type MCQOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type MCQSetCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    fileUrl?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type MCQSetMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    fileUrl?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type MCQSetMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    fileUrl?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type MCQSetScalarRelationFilter = {
+    is?: MCQSetWhereInput
+    isNot?: MCQSetWhereInput
+  }
+
+  export type MCQCountOrderByAggregateInput = {
+    id?: SortOrder
+    question?: SortOrder
+    options?: SortOrder
+    answer?: SortOrder
+    mcqSetId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type MCQMaxOrderByAggregateInput = {
+    id?: SortOrder
+    question?: SortOrder
+    answer?: SortOrder
+    mcqSetId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type MCQMinOrderByAggregateInput = {
+    id?: SortOrder
+    question?: SortOrder
+    answer?: SortOrder
+    mcqSetId?: SortOrder
+    createdAt?: SortOrder
+  }
+
   export type UploadedDocsCreateNestedManyWithoutUploadedByInput = {
     create?: XOR<UploadedDocsCreateWithoutUploadedByInput, UploadedDocsUncheckedCreateWithoutUploadedByInput> | UploadedDocsCreateWithoutUploadedByInput[] | UploadedDocsUncheckedCreateWithoutUploadedByInput[]
     connectOrCreate?: UploadedDocsCreateOrConnectWithoutUploadedByInput | UploadedDocsCreateOrConnectWithoutUploadedByInput[]
@@ -5484,6 +8203,13 @@ export namespace Prisma {
     connect?: AiChatHistoryWhereUniqueInput | AiChatHistoryWhereUniqueInput[]
   }
 
+  export type MCQSetCreateNestedManyWithoutUserInput = {
+    create?: XOR<MCQSetCreateWithoutUserInput, MCQSetUncheckedCreateWithoutUserInput> | MCQSetCreateWithoutUserInput[] | MCQSetUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MCQSetCreateOrConnectWithoutUserInput | MCQSetCreateOrConnectWithoutUserInput[]
+    createMany?: MCQSetCreateManyUserInputEnvelope
+    connect?: MCQSetWhereUniqueInput | MCQSetWhereUniqueInput[]
+  }
+
   export type UploadedDocsUncheckedCreateNestedManyWithoutUploadedByInput = {
     create?: XOR<UploadedDocsCreateWithoutUploadedByInput, UploadedDocsUncheckedCreateWithoutUploadedByInput> | UploadedDocsCreateWithoutUploadedByInput[] | UploadedDocsUncheckedCreateWithoutUploadedByInput[]
     connectOrCreate?: UploadedDocsCreateOrConnectWithoutUploadedByInput | UploadedDocsCreateOrConnectWithoutUploadedByInput[]
@@ -5496,6 +8222,13 @@ export namespace Prisma {
     connectOrCreate?: AiChatHistoryCreateOrConnectWithoutUserInput | AiChatHistoryCreateOrConnectWithoutUserInput[]
     createMany?: AiChatHistoryCreateManyUserInputEnvelope
     connect?: AiChatHistoryWhereUniqueInput | AiChatHistoryWhereUniqueInput[]
+  }
+
+  export type MCQSetUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<MCQSetCreateWithoutUserInput, MCQSetUncheckedCreateWithoutUserInput> | MCQSetCreateWithoutUserInput[] | MCQSetUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MCQSetCreateOrConnectWithoutUserInput | MCQSetCreateOrConnectWithoutUserInput[]
+    createMany?: MCQSetCreateManyUserInputEnvelope
+    connect?: MCQSetWhereUniqueInput | MCQSetWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -5542,6 +8275,20 @@ export namespace Prisma {
     deleteMany?: AiChatHistoryScalarWhereInput | AiChatHistoryScalarWhereInput[]
   }
 
+  export type MCQSetUpdateManyWithoutUserNestedInput = {
+    create?: XOR<MCQSetCreateWithoutUserInput, MCQSetUncheckedCreateWithoutUserInput> | MCQSetCreateWithoutUserInput[] | MCQSetUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MCQSetCreateOrConnectWithoutUserInput | MCQSetCreateOrConnectWithoutUserInput[]
+    upsert?: MCQSetUpsertWithWhereUniqueWithoutUserInput | MCQSetUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: MCQSetCreateManyUserInputEnvelope
+    set?: MCQSetWhereUniqueInput | MCQSetWhereUniqueInput[]
+    disconnect?: MCQSetWhereUniqueInput | MCQSetWhereUniqueInput[]
+    delete?: MCQSetWhereUniqueInput | MCQSetWhereUniqueInput[]
+    connect?: MCQSetWhereUniqueInput | MCQSetWhereUniqueInput[]
+    update?: MCQSetUpdateWithWhereUniqueWithoutUserInput | MCQSetUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: MCQSetUpdateManyWithWhereWithoutUserInput | MCQSetUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: MCQSetScalarWhereInput | MCQSetScalarWhereInput[]
+  }
+
   export type UploadedDocsUncheckedUpdateManyWithoutUploadedByNestedInput = {
     create?: XOR<UploadedDocsCreateWithoutUploadedByInput, UploadedDocsUncheckedCreateWithoutUploadedByInput> | UploadedDocsCreateWithoutUploadedByInput[] | UploadedDocsUncheckedCreateWithoutUploadedByInput[]
     connectOrCreate?: UploadedDocsCreateOrConnectWithoutUploadedByInput | UploadedDocsCreateOrConnectWithoutUploadedByInput[]
@@ -5568,6 +8315,20 @@ export namespace Prisma {
     update?: AiChatHistoryUpdateWithWhereUniqueWithoutUserInput | AiChatHistoryUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: AiChatHistoryUpdateManyWithWhereWithoutUserInput | AiChatHistoryUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: AiChatHistoryScalarWhereInput | AiChatHistoryScalarWhereInput[]
+  }
+
+  export type MCQSetUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<MCQSetCreateWithoutUserInput, MCQSetUncheckedCreateWithoutUserInput> | MCQSetCreateWithoutUserInput[] | MCQSetUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MCQSetCreateOrConnectWithoutUserInput | MCQSetCreateOrConnectWithoutUserInput[]
+    upsert?: MCQSetUpsertWithWhereUniqueWithoutUserInput | MCQSetUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: MCQSetCreateManyUserInputEnvelope
+    set?: MCQSetWhereUniqueInput | MCQSetWhereUniqueInput[]
+    disconnect?: MCQSetWhereUniqueInput | MCQSetWhereUniqueInput[]
+    delete?: MCQSetWhereUniqueInput | MCQSetWhereUniqueInput[]
+    connect?: MCQSetWhereUniqueInput | MCQSetWhereUniqueInput[]
+    update?: MCQSetUpdateWithWhereUniqueWithoutUserInput | MCQSetUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: MCQSetUpdateManyWithWhereWithoutUserInput | MCQSetUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: MCQSetScalarWhereInput | MCQSetScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutUploadedDocsInput = {
@@ -5671,6 +8432,85 @@ export namespace Prisma {
     delete?: UploadedDocsWhereInput | boolean
     connect?: UploadedDocsWhereUniqueInput
     update?: XOR<XOR<UploadedDocsUpdateToOneWithWhereWithoutAiChatHistoriesInput, UploadedDocsUpdateWithoutAiChatHistoriesInput>, UploadedDocsUncheckedUpdateWithoutAiChatHistoriesInput>
+  }
+
+  export type UserCreateNestedOneWithoutMcqSetsInput = {
+    create?: XOR<UserCreateWithoutMcqSetsInput, UserUncheckedCreateWithoutMcqSetsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMcqSetsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type MCQCreateNestedManyWithoutMcqSetInput = {
+    create?: XOR<MCQCreateWithoutMcqSetInput, MCQUncheckedCreateWithoutMcqSetInput> | MCQCreateWithoutMcqSetInput[] | MCQUncheckedCreateWithoutMcqSetInput[]
+    connectOrCreate?: MCQCreateOrConnectWithoutMcqSetInput | MCQCreateOrConnectWithoutMcqSetInput[]
+    createMany?: MCQCreateManyMcqSetInputEnvelope
+    connect?: MCQWhereUniqueInput | MCQWhereUniqueInput[]
+  }
+
+  export type MCQUncheckedCreateNestedManyWithoutMcqSetInput = {
+    create?: XOR<MCQCreateWithoutMcqSetInput, MCQUncheckedCreateWithoutMcqSetInput> | MCQCreateWithoutMcqSetInput[] | MCQUncheckedCreateWithoutMcqSetInput[]
+    connectOrCreate?: MCQCreateOrConnectWithoutMcqSetInput | MCQCreateOrConnectWithoutMcqSetInput[]
+    createMany?: MCQCreateManyMcqSetInputEnvelope
+    connect?: MCQWhereUniqueInput | MCQWhereUniqueInput[]
+  }
+
+  export type UserUpdateOneRequiredWithoutMcqSetsNestedInput = {
+    create?: XOR<UserCreateWithoutMcqSetsInput, UserUncheckedCreateWithoutMcqSetsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMcqSetsInput
+    upsert?: UserUpsertWithoutMcqSetsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutMcqSetsInput, UserUpdateWithoutMcqSetsInput>, UserUncheckedUpdateWithoutMcqSetsInput>
+  }
+
+  export type MCQUpdateManyWithoutMcqSetNestedInput = {
+    create?: XOR<MCQCreateWithoutMcqSetInput, MCQUncheckedCreateWithoutMcqSetInput> | MCQCreateWithoutMcqSetInput[] | MCQUncheckedCreateWithoutMcqSetInput[]
+    connectOrCreate?: MCQCreateOrConnectWithoutMcqSetInput | MCQCreateOrConnectWithoutMcqSetInput[]
+    upsert?: MCQUpsertWithWhereUniqueWithoutMcqSetInput | MCQUpsertWithWhereUniqueWithoutMcqSetInput[]
+    createMany?: MCQCreateManyMcqSetInputEnvelope
+    set?: MCQWhereUniqueInput | MCQWhereUniqueInput[]
+    disconnect?: MCQWhereUniqueInput | MCQWhereUniqueInput[]
+    delete?: MCQWhereUniqueInput | MCQWhereUniqueInput[]
+    connect?: MCQWhereUniqueInput | MCQWhereUniqueInput[]
+    update?: MCQUpdateWithWhereUniqueWithoutMcqSetInput | MCQUpdateWithWhereUniqueWithoutMcqSetInput[]
+    updateMany?: MCQUpdateManyWithWhereWithoutMcqSetInput | MCQUpdateManyWithWhereWithoutMcqSetInput[]
+    deleteMany?: MCQScalarWhereInput | MCQScalarWhereInput[]
+  }
+
+  export type MCQUncheckedUpdateManyWithoutMcqSetNestedInput = {
+    create?: XOR<MCQCreateWithoutMcqSetInput, MCQUncheckedCreateWithoutMcqSetInput> | MCQCreateWithoutMcqSetInput[] | MCQUncheckedCreateWithoutMcqSetInput[]
+    connectOrCreate?: MCQCreateOrConnectWithoutMcqSetInput | MCQCreateOrConnectWithoutMcqSetInput[]
+    upsert?: MCQUpsertWithWhereUniqueWithoutMcqSetInput | MCQUpsertWithWhereUniqueWithoutMcqSetInput[]
+    createMany?: MCQCreateManyMcqSetInputEnvelope
+    set?: MCQWhereUniqueInput | MCQWhereUniqueInput[]
+    disconnect?: MCQWhereUniqueInput | MCQWhereUniqueInput[]
+    delete?: MCQWhereUniqueInput | MCQWhereUniqueInput[]
+    connect?: MCQWhereUniqueInput | MCQWhereUniqueInput[]
+    update?: MCQUpdateWithWhereUniqueWithoutMcqSetInput | MCQUpdateWithWhereUniqueWithoutMcqSetInput[]
+    updateMany?: MCQUpdateManyWithWhereWithoutMcqSetInput | MCQUpdateManyWithWhereWithoutMcqSetInput[]
+    deleteMany?: MCQScalarWhereInput | MCQScalarWhereInput[]
+  }
+
+  export type MCQCreateoptionsInput = {
+    set: string[]
+  }
+
+  export type MCQSetCreateNestedOneWithoutMcqsInput = {
+    create?: XOR<MCQSetCreateWithoutMcqsInput, MCQSetUncheckedCreateWithoutMcqsInput>
+    connectOrCreate?: MCQSetCreateOrConnectWithoutMcqsInput
+    connect?: MCQSetWhereUniqueInput
+  }
+
+  export type MCQUpdateoptionsInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type MCQSetUpdateOneRequiredWithoutMcqsNestedInput = {
+    create?: XOR<MCQSetCreateWithoutMcqsInput, MCQSetUncheckedCreateWithoutMcqsInput>
+    connectOrCreate?: MCQSetCreateOrConnectWithoutMcqsInput
+    upsert?: MCQSetUpsertWithoutMcqsInput
+    connect?: MCQSetWhereUniqueInput
+    update?: XOR<XOR<MCQSetUpdateToOneWithWhereWithoutMcqsInput, MCQSetUpdateWithoutMcqsInput>, MCQSetUncheckedUpdateWithoutMcqsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -5885,6 +8725,30 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type MCQSetCreateWithoutUserInput = {
+    id?: string
+    fileUrl: string
+    createdAt?: Date | string
+    mcqs?: MCQCreateNestedManyWithoutMcqSetInput
+  }
+
+  export type MCQSetUncheckedCreateWithoutUserInput = {
+    id?: string
+    fileUrl: string
+    createdAt?: Date | string
+    mcqs?: MCQUncheckedCreateNestedManyWithoutMcqSetInput
+  }
+
+  export type MCQSetCreateOrConnectWithoutUserInput = {
+    where: MCQSetWhereUniqueInput
+    create: XOR<MCQSetCreateWithoutUserInput, MCQSetUncheckedCreateWithoutUserInput>
+  }
+
+  export type MCQSetCreateManyUserInputEnvelope = {
+    data: MCQSetCreateManyUserInput | MCQSetCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UploadedDocsUpsertWithWhereUniqueWithoutUploadedByInput = {
     where: UploadedDocsWhereUniqueInput
     update: XOR<UploadedDocsUpdateWithoutUploadedByInput, UploadedDocsUncheckedUpdateWithoutUploadedByInput>
@@ -5944,6 +8808,32 @@ export namespace Prisma {
     timestamp?: DateTimeFilter<"AiChatHistory"> | Date | string
   }
 
+  export type MCQSetUpsertWithWhereUniqueWithoutUserInput = {
+    where: MCQSetWhereUniqueInput
+    update: XOR<MCQSetUpdateWithoutUserInput, MCQSetUncheckedUpdateWithoutUserInput>
+    create: XOR<MCQSetCreateWithoutUserInput, MCQSetUncheckedCreateWithoutUserInput>
+  }
+
+  export type MCQSetUpdateWithWhereUniqueWithoutUserInput = {
+    where: MCQSetWhereUniqueInput
+    data: XOR<MCQSetUpdateWithoutUserInput, MCQSetUncheckedUpdateWithoutUserInput>
+  }
+
+  export type MCQSetUpdateManyWithWhereWithoutUserInput = {
+    where: MCQSetScalarWhereInput
+    data: XOR<MCQSetUpdateManyMutationInput, MCQSetUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type MCQSetScalarWhereInput = {
+    AND?: MCQSetScalarWhereInput | MCQSetScalarWhereInput[]
+    OR?: MCQSetScalarWhereInput[]
+    NOT?: MCQSetScalarWhereInput | MCQSetScalarWhereInput[]
+    id?: StringFilter<"MCQSet"> | string
+    userId?: StringFilter<"MCQSet"> | string
+    fileUrl?: StringFilter<"MCQSet"> | string
+    createdAt?: DateTimeFilter<"MCQSet"> | Date | string
+  }
+
   export type UserCreateWithoutUploadedDocsInput = {
     id?: string
     email?: string | null
@@ -5954,6 +8844,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     aiChatHistories?: AiChatHistoryCreateNestedManyWithoutUserInput
+    mcqSets?: MCQSetCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutUploadedDocsInput = {
@@ -5966,6 +8857,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     aiChatHistories?: AiChatHistoryUncheckedCreateNestedManyWithoutUserInput
+    mcqSets?: MCQSetUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutUploadedDocsInput = {
@@ -6021,6 +8913,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     aiChatHistories?: AiChatHistoryUpdateManyWithoutUserNestedInput
+    mcqSets?: MCQSetUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutUploadedDocsInput = {
@@ -6033,6 +8926,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     aiChatHistories?: AiChatHistoryUncheckedUpdateManyWithoutUserNestedInput
+    mcqSets?: MCQSetUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type AiChatHistoryUpsertWithWhereUniqueWithoutResourceInput = {
@@ -6061,6 +8955,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     uploadedDocs?: UploadedDocsCreateNestedManyWithoutUploadedByInput
+    mcqSets?: MCQSetCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAiChatHistoriesInput = {
@@ -6073,6 +8968,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     uploadedDocs?: UploadedDocsUncheckedCreateNestedManyWithoutUploadedByInput
+    mcqSets?: MCQSetUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAiChatHistoriesInput = {
@@ -6128,6 +9024,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     uploadedDocs?: UploadedDocsUpdateManyWithoutUploadedByNestedInput
+    mcqSets?: MCQSetUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAiChatHistoriesInput = {
@@ -6140,6 +9037,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     uploadedDocs?: UploadedDocsUncheckedUpdateManyWithoutUploadedByNestedInput
+    mcqSets?: MCQSetUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UploadedDocsUpsertWithoutAiChatHistoriesInput = {
@@ -6175,6 +9073,172 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type UserCreateWithoutMcqSetsInput = {
+    id?: string
+    email?: string | null
+    name?: string | null
+    password?: string | null
+    avatarUrl?: string | null
+    role?: $Enums.UserRole
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    uploadedDocs?: UploadedDocsCreateNestedManyWithoutUploadedByInput
+    aiChatHistories?: AiChatHistoryCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutMcqSetsInput = {
+    id?: string
+    email?: string | null
+    name?: string | null
+    password?: string | null
+    avatarUrl?: string | null
+    role?: $Enums.UserRole
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    uploadedDocs?: UploadedDocsUncheckedCreateNestedManyWithoutUploadedByInput
+    aiChatHistories?: AiChatHistoryUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutMcqSetsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutMcqSetsInput, UserUncheckedCreateWithoutMcqSetsInput>
+  }
+
+  export type MCQCreateWithoutMcqSetInput = {
+    id?: string
+    question: string
+    options?: MCQCreateoptionsInput | string[]
+    answer: string
+    createdAt?: Date | string
+  }
+
+  export type MCQUncheckedCreateWithoutMcqSetInput = {
+    id?: string
+    question: string
+    options?: MCQCreateoptionsInput | string[]
+    answer: string
+    createdAt?: Date | string
+  }
+
+  export type MCQCreateOrConnectWithoutMcqSetInput = {
+    where: MCQWhereUniqueInput
+    create: XOR<MCQCreateWithoutMcqSetInput, MCQUncheckedCreateWithoutMcqSetInput>
+  }
+
+  export type MCQCreateManyMcqSetInputEnvelope = {
+    data: MCQCreateManyMcqSetInput | MCQCreateManyMcqSetInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserUpsertWithoutMcqSetsInput = {
+    update: XOR<UserUpdateWithoutMcqSetsInput, UserUncheckedUpdateWithoutMcqSetsInput>
+    create: XOR<UserCreateWithoutMcqSetsInput, UserUncheckedCreateWithoutMcqSetsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutMcqSetsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutMcqSetsInput, UserUncheckedUpdateWithoutMcqSetsInput>
+  }
+
+  export type UserUpdateWithoutMcqSetsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    uploadedDocs?: UploadedDocsUpdateManyWithoutUploadedByNestedInput
+    aiChatHistories?: AiChatHistoryUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutMcqSetsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    uploadedDocs?: UploadedDocsUncheckedUpdateManyWithoutUploadedByNestedInput
+    aiChatHistories?: AiChatHistoryUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type MCQUpsertWithWhereUniqueWithoutMcqSetInput = {
+    where: MCQWhereUniqueInput
+    update: XOR<MCQUpdateWithoutMcqSetInput, MCQUncheckedUpdateWithoutMcqSetInput>
+    create: XOR<MCQCreateWithoutMcqSetInput, MCQUncheckedCreateWithoutMcqSetInput>
+  }
+
+  export type MCQUpdateWithWhereUniqueWithoutMcqSetInput = {
+    where: MCQWhereUniqueInput
+    data: XOR<MCQUpdateWithoutMcqSetInput, MCQUncheckedUpdateWithoutMcqSetInput>
+  }
+
+  export type MCQUpdateManyWithWhereWithoutMcqSetInput = {
+    where: MCQScalarWhereInput
+    data: XOR<MCQUpdateManyMutationInput, MCQUncheckedUpdateManyWithoutMcqSetInput>
+  }
+
+  export type MCQScalarWhereInput = {
+    AND?: MCQScalarWhereInput | MCQScalarWhereInput[]
+    OR?: MCQScalarWhereInput[]
+    NOT?: MCQScalarWhereInput | MCQScalarWhereInput[]
+    id?: StringFilter<"MCQ"> | string
+    question?: StringFilter<"MCQ"> | string
+    options?: StringNullableListFilter<"MCQ">
+    answer?: StringFilter<"MCQ"> | string
+    mcqSetId?: StringFilter<"MCQ"> | string
+    createdAt?: DateTimeFilter<"MCQ"> | Date | string
+  }
+
+  export type MCQSetCreateWithoutMcqsInput = {
+    id?: string
+    fileUrl: string
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutMcqSetsInput
+  }
+
+  export type MCQSetUncheckedCreateWithoutMcqsInput = {
+    id?: string
+    userId: string
+    fileUrl: string
+    createdAt?: Date | string
+  }
+
+  export type MCQSetCreateOrConnectWithoutMcqsInput = {
+    where: MCQSetWhereUniqueInput
+    create: XOR<MCQSetCreateWithoutMcqsInput, MCQSetUncheckedCreateWithoutMcqsInput>
+  }
+
+  export type MCQSetUpsertWithoutMcqsInput = {
+    update: XOR<MCQSetUpdateWithoutMcqsInput, MCQSetUncheckedUpdateWithoutMcqsInput>
+    create: XOR<MCQSetCreateWithoutMcqsInput, MCQSetUncheckedCreateWithoutMcqsInput>
+    where?: MCQSetWhereInput
+  }
+
+  export type MCQSetUpdateToOneWithWhereWithoutMcqsInput = {
+    where?: MCQSetWhereInput
+    data: XOR<MCQSetUpdateWithoutMcqsInput, MCQSetUncheckedUpdateWithoutMcqsInput>
+  }
+
+  export type MCQSetUpdateWithoutMcqsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fileUrl?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutMcqSetsNestedInput
+  }
+
+  export type MCQSetUncheckedUpdateWithoutMcqsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    fileUrl?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type UploadedDocsCreateManyUploadedByInput = {
     id?: string
     fileName: string
@@ -6192,6 +9256,12 @@ export namespace Prisma {
     response: string
     sources?: AiChatHistoryCreatesourcesInput | string[]
     timestamp?: Date | string
+  }
+
+  export type MCQSetCreateManyUserInput = {
+    id?: string
+    fileUrl: string
+    createdAt?: Date | string
   }
 
   export type UploadedDocsUpdateWithoutUploadedByInput = {
@@ -6252,6 +9322,26 @@ export namespace Prisma {
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type MCQSetUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fileUrl?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mcqs?: MCQUpdateManyWithoutMcqSetNestedInput
+  }
+
+  export type MCQSetUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fileUrl?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mcqs?: MCQUncheckedUpdateManyWithoutMcqSetNestedInput
+  }
+
+  export type MCQSetUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fileUrl?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type AiChatHistoryCreateManyResourceInput = {
     id?: number
     userId: string
@@ -6285,6 +9375,38 @@ export namespace Prisma {
     response?: StringFieldUpdateOperationsInput | string
     sources?: AiChatHistoryUpdatesourcesInput | string[]
     timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MCQCreateManyMcqSetInput = {
+    id?: string
+    question: string
+    options?: MCQCreateoptionsInput | string[]
+    answer: string
+    createdAt?: Date | string
+  }
+
+  export type MCQUpdateWithoutMcqSetInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    question?: StringFieldUpdateOperationsInput | string
+    options?: MCQUpdateoptionsInput | string[]
+    answer?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MCQUncheckedUpdateWithoutMcqSetInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    question?: StringFieldUpdateOperationsInput | string
+    options?: MCQUpdateoptionsInput | string[]
+    answer?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MCQUncheckedUpdateManyWithoutMcqSetInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    question?: StringFieldUpdateOperationsInput | string
+    options?: MCQUpdateoptionsInput | string[]
+    answer?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

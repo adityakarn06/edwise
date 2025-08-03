@@ -152,6 +152,22 @@ exports.Prisma.AiChatHistoryScalarFieldEnum = {
   timestamp: 'timestamp'
 };
 
+exports.Prisma.MCQSetScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  fileUrl: 'fileUrl',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.MCQScalarFieldEnum = {
+  id: 'id',
+  question: 'question',
+  options: 'options',
+  answer: 'answer',
+  mcqSetId: 'mcqSetId',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -174,7 +190,9 @@ exports.UserRole = exports.$Enums.UserRole = {
 exports.Prisma.ModelName = {
   User: 'User',
   UploadedDocs: 'UploadedDocs',
-  AiChatHistory: 'AiChatHistory'
+  AiChatHistory: 'AiChatHistory',
+  MCQSet: 'MCQSet',
+  MCQ: 'MCQ'
 };
 
 /**

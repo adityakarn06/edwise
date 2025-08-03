@@ -2,14 +2,25 @@
 import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
 import { BookOpenCheck, Plus } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import McqGeneratorUI from "@/components/McqGenerator";
 import ExamComponent from "@/components/ExamComponent";
+import api from "@/lib/api";
 
 interface McqData {
     question: string;
     options: string[];
     answer: string;
+}
+
+const getMCQData = async (): Promise<McqData[]> => {
+  try {
+    const result = await api.get("/mcq/data");
+    return result.data.MCQs;  
+  } catch (error) {
+    console.error("failed to get mcq data")
+    return [];
+  } 
 }
 
 export default function Page() {
@@ -25,6 +36,11 @@ export default function Page() {
     }
    }
 
+  useEffect(() => {
+    getMCQData()
+      .then((data) => setMcqData(data))
+      .catch((error) => console.error("Error fetching MCQ data:", error));
+  }, []);
 
   return (
     <div className="flex h-screen w-screen">
