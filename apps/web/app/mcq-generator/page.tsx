@@ -52,11 +52,11 @@ export default function Page() {
           <Navbar headingIcon={<BookOpenCheck className="h-4 w-4 text-white"/>} headingText="MCQ from PDF" ctaIcon={<Plus className="h-4 w-4" />} ctaText="New Exam" />
         </div>
         {!mcqData || mcqData.length === 0 ? (
-            <div className="flex items-center justify-center h-[92%] w-full bg-black/90">
+            <div className="flex items-center justify-center h-[92%] w-full bg-[#131313]">
               <McqGeneratorUI setMcqData={setMcqData} />
             </div>
         ) : (
-            <div className="flex flex-row h-[92%] overflow-y-auto bg-black/80">
+            <div className="flex flex-row h-[92%] overflow-y-auto bg-[#131313]">
               <ExamComponent mcqData={mcqData} />
             </div>
         )}

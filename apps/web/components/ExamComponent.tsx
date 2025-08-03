@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { CircleCheckBig, Circle, XCircle } from "lucide-react";
+import { useState, useEffect } from "react";
+import { CircleCheckBig, Circle, XCircle, Clock } from "lucide-react";
 
 interface ExamComponentProps {
     mcqData: {
@@ -21,6 +21,29 @@ export default function ExamComponent({ mcqData }: ExamComponentProps) {
         new Map()
     );
     const [answeredQuestions, setAnsweredQuestions] = useState<Set<number>>(new Set());
+    const [timeRemaining, setTimeRemaining] = useState<number>(10 * 60); // 10 min in seconds
+    
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setTimeRemaining(prevTime => {
+                if (prevTime <= 0) {
+                    clearInterval(timer);
+                    return 0;
+                }
+                return prevTime - 1;
+            });
+        }, 1000);
+        
+        return () => clearInterval(timer);
+    }, []);
+    
+    const formatTime = (seconds: number): string => {
+        const hours = Math.floor(seconds / 3600);
+        const minutes = Math.floor((seconds % 3600) / 60);
+        const secs = seconds % 60;
+        
+        return `${hours.toString().padStart(2, '0')} : ${minutes.toString().padStart(2, '0')} : ${secs.toString().padStart(2, '0')}`;
+    };
 
     const handleOptionToggle = (questionIndex: number, optionIndex: number) => {
         setSelectedOptions(prev => {
@@ -59,6 +82,30 @@ export default function ExamComponent({ mcqData }: ExamComponentProps) {
         
         return correctAnswerLetter === expectedLetter;
     };
+
+    const getTotalCorrectAnswer = () => {
+        let correctCount = 0;
+        answeredQuestions.forEach(questionIndex => {
+            const question = mcqData[questionIndex];
+            if (question) {
+                const correctAnswerLetter = question.answer.trim().toUpperCase();
+                const selectedOptionsSet = selectedOptions.get(questionIndex);
+                if (selectedOptionsSet && selectedOptionsSet.size === 1) {
+                    const selectedOptionArray = Array.from(selectedOptionsSet);
+                    if (selectedOptionArray.length > 0) {
+                        const selectedOptionIndex = selectedOptionArray[0];
+                        if (selectedOptionIndex !== undefined) {
+                            const expectedLetter = String.fromCharCode(65 + selectedOptionIndex);
+                            if (correctAnswerLetter === expectedLetter) {
+                                correctCount++;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+        return correctCount;
+    }
 
     const getOptionIcon = (questionIndex: number, optionIndex: number) => {
         const isSelected = isOptionSelected(questionIndex, optionIndex);
@@ -141,42 +188,85 @@ export default function ExamComponent({ mcqData }: ExamComponentProps) {
     };
 
     return (
-        <div className="w-full space-y-6">
-            {mcqData.map((mcq, questionIndex) => (
-                <div 
-                    key={questionIndex} 
-                    className="p-6 border border-white/20 rounded-lg bg-gray-900/50 backdrop-blur-sm"
-                >
-                    <h2 className="text-lg font-semibold text-white mb-4">
-                        Question {questionIndex + 1}: {mcq.question}
-                    </h2>
-                    
-                    <div className="space-y-3 mb-4">
-                        {mcq.options.map((option, optionIndex) => (
-                            <button
-                                key={optionIndex}
-                                onClick={() => handleOptionToggle(questionIndex, optionIndex)}
-                                className={`flex items-center w-full p-3 text-left rounded-lg border transition-all duration-200 group ${getOptionStyles(questionIndex, optionIndex)}`}
-                            >
-                                <div className="flex-shrink-0 mr-3">
-                                    {getOptionIcon(questionIndex, optionIndex)}
-                                </div>
-                                <span className={`text-sm ${getOptionTextStyles(questionIndex, optionIndex)}`}>
-                                    {String.fromCharCode(65 + optionIndex)}. {option}
-                                </span>
-                            </button>
-                        ))}
+        <div className="w-full space-y-6 relative h-full">
+            <div className="flex items-center justify-between p-6 fixed left-[18vw] right-0 z-10 mb-4 bg-[#131313]">
+                <div className="flex items-center justify-between">
+                    <div className="pr-4">
+                        <Clock className="h-7 w-7 text-white" />
                     </div>
-                    
-                    {isQuestionAnswered(questionIndex) && (
-                        <div className="pt-3 border-t border-white/10">
-                            <p className="text-green-400 text-sm font-medium">
-                                Correct Answer: {mcq.answer}
-                            </p>
-                        </div>
-                    )}
+                    <div>
+                        <p className="text-xs text-white/40">Time remaining</p>
+                        <p className="text-md text-white/90">{formatTime(timeRemaining)}</p>    
+                    </div>
                 </div>
-            ))}
+                <div>
+                    <button className="px-8 py-2 text-md bg-white/90 text-black/90 rounded-lg hover:bg-white cursor-pointer transition">
+                        Submit
+                    </button>
+                </div>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mt-18">
+                <div className="space-y-4 p-6 col-span-2">
+                    {mcqData.map((mcq, questionIndex) => (
+                        <div 
+                            key={questionIndex} 
+                            className="p-6 border border-white/20 rounded-lg bg-white/5 backdrop-blur-sm"
+                        >
+                            <h3 className="text-sm font-normal text-white mb-4">
+                                Question {questionIndex + 1} of {mcqData.length}
+                            </h3>
+
+                            <h1 className="text-lg font-medium text-white mb-4 word-wrap">
+                                {mcq.question}
+                            </h1>
+                            
+                            <div className="space-y-3 mb-4">
+                                {mcq.options.map((option, optionIndex) => (
+                                    <button
+                                        key={optionIndex}
+                                        onClick={() => handleOptionToggle(questionIndex, optionIndex)}
+                                        className={`flex items-center w-full p-3 text-left rounded-lg border transition-all duration-200 group ${getOptionStyles(questionIndex, optionIndex)}`}
+                                    >
+                                        <div className="flex-shrink-0 mr-3">
+                                            {getOptionIcon(questionIndex, optionIndex)}
+                                        </div>
+                                        <span className={`text-sm ${getOptionTextStyles(questionIndex, optionIndex)} word-wrap`}>
+                                            {String.fromCharCode(65 + optionIndex)}. {option}
+                                        </span>
+                                    </button>
+                                ))}
+                            </div>
+                            
+                            {isQuestionAnswered(questionIndex) && (
+                                <div className="pt-3 border-t border-white/10">
+                                    <p className="text-green-400 text-sm font-medium">
+                                        Correct Answer: {mcq.answer}
+                                    </p>
+                                </div>
+                            )}
+                    </div>
+                    ))}
+                </div>
+                <div className="mt-18 space-y-6 w-1/4 p-4 mr-4 flex flex-col items-center fixed right-0 h-full">
+                    <div className="bg-none size-[14vw] rounded-full border border-12 border-white/20 flex items-center justify-center">
+                        <h2 className="text-4xl font-medium text-white">
+                            {getTotalCorrectAnswer()}/{mcqData.length}
+                        </h2>
+                    </div>
+                    <div className="p-6 bg-[#131313] rounded-lg border border-white/20 w-full">
+                        <h2 className="text-lg font-medium text-white mb-4">Summary</h2>
+                        <p className="text-sm text-white/70 mb-2">
+                            Total Questions: {mcqData.length}
+                        </p>
+                        <p className="text-sm text-white/70 mb-2">
+                            Answered Questions: {answeredQuestions.size}
+                        </p>
+                        <p className="text-sm text-white/70">
+                            Unanswered Questions: {mcqData.length - answeredQuestions.size}
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }
