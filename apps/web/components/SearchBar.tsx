@@ -1,7 +1,7 @@
 import { ChevronDown, Search } from "lucide-react";
 
 
-export default function SearchBar() {
+export default function SearchBar({ placeholder }: { placeholder: string }) {
     return (
         <div className="flex items-center justify-between bg-white/90 rounded-lg p-4">
             <div className="flex items-center border-r pr-2">
@@ -11,7 +11,7 @@ export default function SearchBar() {
             <div className="flex items-center w-full relative">
                 <input
                     type="text"
-                    placeholder="find resources, notes, etc."
+                    placeholder={placeholder}
                     className="bg-transparent text-black/80 placeholder:text-black/50 focus:outline-none w-full pl-8"
                 />
                 <span className="absolute left-2">

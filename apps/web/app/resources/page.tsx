@@ -35,7 +35,7 @@ export default function Page() {
                         Browse Resources
                     </h1>
                     <div className="mt-8 space-y-4">
-                        <SearchBar />
+                        <SearchBar placeholder="find resources, notes, etc." />
                         {resourceOptions.map((option, index) => (
                             <button
                                 key={index}
