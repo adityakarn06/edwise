@@ -1,13 +1,24 @@
-import Link from "next/link";
+"use client"
 
-export default function Page() {
-  
+import React from 'react';
+import NavComponent from '@/components/landing/NavComponent';
+import HeroSection from '@/components/landing/HeroSection';
+import HeroImage from '@/components/landing/HeroImage';
+import FeatureComponent from '@/components/landing/FeatureComponent';
+import BenefitComponent from '@/components/landing/Benefit';
+import CTA from '@/components/landing/CTA';
+import Footer from '@/components/landing/Footer';
+
+export default function App() {
   return (
-    <div className="flex flex-col h-screen justify-center items-center w-screen bg-black/90 text-white/90">
-      <p>Landing Page - (under construction)</p>
-      <button className="mt-4 px-4 py-2 bg-white/80 text-black rounded hover:bg-white-90">
-        <Link href="/dashboard">Go to Dashboard</Link>
-      </button>
+    <div className="min-h-screen bg-black text-white">
+      <NavComponent />
+      <HeroSection />
+      <HeroImage />
+      <FeatureComponent />
+      <BenefitComponent />
+      <CTA />
+      <Footer />
     </div>
   );
 }

@@ -1,5 +1,4 @@
 import * as dotenv from 'dotenv';
-
 dotenv.config();
 import express from "express";
 import cors from 'cors';
@@ -27,12 +26,10 @@ app.use(express.urlencoded({ extended: true }));
 
 const upload = createMulterUpload();
 
-// Public routes
 app.get("/health", (req, res) => {
     res.status(200).json({ message: "Server is healthy" });
 });
 
-// Protected routes
 app.use('/upload', authenticateToken, upload.single('pdf'), uploadRouter);
 app.use('/chat', authenticateToken, chatRouter);
 app.use('/document', authenticateToken, docRouter);
