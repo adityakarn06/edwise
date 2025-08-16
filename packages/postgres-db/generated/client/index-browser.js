@@ -168,6 +168,32 @@ exports.Prisma.MCQScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.ResourceScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  url: 'url',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  uploadedById: 'uploadedById'
+};
+
+exports.Prisma.CommunityRoomScalarFieldEnum = {
+  id: 'id',
+  slug: 'slug',
+  adminId: 'adminId',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.MessageScalarFieldEnum = {
+  id: 'id',
+  roomId: 'roomId',
+  message: 'message',
+  userId: 'userId'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -192,7 +218,10 @@ exports.Prisma.ModelName = {
   UploadedDocs: 'UploadedDocs',
   AiChatHistory: 'AiChatHistory',
   MCQSet: 'MCQSet',
-  MCQ: 'MCQ'
+  MCQ: 'MCQ',
+  Resource: 'Resource',
+  CommunityRoom: 'CommunityRoom',
+  Message: 'Message'
 };
 
 /**

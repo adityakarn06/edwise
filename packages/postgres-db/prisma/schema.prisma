@@ -21,6 +21,10 @@ model User {
   uploadedDocs    UploadedDocs[]  @relation("UserDocs")
   aiChatHistories AiChatHistory[] @relation("UserChats")
   mcqSets        MCQSet[]       @relation("UserMCQSets")
+  resources      Resource[]     @relation("UserResources")
+  messages       Message[]      @relation("UserMessages")
+  rooms          CommunityRoom[] @relation("RoomMembers")
+  adminRooms     CommunityRoom[] @relation("RoomAdmin")
 
   @@map("users")
 }
@@ -79,4 +83,43 @@ model MCQ {
   createdAt DateTime @default(now())
 
   @@map("mcqs")
+}
+
+model Resource {
+  id          String   @id @default(uuid())
+  title       String
+  description String?
+  url         String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  uploadedById String
+  uploadedBy   User     @relation("UserResources", fields: [uploadedById], references: [id], onDelete: Cascade)
+
+  @@map("resources")
+}
+
+model CommunityRoom {
+  id          String   @id @default(uuid())
+  slug        String    @unique
+  adminId     String
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  admin       User     @relation("RoomAdmin", fields: [adminId], references: [id])
+  members     User[]   @relation("RoomMembers")
+  messages    Message[] @relation("RoomMessages")
+
+  @@map("community_rooms")
+}
+
+model Message {
+  id        Int      @id   @default(autoincrement())
+  roomId    String
+  message   String
+  userId    String
+  user      User     @relation("UserMessages", fields: [userId], references: [id])
+  communityRoom CommunityRoom @relation("RoomMessages", fields: [roomId], references: [id])
+
+  @@map("messages")
 }

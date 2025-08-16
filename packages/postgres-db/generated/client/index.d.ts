@@ -38,6 +38,21 @@ export type MCQSet = $Result.DefaultSelection<Prisma.$MCQSetPayload>
  * 
  */
 export type MCQ = $Result.DefaultSelection<Prisma.$MCQPayload>
+/**
+ * Model Resource
+ * 
+ */
+export type Resource = $Result.DefaultSelection<Prisma.$ResourcePayload>
+/**
+ * Model CommunityRoom
+ * 
+ */
+export type CommunityRoom = $Result.DefaultSelection<Prisma.$CommunityRoomPayload>
+/**
+ * Model Message
+ * 
+ */
+export type Message = $Result.DefaultSelection<Prisma.$MessagePayload>
 
 /**
  * Enums
@@ -230,6 +245,36 @@ export class PrismaClient<
     * ```
     */
   get mCQ(): Prisma.MCQDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.resource`: Exposes CRUD operations for the **Resource** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Resources
+    * const resources = await prisma.resource.findMany()
+    * ```
+    */
+  get resource(): Prisma.ResourceDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.communityRoom`: Exposes CRUD operations for the **CommunityRoom** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more CommunityRooms
+    * const communityRooms = await prisma.communityRoom.findMany()
+    * ```
+    */
+  get communityRoom(): Prisma.CommunityRoomDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.message`: Exposes CRUD operations for the **Message** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Messages
+    * const messages = await prisma.message.findMany()
+    * ```
+    */
+  get message(): Prisma.MessageDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -674,7 +719,10 @@ export namespace Prisma {
     UploadedDocs: 'UploadedDocs',
     AiChatHistory: 'AiChatHistory',
     MCQSet: 'MCQSet',
-    MCQ: 'MCQ'
+    MCQ: 'MCQ',
+    Resource: 'Resource',
+    CommunityRoom: 'CommunityRoom',
+    Message: 'Message'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -693,7 +741,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "uploadedDocs" | "aiChatHistory" | "mCQSet" | "mCQ"
+      modelProps: "user" | "uploadedDocs" | "aiChatHistory" | "mCQSet" | "mCQ" | "resource" | "communityRoom" | "message"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1067,6 +1115,228 @@ export namespace Prisma {
           }
         }
       }
+      Resource: {
+        payload: Prisma.$ResourcePayload<ExtArgs>
+        fields: Prisma.ResourceFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ResourceFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResourcePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ResourceFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResourcePayload>
+          }
+          findFirst: {
+            args: Prisma.ResourceFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResourcePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ResourceFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResourcePayload>
+          }
+          findMany: {
+            args: Prisma.ResourceFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResourcePayload>[]
+          }
+          create: {
+            args: Prisma.ResourceCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResourcePayload>
+          }
+          createMany: {
+            args: Prisma.ResourceCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ResourceCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResourcePayload>[]
+          }
+          delete: {
+            args: Prisma.ResourceDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResourcePayload>
+          }
+          update: {
+            args: Prisma.ResourceUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResourcePayload>
+          }
+          deleteMany: {
+            args: Prisma.ResourceDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ResourceUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ResourceUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResourcePayload>[]
+          }
+          upsert: {
+            args: Prisma.ResourceUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ResourcePayload>
+          }
+          aggregate: {
+            args: Prisma.ResourceAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateResource>
+          }
+          groupBy: {
+            args: Prisma.ResourceGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ResourceGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ResourceCountArgs<ExtArgs>
+            result: $Utils.Optional<ResourceCountAggregateOutputType> | number
+          }
+        }
+      }
+      CommunityRoom: {
+        payload: Prisma.$CommunityRoomPayload<ExtArgs>
+        fields: Prisma.CommunityRoomFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.CommunityRoomFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityRoomPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.CommunityRoomFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityRoomPayload>
+          }
+          findFirst: {
+            args: Prisma.CommunityRoomFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityRoomPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.CommunityRoomFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityRoomPayload>
+          }
+          findMany: {
+            args: Prisma.CommunityRoomFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityRoomPayload>[]
+          }
+          create: {
+            args: Prisma.CommunityRoomCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityRoomPayload>
+          }
+          createMany: {
+            args: Prisma.CommunityRoomCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.CommunityRoomCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityRoomPayload>[]
+          }
+          delete: {
+            args: Prisma.CommunityRoomDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityRoomPayload>
+          }
+          update: {
+            args: Prisma.CommunityRoomUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityRoomPayload>
+          }
+          deleteMany: {
+            args: Prisma.CommunityRoomDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.CommunityRoomUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.CommunityRoomUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityRoomPayload>[]
+          }
+          upsert: {
+            args: Prisma.CommunityRoomUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$CommunityRoomPayload>
+          }
+          aggregate: {
+            args: Prisma.CommunityRoomAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCommunityRoom>
+          }
+          groupBy: {
+            args: Prisma.CommunityRoomGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CommunityRoomGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.CommunityRoomCountArgs<ExtArgs>
+            result: $Utils.Optional<CommunityRoomCountAggregateOutputType> | number
+          }
+        }
+      }
+      Message: {
+        payload: Prisma.$MessagePayload<ExtArgs>
+        fields: Prisma.MessageFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MessageFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MessageFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagePayload>
+          }
+          findFirst: {
+            args: Prisma.MessageFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MessageFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagePayload>
+          }
+          findMany: {
+            args: Prisma.MessageFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagePayload>[]
+          }
+          create: {
+            args: Prisma.MessageCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagePayload>
+          }
+          createMany: {
+            args: Prisma.MessageCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MessageCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagePayload>[]
+          }
+          delete: {
+            args: Prisma.MessageDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagePayload>
+          }
+          update: {
+            args: Prisma.MessageUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagePayload>
+          }
+          deleteMany: {
+            args: Prisma.MessageDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MessageUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.MessageUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagePayload>[]
+          }
+          upsert: {
+            args: Prisma.MessageUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessagePayload>
+          }
+          aggregate: {
+            args: Prisma.MessageAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMessage>
+          }
+          groupBy: {
+            args: Prisma.MessageGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MessageGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MessageCountArgs<ExtArgs>
+            result: $Utils.Optional<MessageCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1156,6 +1426,9 @@ export namespace Prisma {
     aiChatHistory?: AiChatHistoryOmit
     mCQSet?: MCQSetOmit
     mCQ?: MCQOmit
+    resource?: ResourceOmit
+    communityRoom?: CommunityRoomOmit
+    message?: MessageOmit
   }
 
   /* Types for Logging */
@@ -1253,12 +1526,20 @@ export namespace Prisma {
     uploadedDocs: number
     aiChatHistories: number
     mcqSets: number
+    resources: number
+    messages: number
+    rooms: number
+    adminRooms: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     uploadedDocs?: boolean | UserCountOutputTypeCountUploadedDocsArgs
     aiChatHistories?: boolean | UserCountOutputTypeCountAiChatHistoriesArgs
     mcqSets?: boolean | UserCountOutputTypeCountMcqSetsArgs
+    resources?: boolean | UserCountOutputTypeCountResourcesArgs
+    messages?: boolean | UserCountOutputTypeCountMessagesArgs
+    rooms?: boolean | UserCountOutputTypeCountRoomsArgs
+    adminRooms?: boolean | UserCountOutputTypeCountAdminRoomsArgs
   }
 
   // Custom InputTypes
@@ -1291,6 +1572,34 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountMcqSetsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MCQSetWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountResourcesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ResourceWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MessageWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountRoomsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CommunityRoomWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountAdminRoomsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CommunityRoomWhereInput
   }
 
 
@@ -1353,6 +1662,46 @@ export namespace Prisma {
    */
   export type MCQSetCountOutputTypeCountMcqsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MCQWhereInput
+  }
+
+
+  /**
+   * Count Type CommunityRoomCountOutputType
+   */
+
+  export type CommunityRoomCountOutputType = {
+    members: number
+    messages: number
+  }
+
+  export type CommunityRoomCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    members?: boolean | CommunityRoomCountOutputTypeCountMembersArgs
+    messages?: boolean | CommunityRoomCountOutputTypeCountMessagesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * CommunityRoomCountOutputType without action
+   */
+  export type CommunityRoomCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityRoomCountOutputType
+     */
+    select?: CommunityRoomCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * CommunityRoomCountOutputType without action
+   */
+  export type CommunityRoomCountOutputTypeCountMembersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserWhereInput
+  }
+
+  /**
+   * CommunityRoomCountOutputType without action
+   */
+  export type CommunityRoomCountOutputTypeCountMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MessageWhereInput
   }
 
 
@@ -1551,6 +1900,10 @@ export namespace Prisma {
     uploadedDocs?: boolean | User$uploadedDocsArgs<ExtArgs>
     aiChatHistories?: boolean | User$aiChatHistoriesArgs<ExtArgs>
     mcqSets?: boolean | User$mcqSetsArgs<ExtArgs>
+    resources?: boolean | User$resourcesArgs<ExtArgs>
+    messages?: boolean | User$messagesArgs<ExtArgs>
+    rooms?: boolean | User$roomsArgs<ExtArgs>
+    adminRooms?: boolean | User$adminRoomsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1592,6 +1945,10 @@ export namespace Prisma {
     uploadedDocs?: boolean | User$uploadedDocsArgs<ExtArgs>
     aiChatHistories?: boolean | User$aiChatHistoriesArgs<ExtArgs>
     mcqSets?: boolean | User$mcqSetsArgs<ExtArgs>
+    resources?: boolean | User$resourcesArgs<ExtArgs>
+    messages?: boolean | User$messagesArgs<ExtArgs>
+    rooms?: boolean | User$roomsArgs<ExtArgs>
+    adminRooms?: boolean | User$adminRoomsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1603,6 +1960,10 @@ export namespace Prisma {
       uploadedDocs: Prisma.$UploadedDocsPayload<ExtArgs>[]
       aiChatHistories: Prisma.$AiChatHistoryPayload<ExtArgs>[]
       mcqSets: Prisma.$MCQSetPayload<ExtArgs>[]
+      resources: Prisma.$ResourcePayload<ExtArgs>[]
+      messages: Prisma.$MessagePayload<ExtArgs>[]
+      rooms: Prisma.$CommunityRoomPayload<ExtArgs>[]
+      adminRooms: Prisma.$CommunityRoomPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2010,6 +2371,10 @@ export namespace Prisma {
     uploadedDocs<T extends User$uploadedDocsArgs<ExtArgs> = {}>(args?: Subset<T, User$uploadedDocsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UploadedDocsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     aiChatHistories<T extends User$aiChatHistoriesArgs<ExtArgs> = {}>(args?: Subset<T, User$aiChatHistoriesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AiChatHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     mcqSets<T extends User$mcqSetsArgs<ExtArgs> = {}>(args?: Subset<T, User$mcqSetsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MCQSetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    resources<T extends User$resourcesArgs<ExtArgs> = {}>(args?: Subset<T, User$resourcesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ResourcePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    messages<T extends User$messagesArgs<ExtArgs> = {}>(args?: Subset<T, User$messagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    rooms<T extends User$roomsArgs<ExtArgs> = {}>(args?: Subset<T, User$roomsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommunityRoomPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    adminRooms<T extends User$adminRoomsArgs<ExtArgs> = {}>(args?: Subset<T, User$adminRoomsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommunityRoomPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2504,6 +2869,102 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: MCQSetScalarFieldEnum | MCQSetScalarFieldEnum[]
+  }
+
+  /**
+   * User.resources
+   */
+  export type User$resourcesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Resource
+     */
+    select?: ResourceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Resource
+     */
+    omit?: ResourceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResourceInclude<ExtArgs> | null
+    where?: ResourceWhereInput
+    orderBy?: ResourceOrderByWithRelationInput | ResourceOrderByWithRelationInput[]
+    cursor?: ResourceWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ResourceScalarFieldEnum | ResourceScalarFieldEnum[]
+  }
+
+  /**
+   * User.messages
+   */
+  export type User$messagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Message
+     */
+    omit?: MessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    where?: MessageWhereInput
+    orderBy?: MessageOrderByWithRelationInput | MessageOrderByWithRelationInput[]
+    cursor?: MessageWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MessageScalarFieldEnum | MessageScalarFieldEnum[]
+  }
+
+  /**
+   * User.rooms
+   */
+  export type User$roomsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityRoom
+     */
+    select?: CommunityRoomSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityRoom
+     */
+    omit?: CommunityRoomOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityRoomInclude<ExtArgs> | null
+    where?: CommunityRoomWhereInput
+    orderBy?: CommunityRoomOrderByWithRelationInput | CommunityRoomOrderByWithRelationInput[]
+    cursor?: CommunityRoomWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CommunityRoomScalarFieldEnum | CommunityRoomScalarFieldEnum[]
+  }
+
+  /**
+   * User.adminRooms
+   */
+  export type User$adminRoomsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityRoom
+     */
+    select?: CommunityRoomSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityRoom
+     */
+    omit?: CommunityRoomOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityRoomInclude<ExtArgs> | null
+    where?: CommunityRoomWhereInput
+    orderBy?: CommunityRoomOrderByWithRelationInput | CommunityRoomOrderByWithRelationInput[]
+    cursor?: CommunityRoomWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: CommunityRoomScalarFieldEnum | CommunityRoomScalarFieldEnum[]
   }
 
   /**
@@ -6970,6 +7431,3306 @@ export namespace Prisma {
 
 
   /**
+   * Model Resource
+   */
+
+  export type AggregateResource = {
+    _count: ResourceCountAggregateOutputType | null
+    _min: ResourceMinAggregateOutputType | null
+    _max: ResourceMaxAggregateOutputType | null
+  }
+
+  export type ResourceMinAggregateOutputType = {
+    id: string | null
+    title: string | null
+    description: string | null
+    url: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    uploadedById: string | null
+  }
+
+  export type ResourceMaxAggregateOutputType = {
+    id: string | null
+    title: string | null
+    description: string | null
+    url: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+    uploadedById: string | null
+  }
+
+  export type ResourceCountAggregateOutputType = {
+    id: number
+    title: number
+    description: number
+    url: number
+    createdAt: number
+    updatedAt: number
+    uploadedById: number
+    _all: number
+  }
+
+
+  export type ResourceMinAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    url?: true
+    createdAt?: true
+    updatedAt?: true
+    uploadedById?: true
+  }
+
+  export type ResourceMaxAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    url?: true
+    createdAt?: true
+    updatedAt?: true
+    uploadedById?: true
+  }
+
+  export type ResourceCountAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    url?: true
+    createdAt?: true
+    updatedAt?: true
+    uploadedById?: true
+    _all?: true
+  }
+
+  export type ResourceAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Resource to aggregate.
+     */
+    where?: ResourceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Resources to fetch.
+     */
+    orderBy?: ResourceOrderByWithRelationInput | ResourceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ResourceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Resources from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Resources.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Resources
+    **/
+    _count?: true | ResourceCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ResourceMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ResourceMaxAggregateInputType
+  }
+
+  export type GetResourceAggregateType<T extends ResourceAggregateArgs> = {
+        [P in keyof T & keyof AggregateResource]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateResource[P]>
+      : GetScalarType<T[P], AggregateResource[P]>
+  }
+
+
+
+
+  export type ResourceGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ResourceWhereInput
+    orderBy?: ResourceOrderByWithAggregationInput | ResourceOrderByWithAggregationInput[]
+    by: ResourceScalarFieldEnum[] | ResourceScalarFieldEnum
+    having?: ResourceScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ResourceCountAggregateInputType | true
+    _min?: ResourceMinAggregateInputType
+    _max?: ResourceMaxAggregateInputType
+  }
+
+  export type ResourceGroupByOutputType = {
+    id: string
+    title: string
+    description: string | null
+    url: string
+    createdAt: Date
+    updatedAt: Date
+    uploadedById: string
+    _count: ResourceCountAggregateOutputType | null
+    _min: ResourceMinAggregateOutputType | null
+    _max: ResourceMaxAggregateOutputType | null
+  }
+
+  type GetResourceGroupByPayload<T extends ResourceGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ResourceGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ResourceGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ResourceGroupByOutputType[P]>
+            : GetScalarType<T[P], ResourceGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ResourceSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    url?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    uploadedById?: boolean
+    uploadedBy?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["resource"]>
+
+  export type ResourceSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    url?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    uploadedById?: boolean
+    uploadedBy?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["resource"]>
+
+  export type ResourceSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    url?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    uploadedById?: boolean
+    uploadedBy?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["resource"]>
+
+  export type ResourceSelectScalar = {
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    url?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    uploadedById?: boolean
+  }
+
+  export type ResourceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "url" | "createdAt" | "updatedAt" | "uploadedById", ExtArgs["result"]["resource"]>
+  export type ResourceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    uploadedBy?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type ResourceIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    uploadedBy?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type ResourceIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    uploadedBy?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $ResourcePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Resource"
+    objects: {
+      uploadedBy: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      title: string
+      description: string | null
+      url: string
+      createdAt: Date
+      updatedAt: Date
+      uploadedById: string
+    }, ExtArgs["result"]["resource"]>
+    composites: {}
+  }
+
+  type ResourceGetPayload<S extends boolean | null | undefined | ResourceDefaultArgs> = $Result.GetResult<Prisma.$ResourcePayload, S>
+
+  type ResourceCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ResourceFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ResourceCountAggregateInputType | true
+    }
+
+  export interface ResourceDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Resource'], meta: { name: 'Resource' } }
+    /**
+     * Find zero or one Resource that matches the filter.
+     * @param {ResourceFindUniqueArgs} args - Arguments to find a Resource
+     * @example
+     * // Get one Resource
+     * const resource = await prisma.resource.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ResourceFindUniqueArgs>(args: SelectSubset<T, ResourceFindUniqueArgs<ExtArgs>>): Prisma__ResourceClient<$Result.GetResult<Prisma.$ResourcePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Resource that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ResourceFindUniqueOrThrowArgs} args - Arguments to find a Resource
+     * @example
+     * // Get one Resource
+     * const resource = await prisma.resource.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ResourceFindUniqueOrThrowArgs>(args: SelectSubset<T, ResourceFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ResourceClient<$Result.GetResult<Prisma.$ResourcePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Resource that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ResourceFindFirstArgs} args - Arguments to find a Resource
+     * @example
+     * // Get one Resource
+     * const resource = await prisma.resource.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ResourceFindFirstArgs>(args?: SelectSubset<T, ResourceFindFirstArgs<ExtArgs>>): Prisma__ResourceClient<$Result.GetResult<Prisma.$ResourcePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Resource that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ResourceFindFirstOrThrowArgs} args - Arguments to find a Resource
+     * @example
+     * // Get one Resource
+     * const resource = await prisma.resource.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ResourceFindFirstOrThrowArgs>(args?: SelectSubset<T, ResourceFindFirstOrThrowArgs<ExtArgs>>): Prisma__ResourceClient<$Result.GetResult<Prisma.$ResourcePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Resources that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ResourceFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Resources
+     * const resources = await prisma.resource.findMany()
+     * 
+     * // Get first 10 Resources
+     * const resources = await prisma.resource.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const resourceWithIdOnly = await prisma.resource.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ResourceFindManyArgs>(args?: SelectSubset<T, ResourceFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ResourcePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Resource.
+     * @param {ResourceCreateArgs} args - Arguments to create a Resource.
+     * @example
+     * // Create one Resource
+     * const Resource = await prisma.resource.create({
+     *   data: {
+     *     // ... data to create a Resource
+     *   }
+     * })
+     * 
+     */
+    create<T extends ResourceCreateArgs>(args: SelectSubset<T, ResourceCreateArgs<ExtArgs>>): Prisma__ResourceClient<$Result.GetResult<Prisma.$ResourcePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Resources.
+     * @param {ResourceCreateManyArgs} args - Arguments to create many Resources.
+     * @example
+     * // Create many Resources
+     * const resource = await prisma.resource.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ResourceCreateManyArgs>(args?: SelectSubset<T, ResourceCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Resources and returns the data saved in the database.
+     * @param {ResourceCreateManyAndReturnArgs} args - Arguments to create many Resources.
+     * @example
+     * // Create many Resources
+     * const resource = await prisma.resource.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Resources and only return the `id`
+     * const resourceWithIdOnly = await prisma.resource.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ResourceCreateManyAndReturnArgs>(args?: SelectSubset<T, ResourceCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ResourcePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Resource.
+     * @param {ResourceDeleteArgs} args - Arguments to delete one Resource.
+     * @example
+     * // Delete one Resource
+     * const Resource = await prisma.resource.delete({
+     *   where: {
+     *     // ... filter to delete one Resource
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ResourceDeleteArgs>(args: SelectSubset<T, ResourceDeleteArgs<ExtArgs>>): Prisma__ResourceClient<$Result.GetResult<Prisma.$ResourcePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Resource.
+     * @param {ResourceUpdateArgs} args - Arguments to update one Resource.
+     * @example
+     * // Update one Resource
+     * const resource = await prisma.resource.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ResourceUpdateArgs>(args: SelectSubset<T, ResourceUpdateArgs<ExtArgs>>): Prisma__ResourceClient<$Result.GetResult<Prisma.$ResourcePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Resources.
+     * @param {ResourceDeleteManyArgs} args - Arguments to filter Resources to delete.
+     * @example
+     * // Delete a few Resources
+     * const { count } = await prisma.resource.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ResourceDeleteManyArgs>(args?: SelectSubset<T, ResourceDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Resources.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ResourceUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Resources
+     * const resource = await prisma.resource.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ResourceUpdateManyArgs>(args: SelectSubset<T, ResourceUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Resources and returns the data updated in the database.
+     * @param {ResourceUpdateManyAndReturnArgs} args - Arguments to update many Resources.
+     * @example
+     * // Update many Resources
+     * const resource = await prisma.resource.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Resources and only return the `id`
+     * const resourceWithIdOnly = await prisma.resource.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ResourceUpdateManyAndReturnArgs>(args: SelectSubset<T, ResourceUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ResourcePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Resource.
+     * @param {ResourceUpsertArgs} args - Arguments to update or create a Resource.
+     * @example
+     * // Update or create a Resource
+     * const resource = await prisma.resource.upsert({
+     *   create: {
+     *     // ... data to create a Resource
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Resource we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ResourceUpsertArgs>(args: SelectSubset<T, ResourceUpsertArgs<ExtArgs>>): Prisma__ResourceClient<$Result.GetResult<Prisma.$ResourcePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Resources.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ResourceCountArgs} args - Arguments to filter Resources to count.
+     * @example
+     * // Count the number of Resources
+     * const count = await prisma.resource.count({
+     *   where: {
+     *     // ... the filter for the Resources we want to count
+     *   }
+     * })
+    **/
+    count<T extends ResourceCountArgs>(
+      args?: Subset<T, ResourceCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ResourceCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Resource.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ResourceAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ResourceAggregateArgs>(args: Subset<T, ResourceAggregateArgs>): Prisma.PrismaPromise<GetResourceAggregateType<T>>
+
+    /**
+     * Group by Resource.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ResourceGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ResourceGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ResourceGroupByArgs['orderBy'] }
+        : { orderBy?: ResourceGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ResourceGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetResourceGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Resource model
+   */
+  readonly fields: ResourceFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Resource.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ResourceClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    uploadedBy<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Resource model
+   */
+  interface ResourceFieldRefs {
+    readonly id: FieldRef<"Resource", 'String'>
+    readonly title: FieldRef<"Resource", 'String'>
+    readonly description: FieldRef<"Resource", 'String'>
+    readonly url: FieldRef<"Resource", 'String'>
+    readonly createdAt: FieldRef<"Resource", 'DateTime'>
+    readonly updatedAt: FieldRef<"Resource", 'DateTime'>
+    readonly uploadedById: FieldRef<"Resource", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Resource findUnique
+   */
+  export type ResourceFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Resource
+     */
+    select?: ResourceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Resource
+     */
+    omit?: ResourceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResourceInclude<ExtArgs> | null
+    /**
+     * Filter, which Resource to fetch.
+     */
+    where: ResourceWhereUniqueInput
+  }
+
+  /**
+   * Resource findUniqueOrThrow
+   */
+  export type ResourceFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Resource
+     */
+    select?: ResourceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Resource
+     */
+    omit?: ResourceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResourceInclude<ExtArgs> | null
+    /**
+     * Filter, which Resource to fetch.
+     */
+    where: ResourceWhereUniqueInput
+  }
+
+  /**
+   * Resource findFirst
+   */
+  export type ResourceFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Resource
+     */
+    select?: ResourceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Resource
+     */
+    omit?: ResourceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResourceInclude<ExtArgs> | null
+    /**
+     * Filter, which Resource to fetch.
+     */
+    where?: ResourceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Resources to fetch.
+     */
+    orderBy?: ResourceOrderByWithRelationInput | ResourceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Resources.
+     */
+    cursor?: ResourceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Resources from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Resources.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Resources.
+     */
+    distinct?: ResourceScalarFieldEnum | ResourceScalarFieldEnum[]
+  }
+
+  /**
+   * Resource findFirstOrThrow
+   */
+  export type ResourceFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Resource
+     */
+    select?: ResourceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Resource
+     */
+    omit?: ResourceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResourceInclude<ExtArgs> | null
+    /**
+     * Filter, which Resource to fetch.
+     */
+    where?: ResourceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Resources to fetch.
+     */
+    orderBy?: ResourceOrderByWithRelationInput | ResourceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Resources.
+     */
+    cursor?: ResourceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Resources from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Resources.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Resources.
+     */
+    distinct?: ResourceScalarFieldEnum | ResourceScalarFieldEnum[]
+  }
+
+  /**
+   * Resource findMany
+   */
+  export type ResourceFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Resource
+     */
+    select?: ResourceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Resource
+     */
+    omit?: ResourceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResourceInclude<ExtArgs> | null
+    /**
+     * Filter, which Resources to fetch.
+     */
+    where?: ResourceWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Resources to fetch.
+     */
+    orderBy?: ResourceOrderByWithRelationInput | ResourceOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Resources.
+     */
+    cursor?: ResourceWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Resources from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Resources.
+     */
+    skip?: number
+    distinct?: ResourceScalarFieldEnum | ResourceScalarFieldEnum[]
+  }
+
+  /**
+   * Resource create
+   */
+  export type ResourceCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Resource
+     */
+    select?: ResourceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Resource
+     */
+    omit?: ResourceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResourceInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Resource.
+     */
+    data: XOR<ResourceCreateInput, ResourceUncheckedCreateInput>
+  }
+
+  /**
+   * Resource createMany
+   */
+  export type ResourceCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Resources.
+     */
+    data: ResourceCreateManyInput | ResourceCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Resource createManyAndReturn
+   */
+  export type ResourceCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Resource
+     */
+    select?: ResourceSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Resource
+     */
+    omit?: ResourceOmit<ExtArgs> | null
+    /**
+     * The data used to create many Resources.
+     */
+    data: ResourceCreateManyInput | ResourceCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResourceIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Resource update
+   */
+  export type ResourceUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Resource
+     */
+    select?: ResourceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Resource
+     */
+    omit?: ResourceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResourceInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Resource.
+     */
+    data: XOR<ResourceUpdateInput, ResourceUncheckedUpdateInput>
+    /**
+     * Choose, which Resource to update.
+     */
+    where: ResourceWhereUniqueInput
+  }
+
+  /**
+   * Resource updateMany
+   */
+  export type ResourceUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Resources.
+     */
+    data: XOR<ResourceUpdateManyMutationInput, ResourceUncheckedUpdateManyInput>
+    /**
+     * Filter which Resources to update
+     */
+    where?: ResourceWhereInput
+    /**
+     * Limit how many Resources to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Resource updateManyAndReturn
+   */
+  export type ResourceUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Resource
+     */
+    select?: ResourceSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Resource
+     */
+    omit?: ResourceOmit<ExtArgs> | null
+    /**
+     * The data used to update Resources.
+     */
+    data: XOR<ResourceUpdateManyMutationInput, ResourceUncheckedUpdateManyInput>
+    /**
+     * Filter which Resources to update
+     */
+    where?: ResourceWhereInput
+    /**
+     * Limit how many Resources to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResourceIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Resource upsert
+   */
+  export type ResourceUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Resource
+     */
+    select?: ResourceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Resource
+     */
+    omit?: ResourceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResourceInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Resource to update in case it exists.
+     */
+    where: ResourceWhereUniqueInput
+    /**
+     * In case the Resource found by the `where` argument doesn't exist, create a new Resource with this data.
+     */
+    create: XOR<ResourceCreateInput, ResourceUncheckedCreateInput>
+    /**
+     * In case the Resource was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ResourceUpdateInput, ResourceUncheckedUpdateInput>
+  }
+
+  /**
+   * Resource delete
+   */
+  export type ResourceDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Resource
+     */
+    select?: ResourceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Resource
+     */
+    omit?: ResourceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResourceInclude<ExtArgs> | null
+    /**
+     * Filter which Resource to delete.
+     */
+    where: ResourceWhereUniqueInput
+  }
+
+  /**
+   * Resource deleteMany
+   */
+  export type ResourceDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Resources to delete
+     */
+    where?: ResourceWhereInput
+    /**
+     * Limit how many Resources to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Resource without action
+   */
+  export type ResourceDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Resource
+     */
+    select?: ResourceSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Resource
+     */
+    omit?: ResourceOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ResourceInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model CommunityRoom
+   */
+
+  export type AggregateCommunityRoom = {
+    _count: CommunityRoomCountAggregateOutputType | null
+    _min: CommunityRoomMinAggregateOutputType | null
+    _max: CommunityRoomMaxAggregateOutputType | null
+  }
+
+  export type CommunityRoomMinAggregateOutputType = {
+    id: string | null
+    slug: string | null
+    adminId: string | null
+    description: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CommunityRoomMaxAggregateOutputType = {
+    id: string | null
+    slug: string | null
+    adminId: string | null
+    description: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type CommunityRoomCountAggregateOutputType = {
+    id: number
+    slug: number
+    adminId: number
+    description: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type CommunityRoomMinAggregateInputType = {
+    id?: true
+    slug?: true
+    adminId?: true
+    description?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CommunityRoomMaxAggregateInputType = {
+    id?: true
+    slug?: true
+    adminId?: true
+    description?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type CommunityRoomCountAggregateInputType = {
+    id?: true
+    slug?: true
+    adminId?: true
+    description?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type CommunityRoomAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CommunityRoom to aggregate.
+     */
+    where?: CommunityRoomWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CommunityRooms to fetch.
+     */
+    orderBy?: CommunityRoomOrderByWithRelationInput | CommunityRoomOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: CommunityRoomWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CommunityRooms from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CommunityRooms.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned CommunityRooms
+    **/
+    _count?: true | CommunityRoomCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CommunityRoomMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CommunityRoomMaxAggregateInputType
+  }
+
+  export type GetCommunityRoomAggregateType<T extends CommunityRoomAggregateArgs> = {
+        [P in keyof T & keyof AggregateCommunityRoom]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCommunityRoom[P]>
+      : GetScalarType<T[P], AggregateCommunityRoom[P]>
+  }
+
+
+
+
+  export type CommunityRoomGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: CommunityRoomWhereInput
+    orderBy?: CommunityRoomOrderByWithAggregationInput | CommunityRoomOrderByWithAggregationInput[]
+    by: CommunityRoomScalarFieldEnum[] | CommunityRoomScalarFieldEnum
+    having?: CommunityRoomScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CommunityRoomCountAggregateInputType | true
+    _min?: CommunityRoomMinAggregateInputType
+    _max?: CommunityRoomMaxAggregateInputType
+  }
+
+  export type CommunityRoomGroupByOutputType = {
+    id: string
+    slug: string
+    adminId: string
+    description: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: CommunityRoomCountAggregateOutputType | null
+    _min: CommunityRoomMinAggregateOutputType | null
+    _max: CommunityRoomMaxAggregateOutputType | null
+  }
+
+  type GetCommunityRoomGroupByPayload<T extends CommunityRoomGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CommunityRoomGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CommunityRoomGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CommunityRoomGroupByOutputType[P]>
+            : GetScalarType<T[P], CommunityRoomGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type CommunityRoomSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    slug?: boolean
+    adminId?: boolean
+    description?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    admin?: boolean | UserDefaultArgs<ExtArgs>
+    members?: boolean | CommunityRoom$membersArgs<ExtArgs>
+    messages?: boolean | CommunityRoom$messagesArgs<ExtArgs>
+    _count?: boolean | CommunityRoomCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["communityRoom"]>
+
+  export type CommunityRoomSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    slug?: boolean
+    adminId?: boolean
+    description?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    admin?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["communityRoom"]>
+
+  export type CommunityRoomSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    slug?: boolean
+    adminId?: boolean
+    description?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    admin?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["communityRoom"]>
+
+  export type CommunityRoomSelectScalar = {
+    id?: boolean
+    slug?: boolean
+    adminId?: boolean
+    description?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type CommunityRoomOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "slug" | "adminId" | "description" | "createdAt" | "updatedAt", ExtArgs["result"]["communityRoom"]>
+  export type CommunityRoomInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    admin?: boolean | UserDefaultArgs<ExtArgs>
+    members?: boolean | CommunityRoom$membersArgs<ExtArgs>
+    messages?: boolean | CommunityRoom$messagesArgs<ExtArgs>
+    _count?: boolean | CommunityRoomCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type CommunityRoomIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    admin?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type CommunityRoomIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    admin?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $CommunityRoomPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "CommunityRoom"
+    objects: {
+      admin: Prisma.$UserPayload<ExtArgs>
+      members: Prisma.$UserPayload<ExtArgs>[]
+      messages: Prisma.$MessagePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      slug: string
+      adminId: string
+      description: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["communityRoom"]>
+    composites: {}
+  }
+
+  type CommunityRoomGetPayload<S extends boolean | null | undefined | CommunityRoomDefaultArgs> = $Result.GetResult<Prisma.$CommunityRoomPayload, S>
+
+  type CommunityRoomCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<CommunityRoomFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CommunityRoomCountAggregateInputType | true
+    }
+
+  export interface CommunityRoomDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['CommunityRoom'], meta: { name: 'CommunityRoom' } }
+    /**
+     * Find zero or one CommunityRoom that matches the filter.
+     * @param {CommunityRoomFindUniqueArgs} args - Arguments to find a CommunityRoom
+     * @example
+     * // Get one CommunityRoom
+     * const communityRoom = await prisma.communityRoom.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends CommunityRoomFindUniqueArgs>(args: SelectSubset<T, CommunityRoomFindUniqueArgs<ExtArgs>>): Prisma__CommunityRoomClient<$Result.GetResult<Prisma.$CommunityRoomPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one CommunityRoom that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {CommunityRoomFindUniqueOrThrowArgs} args - Arguments to find a CommunityRoom
+     * @example
+     * // Get one CommunityRoom
+     * const communityRoom = await prisma.communityRoom.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends CommunityRoomFindUniqueOrThrowArgs>(args: SelectSubset<T, CommunityRoomFindUniqueOrThrowArgs<ExtArgs>>): Prisma__CommunityRoomClient<$Result.GetResult<Prisma.$CommunityRoomPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CommunityRoom that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityRoomFindFirstArgs} args - Arguments to find a CommunityRoom
+     * @example
+     * // Get one CommunityRoom
+     * const communityRoom = await prisma.communityRoom.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends CommunityRoomFindFirstArgs>(args?: SelectSubset<T, CommunityRoomFindFirstArgs<ExtArgs>>): Prisma__CommunityRoomClient<$Result.GetResult<Prisma.$CommunityRoomPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first CommunityRoom that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityRoomFindFirstOrThrowArgs} args - Arguments to find a CommunityRoom
+     * @example
+     * // Get one CommunityRoom
+     * const communityRoom = await prisma.communityRoom.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends CommunityRoomFindFirstOrThrowArgs>(args?: SelectSubset<T, CommunityRoomFindFirstOrThrowArgs<ExtArgs>>): Prisma__CommunityRoomClient<$Result.GetResult<Prisma.$CommunityRoomPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more CommunityRooms that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityRoomFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all CommunityRooms
+     * const communityRooms = await prisma.communityRoom.findMany()
+     * 
+     * // Get first 10 CommunityRooms
+     * const communityRooms = await prisma.communityRoom.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const communityRoomWithIdOnly = await prisma.communityRoom.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends CommunityRoomFindManyArgs>(args?: SelectSubset<T, CommunityRoomFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommunityRoomPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a CommunityRoom.
+     * @param {CommunityRoomCreateArgs} args - Arguments to create a CommunityRoom.
+     * @example
+     * // Create one CommunityRoom
+     * const CommunityRoom = await prisma.communityRoom.create({
+     *   data: {
+     *     // ... data to create a CommunityRoom
+     *   }
+     * })
+     * 
+     */
+    create<T extends CommunityRoomCreateArgs>(args: SelectSubset<T, CommunityRoomCreateArgs<ExtArgs>>): Prisma__CommunityRoomClient<$Result.GetResult<Prisma.$CommunityRoomPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many CommunityRooms.
+     * @param {CommunityRoomCreateManyArgs} args - Arguments to create many CommunityRooms.
+     * @example
+     * // Create many CommunityRooms
+     * const communityRoom = await prisma.communityRoom.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends CommunityRoomCreateManyArgs>(args?: SelectSubset<T, CommunityRoomCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many CommunityRooms and returns the data saved in the database.
+     * @param {CommunityRoomCreateManyAndReturnArgs} args - Arguments to create many CommunityRooms.
+     * @example
+     * // Create many CommunityRooms
+     * const communityRoom = await prisma.communityRoom.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many CommunityRooms and only return the `id`
+     * const communityRoomWithIdOnly = await prisma.communityRoom.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends CommunityRoomCreateManyAndReturnArgs>(args?: SelectSubset<T, CommunityRoomCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommunityRoomPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a CommunityRoom.
+     * @param {CommunityRoomDeleteArgs} args - Arguments to delete one CommunityRoom.
+     * @example
+     * // Delete one CommunityRoom
+     * const CommunityRoom = await prisma.communityRoom.delete({
+     *   where: {
+     *     // ... filter to delete one CommunityRoom
+     *   }
+     * })
+     * 
+     */
+    delete<T extends CommunityRoomDeleteArgs>(args: SelectSubset<T, CommunityRoomDeleteArgs<ExtArgs>>): Prisma__CommunityRoomClient<$Result.GetResult<Prisma.$CommunityRoomPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one CommunityRoom.
+     * @param {CommunityRoomUpdateArgs} args - Arguments to update one CommunityRoom.
+     * @example
+     * // Update one CommunityRoom
+     * const communityRoom = await prisma.communityRoom.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends CommunityRoomUpdateArgs>(args: SelectSubset<T, CommunityRoomUpdateArgs<ExtArgs>>): Prisma__CommunityRoomClient<$Result.GetResult<Prisma.$CommunityRoomPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more CommunityRooms.
+     * @param {CommunityRoomDeleteManyArgs} args - Arguments to filter CommunityRooms to delete.
+     * @example
+     * // Delete a few CommunityRooms
+     * const { count } = await prisma.communityRoom.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends CommunityRoomDeleteManyArgs>(args?: SelectSubset<T, CommunityRoomDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CommunityRooms.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityRoomUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many CommunityRooms
+     * const communityRoom = await prisma.communityRoom.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends CommunityRoomUpdateManyArgs>(args: SelectSubset<T, CommunityRoomUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more CommunityRooms and returns the data updated in the database.
+     * @param {CommunityRoomUpdateManyAndReturnArgs} args - Arguments to update many CommunityRooms.
+     * @example
+     * // Update many CommunityRooms
+     * const communityRoom = await prisma.communityRoom.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more CommunityRooms and only return the `id`
+     * const communityRoomWithIdOnly = await prisma.communityRoom.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends CommunityRoomUpdateManyAndReturnArgs>(args: SelectSubset<T, CommunityRoomUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommunityRoomPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one CommunityRoom.
+     * @param {CommunityRoomUpsertArgs} args - Arguments to update or create a CommunityRoom.
+     * @example
+     * // Update or create a CommunityRoom
+     * const communityRoom = await prisma.communityRoom.upsert({
+     *   create: {
+     *     // ... data to create a CommunityRoom
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the CommunityRoom we want to update
+     *   }
+     * })
+     */
+    upsert<T extends CommunityRoomUpsertArgs>(args: SelectSubset<T, CommunityRoomUpsertArgs<ExtArgs>>): Prisma__CommunityRoomClient<$Result.GetResult<Prisma.$CommunityRoomPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of CommunityRooms.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityRoomCountArgs} args - Arguments to filter CommunityRooms to count.
+     * @example
+     * // Count the number of CommunityRooms
+     * const count = await prisma.communityRoom.count({
+     *   where: {
+     *     // ... the filter for the CommunityRooms we want to count
+     *   }
+     * })
+    **/
+    count<T extends CommunityRoomCountArgs>(
+      args?: Subset<T, CommunityRoomCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CommunityRoomCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a CommunityRoom.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityRoomAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CommunityRoomAggregateArgs>(args: Subset<T, CommunityRoomAggregateArgs>): Prisma.PrismaPromise<GetCommunityRoomAggregateType<T>>
+
+    /**
+     * Group by CommunityRoom.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CommunityRoomGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends CommunityRoomGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: CommunityRoomGroupByArgs['orderBy'] }
+        : { orderBy?: CommunityRoomGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, CommunityRoomGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCommunityRoomGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the CommunityRoom model
+   */
+  readonly fields: CommunityRoomFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for CommunityRoom.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__CommunityRoomClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    admin<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    members<T extends CommunityRoom$membersArgs<ExtArgs> = {}>(args?: Subset<T, CommunityRoom$membersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    messages<T extends CommunityRoom$messagesArgs<ExtArgs> = {}>(args?: Subset<T, CommunityRoom$messagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the CommunityRoom model
+   */
+  interface CommunityRoomFieldRefs {
+    readonly id: FieldRef<"CommunityRoom", 'String'>
+    readonly slug: FieldRef<"CommunityRoom", 'String'>
+    readonly adminId: FieldRef<"CommunityRoom", 'String'>
+    readonly description: FieldRef<"CommunityRoom", 'String'>
+    readonly createdAt: FieldRef<"CommunityRoom", 'DateTime'>
+    readonly updatedAt: FieldRef<"CommunityRoom", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * CommunityRoom findUnique
+   */
+  export type CommunityRoomFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityRoom
+     */
+    select?: CommunityRoomSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityRoom
+     */
+    omit?: CommunityRoomOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityRoomInclude<ExtArgs> | null
+    /**
+     * Filter, which CommunityRoom to fetch.
+     */
+    where: CommunityRoomWhereUniqueInput
+  }
+
+  /**
+   * CommunityRoom findUniqueOrThrow
+   */
+  export type CommunityRoomFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityRoom
+     */
+    select?: CommunityRoomSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityRoom
+     */
+    omit?: CommunityRoomOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityRoomInclude<ExtArgs> | null
+    /**
+     * Filter, which CommunityRoom to fetch.
+     */
+    where: CommunityRoomWhereUniqueInput
+  }
+
+  /**
+   * CommunityRoom findFirst
+   */
+  export type CommunityRoomFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityRoom
+     */
+    select?: CommunityRoomSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityRoom
+     */
+    omit?: CommunityRoomOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityRoomInclude<ExtArgs> | null
+    /**
+     * Filter, which CommunityRoom to fetch.
+     */
+    where?: CommunityRoomWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CommunityRooms to fetch.
+     */
+    orderBy?: CommunityRoomOrderByWithRelationInput | CommunityRoomOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CommunityRooms.
+     */
+    cursor?: CommunityRoomWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CommunityRooms from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CommunityRooms.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CommunityRooms.
+     */
+    distinct?: CommunityRoomScalarFieldEnum | CommunityRoomScalarFieldEnum[]
+  }
+
+  /**
+   * CommunityRoom findFirstOrThrow
+   */
+  export type CommunityRoomFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityRoom
+     */
+    select?: CommunityRoomSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityRoom
+     */
+    omit?: CommunityRoomOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityRoomInclude<ExtArgs> | null
+    /**
+     * Filter, which CommunityRoom to fetch.
+     */
+    where?: CommunityRoomWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CommunityRooms to fetch.
+     */
+    orderBy?: CommunityRoomOrderByWithRelationInput | CommunityRoomOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for CommunityRooms.
+     */
+    cursor?: CommunityRoomWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CommunityRooms from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CommunityRooms.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of CommunityRooms.
+     */
+    distinct?: CommunityRoomScalarFieldEnum | CommunityRoomScalarFieldEnum[]
+  }
+
+  /**
+   * CommunityRoom findMany
+   */
+  export type CommunityRoomFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityRoom
+     */
+    select?: CommunityRoomSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityRoom
+     */
+    omit?: CommunityRoomOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityRoomInclude<ExtArgs> | null
+    /**
+     * Filter, which CommunityRooms to fetch.
+     */
+    where?: CommunityRoomWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of CommunityRooms to fetch.
+     */
+    orderBy?: CommunityRoomOrderByWithRelationInput | CommunityRoomOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing CommunityRooms.
+     */
+    cursor?: CommunityRoomWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` CommunityRooms from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` CommunityRooms.
+     */
+    skip?: number
+    distinct?: CommunityRoomScalarFieldEnum | CommunityRoomScalarFieldEnum[]
+  }
+
+  /**
+   * CommunityRoom create
+   */
+  export type CommunityRoomCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityRoom
+     */
+    select?: CommunityRoomSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityRoom
+     */
+    omit?: CommunityRoomOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityRoomInclude<ExtArgs> | null
+    /**
+     * The data needed to create a CommunityRoom.
+     */
+    data: XOR<CommunityRoomCreateInput, CommunityRoomUncheckedCreateInput>
+  }
+
+  /**
+   * CommunityRoom createMany
+   */
+  export type CommunityRoomCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many CommunityRooms.
+     */
+    data: CommunityRoomCreateManyInput | CommunityRoomCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * CommunityRoom createManyAndReturn
+   */
+  export type CommunityRoomCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityRoom
+     */
+    select?: CommunityRoomSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityRoom
+     */
+    omit?: CommunityRoomOmit<ExtArgs> | null
+    /**
+     * The data used to create many CommunityRooms.
+     */
+    data: CommunityRoomCreateManyInput | CommunityRoomCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityRoomIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CommunityRoom update
+   */
+  export type CommunityRoomUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityRoom
+     */
+    select?: CommunityRoomSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityRoom
+     */
+    omit?: CommunityRoomOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityRoomInclude<ExtArgs> | null
+    /**
+     * The data needed to update a CommunityRoom.
+     */
+    data: XOR<CommunityRoomUpdateInput, CommunityRoomUncheckedUpdateInput>
+    /**
+     * Choose, which CommunityRoom to update.
+     */
+    where: CommunityRoomWhereUniqueInput
+  }
+
+  /**
+   * CommunityRoom updateMany
+   */
+  export type CommunityRoomUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update CommunityRooms.
+     */
+    data: XOR<CommunityRoomUpdateManyMutationInput, CommunityRoomUncheckedUpdateManyInput>
+    /**
+     * Filter which CommunityRooms to update
+     */
+    where?: CommunityRoomWhereInput
+    /**
+     * Limit how many CommunityRooms to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * CommunityRoom updateManyAndReturn
+   */
+  export type CommunityRoomUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityRoom
+     */
+    select?: CommunityRoomSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityRoom
+     */
+    omit?: CommunityRoomOmit<ExtArgs> | null
+    /**
+     * The data used to update CommunityRooms.
+     */
+    data: XOR<CommunityRoomUpdateManyMutationInput, CommunityRoomUncheckedUpdateManyInput>
+    /**
+     * Filter which CommunityRooms to update
+     */
+    where?: CommunityRoomWhereInput
+    /**
+     * Limit how many CommunityRooms to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityRoomIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * CommunityRoom upsert
+   */
+  export type CommunityRoomUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityRoom
+     */
+    select?: CommunityRoomSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityRoom
+     */
+    omit?: CommunityRoomOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityRoomInclude<ExtArgs> | null
+    /**
+     * The filter to search for the CommunityRoom to update in case it exists.
+     */
+    where: CommunityRoomWhereUniqueInput
+    /**
+     * In case the CommunityRoom found by the `where` argument doesn't exist, create a new CommunityRoom with this data.
+     */
+    create: XOR<CommunityRoomCreateInput, CommunityRoomUncheckedCreateInput>
+    /**
+     * In case the CommunityRoom was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<CommunityRoomUpdateInput, CommunityRoomUncheckedUpdateInput>
+  }
+
+  /**
+   * CommunityRoom delete
+   */
+  export type CommunityRoomDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityRoom
+     */
+    select?: CommunityRoomSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityRoom
+     */
+    omit?: CommunityRoomOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityRoomInclude<ExtArgs> | null
+    /**
+     * Filter which CommunityRoom to delete.
+     */
+    where: CommunityRoomWhereUniqueInput
+  }
+
+  /**
+   * CommunityRoom deleteMany
+   */
+  export type CommunityRoomDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which CommunityRooms to delete
+     */
+    where?: CommunityRoomWhereInput
+    /**
+     * Limit how many CommunityRooms to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * CommunityRoom.members
+   */
+  export type CommunityRoom$membersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
+    cursor?: UserWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
+  }
+
+  /**
+   * CommunityRoom.messages
+   */
+  export type CommunityRoom$messagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Message
+     */
+    omit?: MessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    where?: MessageWhereInput
+    orderBy?: MessageOrderByWithRelationInput | MessageOrderByWithRelationInput[]
+    cursor?: MessageWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MessageScalarFieldEnum | MessageScalarFieldEnum[]
+  }
+
+  /**
+   * CommunityRoom without action
+   */
+  export type CommunityRoomDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CommunityRoom
+     */
+    select?: CommunityRoomSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the CommunityRoom
+     */
+    omit?: CommunityRoomOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: CommunityRoomInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Message
+   */
+
+  export type AggregateMessage = {
+    _count: MessageCountAggregateOutputType | null
+    _avg: MessageAvgAggregateOutputType | null
+    _sum: MessageSumAggregateOutputType | null
+    _min: MessageMinAggregateOutputType | null
+    _max: MessageMaxAggregateOutputType | null
+  }
+
+  export type MessageAvgAggregateOutputType = {
+    id: number | null
+  }
+
+  export type MessageSumAggregateOutputType = {
+    id: number | null
+  }
+
+  export type MessageMinAggregateOutputType = {
+    id: number | null
+    roomId: string | null
+    message: string | null
+    userId: string | null
+  }
+
+  export type MessageMaxAggregateOutputType = {
+    id: number | null
+    roomId: string | null
+    message: string | null
+    userId: string | null
+  }
+
+  export type MessageCountAggregateOutputType = {
+    id: number
+    roomId: number
+    message: number
+    userId: number
+    _all: number
+  }
+
+
+  export type MessageAvgAggregateInputType = {
+    id?: true
+  }
+
+  export type MessageSumAggregateInputType = {
+    id?: true
+  }
+
+  export type MessageMinAggregateInputType = {
+    id?: true
+    roomId?: true
+    message?: true
+    userId?: true
+  }
+
+  export type MessageMaxAggregateInputType = {
+    id?: true
+    roomId?: true
+    message?: true
+    userId?: true
+  }
+
+  export type MessageCountAggregateInputType = {
+    id?: true
+    roomId?: true
+    message?: true
+    userId?: true
+    _all?: true
+  }
+
+  export type MessageAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Message to aggregate.
+     */
+    where?: MessageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Messages to fetch.
+     */
+    orderBy?: MessageOrderByWithRelationInput | MessageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MessageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Messages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Messages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Messages
+    **/
+    _count?: true | MessageCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: MessageAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: MessageSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MessageMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MessageMaxAggregateInputType
+  }
+
+  export type GetMessageAggregateType<T extends MessageAggregateArgs> = {
+        [P in keyof T & keyof AggregateMessage]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMessage[P]>
+      : GetScalarType<T[P], AggregateMessage[P]>
+  }
+
+
+
+
+  export type MessageGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MessageWhereInput
+    orderBy?: MessageOrderByWithAggregationInput | MessageOrderByWithAggregationInput[]
+    by: MessageScalarFieldEnum[] | MessageScalarFieldEnum
+    having?: MessageScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MessageCountAggregateInputType | true
+    _avg?: MessageAvgAggregateInputType
+    _sum?: MessageSumAggregateInputType
+    _min?: MessageMinAggregateInputType
+    _max?: MessageMaxAggregateInputType
+  }
+
+  export type MessageGroupByOutputType = {
+    id: number
+    roomId: string
+    message: string
+    userId: string
+    _count: MessageCountAggregateOutputType | null
+    _avg: MessageAvgAggregateOutputType | null
+    _sum: MessageSumAggregateOutputType | null
+    _min: MessageMinAggregateOutputType | null
+    _max: MessageMaxAggregateOutputType | null
+  }
+
+  type GetMessageGroupByPayload<T extends MessageGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MessageGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MessageGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MessageGroupByOutputType[P]>
+            : GetScalarType<T[P], MessageGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MessageSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    roomId?: boolean
+    message?: boolean
+    userId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    communityRoom?: boolean | CommunityRoomDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["message"]>
+
+  export type MessageSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    roomId?: boolean
+    message?: boolean
+    userId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    communityRoom?: boolean | CommunityRoomDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["message"]>
+
+  export type MessageSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    roomId?: boolean
+    message?: boolean
+    userId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    communityRoom?: boolean | CommunityRoomDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["message"]>
+
+  export type MessageSelectScalar = {
+    id?: boolean
+    roomId?: boolean
+    message?: boolean
+    userId?: boolean
+  }
+
+  export type MessageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "roomId" | "message" | "userId", ExtArgs["result"]["message"]>
+  export type MessageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    communityRoom?: boolean | CommunityRoomDefaultArgs<ExtArgs>
+  }
+  export type MessageIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    communityRoom?: boolean | CommunityRoomDefaultArgs<ExtArgs>
+  }
+  export type MessageIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    communityRoom?: boolean | CommunityRoomDefaultArgs<ExtArgs>
+  }
+
+  export type $MessagePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Message"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      communityRoom: Prisma.$CommunityRoomPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      roomId: string
+      message: string
+      userId: string
+    }, ExtArgs["result"]["message"]>
+    composites: {}
+  }
+
+  type MessageGetPayload<S extends boolean | null | undefined | MessageDefaultArgs> = $Result.GetResult<Prisma.$MessagePayload, S>
+
+  type MessageCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MessageFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MessageCountAggregateInputType | true
+    }
+
+  export interface MessageDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Message'], meta: { name: 'Message' } }
+    /**
+     * Find zero or one Message that matches the filter.
+     * @param {MessageFindUniqueArgs} args - Arguments to find a Message
+     * @example
+     * // Get one Message
+     * const message = await prisma.message.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MessageFindUniqueArgs>(args: SelectSubset<T, MessageFindUniqueArgs<ExtArgs>>): Prisma__MessageClient<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Message that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MessageFindUniqueOrThrowArgs} args - Arguments to find a Message
+     * @example
+     * // Get one Message
+     * const message = await prisma.message.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MessageFindUniqueOrThrowArgs>(args: SelectSubset<T, MessageFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MessageClient<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Message that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageFindFirstArgs} args - Arguments to find a Message
+     * @example
+     * // Get one Message
+     * const message = await prisma.message.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MessageFindFirstArgs>(args?: SelectSubset<T, MessageFindFirstArgs<ExtArgs>>): Prisma__MessageClient<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Message that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageFindFirstOrThrowArgs} args - Arguments to find a Message
+     * @example
+     * // Get one Message
+     * const message = await prisma.message.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MessageFindFirstOrThrowArgs>(args?: SelectSubset<T, MessageFindFirstOrThrowArgs<ExtArgs>>): Prisma__MessageClient<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Messages that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Messages
+     * const messages = await prisma.message.findMany()
+     * 
+     * // Get first 10 Messages
+     * const messages = await prisma.message.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const messageWithIdOnly = await prisma.message.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends MessageFindManyArgs>(args?: SelectSubset<T, MessageFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Message.
+     * @param {MessageCreateArgs} args - Arguments to create a Message.
+     * @example
+     * // Create one Message
+     * const Message = await prisma.message.create({
+     *   data: {
+     *     // ... data to create a Message
+     *   }
+     * })
+     * 
+     */
+    create<T extends MessageCreateArgs>(args: SelectSubset<T, MessageCreateArgs<ExtArgs>>): Prisma__MessageClient<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Messages.
+     * @param {MessageCreateManyArgs} args - Arguments to create many Messages.
+     * @example
+     * // Create many Messages
+     * const message = await prisma.message.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MessageCreateManyArgs>(args?: SelectSubset<T, MessageCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Messages and returns the data saved in the database.
+     * @param {MessageCreateManyAndReturnArgs} args - Arguments to create many Messages.
+     * @example
+     * // Create many Messages
+     * const message = await prisma.message.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Messages and only return the `id`
+     * const messageWithIdOnly = await prisma.message.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MessageCreateManyAndReturnArgs>(args?: SelectSubset<T, MessageCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Message.
+     * @param {MessageDeleteArgs} args - Arguments to delete one Message.
+     * @example
+     * // Delete one Message
+     * const Message = await prisma.message.delete({
+     *   where: {
+     *     // ... filter to delete one Message
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MessageDeleteArgs>(args: SelectSubset<T, MessageDeleteArgs<ExtArgs>>): Prisma__MessageClient<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Message.
+     * @param {MessageUpdateArgs} args - Arguments to update one Message.
+     * @example
+     * // Update one Message
+     * const message = await prisma.message.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MessageUpdateArgs>(args: SelectSubset<T, MessageUpdateArgs<ExtArgs>>): Prisma__MessageClient<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Messages.
+     * @param {MessageDeleteManyArgs} args - Arguments to filter Messages to delete.
+     * @example
+     * // Delete a few Messages
+     * const { count } = await prisma.message.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MessageDeleteManyArgs>(args?: SelectSubset<T, MessageDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Messages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Messages
+     * const message = await prisma.message.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MessageUpdateManyArgs>(args: SelectSubset<T, MessageUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Messages and returns the data updated in the database.
+     * @param {MessageUpdateManyAndReturnArgs} args - Arguments to update many Messages.
+     * @example
+     * // Update many Messages
+     * const message = await prisma.message.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Messages and only return the `id`
+     * const messageWithIdOnly = await prisma.message.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends MessageUpdateManyAndReturnArgs>(args: SelectSubset<T, MessageUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Message.
+     * @param {MessageUpsertArgs} args - Arguments to update or create a Message.
+     * @example
+     * // Update or create a Message
+     * const message = await prisma.message.upsert({
+     *   create: {
+     *     // ... data to create a Message
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Message we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MessageUpsertArgs>(args: SelectSubset<T, MessageUpsertArgs<ExtArgs>>): Prisma__MessageClient<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Messages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageCountArgs} args - Arguments to filter Messages to count.
+     * @example
+     * // Count the number of Messages
+     * const count = await prisma.message.count({
+     *   where: {
+     *     // ... the filter for the Messages we want to count
+     *   }
+     * })
+    **/
+    count<T extends MessageCountArgs>(
+      args?: Subset<T, MessageCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MessageCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Message.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MessageAggregateArgs>(args: Subset<T, MessageAggregateArgs>): Prisma.PrismaPromise<GetMessageAggregateType<T>>
+
+    /**
+     * Group by Message.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MessageGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MessageGroupByArgs['orderBy'] }
+        : { orderBy?: MessageGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MessageGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMessageGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Message model
+   */
+  readonly fields: MessageFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Message.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MessageClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    communityRoom<T extends CommunityRoomDefaultArgs<ExtArgs> = {}>(args?: Subset<T, CommunityRoomDefaultArgs<ExtArgs>>): Prisma__CommunityRoomClient<$Result.GetResult<Prisma.$CommunityRoomPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Message model
+   */
+  interface MessageFieldRefs {
+    readonly id: FieldRef<"Message", 'Int'>
+    readonly roomId: FieldRef<"Message", 'String'>
+    readonly message: FieldRef<"Message", 'String'>
+    readonly userId: FieldRef<"Message", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Message findUnique
+   */
+  export type MessageFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Message
+     */
+    omit?: MessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    /**
+     * Filter, which Message to fetch.
+     */
+    where: MessageWhereUniqueInput
+  }
+
+  /**
+   * Message findUniqueOrThrow
+   */
+  export type MessageFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Message
+     */
+    omit?: MessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    /**
+     * Filter, which Message to fetch.
+     */
+    where: MessageWhereUniqueInput
+  }
+
+  /**
+   * Message findFirst
+   */
+  export type MessageFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Message
+     */
+    omit?: MessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    /**
+     * Filter, which Message to fetch.
+     */
+    where?: MessageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Messages to fetch.
+     */
+    orderBy?: MessageOrderByWithRelationInput | MessageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Messages.
+     */
+    cursor?: MessageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Messages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Messages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Messages.
+     */
+    distinct?: MessageScalarFieldEnum | MessageScalarFieldEnum[]
+  }
+
+  /**
+   * Message findFirstOrThrow
+   */
+  export type MessageFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Message
+     */
+    omit?: MessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    /**
+     * Filter, which Message to fetch.
+     */
+    where?: MessageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Messages to fetch.
+     */
+    orderBy?: MessageOrderByWithRelationInput | MessageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Messages.
+     */
+    cursor?: MessageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Messages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Messages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Messages.
+     */
+    distinct?: MessageScalarFieldEnum | MessageScalarFieldEnum[]
+  }
+
+  /**
+   * Message findMany
+   */
+  export type MessageFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Message
+     */
+    omit?: MessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    /**
+     * Filter, which Messages to fetch.
+     */
+    where?: MessageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Messages to fetch.
+     */
+    orderBy?: MessageOrderByWithRelationInput | MessageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Messages.
+     */
+    cursor?: MessageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Messages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Messages.
+     */
+    skip?: number
+    distinct?: MessageScalarFieldEnum | MessageScalarFieldEnum[]
+  }
+
+  /**
+   * Message create
+   */
+  export type MessageCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Message
+     */
+    omit?: MessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Message.
+     */
+    data: XOR<MessageCreateInput, MessageUncheckedCreateInput>
+  }
+
+  /**
+   * Message createMany
+   */
+  export type MessageCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Messages.
+     */
+    data: MessageCreateManyInput | MessageCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Message createManyAndReturn
+   */
+  export type MessageCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Message
+     */
+    omit?: MessageOmit<ExtArgs> | null
+    /**
+     * The data used to create many Messages.
+     */
+    data: MessageCreateManyInput | MessageCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Message update
+   */
+  export type MessageUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Message
+     */
+    omit?: MessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Message.
+     */
+    data: XOR<MessageUpdateInput, MessageUncheckedUpdateInput>
+    /**
+     * Choose, which Message to update.
+     */
+    where: MessageWhereUniqueInput
+  }
+
+  /**
+   * Message updateMany
+   */
+  export type MessageUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Messages.
+     */
+    data: XOR<MessageUpdateManyMutationInput, MessageUncheckedUpdateManyInput>
+    /**
+     * Filter which Messages to update
+     */
+    where?: MessageWhereInput
+    /**
+     * Limit how many Messages to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Message updateManyAndReturn
+   */
+  export type MessageUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Message
+     */
+    omit?: MessageOmit<ExtArgs> | null
+    /**
+     * The data used to update Messages.
+     */
+    data: XOR<MessageUpdateManyMutationInput, MessageUncheckedUpdateManyInput>
+    /**
+     * Filter which Messages to update
+     */
+    where?: MessageWhereInput
+    /**
+     * Limit how many Messages to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Message upsert
+   */
+  export type MessageUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Message
+     */
+    omit?: MessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Message to update in case it exists.
+     */
+    where: MessageWhereUniqueInput
+    /**
+     * In case the Message found by the `where` argument doesn't exist, create a new Message with this data.
+     */
+    create: XOR<MessageCreateInput, MessageUncheckedCreateInput>
+    /**
+     * In case the Message was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MessageUpdateInput, MessageUncheckedUpdateInput>
+  }
+
+  /**
+   * Message delete
+   */
+  export type MessageDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Message
+     */
+    omit?: MessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    /**
+     * Filter which Message to delete.
+     */
+    where: MessageWhereUniqueInput
+  }
+
+  /**
+   * Message deleteMany
+   */
+  export type MessageDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Messages to delete
+     */
+    where?: MessageWhereInput
+    /**
+     * Limit how many Messages to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Message without action
+   */
+  export type MessageDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Message
+     */
+    omit?: MessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -7044,6 +10805,41 @@ export namespace Prisma {
   };
 
   export type MCQScalarFieldEnum = (typeof MCQScalarFieldEnum)[keyof typeof MCQScalarFieldEnum]
+
+
+  export const ResourceScalarFieldEnum: {
+    id: 'id',
+    title: 'title',
+    description: 'description',
+    url: 'url',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
+    uploadedById: 'uploadedById'
+  };
+
+  export type ResourceScalarFieldEnum = (typeof ResourceScalarFieldEnum)[keyof typeof ResourceScalarFieldEnum]
+
+
+  export const CommunityRoomScalarFieldEnum: {
+    id: 'id',
+    slug: 'slug',
+    adminId: 'adminId',
+    description: 'description',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type CommunityRoomScalarFieldEnum = (typeof CommunityRoomScalarFieldEnum)[keyof typeof CommunityRoomScalarFieldEnum]
+
+
+  export const MessageScalarFieldEnum: {
+    id: 'id',
+    roomId: 'roomId',
+    message: 'message',
+    userId: 'userId'
+  };
+
+  export type MessageScalarFieldEnum = (typeof MessageScalarFieldEnum)[keyof typeof MessageScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -7163,6 +10959,10 @@ export namespace Prisma {
     uploadedDocs?: UploadedDocsListRelationFilter
     aiChatHistories?: AiChatHistoryListRelationFilter
     mcqSets?: MCQSetListRelationFilter
+    resources?: ResourceListRelationFilter
+    messages?: MessageListRelationFilter
+    rooms?: CommunityRoomListRelationFilter
+    adminRooms?: CommunityRoomListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -7177,6 +10977,10 @@ export namespace Prisma {
     uploadedDocs?: UploadedDocsOrderByRelationAggregateInput
     aiChatHistories?: AiChatHistoryOrderByRelationAggregateInput
     mcqSets?: MCQSetOrderByRelationAggregateInput
+    resources?: ResourceOrderByRelationAggregateInput
+    messages?: MessageOrderByRelationAggregateInput
+    rooms?: CommunityRoomOrderByRelationAggregateInput
+    adminRooms?: CommunityRoomOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -7194,6 +10998,10 @@ export namespace Prisma {
     uploadedDocs?: UploadedDocsListRelationFilter
     aiChatHistories?: AiChatHistoryListRelationFilter
     mcqSets?: MCQSetListRelationFilter
+    resources?: ResourceListRelationFilter
+    messages?: MessageListRelationFilter
+    rooms?: CommunityRoomListRelationFilter
+    adminRooms?: CommunityRoomListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -7482,6 +11290,192 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"MCQ"> | Date | string
   }
 
+  export type ResourceWhereInput = {
+    AND?: ResourceWhereInput | ResourceWhereInput[]
+    OR?: ResourceWhereInput[]
+    NOT?: ResourceWhereInput | ResourceWhereInput[]
+    id?: StringFilter<"Resource"> | string
+    title?: StringFilter<"Resource"> | string
+    description?: StringNullableFilter<"Resource"> | string | null
+    url?: StringFilter<"Resource"> | string
+    createdAt?: DateTimeFilter<"Resource"> | Date | string
+    updatedAt?: DateTimeFilter<"Resource"> | Date | string
+    uploadedById?: StringFilter<"Resource"> | string
+    uploadedBy?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type ResourceOrderByWithRelationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrderInput | SortOrder
+    url?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    uploadedById?: SortOrder
+    uploadedBy?: UserOrderByWithRelationInput
+  }
+
+  export type ResourceWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ResourceWhereInput | ResourceWhereInput[]
+    OR?: ResourceWhereInput[]
+    NOT?: ResourceWhereInput | ResourceWhereInput[]
+    title?: StringFilter<"Resource"> | string
+    description?: StringNullableFilter<"Resource"> | string | null
+    url?: StringFilter<"Resource"> | string
+    createdAt?: DateTimeFilter<"Resource"> | Date | string
+    updatedAt?: DateTimeFilter<"Resource"> | Date | string
+    uploadedById?: StringFilter<"Resource"> | string
+    uploadedBy?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type ResourceOrderByWithAggregationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrderInput | SortOrder
+    url?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    uploadedById?: SortOrder
+    _count?: ResourceCountOrderByAggregateInput
+    _max?: ResourceMaxOrderByAggregateInput
+    _min?: ResourceMinOrderByAggregateInput
+  }
+
+  export type ResourceScalarWhereWithAggregatesInput = {
+    AND?: ResourceScalarWhereWithAggregatesInput | ResourceScalarWhereWithAggregatesInput[]
+    OR?: ResourceScalarWhereWithAggregatesInput[]
+    NOT?: ResourceScalarWhereWithAggregatesInput | ResourceScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Resource"> | string
+    title?: StringWithAggregatesFilter<"Resource"> | string
+    description?: StringNullableWithAggregatesFilter<"Resource"> | string | null
+    url?: StringWithAggregatesFilter<"Resource"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Resource"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Resource"> | Date | string
+    uploadedById?: StringWithAggregatesFilter<"Resource"> | string
+  }
+
+  export type CommunityRoomWhereInput = {
+    AND?: CommunityRoomWhereInput | CommunityRoomWhereInput[]
+    OR?: CommunityRoomWhereInput[]
+    NOT?: CommunityRoomWhereInput | CommunityRoomWhereInput[]
+    id?: StringFilter<"CommunityRoom"> | string
+    slug?: StringFilter<"CommunityRoom"> | string
+    adminId?: StringFilter<"CommunityRoom"> | string
+    description?: StringNullableFilter<"CommunityRoom"> | string | null
+    createdAt?: DateTimeFilter<"CommunityRoom"> | Date | string
+    updatedAt?: DateTimeFilter<"CommunityRoom"> | Date | string
+    admin?: XOR<UserScalarRelationFilter, UserWhereInput>
+    members?: UserListRelationFilter
+    messages?: MessageListRelationFilter
+  }
+
+  export type CommunityRoomOrderByWithRelationInput = {
+    id?: SortOrder
+    slug?: SortOrder
+    adminId?: SortOrder
+    description?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    admin?: UserOrderByWithRelationInput
+    members?: UserOrderByRelationAggregateInput
+    messages?: MessageOrderByRelationAggregateInput
+  }
+
+  export type CommunityRoomWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    slug?: string
+    AND?: CommunityRoomWhereInput | CommunityRoomWhereInput[]
+    OR?: CommunityRoomWhereInput[]
+    NOT?: CommunityRoomWhereInput | CommunityRoomWhereInput[]
+    adminId?: StringFilter<"CommunityRoom"> | string
+    description?: StringNullableFilter<"CommunityRoom"> | string | null
+    createdAt?: DateTimeFilter<"CommunityRoom"> | Date | string
+    updatedAt?: DateTimeFilter<"CommunityRoom"> | Date | string
+    admin?: XOR<UserScalarRelationFilter, UserWhereInput>
+    members?: UserListRelationFilter
+    messages?: MessageListRelationFilter
+  }, "id" | "slug">
+
+  export type CommunityRoomOrderByWithAggregationInput = {
+    id?: SortOrder
+    slug?: SortOrder
+    adminId?: SortOrder
+    description?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: CommunityRoomCountOrderByAggregateInput
+    _max?: CommunityRoomMaxOrderByAggregateInput
+    _min?: CommunityRoomMinOrderByAggregateInput
+  }
+
+  export type CommunityRoomScalarWhereWithAggregatesInput = {
+    AND?: CommunityRoomScalarWhereWithAggregatesInput | CommunityRoomScalarWhereWithAggregatesInput[]
+    OR?: CommunityRoomScalarWhereWithAggregatesInput[]
+    NOT?: CommunityRoomScalarWhereWithAggregatesInput | CommunityRoomScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"CommunityRoom"> | string
+    slug?: StringWithAggregatesFilter<"CommunityRoom"> | string
+    adminId?: StringWithAggregatesFilter<"CommunityRoom"> | string
+    description?: StringNullableWithAggregatesFilter<"CommunityRoom"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"CommunityRoom"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"CommunityRoom"> | Date | string
+  }
+
+  export type MessageWhereInput = {
+    AND?: MessageWhereInput | MessageWhereInput[]
+    OR?: MessageWhereInput[]
+    NOT?: MessageWhereInput | MessageWhereInput[]
+    id?: IntFilter<"Message"> | number
+    roomId?: StringFilter<"Message"> | string
+    message?: StringFilter<"Message"> | string
+    userId?: StringFilter<"Message"> | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    communityRoom?: XOR<CommunityRoomScalarRelationFilter, CommunityRoomWhereInput>
+  }
+
+  export type MessageOrderByWithRelationInput = {
+    id?: SortOrder
+    roomId?: SortOrder
+    message?: SortOrder
+    userId?: SortOrder
+    user?: UserOrderByWithRelationInput
+    communityRoom?: CommunityRoomOrderByWithRelationInput
+  }
+
+  export type MessageWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: MessageWhereInput | MessageWhereInput[]
+    OR?: MessageWhereInput[]
+    NOT?: MessageWhereInput | MessageWhereInput[]
+    roomId?: StringFilter<"Message"> | string
+    message?: StringFilter<"Message"> | string
+    userId?: StringFilter<"Message"> | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    communityRoom?: XOR<CommunityRoomScalarRelationFilter, CommunityRoomWhereInput>
+  }, "id">
+
+  export type MessageOrderByWithAggregationInput = {
+    id?: SortOrder
+    roomId?: SortOrder
+    message?: SortOrder
+    userId?: SortOrder
+    _count?: MessageCountOrderByAggregateInput
+    _avg?: MessageAvgOrderByAggregateInput
+    _max?: MessageMaxOrderByAggregateInput
+    _min?: MessageMinOrderByAggregateInput
+    _sum?: MessageSumOrderByAggregateInput
+  }
+
+  export type MessageScalarWhereWithAggregatesInput = {
+    AND?: MessageScalarWhereWithAggregatesInput | MessageScalarWhereWithAggregatesInput[]
+    OR?: MessageScalarWhereWithAggregatesInput[]
+    NOT?: MessageScalarWhereWithAggregatesInput | MessageScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Message"> | number
+    roomId?: StringWithAggregatesFilter<"Message"> | string
+    message?: StringWithAggregatesFilter<"Message"> | string
+    userId?: StringWithAggregatesFilter<"Message"> | string
+  }
+
   export type UserCreateInput = {
     id?: string
     email?: string | null
@@ -7494,6 +11488,10 @@ export namespace Prisma {
     uploadedDocs?: UploadedDocsCreateNestedManyWithoutUploadedByInput
     aiChatHistories?: AiChatHistoryCreateNestedManyWithoutUserInput
     mcqSets?: MCQSetCreateNestedManyWithoutUserInput
+    resources?: ResourceCreateNestedManyWithoutUploadedByInput
+    messages?: MessageCreateNestedManyWithoutUserInput
+    rooms?: CommunityRoomCreateNestedManyWithoutMembersInput
+    adminRooms?: CommunityRoomCreateNestedManyWithoutAdminInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -7508,6 +11506,10 @@ export namespace Prisma {
     uploadedDocs?: UploadedDocsUncheckedCreateNestedManyWithoutUploadedByInput
     aiChatHistories?: AiChatHistoryUncheckedCreateNestedManyWithoutUserInput
     mcqSets?: MCQSetUncheckedCreateNestedManyWithoutUserInput
+    resources?: ResourceUncheckedCreateNestedManyWithoutUploadedByInput
+    messages?: MessageUncheckedCreateNestedManyWithoutUserInput
+    rooms?: CommunityRoomUncheckedCreateNestedManyWithoutMembersInput
+    adminRooms?: CommunityRoomUncheckedCreateNestedManyWithoutAdminInput
   }
 
   export type UserUpdateInput = {
@@ -7522,6 +11524,10 @@ export namespace Prisma {
     uploadedDocs?: UploadedDocsUpdateManyWithoutUploadedByNestedInput
     aiChatHistories?: AiChatHistoryUpdateManyWithoutUserNestedInput
     mcqSets?: MCQSetUpdateManyWithoutUserNestedInput
+    resources?: ResourceUpdateManyWithoutUploadedByNestedInput
+    messages?: MessageUpdateManyWithoutUserNestedInput
+    rooms?: CommunityRoomUpdateManyWithoutMembersNestedInput
+    adminRooms?: CommunityRoomUpdateManyWithoutAdminNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -7536,6 +11542,10 @@ export namespace Prisma {
     uploadedDocs?: UploadedDocsUncheckedUpdateManyWithoutUploadedByNestedInput
     aiChatHistories?: AiChatHistoryUncheckedUpdateManyWithoutUserNestedInput
     mcqSets?: MCQSetUncheckedUpdateManyWithoutUserNestedInput
+    resources?: ResourceUncheckedUpdateManyWithoutUploadedByNestedInput
+    messages?: MessageUncheckedUpdateManyWithoutUserNestedInput
+    rooms?: CommunityRoomUncheckedUpdateManyWithoutMembersNestedInput
+    adminRooms?: CommunityRoomUncheckedUpdateManyWithoutAdminNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -7830,6 +11840,189 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type ResourceCreateInput = {
+    id?: string
+    title: string
+    description?: string | null
+    url: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    uploadedBy: UserCreateNestedOneWithoutResourcesInput
+  }
+
+  export type ResourceUncheckedCreateInput = {
+    id?: string
+    title: string
+    description?: string | null
+    url: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    uploadedById: string
+  }
+
+  export type ResourceUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    uploadedBy?: UserUpdateOneRequiredWithoutResourcesNestedInput
+  }
+
+  export type ResourceUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    uploadedById?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type ResourceCreateManyInput = {
+    id?: string
+    title: string
+    description?: string | null
+    url: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    uploadedById: string
+  }
+
+  export type ResourceUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ResourceUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    uploadedById?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type CommunityRoomCreateInput = {
+    id?: string
+    slug: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    admin: UserCreateNestedOneWithoutAdminRoomsInput
+    members?: UserCreateNestedManyWithoutRoomsInput
+    messages?: MessageCreateNestedManyWithoutCommunityRoomInput
+  }
+
+  export type CommunityRoomUncheckedCreateInput = {
+    id?: string
+    slug: string
+    adminId: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    members?: UserUncheckedCreateNestedManyWithoutRoomsInput
+    messages?: MessageUncheckedCreateNestedManyWithoutCommunityRoomInput
+  }
+
+  export type CommunityRoomUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    admin?: UserUpdateOneRequiredWithoutAdminRoomsNestedInput
+    members?: UserUpdateManyWithoutRoomsNestedInput
+    messages?: MessageUpdateManyWithoutCommunityRoomNestedInput
+  }
+
+  export type CommunityRoomUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    adminId?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    members?: UserUncheckedUpdateManyWithoutRoomsNestedInput
+    messages?: MessageUncheckedUpdateManyWithoutCommunityRoomNestedInput
+  }
+
+  export type CommunityRoomCreateManyInput = {
+    id?: string
+    slug: string
+    adminId: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type CommunityRoomUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommunityRoomUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    adminId?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MessageCreateInput = {
+    message: string
+    user: UserCreateNestedOneWithoutMessagesInput
+    communityRoom: CommunityRoomCreateNestedOneWithoutMessagesInput
+  }
+
+  export type MessageUncheckedCreateInput = {
+    id?: number
+    roomId: string
+    message: string
+    userId: string
+  }
+
+  export type MessageUpdateInput = {
+    message?: StringFieldUpdateOperationsInput | string
+    user?: UserUpdateOneRequiredWithoutMessagesNestedInput
+    communityRoom?: CommunityRoomUpdateOneRequiredWithoutMessagesNestedInput
+  }
+
+  export type MessageUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    roomId?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type MessageCreateManyInput = {
+    id?: number
+    roomId: string
+    message: string
+    userId: string
+  }
+
+  export type MessageUpdateManyMutationInput = {
+    message?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type MessageUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    roomId?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -7896,6 +12089,24 @@ export namespace Prisma {
     none?: MCQSetWhereInput
   }
 
+  export type ResourceListRelationFilter = {
+    every?: ResourceWhereInput
+    some?: ResourceWhereInput
+    none?: ResourceWhereInput
+  }
+
+  export type MessageListRelationFilter = {
+    every?: MessageWhereInput
+    some?: MessageWhereInput
+    none?: MessageWhereInput
+  }
+
+  export type CommunityRoomListRelationFilter = {
+    every?: CommunityRoomWhereInput
+    some?: CommunityRoomWhereInput
+    none?: CommunityRoomWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -7910,6 +12121,18 @@ export namespace Prisma {
   }
 
   export type MCQSetOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ResourceOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type MessageOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type CommunityRoomOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -8189,6 +12412,107 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
+  export type ResourceCountOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    url?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    uploadedById?: SortOrder
+  }
+
+  export type ResourceMaxOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    url?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    uploadedById?: SortOrder
+  }
+
+  export type ResourceMinOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    url?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    uploadedById?: SortOrder
+  }
+
+  export type UserListRelationFilter = {
+    every?: UserWhereInput
+    some?: UserWhereInput
+    none?: UserWhereInput
+  }
+
+  export type UserOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type CommunityRoomCountOrderByAggregateInput = {
+    id?: SortOrder
+    slug?: SortOrder
+    adminId?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CommunityRoomMaxOrderByAggregateInput = {
+    id?: SortOrder
+    slug?: SortOrder
+    adminId?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CommunityRoomMinOrderByAggregateInput = {
+    id?: SortOrder
+    slug?: SortOrder
+    adminId?: SortOrder
+    description?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type CommunityRoomScalarRelationFilter = {
+    is?: CommunityRoomWhereInput
+    isNot?: CommunityRoomWhereInput
+  }
+
+  export type MessageCountOrderByAggregateInput = {
+    id?: SortOrder
+    roomId?: SortOrder
+    message?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type MessageAvgOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
+  export type MessageMaxOrderByAggregateInput = {
+    id?: SortOrder
+    roomId?: SortOrder
+    message?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type MessageMinOrderByAggregateInput = {
+    id?: SortOrder
+    roomId?: SortOrder
+    message?: SortOrder
+    userId?: SortOrder
+  }
+
+  export type MessageSumOrderByAggregateInput = {
+    id?: SortOrder
+  }
+
   export type UploadedDocsCreateNestedManyWithoutUploadedByInput = {
     create?: XOR<UploadedDocsCreateWithoutUploadedByInput, UploadedDocsUncheckedCreateWithoutUploadedByInput> | UploadedDocsCreateWithoutUploadedByInput[] | UploadedDocsUncheckedCreateWithoutUploadedByInput[]
     connectOrCreate?: UploadedDocsCreateOrConnectWithoutUploadedByInput | UploadedDocsCreateOrConnectWithoutUploadedByInput[]
@@ -8210,6 +12534,33 @@ export namespace Prisma {
     connect?: MCQSetWhereUniqueInput | MCQSetWhereUniqueInput[]
   }
 
+  export type ResourceCreateNestedManyWithoutUploadedByInput = {
+    create?: XOR<ResourceCreateWithoutUploadedByInput, ResourceUncheckedCreateWithoutUploadedByInput> | ResourceCreateWithoutUploadedByInput[] | ResourceUncheckedCreateWithoutUploadedByInput[]
+    connectOrCreate?: ResourceCreateOrConnectWithoutUploadedByInput | ResourceCreateOrConnectWithoutUploadedByInput[]
+    createMany?: ResourceCreateManyUploadedByInputEnvelope
+    connect?: ResourceWhereUniqueInput | ResourceWhereUniqueInput[]
+  }
+
+  export type MessageCreateNestedManyWithoutUserInput = {
+    create?: XOR<MessageCreateWithoutUserInput, MessageUncheckedCreateWithoutUserInput> | MessageCreateWithoutUserInput[] | MessageUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutUserInput | MessageCreateOrConnectWithoutUserInput[]
+    createMany?: MessageCreateManyUserInputEnvelope
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+  }
+
+  export type CommunityRoomCreateNestedManyWithoutMembersInput = {
+    create?: XOR<CommunityRoomCreateWithoutMembersInput, CommunityRoomUncheckedCreateWithoutMembersInput> | CommunityRoomCreateWithoutMembersInput[] | CommunityRoomUncheckedCreateWithoutMembersInput[]
+    connectOrCreate?: CommunityRoomCreateOrConnectWithoutMembersInput | CommunityRoomCreateOrConnectWithoutMembersInput[]
+    connect?: CommunityRoomWhereUniqueInput | CommunityRoomWhereUniqueInput[]
+  }
+
+  export type CommunityRoomCreateNestedManyWithoutAdminInput = {
+    create?: XOR<CommunityRoomCreateWithoutAdminInput, CommunityRoomUncheckedCreateWithoutAdminInput> | CommunityRoomCreateWithoutAdminInput[] | CommunityRoomUncheckedCreateWithoutAdminInput[]
+    connectOrCreate?: CommunityRoomCreateOrConnectWithoutAdminInput | CommunityRoomCreateOrConnectWithoutAdminInput[]
+    createMany?: CommunityRoomCreateManyAdminInputEnvelope
+    connect?: CommunityRoomWhereUniqueInput | CommunityRoomWhereUniqueInput[]
+  }
+
   export type UploadedDocsUncheckedCreateNestedManyWithoutUploadedByInput = {
     create?: XOR<UploadedDocsCreateWithoutUploadedByInput, UploadedDocsUncheckedCreateWithoutUploadedByInput> | UploadedDocsCreateWithoutUploadedByInput[] | UploadedDocsUncheckedCreateWithoutUploadedByInput[]
     connectOrCreate?: UploadedDocsCreateOrConnectWithoutUploadedByInput | UploadedDocsCreateOrConnectWithoutUploadedByInput[]
@@ -8229,6 +12580,33 @@ export namespace Prisma {
     connectOrCreate?: MCQSetCreateOrConnectWithoutUserInput | MCQSetCreateOrConnectWithoutUserInput[]
     createMany?: MCQSetCreateManyUserInputEnvelope
     connect?: MCQSetWhereUniqueInput | MCQSetWhereUniqueInput[]
+  }
+
+  export type ResourceUncheckedCreateNestedManyWithoutUploadedByInput = {
+    create?: XOR<ResourceCreateWithoutUploadedByInput, ResourceUncheckedCreateWithoutUploadedByInput> | ResourceCreateWithoutUploadedByInput[] | ResourceUncheckedCreateWithoutUploadedByInput[]
+    connectOrCreate?: ResourceCreateOrConnectWithoutUploadedByInput | ResourceCreateOrConnectWithoutUploadedByInput[]
+    createMany?: ResourceCreateManyUploadedByInputEnvelope
+    connect?: ResourceWhereUniqueInput | ResourceWhereUniqueInput[]
+  }
+
+  export type MessageUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<MessageCreateWithoutUserInput, MessageUncheckedCreateWithoutUserInput> | MessageCreateWithoutUserInput[] | MessageUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutUserInput | MessageCreateOrConnectWithoutUserInput[]
+    createMany?: MessageCreateManyUserInputEnvelope
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+  }
+
+  export type CommunityRoomUncheckedCreateNestedManyWithoutMembersInput = {
+    create?: XOR<CommunityRoomCreateWithoutMembersInput, CommunityRoomUncheckedCreateWithoutMembersInput> | CommunityRoomCreateWithoutMembersInput[] | CommunityRoomUncheckedCreateWithoutMembersInput[]
+    connectOrCreate?: CommunityRoomCreateOrConnectWithoutMembersInput | CommunityRoomCreateOrConnectWithoutMembersInput[]
+    connect?: CommunityRoomWhereUniqueInput | CommunityRoomWhereUniqueInput[]
+  }
+
+  export type CommunityRoomUncheckedCreateNestedManyWithoutAdminInput = {
+    create?: XOR<CommunityRoomCreateWithoutAdminInput, CommunityRoomUncheckedCreateWithoutAdminInput> | CommunityRoomCreateWithoutAdminInput[] | CommunityRoomUncheckedCreateWithoutAdminInput[]
+    connectOrCreate?: CommunityRoomCreateOrConnectWithoutAdminInput | CommunityRoomCreateOrConnectWithoutAdminInput[]
+    createMany?: CommunityRoomCreateManyAdminInputEnvelope
+    connect?: CommunityRoomWhereUniqueInput | CommunityRoomWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -8289,6 +12667,61 @@ export namespace Prisma {
     deleteMany?: MCQSetScalarWhereInput | MCQSetScalarWhereInput[]
   }
 
+  export type ResourceUpdateManyWithoutUploadedByNestedInput = {
+    create?: XOR<ResourceCreateWithoutUploadedByInput, ResourceUncheckedCreateWithoutUploadedByInput> | ResourceCreateWithoutUploadedByInput[] | ResourceUncheckedCreateWithoutUploadedByInput[]
+    connectOrCreate?: ResourceCreateOrConnectWithoutUploadedByInput | ResourceCreateOrConnectWithoutUploadedByInput[]
+    upsert?: ResourceUpsertWithWhereUniqueWithoutUploadedByInput | ResourceUpsertWithWhereUniqueWithoutUploadedByInput[]
+    createMany?: ResourceCreateManyUploadedByInputEnvelope
+    set?: ResourceWhereUniqueInput | ResourceWhereUniqueInput[]
+    disconnect?: ResourceWhereUniqueInput | ResourceWhereUniqueInput[]
+    delete?: ResourceWhereUniqueInput | ResourceWhereUniqueInput[]
+    connect?: ResourceWhereUniqueInput | ResourceWhereUniqueInput[]
+    update?: ResourceUpdateWithWhereUniqueWithoutUploadedByInput | ResourceUpdateWithWhereUniqueWithoutUploadedByInput[]
+    updateMany?: ResourceUpdateManyWithWhereWithoutUploadedByInput | ResourceUpdateManyWithWhereWithoutUploadedByInput[]
+    deleteMany?: ResourceScalarWhereInput | ResourceScalarWhereInput[]
+  }
+
+  export type MessageUpdateManyWithoutUserNestedInput = {
+    create?: XOR<MessageCreateWithoutUserInput, MessageUncheckedCreateWithoutUserInput> | MessageCreateWithoutUserInput[] | MessageUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutUserInput | MessageCreateOrConnectWithoutUserInput[]
+    upsert?: MessageUpsertWithWhereUniqueWithoutUserInput | MessageUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: MessageCreateManyUserInputEnvelope
+    set?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    disconnect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    delete?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    update?: MessageUpdateWithWhereUniqueWithoutUserInput | MessageUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: MessageUpdateManyWithWhereWithoutUserInput | MessageUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: MessageScalarWhereInput | MessageScalarWhereInput[]
+  }
+
+  export type CommunityRoomUpdateManyWithoutMembersNestedInput = {
+    create?: XOR<CommunityRoomCreateWithoutMembersInput, CommunityRoomUncheckedCreateWithoutMembersInput> | CommunityRoomCreateWithoutMembersInput[] | CommunityRoomUncheckedCreateWithoutMembersInput[]
+    connectOrCreate?: CommunityRoomCreateOrConnectWithoutMembersInput | CommunityRoomCreateOrConnectWithoutMembersInput[]
+    upsert?: CommunityRoomUpsertWithWhereUniqueWithoutMembersInput | CommunityRoomUpsertWithWhereUniqueWithoutMembersInput[]
+    set?: CommunityRoomWhereUniqueInput | CommunityRoomWhereUniqueInput[]
+    disconnect?: CommunityRoomWhereUniqueInput | CommunityRoomWhereUniqueInput[]
+    delete?: CommunityRoomWhereUniqueInput | CommunityRoomWhereUniqueInput[]
+    connect?: CommunityRoomWhereUniqueInput | CommunityRoomWhereUniqueInput[]
+    update?: CommunityRoomUpdateWithWhereUniqueWithoutMembersInput | CommunityRoomUpdateWithWhereUniqueWithoutMembersInput[]
+    updateMany?: CommunityRoomUpdateManyWithWhereWithoutMembersInput | CommunityRoomUpdateManyWithWhereWithoutMembersInput[]
+    deleteMany?: CommunityRoomScalarWhereInput | CommunityRoomScalarWhereInput[]
+  }
+
+  export type CommunityRoomUpdateManyWithoutAdminNestedInput = {
+    create?: XOR<CommunityRoomCreateWithoutAdminInput, CommunityRoomUncheckedCreateWithoutAdminInput> | CommunityRoomCreateWithoutAdminInput[] | CommunityRoomUncheckedCreateWithoutAdminInput[]
+    connectOrCreate?: CommunityRoomCreateOrConnectWithoutAdminInput | CommunityRoomCreateOrConnectWithoutAdminInput[]
+    upsert?: CommunityRoomUpsertWithWhereUniqueWithoutAdminInput | CommunityRoomUpsertWithWhereUniqueWithoutAdminInput[]
+    createMany?: CommunityRoomCreateManyAdminInputEnvelope
+    set?: CommunityRoomWhereUniqueInput | CommunityRoomWhereUniqueInput[]
+    disconnect?: CommunityRoomWhereUniqueInput | CommunityRoomWhereUniqueInput[]
+    delete?: CommunityRoomWhereUniqueInput | CommunityRoomWhereUniqueInput[]
+    connect?: CommunityRoomWhereUniqueInput | CommunityRoomWhereUniqueInput[]
+    update?: CommunityRoomUpdateWithWhereUniqueWithoutAdminInput | CommunityRoomUpdateWithWhereUniqueWithoutAdminInput[]
+    updateMany?: CommunityRoomUpdateManyWithWhereWithoutAdminInput | CommunityRoomUpdateManyWithWhereWithoutAdminInput[]
+    deleteMany?: CommunityRoomScalarWhereInput | CommunityRoomScalarWhereInput[]
+  }
+
   export type UploadedDocsUncheckedUpdateManyWithoutUploadedByNestedInput = {
     create?: XOR<UploadedDocsCreateWithoutUploadedByInput, UploadedDocsUncheckedCreateWithoutUploadedByInput> | UploadedDocsCreateWithoutUploadedByInput[] | UploadedDocsUncheckedCreateWithoutUploadedByInput[]
     connectOrCreate?: UploadedDocsCreateOrConnectWithoutUploadedByInput | UploadedDocsCreateOrConnectWithoutUploadedByInput[]
@@ -8329,6 +12762,61 @@ export namespace Prisma {
     update?: MCQSetUpdateWithWhereUniqueWithoutUserInput | MCQSetUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: MCQSetUpdateManyWithWhereWithoutUserInput | MCQSetUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: MCQSetScalarWhereInput | MCQSetScalarWhereInput[]
+  }
+
+  export type ResourceUncheckedUpdateManyWithoutUploadedByNestedInput = {
+    create?: XOR<ResourceCreateWithoutUploadedByInput, ResourceUncheckedCreateWithoutUploadedByInput> | ResourceCreateWithoutUploadedByInput[] | ResourceUncheckedCreateWithoutUploadedByInput[]
+    connectOrCreate?: ResourceCreateOrConnectWithoutUploadedByInput | ResourceCreateOrConnectWithoutUploadedByInput[]
+    upsert?: ResourceUpsertWithWhereUniqueWithoutUploadedByInput | ResourceUpsertWithWhereUniqueWithoutUploadedByInput[]
+    createMany?: ResourceCreateManyUploadedByInputEnvelope
+    set?: ResourceWhereUniqueInput | ResourceWhereUniqueInput[]
+    disconnect?: ResourceWhereUniqueInput | ResourceWhereUniqueInput[]
+    delete?: ResourceWhereUniqueInput | ResourceWhereUniqueInput[]
+    connect?: ResourceWhereUniqueInput | ResourceWhereUniqueInput[]
+    update?: ResourceUpdateWithWhereUniqueWithoutUploadedByInput | ResourceUpdateWithWhereUniqueWithoutUploadedByInput[]
+    updateMany?: ResourceUpdateManyWithWhereWithoutUploadedByInput | ResourceUpdateManyWithWhereWithoutUploadedByInput[]
+    deleteMany?: ResourceScalarWhereInput | ResourceScalarWhereInput[]
+  }
+
+  export type MessageUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<MessageCreateWithoutUserInput, MessageUncheckedCreateWithoutUserInput> | MessageCreateWithoutUserInput[] | MessageUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutUserInput | MessageCreateOrConnectWithoutUserInput[]
+    upsert?: MessageUpsertWithWhereUniqueWithoutUserInput | MessageUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: MessageCreateManyUserInputEnvelope
+    set?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    disconnect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    delete?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    update?: MessageUpdateWithWhereUniqueWithoutUserInput | MessageUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: MessageUpdateManyWithWhereWithoutUserInput | MessageUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: MessageScalarWhereInput | MessageScalarWhereInput[]
+  }
+
+  export type CommunityRoomUncheckedUpdateManyWithoutMembersNestedInput = {
+    create?: XOR<CommunityRoomCreateWithoutMembersInput, CommunityRoomUncheckedCreateWithoutMembersInput> | CommunityRoomCreateWithoutMembersInput[] | CommunityRoomUncheckedCreateWithoutMembersInput[]
+    connectOrCreate?: CommunityRoomCreateOrConnectWithoutMembersInput | CommunityRoomCreateOrConnectWithoutMembersInput[]
+    upsert?: CommunityRoomUpsertWithWhereUniqueWithoutMembersInput | CommunityRoomUpsertWithWhereUniqueWithoutMembersInput[]
+    set?: CommunityRoomWhereUniqueInput | CommunityRoomWhereUniqueInput[]
+    disconnect?: CommunityRoomWhereUniqueInput | CommunityRoomWhereUniqueInput[]
+    delete?: CommunityRoomWhereUniqueInput | CommunityRoomWhereUniqueInput[]
+    connect?: CommunityRoomWhereUniqueInput | CommunityRoomWhereUniqueInput[]
+    update?: CommunityRoomUpdateWithWhereUniqueWithoutMembersInput | CommunityRoomUpdateWithWhereUniqueWithoutMembersInput[]
+    updateMany?: CommunityRoomUpdateManyWithWhereWithoutMembersInput | CommunityRoomUpdateManyWithWhereWithoutMembersInput[]
+    deleteMany?: CommunityRoomScalarWhereInput | CommunityRoomScalarWhereInput[]
+  }
+
+  export type CommunityRoomUncheckedUpdateManyWithoutAdminNestedInput = {
+    create?: XOR<CommunityRoomCreateWithoutAdminInput, CommunityRoomUncheckedCreateWithoutAdminInput> | CommunityRoomCreateWithoutAdminInput[] | CommunityRoomUncheckedCreateWithoutAdminInput[]
+    connectOrCreate?: CommunityRoomCreateOrConnectWithoutAdminInput | CommunityRoomCreateOrConnectWithoutAdminInput[]
+    upsert?: CommunityRoomUpsertWithWhereUniqueWithoutAdminInput | CommunityRoomUpsertWithWhereUniqueWithoutAdminInput[]
+    createMany?: CommunityRoomCreateManyAdminInputEnvelope
+    set?: CommunityRoomWhereUniqueInput | CommunityRoomWhereUniqueInput[]
+    disconnect?: CommunityRoomWhereUniqueInput | CommunityRoomWhereUniqueInput[]
+    delete?: CommunityRoomWhereUniqueInput | CommunityRoomWhereUniqueInput[]
+    connect?: CommunityRoomWhereUniqueInput | CommunityRoomWhereUniqueInput[]
+    update?: CommunityRoomUpdateWithWhereUniqueWithoutAdminInput | CommunityRoomUpdateWithWhereUniqueWithoutAdminInput[]
+    updateMany?: CommunityRoomUpdateManyWithWhereWithoutAdminInput | CommunityRoomUpdateManyWithWhereWithoutAdminInput[]
+    deleteMany?: CommunityRoomScalarWhereInput | CommunityRoomScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutUploadedDocsInput = {
@@ -8511,6 +12999,142 @@ export namespace Prisma {
     upsert?: MCQSetUpsertWithoutMcqsInput
     connect?: MCQSetWhereUniqueInput
     update?: XOR<XOR<MCQSetUpdateToOneWithWhereWithoutMcqsInput, MCQSetUpdateWithoutMcqsInput>, MCQSetUncheckedUpdateWithoutMcqsInput>
+  }
+
+  export type UserCreateNestedOneWithoutResourcesInput = {
+    create?: XOR<UserCreateWithoutResourcesInput, UserUncheckedCreateWithoutResourcesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutResourcesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutResourcesNestedInput = {
+    create?: XOR<UserCreateWithoutResourcesInput, UserUncheckedCreateWithoutResourcesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutResourcesInput
+    upsert?: UserUpsertWithoutResourcesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutResourcesInput, UserUpdateWithoutResourcesInput>, UserUncheckedUpdateWithoutResourcesInput>
+  }
+
+  export type UserCreateNestedOneWithoutAdminRoomsInput = {
+    create?: XOR<UserCreateWithoutAdminRoomsInput, UserUncheckedCreateWithoutAdminRoomsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAdminRoomsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserCreateNestedManyWithoutRoomsInput = {
+    create?: XOR<UserCreateWithoutRoomsInput, UserUncheckedCreateWithoutRoomsInput> | UserCreateWithoutRoomsInput[] | UserUncheckedCreateWithoutRoomsInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutRoomsInput | UserCreateOrConnectWithoutRoomsInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+  }
+
+  export type MessageCreateNestedManyWithoutCommunityRoomInput = {
+    create?: XOR<MessageCreateWithoutCommunityRoomInput, MessageUncheckedCreateWithoutCommunityRoomInput> | MessageCreateWithoutCommunityRoomInput[] | MessageUncheckedCreateWithoutCommunityRoomInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutCommunityRoomInput | MessageCreateOrConnectWithoutCommunityRoomInput[]
+    createMany?: MessageCreateManyCommunityRoomInputEnvelope
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+  }
+
+  export type UserUncheckedCreateNestedManyWithoutRoomsInput = {
+    create?: XOR<UserCreateWithoutRoomsInput, UserUncheckedCreateWithoutRoomsInput> | UserCreateWithoutRoomsInput[] | UserUncheckedCreateWithoutRoomsInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutRoomsInput | UserCreateOrConnectWithoutRoomsInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+  }
+
+  export type MessageUncheckedCreateNestedManyWithoutCommunityRoomInput = {
+    create?: XOR<MessageCreateWithoutCommunityRoomInput, MessageUncheckedCreateWithoutCommunityRoomInput> | MessageCreateWithoutCommunityRoomInput[] | MessageUncheckedCreateWithoutCommunityRoomInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutCommunityRoomInput | MessageCreateOrConnectWithoutCommunityRoomInput[]
+    createMany?: MessageCreateManyCommunityRoomInputEnvelope
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+  }
+
+  export type UserUpdateOneRequiredWithoutAdminRoomsNestedInput = {
+    create?: XOR<UserCreateWithoutAdminRoomsInput, UserUncheckedCreateWithoutAdminRoomsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAdminRoomsInput
+    upsert?: UserUpsertWithoutAdminRoomsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAdminRoomsInput, UserUpdateWithoutAdminRoomsInput>, UserUncheckedUpdateWithoutAdminRoomsInput>
+  }
+
+  export type UserUpdateManyWithoutRoomsNestedInput = {
+    create?: XOR<UserCreateWithoutRoomsInput, UserUncheckedCreateWithoutRoomsInput> | UserCreateWithoutRoomsInput[] | UserUncheckedCreateWithoutRoomsInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutRoomsInput | UserCreateOrConnectWithoutRoomsInput[]
+    upsert?: UserUpsertWithWhereUniqueWithoutRoomsInput | UserUpsertWithWhereUniqueWithoutRoomsInput[]
+    set?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    delete?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    update?: UserUpdateWithWhereUniqueWithoutRoomsInput | UserUpdateWithWhereUniqueWithoutRoomsInput[]
+    updateMany?: UserUpdateManyWithWhereWithoutRoomsInput | UserUpdateManyWithWhereWithoutRoomsInput[]
+    deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
+  }
+
+  export type MessageUpdateManyWithoutCommunityRoomNestedInput = {
+    create?: XOR<MessageCreateWithoutCommunityRoomInput, MessageUncheckedCreateWithoutCommunityRoomInput> | MessageCreateWithoutCommunityRoomInput[] | MessageUncheckedCreateWithoutCommunityRoomInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutCommunityRoomInput | MessageCreateOrConnectWithoutCommunityRoomInput[]
+    upsert?: MessageUpsertWithWhereUniqueWithoutCommunityRoomInput | MessageUpsertWithWhereUniqueWithoutCommunityRoomInput[]
+    createMany?: MessageCreateManyCommunityRoomInputEnvelope
+    set?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    disconnect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    delete?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    update?: MessageUpdateWithWhereUniqueWithoutCommunityRoomInput | MessageUpdateWithWhereUniqueWithoutCommunityRoomInput[]
+    updateMany?: MessageUpdateManyWithWhereWithoutCommunityRoomInput | MessageUpdateManyWithWhereWithoutCommunityRoomInput[]
+    deleteMany?: MessageScalarWhereInput | MessageScalarWhereInput[]
+  }
+
+  export type UserUncheckedUpdateManyWithoutRoomsNestedInput = {
+    create?: XOR<UserCreateWithoutRoomsInput, UserUncheckedCreateWithoutRoomsInput> | UserCreateWithoutRoomsInput[] | UserUncheckedCreateWithoutRoomsInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutRoomsInput | UserCreateOrConnectWithoutRoomsInput[]
+    upsert?: UserUpsertWithWhereUniqueWithoutRoomsInput | UserUpsertWithWhereUniqueWithoutRoomsInput[]
+    set?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    delete?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    update?: UserUpdateWithWhereUniqueWithoutRoomsInput | UserUpdateWithWhereUniqueWithoutRoomsInput[]
+    updateMany?: UserUpdateManyWithWhereWithoutRoomsInput | UserUpdateManyWithWhereWithoutRoomsInput[]
+    deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
+  }
+
+  export type MessageUncheckedUpdateManyWithoutCommunityRoomNestedInput = {
+    create?: XOR<MessageCreateWithoutCommunityRoomInput, MessageUncheckedCreateWithoutCommunityRoomInput> | MessageCreateWithoutCommunityRoomInput[] | MessageUncheckedCreateWithoutCommunityRoomInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutCommunityRoomInput | MessageCreateOrConnectWithoutCommunityRoomInput[]
+    upsert?: MessageUpsertWithWhereUniqueWithoutCommunityRoomInput | MessageUpsertWithWhereUniqueWithoutCommunityRoomInput[]
+    createMany?: MessageCreateManyCommunityRoomInputEnvelope
+    set?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    disconnect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    delete?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    update?: MessageUpdateWithWhereUniqueWithoutCommunityRoomInput | MessageUpdateWithWhereUniqueWithoutCommunityRoomInput[]
+    updateMany?: MessageUpdateManyWithWhereWithoutCommunityRoomInput | MessageUpdateManyWithWhereWithoutCommunityRoomInput[]
+    deleteMany?: MessageScalarWhereInput | MessageScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutMessagesInput = {
+    create?: XOR<UserCreateWithoutMessagesInput, UserUncheckedCreateWithoutMessagesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMessagesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type CommunityRoomCreateNestedOneWithoutMessagesInput = {
+    create?: XOR<CommunityRoomCreateWithoutMessagesInput, CommunityRoomUncheckedCreateWithoutMessagesInput>
+    connectOrCreate?: CommunityRoomCreateOrConnectWithoutMessagesInput
+    connect?: CommunityRoomWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutMessagesNestedInput = {
+    create?: XOR<UserCreateWithoutMessagesInput, UserUncheckedCreateWithoutMessagesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMessagesInput
+    upsert?: UserUpsertWithoutMessagesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutMessagesInput, UserUpdateWithoutMessagesInput>, UserUncheckedUpdateWithoutMessagesInput>
+  }
+
+  export type CommunityRoomUpdateOneRequiredWithoutMessagesNestedInput = {
+    create?: XOR<CommunityRoomCreateWithoutMessagesInput, CommunityRoomUncheckedCreateWithoutMessagesInput>
+    connectOrCreate?: CommunityRoomCreateOrConnectWithoutMessagesInput
+    upsert?: CommunityRoomUpsertWithoutMessagesInput
+    connect?: CommunityRoomWhereUniqueInput
+    update?: XOR<XOR<CommunityRoomUpdateToOneWithWhereWithoutMessagesInput, CommunityRoomUpdateWithoutMessagesInput>, CommunityRoomUncheckedUpdateWithoutMessagesInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -8749,6 +13373,110 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type ResourceCreateWithoutUploadedByInput = {
+    id?: string
+    title: string
+    description?: string | null
+    url: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ResourceUncheckedCreateWithoutUploadedByInput = {
+    id?: string
+    title: string
+    description?: string | null
+    url: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ResourceCreateOrConnectWithoutUploadedByInput = {
+    where: ResourceWhereUniqueInput
+    create: XOR<ResourceCreateWithoutUploadedByInput, ResourceUncheckedCreateWithoutUploadedByInput>
+  }
+
+  export type ResourceCreateManyUploadedByInputEnvelope = {
+    data: ResourceCreateManyUploadedByInput | ResourceCreateManyUploadedByInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type MessageCreateWithoutUserInput = {
+    message: string
+    communityRoom: CommunityRoomCreateNestedOneWithoutMessagesInput
+  }
+
+  export type MessageUncheckedCreateWithoutUserInput = {
+    id?: number
+    roomId: string
+    message: string
+  }
+
+  export type MessageCreateOrConnectWithoutUserInput = {
+    where: MessageWhereUniqueInput
+    create: XOR<MessageCreateWithoutUserInput, MessageUncheckedCreateWithoutUserInput>
+  }
+
+  export type MessageCreateManyUserInputEnvelope = {
+    data: MessageCreateManyUserInput | MessageCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type CommunityRoomCreateWithoutMembersInput = {
+    id?: string
+    slug: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    admin: UserCreateNestedOneWithoutAdminRoomsInput
+    messages?: MessageCreateNestedManyWithoutCommunityRoomInput
+  }
+
+  export type CommunityRoomUncheckedCreateWithoutMembersInput = {
+    id?: string
+    slug: string
+    adminId: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    messages?: MessageUncheckedCreateNestedManyWithoutCommunityRoomInput
+  }
+
+  export type CommunityRoomCreateOrConnectWithoutMembersInput = {
+    where: CommunityRoomWhereUniqueInput
+    create: XOR<CommunityRoomCreateWithoutMembersInput, CommunityRoomUncheckedCreateWithoutMembersInput>
+  }
+
+  export type CommunityRoomCreateWithoutAdminInput = {
+    id?: string
+    slug: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    members?: UserCreateNestedManyWithoutRoomsInput
+    messages?: MessageCreateNestedManyWithoutCommunityRoomInput
+  }
+
+  export type CommunityRoomUncheckedCreateWithoutAdminInput = {
+    id?: string
+    slug: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    members?: UserUncheckedCreateNestedManyWithoutRoomsInput
+    messages?: MessageUncheckedCreateNestedManyWithoutCommunityRoomInput
+  }
+
+  export type CommunityRoomCreateOrConnectWithoutAdminInput = {
+    where: CommunityRoomWhereUniqueInput
+    create: XOR<CommunityRoomCreateWithoutAdminInput, CommunityRoomUncheckedCreateWithoutAdminInput>
+  }
+
+  export type CommunityRoomCreateManyAdminInputEnvelope = {
+    data: CommunityRoomCreateManyAdminInput | CommunityRoomCreateManyAdminInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UploadedDocsUpsertWithWhereUniqueWithoutUploadedByInput = {
     where: UploadedDocsWhereUniqueInput
     update: XOR<UploadedDocsUpdateWithoutUploadedByInput, UploadedDocsUncheckedUpdateWithoutUploadedByInput>
@@ -8834,6 +13562,105 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"MCQSet"> | Date | string
   }
 
+  export type ResourceUpsertWithWhereUniqueWithoutUploadedByInput = {
+    where: ResourceWhereUniqueInput
+    update: XOR<ResourceUpdateWithoutUploadedByInput, ResourceUncheckedUpdateWithoutUploadedByInput>
+    create: XOR<ResourceCreateWithoutUploadedByInput, ResourceUncheckedCreateWithoutUploadedByInput>
+  }
+
+  export type ResourceUpdateWithWhereUniqueWithoutUploadedByInput = {
+    where: ResourceWhereUniqueInput
+    data: XOR<ResourceUpdateWithoutUploadedByInput, ResourceUncheckedUpdateWithoutUploadedByInput>
+  }
+
+  export type ResourceUpdateManyWithWhereWithoutUploadedByInput = {
+    where: ResourceScalarWhereInput
+    data: XOR<ResourceUpdateManyMutationInput, ResourceUncheckedUpdateManyWithoutUploadedByInput>
+  }
+
+  export type ResourceScalarWhereInput = {
+    AND?: ResourceScalarWhereInput | ResourceScalarWhereInput[]
+    OR?: ResourceScalarWhereInput[]
+    NOT?: ResourceScalarWhereInput | ResourceScalarWhereInput[]
+    id?: StringFilter<"Resource"> | string
+    title?: StringFilter<"Resource"> | string
+    description?: StringNullableFilter<"Resource"> | string | null
+    url?: StringFilter<"Resource"> | string
+    createdAt?: DateTimeFilter<"Resource"> | Date | string
+    updatedAt?: DateTimeFilter<"Resource"> | Date | string
+    uploadedById?: StringFilter<"Resource"> | string
+  }
+
+  export type MessageUpsertWithWhereUniqueWithoutUserInput = {
+    where: MessageWhereUniqueInput
+    update: XOR<MessageUpdateWithoutUserInput, MessageUncheckedUpdateWithoutUserInput>
+    create: XOR<MessageCreateWithoutUserInput, MessageUncheckedCreateWithoutUserInput>
+  }
+
+  export type MessageUpdateWithWhereUniqueWithoutUserInput = {
+    where: MessageWhereUniqueInput
+    data: XOR<MessageUpdateWithoutUserInput, MessageUncheckedUpdateWithoutUserInput>
+  }
+
+  export type MessageUpdateManyWithWhereWithoutUserInput = {
+    where: MessageScalarWhereInput
+    data: XOR<MessageUpdateManyMutationInput, MessageUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type MessageScalarWhereInput = {
+    AND?: MessageScalarWhereInput | MessageScalarWhereInput[]
+    OR?: MessageScalarWhereInput[]
+    NOT?: MessageScalarWhereInput | MessageScalarWhereInput[]
+    id?: IntFilter<"Message"> | number
+    roomId?: StringFilter<"Message"> | string
+    message?: StringFilter<"Message"> | string
+    userId?: StringFilter<"Message"> | string
+  }
+
+  export type CommunityRoomUpsertWithWhereUniqueWithoutMembersInput = {
+    where: CommunityRoomWhereUniqueInput
+    update: XOR<CommunityRoomUpdateWithoutMembersInput, CommunityRoomUncheckedUpdateWithoutMembersInput>
+    create: XOR<CommunityRoomCreateWithoutMembersInput, CommunityRoomUncheckedCreateWithoutMembersInput>
+  }
+
+  export type CommunityRoomUpdateWithWhereUniqueWithoutMembersInput = {
+    where: CommunityRoomWhereUniqueInput
+    data: XOR<CommunityRoomUpdateWithoutMembersInput, CommunityRoomUncheckedUpdateWithoutMembersInput>
+  }
+
+  export type CommunityRoomUpdateManyWithWhereWithoutMembersInput = {
+    where: CommunityRoomScalarWhereInput
+    data: XOR<CommunityRoomUpdateManyMutationInput, CommunityRoomUncheckedUpdateManyWithoutMembersInput>
+  }
+
+  export type CommunityRoomScalarWhereInput = {
+    AND?: CommunityRoomScalarWhereInput | CommunityRoomScalarWhereInput[]
+    OR?: CommunityRoomScalarWhereInput[]
+    NOT?: CommunityRoomScalarWhereInput | CommunityRoomScalarWhereInput[]
+    id?: StringFilter<"CommunityRoom"> | string
+    slug?: StringFilter<"CommunityRoom"> | string
+    adminId?: StringFilter<"CommunityRoom"> | string
+    description?: StringNullableFilter<"CommunityRoom"> | string | null
+    createdAt?: DateTimeFilter<"CommunityRoom"> | Date | string
+    updatedAt?: DateTimeFilter<"CommunityRoom"> | Date | string
+  }
+
+  export type CommunityRoomUpsertWithWhereUniqueWithoutAdminInput = {
+    where: CommunityRoomWhereUniqueInput
+    update: XOR<CommunityRoomUpdateWithoutAdminInput, CommunityRoomUncheckedUpdateWithoutAdminInput>
+    create: XOR<CommunityRoomCreateWithoutAdminInput, CommunityRoomUncheckedCreateWithoutAdminInput>
+  }
+
+  export type CommunityRoomUpdateWithWhereUniqueWithoutAdminInput = {
+    where: CommunityRoomWhereUniqueInput
+    data: XOR<CommunityRoomUpdateWithoutAdminInput, CommunityRoomUncheckedUpdateWithoutAdminInput>
+  }
+
+  export type CommunityRoomUpdateManyWithWhereWithoutAdminInput = {
+    where: CommunityRoomScalarWhereInput
+    data: XOR<CommunityRoomUpdateManyMutationInput, CommunityRoomUncheckedUpdateManyWithoutAdminInput>
+  }
+
   export type UserCreateWithoutUploadedDocsInput = {
     id?: string
     email?: string | null
@@ -8845,6 +13672,10 @@ export namespace Prisma {
     updatedAt?: Date | string
     aiChatHistories?: AiChatHistoryCreateNestedManyWithoutUserInput
     mcqSets?: MCQSetCreateNestedManyWithoutUserInput
+    resources?: ResourceCreateNestedManyWithoutUploadedByInput
+    messages?: MessageCreateNestedManyWithoutUserInput
+    rooms?: CommunityRoomCreateNestedManyWithoutMembersInput
+    adminRooms?: CommunityRoomCreateNestedManyWithoutAdminInput
   }
 
   export type UserUncheckedCreateWithoutUploadedDocsInput = {
@@ -8858,6 +13689,10 @@ export namespace Prisma {
     updatedAt?: Date | string
     aiChatHistories?: AiChatHistoryUncheckedCreateNestedManyWithoutUserInput
     mcqSets?: MCQSetUncheckedCreateNestedManyWithoutUserInput
+    resources?: ResourceUncheckedCreateNestedManyWithoutUploadedByInput
+    messages?: MessageUncheckedCreateNestedManyWithoutUserInput
+    rooms?: CommunityRoomUncheckedCreateNestedManyWithoutMembersInput
+    adminRooms?: CommunityRoomUncheckedCreateNestedManyWithoutAdminInput
   }
 
   export type UserCreateOrConnectWithoutUploadedDocsInput = {
@@ -8914,6 +13749,10 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     aiChatHistories?: AiChatHistoryUpdateManyWithoutUserNestedInput
     mcqSets?: MCQSetUpdateManyWithoutUserNestedInput
+    resources?: ResourceUpdateManyWithoutUploadedByNestedInput
+    messages?: MessageUpdateManyWithoutUserNestedInput
+    rooms?: CommunityRoomUpdateManyWithoutMembersNestedInput
+    adminRooms?: CommunityRoomUpdateManyWithoutAdminNestedInput
   }
 
   export type UserUncheckedUpdateWithoutUploadedDocsInput = {
@@ -8927,6 +13766,10 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     aiChatHistories?: AiChatHistoryUncheckedUpdateManyWithoutUserNestedInput
     mcqSets?: MCQSetUncheckedUpdateManyWithoutUserNestedInput
+    resources?: ResourceUncheckedUpdateManyWithoutUploadedByNestedInput
+    messages?: MessageUncheckedUpdateManyWithoutUserNestedInput
+    rooms?: CommunityRoomUncheckedUpdateManyWithoutMembersNestedInput
+    adminRooms?: CommunityRoomUncheckedUpdateManyWithoutAdminNestedInput
   }
 
   export type AiChatHistoryUpsertWithWhereUniqueWithoutResourceInput = {
@@ -8956,6 +13799,10 @@ export namespace Prisma {
     updatedAt?: Date | string
     uploadedDocs?: UploadedDocsCreateNestedManyWithoutUploadedByInput
     mcqSets?: MCQSetCreateNestedManyWithoutUserInput
+    resources?: ResourceCreateNestedManyWithoutUploadedByInput
+    messages?: MessageCreateNestedManyWithoutUserInput
+    rooms?: CommunityRoomCreateNestedManyWithoutMembersInput
+    adminRooms?: CommunityRoomCreateNestedManyWithoutAdminInput
   }
 
   export type UserUncheckedCreateWithoutAiChatHistoriesInput = {
@@ -8969,6 +13816,10 @@ export namespace Prisma {
     updatedAt?: Date | string
     uploadedDocs?: UploadedDocsUncheckedCreateNestedManyWithoutUploadedByInput
     mcqSets?: MCQSetUncheckedCreateNestedManyWithoutUserInput
+    resources?: ResourceUncheckedCreateNestedManyWithoutUploadedByInput
+    messages?: MessageUncheckedCreateNestedManyWithoutUserInput
+    rooms?: CommunityRoomUncheckedCreateNestedManyWithoutMembersInput
+    adminRooms?: CommunityRoomUncheckedCreateNestedManyWithoutAdminInput
   }
 
   export type UserCreateOrConnectWithoutAiChatHistoriesInput = {
@@ -9025,6 +13876,10 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     uploadedDocs?: UploadedDocsUpdateManyWithoutUploadedByNestedInput
     mcqSets?: MCQSetUpdateManyWithoutUserNestedInput
+    resources?: ResourceUpdateManyWithoutUploadedByNestedInput
+    messages?: MessageUpdateManyWithoutUserNestedInput
+    rooms?: CommunityRoomUpdateManyWithoutMembersNestedInput
+    adminRooms?: CommunityRoomUpdateManyWithoutAdminNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAiChatHistoriesInput = {
@@ -9038,6 +13893,10 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     uploadedDocs?: UploadedDocsUncheckedUpdateManyWithoutUploadedByNestedInput
     mcqSets?: MCQSetUncheckedUpdateManyWithoutUserNestedInput
+    resources?: ResourceUncheckedUpdateManyWithoutUploadedByNestedInput
+    messages?: MessageUncheckedUpdateManyWithoutUserNestedInput
+    rooms?: CommunityRoomUncheckedUpdateManyWithoutMembersNestedInput
+    adminRooms?: CommunityRoomUncheckedUpdateManyWithoutAdminNestedInput
   }
 
   export type UploadedDocsUpsertWithoutAiChatHistoriesInput = {
@@ -9084,6 +13943,10 @@ export namespace Prisma {
     updatedAt?: Date | string
     uploadedDocs?: UploadedDocsCreateNestedManyWithoutUploadedByInput
     aiChatHistories?: AiChatHistoryCreateNestedManyWithoutUserInput
+    resources?: ResourceCreateNestedManyWithoutUploadedByInput
+    messages?: MessageCreateNestedManyWithoutUserInput
+    rooms?: CommunityRoomCreateNestedManyWithoutMembersInput
+    adminRooms?: CommunityRoomCreateNestedManyWithoutAdminInput
   }
 
   export type UserUncheckedCreateWithoutMcqSetsInput = {
@@ -9097,6 +13960,10 @@ export namespace Prisma {
     updatedAt?: Date | string
     uploadedDocs?: UploadedDocsUncheckedCreateNestedManyWithoutUploadedByInput
     aiChatHistories?: AiChatHistoryUncheckedCreateNestedManyWithoutUserInput
+    resources?: ResourceUncheckedCreateNestedManyWithoutUploadedByInput
+    messages?: MessageUncheckedCreateNestedManyWithoutUserInput
+    rooms?: CommunityRoomUncheckedCreateNestedManyWithoutMembersInput
+    adminRooms?: CommunityRoomUncheckedCreateNestedManyWithoutAdminInput
   }
 
   export type UserCreateOrConnectWithoutMcqSetsInput = {
@@ -9152,6 +14019,10 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     uploadedDocs?: UploadedDocsUpdateManyWithoutUploadedByNestedInput
     aiChatHistories?: AiChatHistoryUpdateManyWithoutUserNestedInput
+    resources?: ResourceUpdateManyWithoutUploadedByNestedInput
+    messages?: MessageUpdateManyWithoutUserNestedInput
+    rooms?: CommunityRoomUpdateManyWithoutMembersNestedInput
+    adminRooms?: CommunityRoomUpdateManyWithoutAdminNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMcqSetsInput = {
@@ -9165,6 +14036,10 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     uploadedDocs?: UploadedDocsUncheckedUpdateManyWithoutUploadedByNestedInput
     aiChatHistories?: AiChatHistoryUncheckedUpdateManyWithoutUserNestedInput
+    resources?: ResourceUncheckedUpdateManyWithoutUploadedByNestedInput
+    messages?: MessageUncheckedUpdateManyWithoutUserNestedInput
+    rooms?: CommunityRoomUncheckedUpdateManyWithoutMembersNestedInput
+    adminRooms?: CommunityRoomUncheckedUpdateManyWithoutAdminNestedInput
   }
 
   export type MCQUpsertWithWhereUniqueWithoutMcqSetInput = {
@@ -9239,6 +14114,420 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type UserCreateWithoutResourcesInput = {
+    id?: string
+    email?: string | null
+    name?: string | null
+    password?: string | null
+    avatarUrl?: string | null
+    role?: $Enums.UserRole
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    uploadedDocs?: UploadedDocsCreateNestedManyWithoutUploadedByInput
+    aiChatHistories?: AiChatHistoryCreateNestedManyWithoutUserInput
+    mcqSets?: MCQSetCreateNestedManyWithoutUserInput
+    messages?: MessageCreateNestedManyWithoutUserInput
+    rooms?: CommunityRoomCreateNestedManyWithoutMembersInput
+    adminRooms?: CommunityRoomCreateNestedManyWithoutAdminInput
+  }
+
+  export type UserUncheckedCreateWithoutResourcesInput = {
+    id?: string
+    email?: string | null
+    name?: string | null
+    password?: string | null
+    avatarUrl?: string | null
+    role?: $Enums.UserRole
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    uploadedDocs?: UploadedDocsUncheckedCreateNestedManyWithoutUploadedByInput
+    aiChatHistories?: AiChatHistoryUncheckedCreateNestedManyWithoutUserInput
+    mcqSets?: MCQSetUncheckedCreateNestedManyWithoutUserInput
+    messages?: MessageUncheckedCreateNestedManyWithoutUserInput
+    rooms?: CommunityRoomUncheckedCreateNestedManyWithoutMembersInput
+    adminRooms?: CommunityRoomUncheckedCreateNestedManyWithoutAdminInput
+  }
+
+  export type UserCreateOrConnectWithoutResourcesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutResourcesInput, UserUncheckedCreateWithoutResourcesInput>
+  }
+
+  export type UserUpsertWithoutResourcesInput = {
+    update: XOR<UserUpdateWithoutResourcesInput, UserUncheckedUpdateWithoutResourcesInput>
+    create: XOR<UserCreateWithoutResourcesInput, UserUncheckedCreateWithoutResourcesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutResourcesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutResourcesInput, UserUncheckedUpdateWithoutResourcesInput>
+  }
+
+  export type UserUpdateWithoutResourcesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    uploadedDocs?: UploadedDocsUpdateManyWithoutUploadedByNestedInput
+    aiChatHistories?: AiChatHistoryUpdateManyWithoutUserNestedInput
+    mcqSets?: MCQSetUpdateManyWithoutUserNestedInput
+    messages?: MessageUpdateManyWithoutUserNestedInput
+    rooms?: CommunityRoomUpdateManyWithoutMembersNestedInput
+    adminRooms?: CommunityRoomUpdateManyWithoutAdminNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutResourcesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    uploadedDocs?: UploadedDocsUncheckedUpdateManyWithoutUploadedByNestedInput
+    aiChatHistories?: AiChatHistoryUncheckedUpdateManyWithoutUserNestedInput
+    mcqSets?: MCQSetUncheckedUpdateManyWithoutUserNestedInput
+    messages?: MessageUncheckedUpdateManyWithoutUserNestedInput
+    rooms?: CommunityRoomUncheckedUpdateManyWithoutMembersNestedInput
+    adminRooms?: CommunityRoomUncheckedUpdateManyWithoutAdminNestedInput
+  }
+
+  export type UserCreateWithoutAdminRoomsInput = {
+    id?: string
+    email?: string | null
+    name?: string | null
+    password?: string | null
+    avatarUrl?: string | null
+    role?: $Enums.UserRole
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    uploadedDocs?: UploadedDocsCreateNestedManyWithoutUploadedByInput
+    aiChatHistories?: AiChatHistoryCreateNestedManyWithoutUserInput
+    mcqSets?: MCQSetCreateNestedManyWithoutUserInput
+    resources?: ResourceCreateNestedManyWithoutUploadedByInput
+    messages?: MessageCreateNestedManyWithoutUserInput
+    rooms?: CommunityRoomCreateNestedManyWithoutMembersInput
+  }
+
+  export type UserUncheckedCreateWithoutAdminRoomsInput = {
+    id?: string
+    email?: string | null
+    name?: string | null
+    password?: string | null
+    avatarUrl?: string | null
+    role?: $Enums.UserRole
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    uploadedDocs?: UploadedDocsUncheckedCreateNestedManyWithoutUploadedByInput
+    aiChatHistories?: AiChatHistoryUncheckedCreateNestedManyWithoutUserInput
+    mcqSets?: MCQSetUncheckedCreateNestedManyWithoutUserInput
+    resources?: ResourceUncheckedCreateNestedManyWithoutUploadedByInput
+    messages?: MessageUncheckedCreateNestedManyWithoutUserInput
+    rooms?: CommunityRoomUncheckedCreateNestedManyWithoutMembersInput
+  }
+
+  export type UserCreateOrConnectWithoutAdminRoomsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutAdminRoomsInput, UserUncheckedCreateWithoutAdminRoomsInput>
+  }
+
+  export type UserCreateWithoutRoomsInput = {
+    id?: string
+    email?: string | null
+    name?: string | null
+    password?: string | null
+    avatarUrl?: string | null
+    role?: $Enums.UserRole
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    uploadedDocs?: UploadedDocsCreateNestedManyWithoutUploadedByInput
+    aiChatHistories?: AiChatHistoryCreateNestedManyWithoutUserInput
+    mcqSets?: MCQSetCreateNestedManyWithoutUserInput
+    resources?: ResourceCreateNestedManyWithoutUploadedByInput
+    messages?: MessageCreateNestedManyWithoutUserInput
+    adminRooms?: CommunityRoomCreateNestedManyWithoutAdminInput
+  }
+
+  export type UserUncheckedCreateWithoutRoomsInput = {
+    id?: string
+    email?: string | null
+    name?: string | null
+    password?: string | null
+    avatarUrl?: string | null
+    role?: $Enums.UserRole
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    uploadedDocs?: UploadedDocsUncheckedCreateNestedManyWithoutUploadedByInput
+    aiChatHistories?: AiChatHistoryUncheckedCreateNestedManyWithoutUserInput
+    mcqSets?: MCQSetUncheckedCreateNestedManyWithoutUserInput
+    resources?: ResourceUncheckedCreateNestedManyWithoutUploadedByInput
+    messages?: MessageUncheckedCreateNestedManyWithoutUserInput
+    adminRooms?: CommunityRoomUncheckedCreateNestedManyWithoutAdminInput
+  }
+
+  export type UserCreateOrConnectWithoutRoomsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutRoomsInput, UserUncheckedCreateWithoutRoomsInput>
+  }
+
+  export type MessageCreateWithoutCommunityRoomInput = {
+    message: string
+    user: UserCreateNestedOneWithoutMessagesInput
+  }
+
+  export type MessageUncheckedCreateWithoutCommunityRoomInput = {
+    id?: number
+    message: string
+    userId: string
+  }
+
+  export type MessageCreateOrConnectWithoutCommunityRoomInput = {
+    where: MessageWhereUniqueInput
+    create: XOR<MessageCreateWithoutCommunityRoomInput, MessageUncheckedCreateWithoutCommunityRoomInput>
+  }
+
+  export type MessageCreateManyCommunityRoomInputEnvelope = {
+    data: MessageCreateManyCommunityRoomInput | MessageCreateManyCommunityRoomInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserUpsertWithoutAdminRoomsInput = {
+    update: XOR<UserUpdateWithoutAdminRoomsInput, UserUncheckedUpdateWithoutAdminRoomsInput>
+    create: XOR<UserCreateWithoutAdminRoomsInput, UserUncheckedCreateWithoutAdminRoomsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutAdminRoomsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutAdminRoomsInput, UserUncheckedUpdateWithoutAdminRoomsInput>
+  }
+
+  export type UserUpdateWithoutAdminRoomsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    uploadedDocs?: UploadedDocsUpdateManyWithoutUploadedByNestedInput
+    aiChatHistories?: AiChatHistoryUpdateManyWithoutUserNestedInput
+    mcqSets?: MCQSetUpdateManyWithoutUserNestedInput
+    resources?: ResourceUpdateManyWithoutUploadedByNestedInput
+    messages?: MessageUpdateManyWithoutUserNestedInput
+    rooms?: CommunityRoomUpdateManyWithoutMembersNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutAdminRoomsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    uploadedDocs?: UploadedDocsUncheckedUpdateManyWithoutUploadedByNestedInput
+    aiChatHistories?: AiChatHistoryUncheckedUpdateManyWithoutUserNestedInput
+    mcqSets?: MCQSetUncheckedUpdateManyWithoutUserNestedInput
+    resources?: ResourceUncheckedUpdateManyWithoutUploadedByNestedInput
+    messages?: MessageUncheckedUpdateManyWithoutUserNestedInput
+    rooms?: CommunityRoomUncheckedUpdateManyWithoutMembersNestedInput
+  }
+
+  export type UserUpsertWithWhereUniqueWithoutRoomsInput = {
+    where: UserWhereUniqueInput
+    update: XOR<UserUpdateWithoutRoomsInput, UserUncheckedUpdateWithoutRoomsInput>
+    create: XOR<UserCreateWithoutRoomsInput, UserUncheckedCreateWithoutRoomsInput>
+  }
+
+  export type UserUpdateWithWhereUniqueWithoutRoomsInput = {
+    where: UserWhereUniqueInput
+    data: XOR<UserUpdateWithoutRoomsInput, UserUncheckedUpdateWithoutRoomsInput>
+  }
+
+  export type UserUpdateManyWithWhereWithoutRoomsInput = {
+    where: UserScalarWhereInput
+    data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyWithoutRoomsInput>
+  }
+
+  export type UserScalarWhereInput = {
+    AND?: UserScalarWhereInput | UserScalarWhereInput[]
+    OR?: UserScalarWhereInput[]
+    NOT?: UserScalarWhereInput | UserScalarWhereInput[]
+    id?: StringFilter<"User"> | string
+    email?: StringNullableFilter<"User"> | string | null
+    name?: StringNullableFilter<"User"> | string | null
+    password?: StringNullableFilter<"User"> | string | null
+    avatarUrl?: StringNullableFilter<"User"> | string | null
+    role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
+    createdAt?: DateTimeFilter<"User"> | Date | string
+    updatedAt?: DateTimeFilter<"User"> | Date | string
+  }
+
+  export type MessageUpsertWithWhereUniqueWithoutCommunityRoomInput = {
+    where: MessageWhereUniqueInput
+    update: XOR<MessageUpdateWithoutCommunityRoomInput, MessageUncheckedUpdateWithoutCommunityRoomInput>
+    create: XOR<MessageCreateWithoutCommunityRoomInput, MessageUncheckedCreateWithoutCommunityRoomInput>
+  }
+
+  export type MessageUpdateWithWhereUniqueWithoutCommunityRoomInput = {
+    where: MessageWhereUniqueInput
+    data: XOR<MessageUpdateWithoutCommunityRoomInput, MessageUncheckedUpdateWithoutCommunityRoomInput>
+  }
+
+  export type MessageUpdateManyWithWhereWithoutCommunityRoomInput = {
+    where: MessageScalarWhereInput
+    data: XOR<MessageUpdateManyMutationInput, MessageUncheckedUpdateManyWithoutCommunityRoomInput>
+  }
+
+  export type UserCreateWithoutMessagesInput = {
+    id?: string
+    email?: string | null
+    name?: string | null
+    password?: string | null
+    avatarUrl?: string | null
+    role?: $Enums.UserRole
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    uploadedDocs?: UploadedDocsCreateNestedManyWithoutUploadedByInput
+    aiChatHistories?: AiChatHistoryCreateNestedManyWithoutUserInput
+    mcqSets?: MCQSetCreateNestedManyWithoutUserInput
+    resources?: ResourceCreateNestedManyWithoutUploadedByInput
+    rooms?: CommunityRoomCreateNestedManyWithoutMembersInput
+    adminRooms?: CommunityRoomCreateNestedManyWithoutAdminInput
+  }
+
+  export type UserUncheckedCreateWithoutMessagesInput = {
+    id?: string
+    email?: string | null
+    name?: string | null
+    password?: string | null
+    avatarUrl?: string | null
+    role?: $Enums.UserRole
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    uploadedDocs?: UploadedDocsUncheckedCreateNestedManyWithoutUploadedByInput
+    aiChatHistories?: AiChatHistoryUncheckedCreateNestedManyWithoutUserInput
+    mcqSets?: MCQSetUncheckedCreateNestedManyWithoutUserInput
+    resources?: ResourceUncheckedCreateNestedManyWithoutUploadedByInput
+    rooms?: CommunityRoomUncheckedCreateNestedManyWithoutMembersInput
+    adminRooms?: CommunityRoomUncheckedCreateNestedManyWithoutAdminInput
+  }
+
+  export type UserCreateOrConnectWithoutMessagesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutMessagesInput, UserUncheckedCreateWithoutMessagesInput>
+  }
+
+  export type CommunityRoomCreateWithoutMessagesInput = {
+    id?: string
+    slug: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    admin: UserCreateNestedOneWithoutAdminRoomsInput
+    members?: UserCreateNestedManyWithoutRoomsInput
+  }
+
+  export type CommunityRoomUncheckedCreateWithoutMessagesInput = {
+    id?: string
+    slug: string
+    adminId: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    members?: UserUncheckedCreateNestedManyWithoutRoomsInput
+  }
+
+  export type CommunityRoomCreateOrConnectWithoutMessagesInput = {
+    where: CommunityRoomWhereUniqueInput
+    create: XOR<CommunityRoomCreateWithoutMessagesInput, CommunityRoomUncheckedCreateWithoutMessagesInput>
+  }
+
+  export type UserUpsertWithoutMessagesInput = {
+    update: XOR<UserUpdateWithoutMessagesInput, UserUncheckedUpdateWithoutMessagesInput>
+    create: XOR<UserCreateWithoutMessagesInput, UserUncheckedCreateWithoutMessagesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutMessagesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutMessagesInput, UserUncheckedUpdateWithoutMessagesInput>
+  }
+
+  export type UserUpdateWithoutMessagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    uploadedDocs?: UploadedDocsUpdateManyWithoutUploadedByNestedInput
+    aiChatHistories?: AiChatHistoryUpdateManyWithoutUserNestedInput
+    mcqSets?: MCQSetUpdateManyWithoutUserNestedInput
+    resources?: ResourceUpdateManyWithoutUploadedByNestedInput
+    rooms?: CommunityRoomUpdateManyWithoutMembersNestedInput
+    adminRooms?: CommunityRoomUpdateManyWithoutAdminNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutMessagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    uploadedDocs?: UploadedDocsUncheckedUpdateManyWithoutUploadedByNestedInput
+    aiChatHistories?: AiChatHistoryUncheckedUpdateManyWithoutUserNestedInput
+    mcqSets?: MCQSetUncheckedUpdateManyWithoutUserNestedInput
+    resources?: ResourceUncheckedUpdateManyWithoutUploadedByNestedInput
+    rooms?: CommunityRoomUncheckedUpdateManyWithoutMembersNestedInput
+    adminRooms?: CommunityRoomUncheckedUpdateManyWithoutAdminNestedInput
+  }
+
+  export type CommunityRoomUpsertWithoutMessagesInput = {
+    update: XOR<CommunityRoomUpdateWithoutMessagesInput, CommunityRoomUncheckedUpdateWithoutMessagesInput>
+    create: XOR<CommunityRoomCreateWithoutMessagesInput, CommunityRoomUncheckedCreateWithoutMessagesInput>
+    where?: CommunityRoomWhereInput
+  }
+
+  export type CommunityRoomUpdateToOneWithWhereWithoutMessagesInput = {
+    where?: CommunityRoomWhereInput
+    data: XOR<CommunityRoomUpdateWithoutMessagesInput, CommunityRoomUncheckedUpdateWithoutMessagesInput>
+  }
+
+  export type CommunityRoomUpdateWithoutMessagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    admin?: UserUpdateOneRequiredWithoutAdminRoomsNestedInput
+    members?: UserUpdateManyWithoutRoomsNestedInput
+  }
+
+  export type CommunityRoomUncheckedUpdateWithoutMessagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    adminId?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    members?: UserUncheckedUpdateManyWithoutRoomsNestedInput
+  }
+
   export type UploadedDocsCreateManyUploadedByInput = {
     id?: string
     fileName: string
@@ -9262,6 +14551,29 @@ export namespace Prisma {
     id?: string
     fileUrl: string
     createdAt?: Date | string
+  }
+
+  export type ResourceCreateManyUploadedByInput = {
+    id?: string
+    title: string
+    description?: string | null
+    url: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MessageCreateManyUserInput = {
+    id?: number
+    roomId: string
+    message: string
+  }
+
+  export type CommunityRoomCreateManyAdminInput = {
+    id?: string
+    slug: string
+    description?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type UploadedDocsUpdateWithoutUploadedByInput = {
@@ -9342,6 +14654,107 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type ResourceUpdateWithoutUploadedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ResourceUncheckedUpdateWithoutUploadedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ResourceUncheckedUpdateManyWithoutUploadedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    url?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MessageUpdateWithoutUserInput = {
+    message?: StringFieldUpdateOperationsInput | string
+    communityRoom?: CommunityRoomUpdateOneRequiredWithoutMessagesNestedInput
+  }
+
+  export type MessageUncheckedUpdateWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    roomId?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type MessageUncheckedUpdateManyWithoutUserInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    roomId?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type CommunityRoomUpdateWithoutMembersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    admin?: UserUpdateOneRequiredWithoutAdminRoomsNestedInput
+    messages?: MessageUpdateManyWithoutCommunityRoomNestedInput
+  }
+
+  export type CommunityRoomUncheckedUpdateWithoutMembersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    adminId?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    messages?: MessageUncheckedUpdateManyWithoutCommunityRoomNestedInput
+  }
+
+  export type CommunityRoomUncheckedUpdateManyWithoutMembersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    adminId?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type CommunityRoomUpdateWithoutAdminInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    members?: UserUpdateManyWithoutRoomsNestedInput
+    messages?: MessageUpdateManyWithoutCommunityRoomNestedInput
+  }
+
+  export type CommunityRoomUncheckedUpdateWithoutAdminInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    members?: UserUncheckedUpdateManyWithoutRoomsNestedInput
+    messages?: MessageUncheckedUpdateManyWithoutCommunityRoomNestedInput
+  }
+
+  export type CommunityRoomUncheckedUpdateManyWithoutAdminInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type AiChatHistoryCreateManyResourceInput = {
     id?: number
     userId: string
@@ -9407,6 +14820,74 @@ export namespace Prisma {
     options?: MCQUpdateoptionsInput | string[]
     answer?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MessageCreateManyCommunityRoomInput = {
+    id?: number
+    message: string
+    userId: string
+  }
+
+  export type UserUpdateWithoutRoomsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    uploadedDocs?: UploadedDocsUpdateManyWithoutUploadedByNestedInput
+    aiChatHistories?: AiChatHistoryUpdateManyWithoutUserNestedInput
+    mcqSets?: MCQSetUpdateManyWithoutUserNestedInput
+    resources?: ResourceUpdateManyWithoutUploadedByNestedInput
+    messages?: MessageUpdateManyWithoutUserNestedInput
+    adminRooms?: CommunityRoomUpdateManyWithoutAdminNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutRoomsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    uploadedDocs?: UploadedDocsUncheckedUpdateManyWithoutUploadedByNestedInput
+    aiChatHistories?: AiChatHistoryUncheckedUpdateManyWithoutUserNestedInput
+    mcqSets?: MCQSetUncheckedUpdateManyWithoutUserNestedInput
+    resources?: ResourceUncheckedUpdateManyWithoutUploadedByNestedInput
+    messages?: MessageUncheckedUpdateManyWithoutUserNestedInput
+    adminRooms?: CommunityRoomUncheckedUpdateManyWithoutAdminNestedInput
+  }
+
+  export type UserUncheckedUpdateManyWithoutRoomsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MessageUpdateWithoutCommunityRoomInput = {
+    message?: StringFieldUpdateOperationsInput | string
+    user?: UserUpdateOneRequiredWithoutMessagesNestedInput
+  }
+
+  export type MessageUncheckedUpdateWithoutCommunityRoomInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    message?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type MessageUncheckedUpdateManyWithoutCommunityRoomInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    message?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
   }
 
 

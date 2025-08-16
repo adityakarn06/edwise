@@ -3,7 +3,7 @@ import { SquareArrowOutUpRight } from "lucide-react";
 import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
 import toast from "react-hot-toast";
-import CommunityHomepage from "@/components/CommunityPage";
+import CommunityHomepage from "@/components/community/CommunityHomepage";
 
 export default function Page() {
     return (
