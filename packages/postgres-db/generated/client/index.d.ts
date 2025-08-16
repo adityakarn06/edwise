@@ -9668,6 +9668,7 @@ export namespace Prisma {
     roomId: string | null
     message: string | null
     userId: string | null
+    timestamp: Date | null
   }
 
   export type MessageMaxAggregateOutputType = {
@@ -9675,6 +9676,7 @@ export namespace Prisma {
     roomId: string | null
     message: string | null
     userId: string | null
+    timestamp: Date | null
   }
 
   export type MessageCountAggregateOutputType = {
@@ -9682,6 +9684,7 @@ export namespace Prisma {
     roomId: number
     message: number
     userId: number
+    timestamp: number
     _all: number
   }
 
@@ -9699,6 +9702,7 @@ export namespace Prisma {
     roomId?: true
     message?: true
     userId?: true
+    timestamp?: true
   }
 
   export type MessageMaxAggregateInputType = {
@@ -9706,6 +9710,7 @@ export namespace Prisma {
     roomId?: true
     message?: true
     userId?: true
+    timestamp?: true
   }
 
   export type MessageCountAggregateInputType = {
@@ -9713,6 +9718,7 @@ export namespace Prisma {
     roomId?: true
     message?: true
     userId?: true
+    timestamp?: true
     _all?: true
   }
 
@@ -9807,6 +9813,7 @@ export namespace Prisma {
     roomId: string
     message: string
     userId: string
+    timestamp: Date
     _count: MessageCountAggregateOutputType | null
     _avg: MessageAvgAggregateOutputType | null
     _sum: MessageSumAggregateOutputType | null
@@ -9833,6 +9840,7 @@ export namespace Prisma {
     roomId?: boolean
     message?: boolean
     userId?: boolean
+    timestamp?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     communityRoom?: boolean | CommunityRoomDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["message"]>
@@ -9842,6 +9850,7 @@ export namespace Prisma {
     roomId?: boolean
     message?: boolean
     userId?: boolean
+    timestamp?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     communityRoom?: boolean | CommunityRoomDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["message"]>
@@ -9851,6 +9860,7 @@ export namespace Prisma {
     roomId?: boolean
     message?: boolean
     userId?: boolean
+    timestamp?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     communityRoom?: boolean | CommunityRoomDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["message"]>
@@ -9860,9 +9870,10 @@ export namespace Prisma {
     roomId?: boolean
     message?: boolean
     userId?: boolean
+    timestamp?: boolean
   }
 
-  export type MessageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "roomId" | "message" | "userId", ExtArgs["result"]["message"]>
+  export type MessageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "roomId" | "message" | "userId" | "timestamp", ExtArgs["result"]["message"]>
   export type MessageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     communityRoom?: boolean | CommunityRoomDefaultArgs<ExtArgs>
@@ -9887,6 +9898,7 @@ export namespace Prisma {
       roomId: string
       message: string
       userId: string
+      timestamp: Date
     }, ExtArgs["result"]["message"]>
     composites: {}
   }
@@ -10316,6 +10328,7 @@ export namespace Prisma {
     readonly roomId: FieldRef<"Message", 'String'>
     readonly message: FieldRef<"Message", 'String'>
     readonly userId: FieldRef<"Message", 'String'>
+    readonly timestamp: FieldRef<"Message", 'DateTime'>
   }
     
 
@@ -10836,7 +10849,8 @@ export namespace Prisma {
     id: 'id',
     roomId: 'roomId',
     message: 'message',
-    userId: 'userId'
+    userId: 'userId',
+    timestamp: 'timestamp'
   };
 
   export type MessageScalarFieldEnum = (typeof MessageScalarFieldEnum)[keyof typeof MessageScalarFieldEnum]
@@ -11429,6 +11443,7 @@ export namespace Prisma {
     roomId?: StringFilter<"Message"> | string
     message?: StringFilter<"Message"> | string
     userId?: StringFilter<"Message"> | string
+    timestamp?: DateTimeFilter<"Message"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     communityRoom?: XOR<CommunityRoomScalarRelationFilter, CommunityRoomWhereInput>
   }
@@ -11438,6 +11453,7 @@ export namespace Prisma {
     roomId?: SortOrder
     message?: SortOrder
     userId?: SortOrder
+    timestamp?: SortOrder
     user?: UserOrderByWithRelationInput
     communityRoom?: CommunityRoomOrderByWithRelationInput
   }
@@ -11450,6 +11466,7 @@ export namespace Prisma {
     roomId?: StringFilter<"Message"> | string
     message?: StringFilter<"Message"> | string
     userId?: StringFilter<"Message"> | string
+    timestamp?: DateTimeFilter<"Message"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     communityRoom?: XOR<CommunityRoomScalarRelationFilter, CommunityRoomWhereInput>
   }, "id">
@@ -11459,6 +11476,7 @@ export namespace Prisma {
     roomId?: SortOrder
     message?: SortOrder
     userId?: SortOrder
+    timestamp?: SortOrder
     _count?: MessageCountOrderByAggregateInput
     _avg?: MessageAvgOrderByAggregateInput
     _max?: MessageMaxOrderByAggregateInput
@@ -11474,6 +11492,7 @@ export namespace Prisma {
     roomId?: StringWithAggregatesFilter<"Message"> | string
     message?: StringWithAggregatesFilter<"Message"> | string
     userId?: StringWithAggregatesFilter<"Message"> | string
+    timestamp?: DateTimeWithAggregatesFilter<"Message"> | Date | string
   }
 
   export type UserCreateInput = {
@@ -11981,6 +12000,7 @@ export namespace Prisma {
 
   export type MessageCreateInput = {
     message: string
+    timestamp?: Date | string
     user: UserCreateNestedOneWithoutMessagesInput
     communityRoom: CommunityRoomCreateNestedOneWithoutMessagesInput
   }
@@ -11990,10 +12010,12 @@ export namespace Prisma {
     roomId: string
     message: string
     userId: string
+    timestamp?: Date | string
   }
 
   export type MessageUpdateInput = {
     message?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutMessagesNestedInput
     communityRoom?: CommunityRoomUpdateOneRequiredWithoutMessagesNestedInput
   }
@@ -12003,6 +12025,7 @@ export namespace Prisma {
     roomId?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type MessageCreateManyInput = {
@@ -12010,10 +12033,12 @@ export namespace Prisma {
     roomId: string
     message: string
     userId: string
+    timestamp?: Date | string
   }
 
   export type MessageUpdateManyMutationInput = {
     message?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type MessageUncheckedUpdateManyInput = {
@@ -12021,6 +12046,7 @@ export namespace Prisma {
     roomId?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -12489,6 +12515,7 @@ export namespace Prisma {
     roomId?: SortOrder
     message?: SortOrder
     userId?: SortOrder
+    timestamp?: SortOrder
   }
 
   export type MessageAvgOrderByAggregateInput = {
@@ -12500,6 +12527,7 @@ export namespace Prisma {
     roomId?: SortOrder
     message?: SortOrder
     userId?: SortOrder
+    timestamp?: SortOrder
   }
 
   export type MessageMinOrderByAggregateInput = {
@@ -12507,6 +12535,7 @@ export namespace Prisma {
     roomId?: SortOrder
     message?: SortOrder
     userId?: SortOrder
+    timestamp?: SortOrder
   }
 
   export type MessageSumOrderByAggregateInput = {
@@ -13403,6 +13432,7 @@ export namespace Prisma {
 
   export type MessageCreateWithoutUserInput = {
     message: string
+    timestamp?: Date | string
     communityRoom: CommunityRoomCreateNestedOneWithoutMessagesInput
   }
 
@@ -13410,6 +13440,7 @@ export namespace Prisma {
     id?: number
     roomId: string
     message: string
+    timestamp?: Date | string
   }
 
   export type MessageCreateOrConnectWithoutUserInput = {
@@ -13615,6 +13646,7 @@ export namespace Prisma {
     roomId?: StringFilter<"Message"> | string
     message?: StringFilter<"Message"> | string
     userId?: StringFilter<"Message"> | string
+    timestamp?: DateTimeFilter<"Message"> | Date | string
   }
 
   export type CommunityRoomUpsertWithWhereUniqueWithoutMembersInput = {
@@ -14278,6 +14310,7 @@ export namespace Prisma {
 
   export type MessageCreateWithoutCommunityRoomInput = {
     message: string
+    timestamp?: Date | string
     user: UserCreateNestedOneWithoutMessagesInput
   }
 
@@ -14285,6 +14318,7 @@ export namespace Prisma {
     id?: number
     message: string
     userId: string
+    timestamp?: Date | string
   }
 
   export type MessageCreateOrConnectWithoutCommunityRoomInput = {
@@ -14566,6 +14600,7 @@ export namespace Prisma {
     id?: number
     roomId: string
     message: string
+    timestamp?: Date | string
   }
 
   export type CommunityRoomCreateManyAdminInput = {
@@ -14683,6 +14718,7 @@ export namespace Prisma {
 
   export type MessageUpdateWithoutUserInput = {
     message?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
     communityRoom?: CommunityRoomUpdateOneRequiredWithoutMessagesNestedInput
   }
 
@@ -14690,12 +14726,14 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     roomId?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type MessageUncheckedUpdateManyWithoutUserInput = {
     id?: IntFieldUpdateOperationsInput | number
     roomId?: StringFieldUpdateOperationsInput | string
     message?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type CommunityRoomUpdateWithoutMembersInput = {
@@ -14826,6 +14864,7 @@ export namespace Prisma {
     id?: number
     message: string
     userId: string
+    timestamp?: Date | string
   }
 
   export type UserUpdateWithoutRoomsInput = {
@@ -14875,6 +14914,7 @@ export namespace Prisma {
 
   export type MessageUpdateWithoutCommunityRoomInput = {
     message?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutMessagesNestedInput
   }
 
@@ -14882,12 +14922,14 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     message?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type MessageUncheckedUpdateManyWithoutCommunityRoomInput = {
     id?: IntFieldUpdateOperationsInput | number
     message?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    timestamp?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

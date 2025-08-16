@@ -118,6 +118,7 @@ model Message {
   roomId        String
   message       String
   userId        String
+  timestamp     DateTime      @default(now())
   user          User          @relation("UserMessages", fields: [userId], references: [id])
   communityRoom CommunityRoom @relation("RoomMessages", fields: [roomId], references: [id])
 

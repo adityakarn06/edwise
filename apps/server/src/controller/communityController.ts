@@ -120,16 +120,29 @@ const getRoomHistoryController = async (req: AuthenticatedRequest, res: Response
         return res.status(401).json({ error: "User not authenticated" });
     }
 
-    const { slug } = req.params;
+    const { roomId } = req.params;
 
-    if (!slug) {
+    if (!roomId) {
         return res.status(400).json({ error: "Room slug is required" });
     }
 
     try {
         const room = await prisma.communityRoom.findUnique({
-            where: { slug },
-            include: { messages: true }
+            where: { id: roomId },
+            include: { 
+            messages: {
+                include: {
+                    user: {
+                        select: {
+                            id: true,
+                            name: true,
+                            email: true,
+                            avatarUrl: true
+                        }
+                    }
+                }
+            } 
+            }
         });
 
         if (!room) {

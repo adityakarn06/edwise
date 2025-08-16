@@ -145,27 +145,44 @@ io.on("connection", (socket: Socket) => {
     console.log(`User ${user.id} joined room ${room.id}`);
   });
 
-  socket.on("send_message", ({ roomId, message }: { roomId: string, message: string }) => {
+  socket.on("send_message", async ({ roomId, message }: { roomId: string, message: string }) => {
     try {
-      const saveChat = async () => {
-        await prisma.message.create({
-          data: {
-            roomId,
-            userId: user.id,
-            message,
-          }
-        })
+      const room = await getRoomById(roomId);
+      if (!room) {
+        socket.emit("error_message", "Room not found");
+        return;
       }
+      
+      if (!room.users.includes(user.id)) {
+        socket.emit("error_message", "Not authorized to send message to this room");
+        return;
+      }
+
+      if (!message || message.trim() === "") {
+        socket.emit("error_message", "Message cannot be empty");
+        return;
+      }
+
+      const savedMessage = await prisma.message.create({
+        data: {
+          roomId,
+          userId: user.id,
+          message,
+          timestamp: new Date()
+        }
+      });
+
+      io.to(roomId).emit("receive_message", {
+        sender: user.id,
+        message,
+        timestamp: new Date(),
+        messageId: savedMessage.id
+      });
+
     } catch (error) {
       console.error('Error saving message:', error);
       socket.emit("error_message", "Failed to save message");
-      return;
     }
-    io.to(roomId).emit("receive_message", {
-      sender: user.id,
-      message,
-      timestamp: new Date()
-    });
   });
 
   socket.on("disconnect", () => {

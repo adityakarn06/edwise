@@ -7,6 +7,6 @@ communityRouter.post("/create-room", createRoomController);
 communityRouter.post("/join-room", joinRoomController);
 communityRouter.get("/user-rooms", getUserRoomsController);
 communityRouter.get("/rooms", getAllRoomsController);
-communityRouter.get("/history/:slug", getRoomHistoryController);
+communityRouter.get("/history/:roomId", getRoomHistoryController);
 
 export default communityRouter;
