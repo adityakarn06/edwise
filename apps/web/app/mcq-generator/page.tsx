@@ -17,9 +17,11 @@ interface McqData {
 const getMCQData = async (): Promise<McqData[]> => {
   try {
     const result = await api.get("/mcq/data");
+    if (!result.data || !Array.isArray(result.data.MCQs)) {
+      return [];
+    }
     return result.data.MCQs;  
   } catch (error) {
-    console.error("failed to get mcq data")
     return [];
   } 
 }
