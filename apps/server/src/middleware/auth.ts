@@ -11,7 +11,7 @@ interface AuthenticatedRequest extends Request {
 }
 
 const NEXTAUTH_SECRET = process.env.NEXTAUTH_SECRET;
-const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:3001';
+const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:3000';
 
 if (!NEXTAUTH_SECRET) {
     throw new Error('NEXTAUTH_SECRET environment variable is required');

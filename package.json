@@ -6,7 +6,11 @@
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "check-types": "turbo run check-types",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "db:generate": "cd packages/postgres-db && npx prisma generate && cd ../..",
+    "start:web": "cd apps/web && bun run start",
+    "start:websocket": "cd apps/websocket && bun run index.ts",
+    "start:backend": "cd apps/backend && bun run index.ts"
   },
   "devDependencies": {
     "prettier": "^3.6.2",

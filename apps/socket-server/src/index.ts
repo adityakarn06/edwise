@@ -11,7 +11,7 @@ import { PrismaClient } from "@repo/postgres-db/client";
 const prisma = new PrismaClient();
 
 const NEXTAUTH_SECRET = process.env.NEXTAUTH_SECRET;
-const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:3001';
+const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:3000';
 const PORT = process.env.PORT || 3002;
 
 if (!NEXTAUTH_SECRET) {
