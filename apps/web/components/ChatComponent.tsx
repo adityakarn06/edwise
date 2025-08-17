@@ -158,7 +158,7 @@ const ChatComponent: React.FC<ChatComponentProps> = ({currentPdfUrl}) => {
   const handleImportantQuestionClick = (question: string) => {
     setMessage(question);
     
-    // Add the user message immediately
+    // add user message immediately
     setMessages((prev) => [
       ...prev,
       {

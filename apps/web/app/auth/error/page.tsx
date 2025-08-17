@@ -1,5 +1,6 @@
 "use client"
 import { useSearchParams } from "next/navigation";
+import { Suspense } from 'react'
 import Link from "next/link";
 
 const errorMessages: { [key: string]: string } = {
@@ -19,7 +20,7 @@ const errorMessages: { [key: string]: string } = {
     SessionRequired: "Please sign in to access this page.",
 };
 
-export default function AuthError() {
+function AuthErrorContent() {
     const searchParams = useSearchParams();
     const error = searchParams.get("error");
     const errorMessage = error ? errorMessages[error] ?? errorMessages.Default : errorMessages.Default;
@@ -57,4 +58,26 @@ export default function AuthError() {
             </div>
         </div>
     );
-} 
+}
+
+function LoadingFallback() {
+    return (
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-red-50 to-red-100 py-12 px-4 sm:px-6 lg:px-8">
+            <div className="max-w-md w-full space-y-8">
+                <div className="animate-pulse">
+                    <div className="mx-auto h-12 w-12 bg-red-300 rounded-full"></div>
+                    <div className="mt-6 h-8 bg-gray-300 rounded mx-auto w-3/4"></div>
+                    <div className="mt-2 h-4 bg-gray-200 rounded mx-auto w-1/2"></div>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+export default function AuthError() {
+    return (
+        <Suspense fallback={<LoadingFallback />}>
+            <AuthErrorContent />
+        </Suspense>
+    );
+}

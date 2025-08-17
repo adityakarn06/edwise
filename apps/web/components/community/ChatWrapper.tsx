@@ -19,6 +19,7 @@ export default function CommunityWrapper({ slug, roomId }: { slug: string, roomI
                     <Navbar 
                         headingText={slug} 
                         headingIcon={<MessageCircleMore />} 
+                        giveOptions={false}
                         ctaIcon={<ArrowLeft className="h-4 w-4" />}
                         ctaText="Back"
                         onCtaClick={() => router.back()} 

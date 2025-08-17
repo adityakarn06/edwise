@@ -117,6 +117,7 @@ export default function CreateRoomPage() {
           <Navbar 
             headingIcon={<Plus className="h-4 w-4 text-white" />}
             headingText="Create Room"
+            giveOptions={false}
             ctaIcon={<ArrowLeft className="h-4 w-4" />}
             ctaText="Back"
             onCtaClick={() => router.back()}

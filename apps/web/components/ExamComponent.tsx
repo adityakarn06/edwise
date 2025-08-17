@@ -251,7 +251,7 @@ export default function ExamComponent({ mcqData }: ExamComponentProps) {
                     ))}
                 </div>
                 <div className="mt-18 space-y-6 w-1/4 p-4 mr-4 flex flex-col items-center fixed right-0 h-full">
-                    <div className="bg-none size-[14vw] rounded-full border border-12 border-white/20 flex items-center justify-center">
+                    <div className="bg-none size-[14vw] rounded-full border-12 border-white/20 flex items-center justify-center">
                         <h2 className="text-4xl font-medium text-white">
                             {getTotalCorrectAnswer()}/{mcqData.length}
                         </h2>

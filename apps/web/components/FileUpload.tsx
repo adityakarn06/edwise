@@ -9,9 +9,10 @@ import { useMutation } from "@tanstack/react-query";
 
 interface FileUploadProp {
   setCurrentPdfUrl: React.Dispatch<React.SetStateAction<string>>;
+  setUploadOpen?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function FileUpload({ setCurrentPdfUrl }: FileUploadProp) {
+export default function FileUpload({ setCurrentPdfUrl, setUploadOpen }: FileUploadProp) {
   const router = useRouter();
   const [uploading, setUploading] = useState(false);
 
@@ -24,7 +25,6 @@ export default function FileUpload({ setCurrentPdfUrl }: FileUploadProp) {
       const result = await api.post("/upload/pdf", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
-      console.log("got the result")
       return result.data.fileUrl;
     },
   });
@@ -45,12 +45,10 @@ export default function FileUpload({ setCurrentPdfUrl }: FileUploadProp) {
       }
       mutate(file, {
         onSuccess: (fileUrl) => {
-          console.log("mutating 1")
           setUploading(false);
-          console.log("mutating 2")
           setCurrentPdfUrl(fileUrl);
-          console.log("mutating 3")
           toast.success("Upload successful!");
+          setUploadOpen && setUploadOpen(false);
           router.refresh();
         },
         onError: (error: any) => {
