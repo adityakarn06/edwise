@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc -b",
-    "start": "node ./dist/index.js",
+    "start": "export NODE_OPTIONS='--max-old-space-size=8192' && node ./dist/index.js",
     "dev:worker": "node --watch ./dist/bgJobs/process_pdf_queue/worker.js",
     "dev:server": "npm run build && npm run start",
     "dev": "concurrently \"npm:dev:server\" \"npm:dev:worker\""
@@ -21,7 +21,10 @@
     "@langchain/openai": "^0.6.2",
     "@langchain/qdrant": "^0.1.2",
     "@langchain/textsplitters": "^0.1.0",
+    "@pinecone-database/doc-splitter": "^0.0.1",
+    "@pinecone-database/pinecone": "^6.1.2",
     "@repo/postgres-db": "workspace:*",
+    "@types/md5": "^2.3.5",
     "@types/pdf-parse": "^1.1.5",
     "axios": "^1.10.0",
     "bullmq": "^5.56.5",
@@ -34,14 +37,15 @@
     "jose": "^6.0.12",
     "jsonwebtoken": "^9.0.2",
     "langchain": "^0.3.30",
+    "md5": "^2.3.0",
     "multer": "^2.0.2",
     "pdf-parse": "^1.1.1",
     "peggy": "^5.0.5",
     "ts-node": "^10.9.2"
   },
   "devDependencies": {
-    "@repo/typescript-config": "workspace:*",
     "@repo/common-zod": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
     "@types/cookie-parser": "^1.4.9",
     "@types/cors": "^2.8.12",
     "@types/express": "^5.0.3",

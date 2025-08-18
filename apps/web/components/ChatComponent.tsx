@@ -110,7 +110,7 @@ const ChatComponent: React.FC<ChatComponentProps> = ({currentPdfUrl}) => {
     setIsLoading(true);
     
     try {
-      const { data } = await api.get(`/chat/ai?message=${encodeURIComponent(message)}`);
+      const { data } = await api.get(`/chat/ai?message=${encodeURIComponent(message)}&fileUrl=${encodeURIComponent(currentPdfUrl)}`);
 
       const references = data?.sources
         ? data.sources.map((source: any) => {

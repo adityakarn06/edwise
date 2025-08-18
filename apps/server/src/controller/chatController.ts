@@ -4,24 +4,65 @@ import { retriever } from '../services/retriever';
 import { PrismaClient } from "@repo/postgres-db/client";
 import { AuthenticatedRequest } from '../middleware/auth';
 import parseLlmJsonResponse from '../lib/llmResParser';
+import { createEmbedding } from '../lib/createEmbeddings';
 
 const prisma = new PrismaClient();
 
 const aiChatController = async (req: AuthenticatedRequest, res: Response) => {
     try {
+        if (!req.query.message || !req.query.fileUrl) {
+            return res.status(400).json({ error: "Query parameters 'message' and 'fileUrl' are required." });
+        }
         const userQuery = req.query.message;
-        if (typeof userQuery !== "string") {
-            return res.status(400).json({ error: "Query parameter 'message' must be a string." });
+        const fileUrl = req.query.fileUrl;
+        if (typeof userQuery !== "string" || typeof fileUrl !== "string") {
+            return res.status(400).json({ error: "Query parameter must be a string." });
         }
 
-        const docs = await retriever.invoke(userQuery);
-        const context = docs.map(doc => ({
-            content: doc.pageContent,
-            metadata: doc.metadata
-        }));
-        if (context.length === 0) {
-            return res.status(404).json({ message: "No relevant documents found." });
+        const embeddings = await createEmbedding(userQuery);
+        if (!embeddings || embeddings.length === 0) {
+            return res.status(500).json({ error: "Failed to create embeddings." });
         }
+
+        const getFileNameFromDb = async () => {
+                try {
+                    const data = await prisma.uploadedDocs.findFirst({
+                        where: {
+                            uploadedById: req.user?.id,
+                            fileUrl: fileUrl
+                        },
+                        select: {
+                            fileName: true,
+                        }
+                    })
+                    return data?.fileName;    
+                } catch (error) {
+                    console.error("Error fetching file name:", error);
+                    return null;
+                }
+        }
+            
+        const fileName = await getFileNameFromDb();
+        if (!fileName) {
+            return res.status(404).json({ error: "No file found for the user." });
+        }
+
+        const matches = await retriever(embeddings, fileName);
+
+        // filter matches to ensure they have a score above a threshold
+        // const relevantDocs = matches.filter(match => match.score && match.score > 0.7)
+
+        type metadataType = {
+            text: string;
+            pageNumber: number;
+        };
+
+        const getContext = () => {
+            let docs = matches.map(match => (match.metadata as metadataType).text)
+            return docs.join('\n').substring(0, 3000); // limit to 3000 characters
+        }
+
+        const context = getContext();
 
         const messages = [
             {

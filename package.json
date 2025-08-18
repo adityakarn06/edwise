@@ -8,9 +8,9 @@
     "check-types": "turbo run check-types",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "db:generate": "cd packages/postgres-db && npx prisma generate && cd ../..",
-    "start:web": "cd apps/web && bun run start",
-    "start:websocket": "cd apps/websocket && bun run index.ts",
-    "start:backend": "cd apps/backend && bun run index.ts"
+    "start:web": "cd apps/web && pnpm run start",
+    "start:socket": "cd apps/socket-server && pnpm run dev",
+    "start:server": "cd apps/server && pnpm run dev"
   },
   "devDependencies": {
     "prettier": "^3.6.2",

@@ -19,4 +19,4 @@ export default function parseLlmJsonResponse(response: string): { answer: string
       console.error("Failed to parse JSON:", error);
       throw new Error("Invalid JSON response from LLM after cleaning.");
     }
-  }
+}

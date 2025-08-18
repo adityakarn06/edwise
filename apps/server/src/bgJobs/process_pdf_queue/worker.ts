@@ -1,11 +1,15 @@
+import * as dotenv from 'dotenv';
+dotenv.config();
+
 import { Worker } from 'bullmq';
-import { createEmbeddings } from '../../lib/embeddings';
-import { createTextSplitter } from '../../lib/textSplitter';
-import { loadPDF } from '../../lib/pdfLoader';
-import { QdrantVectorStore } from "@langchain/qdrant";
-import { vectorCollectionName } from '../../config/config';
+import { embedDocument, getPineconeClient, loadPDF, prepareDocument } from '../../lib/pinecone';
 import { PrismaClient } from '@repo/postgres-db/client';
-import fs from "fs";
+import { convertToAscii } from '../../lib/utils';
+
+const VectorIndexName = process.env.PINECONE_INDEX_NAME;
+if (!VectorIndexName) {
+  throw new Error('Pinecone index name is not set in environment variables');
+}
 
 const prisma = new PrismaClient();
 
@@ -19,54 +23,27 @@ const worker = new Worker('file-upload-queue', async job => {
       throw new Error('Job data must contain filename and filePath');
     }
 
-    const docs = await loadPDF(data.filePath);
+    const pages = await loadPDF(data.filePath);
+    const docs = await Promise.all(pages.map(page => prepareDocument(page)));
     
-    const textSplitter = createTextSplitter();
-    const splitDocs = await textSplitter.splitDocuments(docs);
-    
-    const embeddings = createEmbeddings();
+    const vectors = await Promise.all(docs.flat().map(embedDocument));
 
-    await QdrantVectorStore.fromDocuments(
-      splitDocs,
-      embeddings,
-      {
-        url: process.env.QDRANT_URL || 'http://localhost:6333',
-        collectionName: vectorCollectionName,
-        collectionConfig: {
-          vectors: { size: 384, distance: "Cosine" }
-        }
-      }
-    );
+    const pineconeClient = await getPineconeClient();
+    const pineconeIndex = pineconeClient.Index(VectorIndexName);
+
+    const nameSpace = convertToAscii(data.filename);
 
     try {
-      async function checkCloudinaryUpload() {
-        const findCloudinaryUpload = await prisma.uploadedDocs.findFirst({
-          where: {
-            fileName: data.filename
-          }
-        });
-        return findCloudinaryUpload;
-      }
-
-      setTimeout(async () => {
-        const result = await checkCloudinaryUpload();
-        if (result) {
-          if (fs.existsSync(data.filePath)) {
-            fs.unlinkSync(data.filePath);
-          }
-        } else {
-          console.error("File not found in Cloudinary. so can't delete local file");
-        }
-      }, 8000);
+      await pineconeIndex.namespace(nameSpace).upsert(vectors)
     } catch (error) {
-      console.error('Error checking Cloudinary upload:', error);
+      console.error('Error creating Pinecone namespace:', error);
     }
 
     return { 
       status: 'success', 
       message: 'PDF processed successfully',
       filename: data.filename,
-      chunks: splitDocs.length,
+      chunks: docs.flat().length,
       userId: data.userId
     };
   } catch (error) {
