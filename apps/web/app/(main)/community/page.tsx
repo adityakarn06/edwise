@@ -1,0 +1,25 @@
+"use client";
+import { SquareArrowOutUpRight } from "lucide-react";
+import Navbar from "@/components/Navbar";
+import toast from "react-hot-toast";
+import CommunityHomepage from "@/components/community/CommunityHomepage";
+
+export default function Page() {
+  return (
+    <>
+      <div className="h-[8%]">
+        <Navbar
+          giveOptions={false}
+          ctaIcon={<SquareArrowOutUpRight className="h-4 w-4" />}
+          ctaText="Upgrade"
+          onCtaClick={() =>
+            toast.success("This button has no functionality yet!")
+          }
+        />
+      </div>
+      <div className="h-[92%] bg-black/90">
+        <CommunityHomepage />
+      </div>
+    </>
+  );
+}

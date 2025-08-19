@@ -1,31 +1,18 @@
-"use client"
-import { BookCheck, BookOpen, BotMessageSquare, SquareArrowOutUpRight } from "lucide-react";
-import FeatureComponent from "@/components/featureComponent";
-import Navbar from "@/components/Navbar";
-import Sidebar from "@/components/Sidebar";
+import { BookCheck, BookOpen, BotMessageSquare } from "lucide-react"
+import FeatureComponent from "./featureComponent"
 import { useRouter } from "next/navigation";
-import toast from "react-hot-toast";
 
-export default function Page() {
-  const router = useRouter();
-  
+const Dashboard = () => {
+    const router = useRouter();
   return (
-    <div className="flex h-screen w-screen">
-      <div className="w-[18%] h-screen">
-        <Sidebar />
-      </div>
-      <div className="w-[82%] h-screen flex flex-col">
-        <div className="h-[8%]">
-        <Navbar giveOptions={false} ctaIcon={<SquareArrowOutUpRight className="h-4 w-4" />} ctaText="Upgrade" onCtaClick={() => toast.success("This button has no functionality yet!")} />
-        </div>
-        <div className="flex flex-col justify-center items-center h-[92%] p-[11vw] bg-black/90">
+    <div className="flex flex-col justify-center items-center h-full p-4 sm:p-8 md:p-[8vw] lg:p-[11vw] bg-black/90">
           <div className="flex flex-col items-center justify-center text-center">
-            <h1 className="text-white/90 text-5xl font-medium p-4">Welcome to Edwise</h1>
-            <p className="text-white/60 text-md max-w-2xl mb-8">
+            <h1 className="text-white/90 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium p-2 sm:p-4">Welcome to Edwise</h1>
+            <p className="text-white/60 text-sm sm:text-md max-w-xs sm:max-w-lg md:max-w-2xl mb-4 sm:mb-6 md:mb-8 px-2">
               Your AI-powered study companion. Upload PDFs, generate quizzes, and collaborate with peers to maximize your learning potential.
             </p>
           </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-4 p-2 sm:p-4 w-full max-w-7xl">
               <FeatureComponent 
                 icon={<BotMessageSquare />} 
                 heading="Chat with PDF" 
@@ -46,7 +33,7 @@ export default function Page() {
               />
             </div>
         </div>
-      </div>
-    </div>
-  );
+  )
 }
+
+export default Dashboard

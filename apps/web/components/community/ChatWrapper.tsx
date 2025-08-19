@@ -10,11 +10,7 @@ import { useRouter } from "next/navigation";
 export default function CommunityWrapper({ slug, roomId }: { slug: string, roomId: string }) {
     const router = useRouter();
     return (
-        <div className="flex h-screen w-screen">
-            <div className="w-[18%]">
-                <Sidebar />
-            </div>
-            <div className="w-[82%] h-screen flex flex-col">
+        <>
                 <div className="h-[8%]">
                     <Navbar 
                         headingText={slug} 
@@ -28,7 +24,6 @@ export default function CommunityWrapper({ slug, roomId }: { slug: string, roomI
                 <div className="h-[92%] bg-black/90">
                     <Chat roomId={roomId} />
                 </div>
-            </div>
-        </div>
+            </>
     )
 }

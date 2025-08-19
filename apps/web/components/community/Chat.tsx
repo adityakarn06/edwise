@@ -68,6 +68,16 @@ export default function Chat({ roomId }: { roomId: string }) {
     };
   }, [socketRef]);
 
+  useEffect(() => {
+    const chatContainer = document.getElementById("chat-container");
+    if (chatContainer) {
+      chatContainer.scrollTo({
+        top: chatContainer.scrollHeight,
+        behavior: "smooth", 
+      })
+    }
+  }, [messages]);
+
   const sendMessage = () => {
     if (message.trim() && roomId) {
       socketRef.current?.emit("send_message", { roomId: roomId, message });
@@ -76,7 +86,7 @@ export default function Chat({ roomId }: { roomId: string }) {
   };
 
   return (
-    <div className="flex flex-col h-full bg-black/30 text-gray-100 relative">
+    <div className="flex flex-col h-full bg-black/30 text-gray-100 relative" id="chat-container">
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-30"
         style={{ backgroundImage: "url('/chatBackground.png')" }}
