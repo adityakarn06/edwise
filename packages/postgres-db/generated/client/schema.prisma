@@ -92,19 +92,27 @@ enum status {
   REJECTED
 }
 
+enum categories {
+  Books
+  Notes
+  Organisers
+  PYQs
+}
+
 model Resource {
-  id          String   @id @default(uuid())
+  id          String      @id @default(uuid())
   title       String?
   description String?
   fileURL     String
   fileName    String
   fileType    String
   fileSize    Int
-  tags        String[] @default([])
+  tags        String[]    @default([])
+  categories  categories?
   thumbnail   String?
   status      status
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
 
   uploadedById String
   uploadedBy   User   @relation("UserResources", fields: [uploadedById], references: [id], onDelete: Cascade)

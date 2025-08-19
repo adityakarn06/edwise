@@ -75,6 +75,16 @@ export const status: {
 
 export type status = (typeof status)[keyof typeof status]
 
+
+export const categories: {
+  Books: 'Books',
+  Notes: 'Notes',
+  Organisers: 'Organisers',
+  PYQs: 'PYQs'
+};
+
+export type categories = (typeof categories)[keyof typeof categories]
+
 }
 
 export type UserRole = $Enums.UserRole
@@ -84,6 +94,10 @@ export const UserRole: typeof $Enums.UserRole
 export type status = $Enums.status
 
 export const status: typeof $Enums.status
+
+export type categories = $Enums.categories
+
+export const categories: typeof $Enums.categories
 
 /**
  * ##  Prisma Client ʲˢ
@@ -7472,6 +7486,7 @@ export namespace Prisma {
     fileName: string | null
     fileType: string | null
     fileSize: number | null
+    categories: $Enums.categories | null
     thumbnail: string | null
     status: $Enums.status | null
     createdAt: Date | null
@@ -7487,6 +7502,7 @@ export namespace Prisma {
     fileName: string | null
     fileType: string | null
     fileSize: number | null
+    categories: $Enums.categories | null
     thumbnail: string | null
     status: $Enums.status | null
     createdAt: Date | null
@@ -7503,6 +7519,7 @@ export namespace Prisma {
     fileType: number
     fileSize: number
     tags: number
+    categories: number
     thumbnail: number
     status: number
     createdAt: number
@@ -7528,6 +7545,7 @@ export namespace Prisma {
     fileName?: true
     fileType?: true
     fileSize?: true
+    categories?: true
     thumbnail?: true
     status?: true
     createdAt?: true
@@ -7543,6 +7561,7 @@ export namespace Prisma {
     fileName?: true
     fileType?: true
     fileSize?: true
+    categories?: true
     thumbnail?: true
     status?: true
     createdAt?: true
@@ -7559,6 +7578,7 @@ export namespace Prisma {
     fileType?: true
     fileSize?: true
     tags?: true
+    categories?: true
     thumbnail?: true
     status?: true
     createdAt?: true
@@ -7662,6 +7682,7 @@ export namespace Prisma {
     fileType: string
     fileSize: number
     tags: string[]
+    categories: $Enums.categories | null
     thumbnail: string | null
     status: $Enums.status
     createdAt: Date
@@ -7697,6 +7718,7 @@ export namespace Prisma {
     fileType?: boolean
     fileSize?: boolean
     tags?: boolean
+    categories?: boolean
     thumbnail?: boolean
     status?: boolean
     createdAt?: boolean
@@ -7714,6 +7736,7 @@ export namespace Prisma {
     fileType?: boolean
     fileSize?: boolean
     tags?: boolean
+    categories?: boolean
     thumbnail?: boolean
     status?: boolean
     createdAt?: boolean
@@ -7731,6 +7754,7 @@ export namespace Prisma {
     fileType?: boolean
     fileSize?: boolean
     tags?: boolean
+    categories?: boolean
     thumbnail?: boolean
     status?: boolean
     createdAt?: boolean
@@ -7748,6 +7772,7 @@ export namespace Prisma {
     fileType?: boolean
     fileSize?: boolean
     tags?: boolean
+    categories?: boolean
     thumbnail?: boolean
     status?: boolean
     createdAt?: boolean
@@ -7755,7 +7780,7 @@ export namespace Prisma {
     uploadedById?: boolean
   }
 
-  export type ResourceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "fileURL" | "fileName" | "fileType" | "fileSize" | "tags" | "thumbnail" | "status" | "createdAt" | "updatedAt" | "uploadedById", ExtArgs["result"]["resource"]>
+  export type ResourceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "fileURL" | "fileName" | "fileType" | "fileSize" | "tags" | "categories" | "thumbnail" | "status" | "createdAt" | "updatedAt" | "uploadedById", ExtArgs["result"]["resource"]>
   export type ResourceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     uploadedBy?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -7780,6 +7805,7 @@ export namespace Prisma {
       fileType: string
       fileSize: number
       tags: string[]
+      categories: $Enums.categories | null
       thumbnail: string | null
       status: $Enums.status
       createdAt: Date
@@ -8217,6 +8243,7 @@ export namespace Prisma {
     readonly fileType: FieldRef<"Resource", 'String'>
     readonly fileSize: FieldRef<"Resource", 'Int'>
     readonly tags: FieldRef<"Resource", 'String[]'>
+    readonly categories: FieldRef<"Resource", 'categories'>
     readonly thumbnail: FieldRef<"Resource", 'String'>
     readonly status: FieldRef<"Resource", 'status'>
     readonly createdAt: FieldRef<"Resource", 'DateTime'>
@@ -10951,6 +10978,7 @@ export namespace Prisma {
     fileType: 'fileType',
     fileSize: 'fileSize',
     tags: 'tags',
+    categories: 'categories',
     thumbnail: 'thumbnail',
     status: 'status',
     createdAt: 'createdAt',
@@ -11066,6 +11094,20 @@ export namespace Prisma {
    * Reference to a field of type 'Int[]'
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'categories'
+   */
+  export type EnumcategoriesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'categories'>
+    
+
+
+  /**
+   * Reference to a field of type 'categories[]'
+   */
+  export type ListEnumcategoriesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'categories[]'>
     
 
 
@@ -11458,6 +11500,7 @@ export namespace Prisma {
     fileType?: StringFilter<"Resource"> | string
     fileSize?: IntFilter<"Resource"> | number
     tags?: StringNullableListFilter<"Resource">
+    categories?: EnumcategoriesNullableFilter<"Resource"> | $Enums.categories | null
     thumbnail?: StringNullableFilter<"Resource"> | string | null
     status?: EnumstatusFilter<"Resource"> | $Enums.status
     createdAt?: DateTimeFilter<"Resource"> | Date | string
@@ -11475,6 +11518,7 @@ export namespace Prisma {
     fileType?: SortOrder
     fileSize?: SortOrder
     tags?: SortOrder
+    categories?: SortOrderInput | SortOrder
     thumbnail?: SortOrderInput | SortOrder
     status?: SortOrder
     createdAt?: SortOrder
@@ -11495,6 +11539,7 @@ export namespace Prisma {
     fileType?: StringFilter<"Resource"> | string
     fileSize?: IntFilter<"Resource"> | number
     tags?: StringNullableListFilter<"Resource">
+    categories?: EnumcategoriesNullableFilter<"Resource"> | $Enums.categories | null
     thumbnail?: StringNullableFilter<"Resource"> | string | null
     status?: EnumstatusFilter<"Resource"> | $Enums.status
     createdAt?: DateTimeFilter<"Resource"> | Date | string
@@ -11512,6 +11557,7 @@ export namespace Prisma {
     fileType?: SortOrder
     fileSize?: SortOrder
     tags?: SortOrder
+    categories?: SortOrderInput | SortOrder
     thumbnail?: SortOrderInput | SortOrder
     status?: SortOrder
     createdAt?: SortOrder
@@ -11536,6 +11582,7 @@ export namespace Prisma {
     fileType?: StringWithAggregatesFilter<"Resource"> | string
     fileSize?: IntWithAggregatesFilter<"Resource"> | number
     tags?: StringNullableListFilter<"Resource">
+    categories?: EnumcategoriesNullableWithAggregatesFilter<"Resource"> | $Enums.categories | null
     thumbnail?: StringNullableWithAggregatesFilter<"Resource"> | string | null
     status?: EnumstatusWithAggregatesFilter<"Resource"> | $Enums.status
     createdAt?: DateTimeWithAggregatesFilter<"Resource"> | Date | string
@@ -12042,6 +12089,7 @@ export namespace Prisma {
     fileType: string
     fileSize: number
     tags?: ResourceCreatetagsInput | string[]
+    categories?: $Enums.categories | null
     thumbnail?: string | null
     status: $Enums.status
     createdAt?: Date | string
@@ -12058,6 +12106,7 @@ export namespace Prisma {
     fileType: string
     fileSize: number
     tags?: ResourceCreatetagsInput | string[]
+    categories?: $Enums.categories | null
     thumbnail?: string | null
     status: $Enums.status
     createdAt?: Date | string
@@ -12074,6 +12123,7 @@ export namespace Prisma {
     fileType?: StringFieldUpdateOperationsInput | string
     fileSize?: IntFieldUpdateOperationsInput | number
     tags?: ResourceUpdatetagsInput | string[]
+    categories?: NullableEnumcategoriesFieldUpdateOperationsInput | $Enums.categories | null
     thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumstatusFieldUpdateOperationsInput | $Enums.status
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12090,6 +12140,7 @@ export namespace Prisma {
     fileType?: StringFieldUpdateOperationsInput | string
     fileSize?: IntFieldUpdateOperationsInput | number
     tags?: ResourceUpdatetagsInput | string[]
+    categories?: NullableEnumcategoriesFieldUpdateOperationsInput | $Enums.categories | null
     thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumstatusFieldUpdateOperationsInput | $Enums.status
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12106,6 +12157,7 @@ export namespace Prisma {
     fileType: string
     fileSize: number
     tags?: ResourceCreatetagsInput | string[]
+    categories?: $Enums.categories | null
     thumbnail?: string | null
     status: $Enums.status
     createdAt?: Date | string
@@ -12122,6 +12174,7 @@ export namespace Prisma {
     fileType?: StringFieldUpdateOperationsInput | string
     fileSize?: IntFieldUpdateOperationsInput | number
     tags?: ResourceUpdatetagsInput | string[]
+    categories?: NullableEnumcategoriesFieldUpdateOperationsInput | $Enums.categories | null
     thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumstatusFieldUpdateOperationsInput | $Enums.status
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12137,6 +12190,7 @@ export namespace Prisma {
     fileType?: StringFieldUpdateOperationsInput | string
     fileSize?: IntFieldUpdateOperationsInput | number
     tags?: ResourceUpdatetagsInput | string[]
+    categories?: NullableEnumcategoriesFieldUpdateOperationsInput | $Enums.categories | null
     thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumstatusFieldUpdateOperationsInput | $Enums.status
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12654,6 +12708,13 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
+  export type EnumcategoriesNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.categories | EnumcategoriesFieldRefInput<$PrismaModel> | null
+    in?: $Enums.categories[] | ListEnumcategoriesFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.categories[] | ListEnumcategoriesFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumcategoriesNullableFilter<$PrismaModel> | $Enums.categories | null
+  }
+
   export type EnumstatusFilter<$PrismaModel = never> = {
     equals?: $Enums.status | EnumstatusFieldRefInput<$PrismaModel>
     in?: $Enums.status[] | ListEnumstatusFieldRefInput<$PrismaModel>
@@ -12670,6 +12731,7 @@ export namespace Prisma {
     fileType?: SortOrder
     fileSize?: SortOrder
     tags?: SortOrder
+    categories?: SortOrder
     thumbnail?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
@@ -12689,6 +12751,7 @@ export namespace Prisma {
     fileName?: SortOrder
     fileType?: SortOrder
     fileSize?: SortOrder
+    categories?: SortOrder
     thumbnail?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
@@ -12704,6 +12767,7 @@ export namespace Prisma {
     fileName?: SortOrder
     fileType?: SortOrder
     fileSize?: SortOrder
+    categories?: SortOrder
     thumbnail?: SortOrder
     status?: SortOrder
     createdAt?: SortOrder
@@ -12713,6 +12777,16 @@ export namespace Prisma {
 
   export type ResourceSumOrderByAggregateInput = {
     fileSize?: SortOrder
+  }
+
+  export type EnumcategoriesNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.categories | EnumcategoriesFieldRefInput<$PrismaModel> | null
+    in?: $Enums.categories[] | ListEnumcategoriesFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.categories[] | ListEnumcategoriesFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumcategoriesNullableWithAggregatesFilter<$PrismaModel> | $Enums.categories | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumcategoriesNullableFilter<$PrismaModel>
+    _max?: NestedEnumcategoriesNullableFilter<$PrismaModel>
   }
 
   export type EnumstatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -13302,6 +13376,10 @@ export namespace Prisma {
     push?: string | string[]
   }
 
+  export type NullableEnumcategoriesFieldUpdateOperationsInput = {
+    set?: $Enums.categories | null
+  }
+
   export type EnumstatusFieldUpdateOperationsInput = {
     set?: $Enums.status
   }
@@ -13589,11 +13667,28 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
+  export type NestedEnumcategoriesNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.categories | EnumcategoriesFieldRefInput<$PrismaModel> | null
+    in?: $Enums.categories[] | ListEnumcategoriesFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.categories[] | ListEnumcategoriesFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumcategoriesNullableFilter<$PrismaModel> | $Enums.categories | null
+  }
+
   export type NestedEnumstatusFilter<$PrismaModel = never> = {
     equals?: $Enums.status | EnumstatusFieldRefInput<$PrismaModel>
     in?: $Enums.status[] | ListEnumstatusFieldRefInput<$PrismaModel>
     notIn?: $Enums.status[] | ListEnumstatusFieldRefInput<$PrismaModel>
     not?: NestedEnumstatusFilter<$PrismaModel> | $Enums.status
+  }
+
+  export type NestedEnumcategoriesNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.categories | EnumcategoriesFieldRefInput<$PrismaModel> | null
+    in?: $Enums.categories[] | ListEnumcategoriesFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.categories[] | ListEnumcategoriesFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumcategoriesNullableWithAggregatesFilter<$PrismaModel> | $Enums.categories | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumcategoriesNullableFilter<$PrismaModel>
+    _max?: NestedEnumcategoriesNullableFilter<$PrismaModel>
   }
 
   export type NestedEnumstatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -13698,6 +13793,7 @@ export namespace Prisma {
     fileType: string
     fileSize: number
     tags?: ResourceCreatetagsInput | string[]
+    categories?: $Enums.categories | null
     thumbnail?: string | null
     status: $Enums.status
     createdAt?: Date | string
@@ -13713,6 +13809,7 @@ export namespace Prisma {
     fileType: string
     fileSize: number
     tags?: ResourceCreatetagsInput | string[]
+    categories?: $Enums.categories | null
     thumbnail?: string | null
     status: $Enums.status
     createdAt?: Date | string
@@ -13920,6 +14017,7 @@ export namespace Prisma {
     fileType?: StringFilter<"Resource"> | string
     fileSize?: IntFilter<"Resource"> | number
     tags?: StringNullableListFilter<"Resource">
+    categories?: EnumcategoriesNullableFilter<"Resource"> | $Enums.categories | null
     thumbnail?: StringNullableFilter<"Resource"> | string | null
     status?: EnumstatusFilter<"Resource"> | $Enums.status
     createdAt?: DateTimeFilter<"Resource"> | Date | string
@@ -14901,6 +14999,7 @@ export namespace Prisma {
     fileType: string
     fileSize: number
     tags?: ResourceCreatetagsInput | string[]
+    categories?: $Enums.categories | null
     thumbnail?: string | null
     status: $Enums.status
     createdAt?: Date | string
@@ -15009,6 +15108,7 @@ export namespace Prisma {
     fileType?: StringFieldUpdateOperationsInput | string
     fileSize?: IntFieldUpdateOperationsInput | number
     tags?: ResourceUpdatetagsInput | string[]
+    categories?: NullableEnumcategoriesFieldUpdateOperationsInput | $Enums.categories | null
     thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumstatusFieldUpdateOperationsInput | $Enums.status
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15024,6 +15124,7 @@ export namespace Prisma {
     fileType?: StringFieldUpdateOperationsInput | string
     fileSize?: IntFieldUpdateOperationsInput | number
     tags?: ResourceUpdatetagsInput | string[]
+    categories?: NullableEnumcategoriesFieldUpdateOperationsInput | $Enums.categories | null
     thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumstatusFieldUpdateOperationsInput | $Enums.status
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15039,6 +15140,7 @@ export namespace Prisma {
     fileType?: StringFieldUpdateOperationsInput | string
     fileSize?: IntFieldUpdateOperationsInput | number
     tags?: ResourceUpdatetagsInput | string[]
+    categories?: NullableEnumcategoriesFieldUpdateOperationsInput | $Enums.categories | null
     thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumstatusFieldUpdateOperationsInput | $Enums.status
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string

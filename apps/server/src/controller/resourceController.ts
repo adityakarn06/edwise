@@ -86,8 +86,12 @@ const updateMetadataOfPdf = async (
           return res.status(401).json({ error: "User not authenticated" });
         }
 
-        if (!req.body.title || !req.body.description || !req.body.fileUrl || req.body.tags) {
-            return res.status(400).json({ error: "Missing data provided"});
+        if (!req.body.title || !req.body.description || !req.body.fileUrl) {
+            return res.status(400).json({ error: "Missing required data: title, description, and fileUrl are required"});
+        }
+
+        if (req.body.tags && !Array.isArray(req.body.tags)) {
+            return res.status(400).json({ error: "Tags must be an array" });
         }
 
         const existingResource = await prisma.resource.findFirst({
@@ -114,7 +118,7 @@ const updateMetadataOfPdf = async (
         });
     
           return res.json({
-            message: "File uploaded successfully to Object Storage",
+            message: "File uploaded successfully",
             document: document.id,
             status: "PENDING"
           });
@@ -129,11 +133,11 @@ const getAllResourcesController = async (
     res: Response
   ) => {
     try {
-        if (!req.user) {
-            return res.status(401).json({ error: "User not authenticated" });
-        }
-        
-        const resources = await prisma.resource.findMany();
+        const resources = await prisma.resource.findMany({
+            where: {
+                status: status.APPROVED
+            }
+        });
 
         res.status(200).json(resources);
     } catch (error) {

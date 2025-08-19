@@ -4,8 +4,10 @@ import Navbar from "@/components/Navbar";
 import toast from "react-hot-toast";
 import SearchBar from "@/components/SearchBar";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import UploadResourceClientComponent from "@/components/UploadResourceClient";
+import api from "@/lib/api";
+import DocumentView from "@/components/DocumentView";
 
 const resourceOptions = [
   {
@@ -37,8 +39,40 @@ const BookImages = [
   "/bookImage4.png",
 ];
 
+interface Resource {
+    id: string;
+    title: string;
+    description: string;
+    fileURL: string;
+    fileName: string;
+    fileType: string;
+    fileSize: number;
+    tags: string[];
+    thumbnail: string | null;
+    status: string;
+    createdAt: string;
+    updatedAt: string;
+    uploadedById: string;
+}
+
 export default function Page() {
     const [isUploadOpen, setIsUploadOpen] = useState<boolean>(false);
+    const [resources, setResources] = useState<Resource[]>([]);
+
+    const getAllResources = async() => {
+        try {
+            const res = await api.get("/resources")
+            const resources = res.data;
+            setResources(resources);
+        } catch (error) {
+            console.error("error in getting all resources", error);
+            setResources([]);
+        }
+    }
+
+    useEffect(() => {
+        getAllResources();
+    }, [])
   return (
     <div className="h-full flex flex-col">
       <div className="h-[8%]">
@@ -54,16 +88,16 @@ export default function Page() {
             <UploadResourceClientComponent setIsUploadOpen={setIsUploadOpen} />
         </div>
       ) : (
-        <div className="flex flex-col items-center h-[92%] bg-black/90">
-        <h1 className="text-white/90 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium mt-8 sm:mt-12 md:mt-16 px-4 text-center">
+        <div className="flex flex-col items-center h-full py-4 bg-black/90 overflow-scroll">
+        <h1 className="text-white/90 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium mt-4 sm:mt-8 md:mt-12 px-4 text-center">
           Browse Resources
         </h1>
-        <div className="mt-6 sm:mt-8 space-y-3 sm:space-y-4 w-full max-w-2xl px-4">
+        <div className="mt-6 sm:mt-8 space-y-3 sm:space-y-4 w-full max-w-2xl px-4 text-center">
           <SearchBar placeholder="find resources, notes, etc." />
           {resourceOptions.map((option, index) => (
             <button
               key={index}
-              className="mx-2 px-4 sm:px-5 md:px-6 py-2 sm:py-2.5 md:py-3 w-full sm:w-auto text-sm sm:text-base bg-white/6 text-white rounded-lg cursor-pointer hover:bg-white/10 transition-colors"
+              className="mx-2 px-4 sm:px-5 md:px-6 py-2 sm:py-2.5 md:py-3 w-24 sm:w-36 text-sm sm:text-base bg-white/6 text-white rounded-lg cursor-pointer hover:bg-white/10 transition-colors"
               onClick={option.onClick}
             >
               <div className="flex items-center justify-center">
@@ -106,7 +140,71 @@ export default function Page() {
             ))}
           </div>
         </div>
-      </div>
+        <div className="mt-10 sm:mt-12 w-full max-w-4xl px-4">
+        <div className="flex items-center justify-between gap-2 flex-wrap">
+            <h2 className="text-white/90 text-lg sm:text-xl">All Resources</h2>
+            <span className="text-white/60 text-sm">{resources.length} resources found</span>
+        </div>
+
+        <div className="mt-6 grid grid-cols-2 lg:grid-cols-4 gap-8">
+            {resources.map((resource) => (
+            <div
+                key={resource.id}
+                onClick={() => window.open(resource.fileURL, '_blank')}
+                className="rounded-lg overflow-hidden shadow-md shadow-white/20 cursor-pointer hover:shadow-white/30 hover:shadow-xl transition-shadow bg-white/5 border border-white/10"
+            >
+                {resource.thumbnail ? (
+                <Image
+                    src={resource.thumbnail}
+                    alt={resource.title}
+                    width={200}
+                    height={200}
+                    className="w-full h-40 object-cover"
+                />
+                ) : (
+                <div className="w-full h-40 flex items-center justify-center">
+                    <DocumentView pdfUrl={resource.fileURL} interactive={false} />
+                </div>
+                )}
+                <div className="p-4">
+                    <div className="flex justify-between items-center">
+                        <h3 className="text-white/90 font-medium text-sm mb-2 line-clamp-2">
+                            {resource.title}
+                        </h3>
+                        <div className="text-white/50 text-xs">
+                            {(resource.fileSize / 1024 / 1024).toFixed(2)} MB
+                        </div>      
+                    </div>
+                <p className="text-white/60 text-xs mb-3 line-clamp-2">
+                    {resource.description}
+                </p>
+                <div className="flex flex-wrap gap-1 mb-3">
+                    {resource.tags.slice(0, 2).map((tag, index) => (
+                    <span
+                        key={index}
+                        className="px-2 py-1 bg-white/10 text-white/70 text-xs rounded"
+                    >
+                        {tag}
+                    </span>
+                    ))}
+                    {resource.tags.length > 2 && (
+                    <span className="px-2 py-1 bg-white/10 text-white/70 text-xs rounded">
+                        +{resource.tags.length - 2}
+                    </span>
+                    )}
+                </div>
+            </div>
+            </div>
+        ))}
+        </div>
+
+        {resources.length === 0 && (
+            <div className="mt-6 text-center text-white/60">
+            <p>No resources found. Upload your first resource!</p>
+            </div>
+        )}
+        </div>
+        </div>
       )}
     </div>
   );

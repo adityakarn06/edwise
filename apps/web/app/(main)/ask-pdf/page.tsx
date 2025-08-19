@@ -1,7 +1,7 @@
 "use client";
 import Navbar from "@/components/Navbar";
 import DocumentView from "@/components/DocumentView";
-import { Bot, Plus } from "lucide-react";
+import { Bot, SquareArrowOutUpRight } from "lucide-react";
 import { useState } from "react";
 import FileUpload from "@/components/FileUpload";
 import { useEffect } from "react";
@@ -43,8 +43,8 @@ export default function AskPdf() {
           giveOptions={true}
           headingIcon={<Bot className="h-4 w-4 text-white" />}
           headingText="Chat with pdf"
-          ctaIcon={<Plus className="h-4 w-4" />}
-          ctaText="New chat"
+          ctaIcon={<SquareArrowOutUpRight className="h-4 w-4" />}
+          ctaText="Upgrade"
           onCtaClick={() =>
             toast.success("This button has no functionality yet!")
           }
@@ -61,7 +61,6 @@ export default function AskPdf() {
         <div className="flex flex-row h-[92%] relative">
           {/* for mobile */}
           <div className="absolute left-2 top-2 md:hidden bg-black/90 border border-white/20 rounded-md overflow-hidden shadow-lg w-[20vw] h-[25vw] z-10">
-
             <DocumentView pdfUrl={currentPdfUrl} interactive={false} />
           </div>
           {/* for desktop */}

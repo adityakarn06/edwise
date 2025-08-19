@@ -177,6 +177,7 @@ exports.Prisma.ResourceScalarFieldEnum = {
   fileType: 'fileType',
   fileSize: 'fileSize',
   tags: 'tags',
+  categories: 'categories',
   thumbnail: 'thumbnail',
   status: 'status',
   createdAt: 'createdAt',
@@ -218,6 +219,13 @@ exports.Prisma.NullsOrder = {
 exports.UserRole = exports.$Enums.UserRole = {
   STUDENT: 'STUDENT',
   ADMIN: 'ADMIN'
+};
+
+exports.categories = exports.$Enums.categories = {
+  Books: 'Books',
+  Notes: 'Notes',
+  Organisers: 'Organisers',
+  PYQs: 'PYQs'
 };
 
 exports.status = exports.$Enums.status = {
