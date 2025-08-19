@@ -1,9 +1,11 @@
 "use client";
-import { ChevronRight, SquareArrowOutUpRight } from "lucide-react";
+import { ChevronRight, CloudUpload, SquareArrowOutUpRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import toast from "react-hot-toast";
 import SearchBar from "@/components/SearchBar";
 import Image from "next/image";
+import { useState } from "react";
+import UploadResourceClientComponent from "@/components/UploadResourceClient";
 
 const resourceOptions = [
   {
@@ -36,19 +38,23 @@ const BookImages = [
 ];
 
 export default function Page() {
+    const [isUploadOpen, setIsUploadOpen] = useState<boolean>(false);
   return (
     <div className="h-full flex flex-col">
       <div className="h-[8%]">
         <Navbar
           giveOptions={false}
-          ctaIcon={<SquareArrowOutUpRight className="h-4 w-4" />}
-          ctaText="Upgrade"
-          onCtaClick={() =>
-            toast.success("This button has no functionality yet!")
-          }
+          ctaIcon={<CloudUpload className="h-4 w-4" />}
+          ctaText="Upload"
+          onCtaClick={() => setIsUploadOpen(!isUploadOpen)}
         />
       </div>
-      <div className="flex flex-col items-center h-[92%] bg-black/90">
+      {isUploadOpen ? (
+        <div className="flex items-center justify-center h-[92%] w-full bg-black/90">
+            <UploadResourceClientComponent setIsUploadOpen={setIsUploadOpen} />
+        </div>
+      ) : (
+        <div className="flex flex-col items-center h-[92%] bg-black/90">
         <h1 className="text-white/90 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium mt-8 sm:mt-12 md:mt-16 px-4 text-center">
           Browse Resources
         </h1>
@@ -101,6 +107,7 @@ export default function Page() {
           </div>
         </div>
       </div>
+      )}
     </div>
   );
 }

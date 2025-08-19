@@ -65,11 +65,25 @@ export namespace $Enums {
 
 export type UserRole = (typeof UserRole)[keyof typeof UserRole]
 
+
+export const status: {
+  UPLOADED: 'UPLOADED',
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED'
+};
+
+export type status = (typeof status)[keyof typeof status]
+
 }
 
 export type UserRole = $Enums.UserRole
 
 export const UserRole: typeof $Enums.UserRole
+
+export type status = $Enums.status
+
+export const status: typeof $Enums.status
 
 /**
  * ##  Prisma Client ʲˢ
@@ -7436,15 +7450,30 @@ export namespace Prisma {
 
   export type AggregateResource = {
     _count: ResourceCountAggregateOutputType | null
+    _avg: ResourceAvgAggregateOutputType | null
+    _sum: ResourceSumAggregateOutputType | null
     _min: ResourceMinAggregateOutputType | null
     _max: ResourceMaxAggregateOutputType | null
+  }
+
+  export type ResourceAvgAggregateOutputType = {
+    fileSize: number | null
+  }
+
+  export type ResourceSumAggregateOutputType = {
+    fileSize: number | null
   }
 
   export type ResourceMinAggregateOutputType = {
     id: string | null
     title: string | null
     description: string | null
-    url: string | null
+    fileURL: string | null
+    fileName: string | null
+    fileType: string | null
+    fileSize: number | null
+    thumbnail: string | null
+    status: $Enums.status | null
     createdAt: Date | null
     updatedAt: Date | null
     uploadedById: string | null
@@ -7454,7 +7483,12 @@ export namespace Prisma {
     id: string | null
     title: string | null
     description: string | null
-    url: string | null
+    fileURL: string | null
+    fileName: string | null
+    fileType: string | null
+    fileSize: number | null
+    thumbnail: string | null
+    status: $Enums.status | null
     createdAt: Date | null
     updatedAt: Date | null
     uploadedById: string | null
@@ -7464,7 +7498,13 @@ export namespace Prisma {
     id: number
     title: number
     description: number
-    url: number
+    fileURL: number
+    fileName: number
+    fileType: number
+    fileSize: number
+    tags: number
+    thumbnail: number
+    status: number
     createdAt: number
     updatedAt: number
     uploadedById: number
@@ -7472,11 +7512,24 @@ export namespace Prisma {
   }
 
 
+  export type ResourceAvgAggregateInputType = {
+    fileSize?: true
+  }
+
+  export type ResourceSumAggregateInputType = {
+    fileSize?: true
+  }
+
   export type ResourceMinAggregateInputType = {
     id?: true
     title?: true
     description?: true
-    url?: true
+    fileURL?: true
+    fileName?: true
+    fileType?: true
+    fileSize?: true
+    thumbnail?: true
+    status?: true
     createdAt?: true
     updatedAt?: true
     uploadedById?: true
@@ -7486,7 +7539,12 @@ export namespace Prisma {
     id?: true
     title?: true
     description?: true
-    url?: true
+    fileURL?: true
+    fileName?: true
+    fileType?: true
+    fileSize?: true
+    thumbnail?: true
+    status?: true
     createdAt?: true
     updatedAt?: true
     uploadedById?: true
@@ -7496,7 +7554,13 @@ export namespace Prisma {
     id?: true
     title?: true
     description?: true
-    url?: true
+    fileURL?: true
+    fileName?: true
+    fileType?: true
+    fileSize?: true
+    tags?: true
+    thumbnail?: true
+    status?: true
     createdAt?: true
     updatedAt?: true
     uploadedById?: true
@@ -7541,6 +7605,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: ResourceAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ResourceSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: ResourceMinAggregateInputType
@@ -7571,19 +7647,29 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: ResourceCountAggregateInputType | true
+    _avg?: ResourceAvgAggregateInputType
+    _sum?: ResourceSumAggregateInputType
     _min?: ResourceMinAggregateInputType
     _max?: ResourceMaxAggregateInputType
   }
 
   export type ResourceGroupByOutputType = {
     id: string
-    title: string
+    title: string | null
     description: string | null
-    url: string
+    fileURL: string
+    fileName: string
+    fileType: string
+    fileSize: number
+    tags: string[]
+    thumbnail: string | null
+    status: $Enums.status
     createdAt: Date
     updatedAt: Date
     uploadedById: string
     _count: ResourceCountAggregateOutputType | null
+    _avg: ResourceAvgAggregateOutputType | null
+    _sum: ResourceSumAggregateOutputType | null
     _min: ResourceMinAggregateOutputType | null
     _max: ResourceMaxAggregateOutputType | null
   }
@@ -7606,7 +7692,13 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     description?: boolean
-    url?: boolean
+    fileURL?: boolean
+    fileName?: boolean
+    fileType?: boolean
+    fileSize?: boolean
+    tags?: boolean
+    thumbnail?: boolean
+    status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     uploadedById?: boolean
@@ -7617,7 +7709,13 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     description?: boolean
-    url?: boolean
+    fileURL?: boolean
+    fileName?: boolean
+    fileType?: boolean
+    fileSize?: boolean
+    tags?: boolean
+    thumbnail?: boolean
+    status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     uploadedById?: boolean
@@ -7628,7 +7726,13 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     description?: boolean
-    url?: boolean
+    fileURL?: boolean
+    fileName?: boolean
+    fileType?: boolean
+    fileSize?: boolean
+    tags?: boolean
+    thumbnail?: boolean
+    status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     uploadedById?: boolean
@@ -7639,13 +7743,19 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     description?: boolean
-    url?: boolean
+    fileURL?: boolean
+    fileName?: boolean
+    fileType?: boolean
+    fileSize?: boolean
+    tags?: boolean
+    thumbnail?: boolean
+    status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     uploadedById?: boolean
   }
 
-  export type ResourceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "url" | "createdAt" | "updatedAt" | "uploadedById", ExtArgs["result"]["resource"]>
+  export type ResourceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "fileURL" | "fileName" | "fileType" | "fileSize" | "tags" | "thumbnail" | "status" | "createdAt" | "updatedAt" | "uploadedById", ExtArgs["result"]["resource"]>
   export type ResourceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     uploadedBy?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -7663,9 +7773,15 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      title: string
+      title: string | null
       description: string | null
-      url: string
+      fileURL: string
+      fileName: string
+      fileType: string
+      fileSize: number
+      tags: string[]
+      thumbnail: string | null
+      status: $Enums.status
       createdAt: Date
       updatedAt: Date
       uploadedById: string
@@ -8096,7 +8212,13 @@ export namespace Prisma {
     readonly id: FieldRef<"Resource", 'String'>
     readonly title: FieldRef<"Resource", 'String'>
     readonly description: FieldRef<"Resource", 'String'>
-    readonly url: FieldRef<"Resource", 'String'>
+    readonly fileURL: FieldRef<"Resource", 'String'>
+    readonly fileName: FieldRef<"Resource", 'String'>
+    readonly fileType: FieldRef<"Resource", 'String'>
+    readonly fileSize: FieldRef<"Resource", 'Int'>
+    readonly tags: FieldRef<"Resource", 'String[]'>
+    readonly thumbnail: FieldRef<"Resource", 'String'>
+    readonly status: FieldRef<"Resource", 'status'>
     readonly createdAt: FieldRef<"Resource", 'DateTime'>
     readonly updatedAt: FieldRef<"Resource", 'DateTime'>
     readonly uploadedById: FieldRef<"Resource", 'String'>
@@ -10824,7 +10946,13 @@ export namespace Prisma {
     id: 'id',
     title: 'title',
     description: 'description',
-    url: 'url',
+    fileURL: 'fileURL',
+    fileName: 'fileName',
+    fileType: 'fileType',
+    fileSize: 'fileSize',
+    tags: 'tags',
+    thumbnail: 'thumbnail',
+    status: 'status',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     uploadedById: 'uploadedById'
@@ -10938,6 +11066,20 @@ export namespace Prisma {
    * Reference to a field of type 'Int[]'
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'status'
+   */
+  export type EnumstatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'status'>
+    
+
+
+  /**
+   * Reference to a field of type 'status[]'
+   */
+  export type ListEnumstatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'status[]'>
     
 
 
@@ -11309,9 +11451,15 @@ export namespace Prisma {
     OR?: ResourceWhereInput[]
     NOT?: ResourceWhereInput | ResourceWhereInput[]
     id?: StringFilter<"Resource"> | string
-    title?: StringFilter<"Resource"> | string
+    title?: StringNullableFilter<"Resource"> | string | null
     description?: StringNullableFilter<"Resource"> | string | null
-    url?: StringFilter<"Resource"> | string
+    fileURL?: StringFilter<"Resource"> | string
+    fileName?: StringFilter<"Resource"> | string
+    fileType?: StringFilter<"Resource"> | string
+    fileSize?: IntFilter<"Resource"> | number
+    tags?: StringNullableListFilter<"Resource">
+    thumbnail?: StringNullableFilter<"Resource"> | string | null
+    status?: EnumstatusFilter<"Resource"> | $Enums.status
     createdAt?: DateTimeFilter<"Resource"> | Date | string
     updatedAt?: DateTimeFilter<"Resource"> | Date | string
     uploadedById?: StringFilter<"Resource"> | string
@@ -11320,9 +11468,15 @@ export namespace Prisma {
 
   export type ResourceOrderByWithRelationInput = {
     id?: SortOrder
-    title?: SortOrder
+    title?: SortOrderInput | SortOrder
     description?: SortOrderInput | SortOrder
-    url?: SortOrder
+    fileURL?: SortOrder
+    fileName?: SortOrder
+    fileType?: SortOrder
+    fileSize?: SortOrder
+    tags?: SortOrder
+    thumbnail?: SortOrderInput | SortOrder
+    status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     uploadedById?: SortOrder
@@ -11334,9 +11488,15 @@ export namespace Prisma {
     AND?: ResourceWhereInput | ResourceWhereInput[]
     OR?: ResourceWhereInput[]
     NOT?: ResourceWhereInput | ResourceWhereInput[]
-    title?: StringFilter<"Resource"> | string
+    title?: StringNullableFilter<"Resource"> | string | null
     description?: StringNullableFilter<"Resource"> | string | null
-    url?: StringFilter<"Resource"> | string
+    fileURL?: StringFilter<"Resource"> | string
+    fileName?: StringFilter<"Resource"> | string
+    fileType?: StringFilter<"Resource"> | string
+    fileSize?: IntFilter<"Resource"> | number
+    tags?: StringNullableListFilter<"Resource">
+    thumbnail?: StringNullableFilter<"Resource"> | string | null
+    status?: EnumstatusFilter<"Resource"> | $Enums.status
     createdAt?: DateTimeFilter<"Resource"> | Date | string
     updatedAt?: DateTimeFilter<"Resource"> | Date | string
     uploadedById?: StringFilter<"Resource"> | string
@@ -11345,15 +11505,23 @@ export namespace Prisma {
 
   export type ResourceOrderByWithAggregationInput = {
     id?: SortOrder
-    title?: SortOrder
+    title?: SortOrderInput | SortOrder
     description?: SortOrderInput | SortOrder
-    url?: SortOrder
+    fileURL?: SortOrder
+    fileName?: SortOrder
+    fileType?: SortOrder
+    fileSize?: SortOrder
+    tags?: SortOrder
+    thumbnail?: SortOrderInput | SortOrder
+    status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     uploadedById?: SortOrder
     _count?: ResourceCountOrderByAggregateInput
+    _avg?: ResourceAvgOrderByAggregateInput
     _max?: ResourceMaxOrderByAggregateInput
     _min?: ResourceMinOrderByAggregateInput
+    _sum?: ResourceSumOrderByAggregateInput
   }
 
   export type ResourceScalarWhereWithAggregatesInput = {
@@ -11361,9 +11529,15 @@ export namespace Prisma {
     OR?: ResourceScalarWhereWithAggregatesInput[]
     NOT?: ResourceScalarWhereWithAggregatesInput | ResourceScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Resource"> | string
-    title?: StringWithAggregatesFilter<"Resource"> | string
+    title?: StringNullableWithAggregatesFilter<"Resource"> | string | null
     description?: StringNullableWithAggregatesFilter<"Resource"> | string | null
-    url?: StringWithAggregatesFilter<"Resource"> | string
+    fileURL?: StringWithAggregatesFilter<"Resource"> | string
+    fileName?: StringWithAggregatesFilter<"Resource"> | string
+    fileType?: StringWithAggregatesFilter<"Resource"> | string
+    fileSize?: IntWithAggregatesFilter<"Resource"> | number
+    tags?: StringNullableListFilter<"Resource">
+    thumbnail?: StringNullableWithAggregatesFilter<"Resource"> | string | null
+    status?: EnumstatusWithAggregatesFilter<"Resource"> | $Enums.status
     createdAt?: DateTimeWithAggregatesFilter<"Resource"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Resource"> | Date | string
     uploadedById?: StringWithAggregatesFilter<"Resource"> | string
@@ -11861,9 +12035,15 @@ export namespace Prisma {
 
   export type ResourceCreateInput = {
     id?: string
-    title: string
+    title?: string | null
     description?: string | null
-    url: string
+    fileURL: string
+    fileName: string
+    fileType: string
+    fileSize: number
+    tags?: ResourceCreatetagsInput | string[]
+    thumbnail?: string | null
+    status: $Enums.status
     createdAt?: Date | string
     updatedAt?: Date | string
     uploadedBy: UserCreateNestedOneWithoutResourcesInput
@@ -11871,9 +12051,15 @@ export namespace Prisma {
 
   export type ResourceUncheckedCreateInput = {
     id?: string
-    title: string
+    title?: string | null
     description?: string | null
-    url: string
+    fileURL: string
+    fileName: string
+    fileType: string
+    fileSize: number
+    tags?: ResourceCreatetagsInput | string[]
+    thumbnail?: string | null
+    status: $Enums.status
     createdAt?: Date | string
     updatedAt?: Date | string
     uploadedById: string
@@ -11881,9 +12067,15 @@ export namespace Prisma {
 
   export type ResourceUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    url?: StringFieldUpdateOperationsInput | string
+    fileURL?: StringFieldUpdateOperationsInput | string
+    fileName?: StringFieldUpdateOperationsInput | string
+    fileType?: StringFieldUpdateOperationsInput | string
+    fileSize?: IntFieldUpdateOperationsInput | number
+    tags?: ResourceUpdatetagsInput | string[]
+    thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumstatusFieldUpdateOperationsInput | $Enums.status
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     uploadedBy?: UserUpdateOneRequiredWithoutResourcesNestedInput
@@ -11891,9 +12083,15 @@ export namespace Prisma {
 
   export type ResourceUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    url?: StringFieldUpdateOperationsInput | string
+    fileURL?: StringFieldUpdateOperationsInput | string
+    fileName?: StringFieldUpdateOperationsInput | string
+    fileType?: StringFieldUpdateOperationsInput | string
+    fileSize?: IntFieldUpdateOperationsInput | number
+    tags?: ResourceUpdatetagsInput | string[]
+    thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumstatusFieldUpdateOperationsInput | $Enums.status
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     uploadedById?: StringFieldUpdateOperationsInput | string
@@ -11901,9 +12099,15 @@ export namespace Prisma {
 
   export type ResourceCreateManyInput = {
     id?: string
-    title: string
+    title?: string | null
     description?: string | null
-    url: string
+    fileURL: string
+    fileName: string
+    fileType: string
+    fileSize: number
+    tags?: ResourceCreatetagsInput | string[]
+    thumbnail?: string | null
+    status: $Enums.status
     createdAt?: Date | string
     updatedAt?: Date | string
     uploadedById: string
@@ -11911,18 +12115,30 @@ export namespace Prisma {
 
   export type ResourceUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    url?: StringFieldUpdateOperationsInput | string
+    fileURL?: StringFieldUpdateOperationsInput | string
+    fileName?: StringFieldUpdateOperationsInput | string
+    fileType?: StringFieldUpdateOperationsInput | string
+    fileSize?: IntFieldUpdateOperationsInput | number
+    tags?: ResourceUpdatetagsInput | string[]
+    thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumstatusFieldUpdateOperationsInput | $Enums.status
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ResourceUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    url?: StringFieldUpdateOperationsInput | string
+    fileURL?: StringFieldUpdateOperationsInput | string
+    fileName?: StringFieldUpdateOperationsInput | string
+    fileType?: StringFieldUpdateOperationsInput | string
+    fileSize?: IntFieldUpdateOperationsInput | number
+    tags?: ResourceUpdatetagsInput | string[]
+    thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumstatusFieldUpdateOperationsInput | $Enums.status
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     uploadedById?: StringFieldUpdateOperationsInput | string
@@ -12438,21 +12654,43 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
+  export type EnumstatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.status | EnumstatusFieldRefInput<$PrismaModel>
+    in?: $Enums.status[] | ListEnumstatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.status[] | ListEnumstatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumstatusFilter<$PrismaModel> | $Enums.status
+  }
+
   export type ResourceCountOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
     description?: SortOrder
-    url?: SortOrder
+    fileURL?: SortOrder
+    fileName?: SortOrder
+    fileType?: SortOrder
+    fileSize?: SortOrder
+    tags?: SortOrder
+    thumbnail?: SortOrder
+    status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     uploadedById?: SortOrder
+  }
+
+  export type ResourceAvgOrderByAggregateInput = {
+    fileSize?: SortOrder
   }
 
   export type ResourceMaxOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
     description?: SortOrder
-    url?: SortOrder
+    fileURL?: SortOrder
+    fileName?: SortOrder
+    fileType?: SortOrder
+    fileSize?: SortOrder
+    thumbnail?: SortOrder
+    status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     uploadedById?: SortOrder
@@ -12462,10 +12700,29 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     description?: SortOrder
-    url?: SortOrder
+    fileURL?: SortOrder
+    fileName?: SortOrder
+    fileType?: SortOrder
+    fileSize?: SortOrder
+    thumbnail?: SortOrder
+    status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     uploadedById?: SortOrder
+  }
+
+  export type ResourceSumOrderByAggregateInput = {
+    fileSize?: SortOrder
+  }
+
+  export type EnumstatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.status | EnumstatusFieldRefInput<$PrismaModel>
+    in?: $Enums.status[] | ListEnumstatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.status[] | ListEnumstatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumstatusWithAggregatesFilter<$PrismaModel> | $Enums.status
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumstatusFilter<$PrismaModel>
+    _max?: NestedEnumstatusFilter<$PrismaModel>
   }
 
   export type UserListRelationFilter = {
@@ -13030,10 +13287,23 @@ export namespace Prisma {
     update?: XOR<XOR<MCQSetUpdateToOneWithWhereWithoutMcqsInput, MCQSetUpdateWithoutMcqsInput>, MCQSetUncheckedUpdateWithoutMcqsInput>
   }
 
+  export type ResourceCreatetagsInput = {
+    set: string[]
+  }
+
   export type UserCreateNestedOneWithoutResourcesInput = {
     create?: XOR<UserCreateWithoutResourcesInput, UserUncheckedCreateWithoutResourcesInput>
     connectOrCreate?: UserCreateOrConnectWithoutResourcesInput
     connect?: UserWhereUniqueInput
+  }
+
+  export type ResourceUpdatetagsInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type EnumstatusFieldUpdateOperationsInput = {
+    set?: $Enums.status
   }
 
   export type UserUpdateOneRequiredWithoutResourcesNestedInput = {
@@ -13319,6 +13589,23 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
+  export type NestedEnumstatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.status | EnumstatusFieldRefInput<$PrismaModel>
+    in?: $Enums.status[] | ListEnumstatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.status[] | ListEnumstatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumstatusFilter<$PrismaModel> | $Enums.status
+  }
+
+  export type NestedEnumstatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.status | EnumstatusFieldRefInput<$PrismaModel>
+    in?: $Enums.status[] | ListEnumstatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.status[] | ListEnumstatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumstatusWithAggregatesFilter<$PrismaModel> | $Enums.status
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumstatusFilter<$PrismaModel>
+    _max?: NestedEnumstatusFilter<$PrismaModel>
+  }
+
   export type UploadedDocsCreateWithoutUploadedByInput = {
     id?: string
     fileName: string
@@ -13404,18 +13691,30 @@ export namespace Prisma {
 
   export type ResourceCreateWithoutUploadedByInput = {
     id?: string
-    title: string
+    title?: string | null
     description?: string | null
-    url: string
+    fileURL: string
+    fileName: string
+    fileType: string
+    fileSize: number
+    tags?: ResourceCreatetagsInput | string[]
+    thumbnail?: string | null
+    status: $Enums.status
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type ResourceUncheckedCreateWithoutUploadedByInput = {
     id?: string
-    title: string
+    title?: string | null
     description?: string | null
-    url: string
+    fileURL: string
+    fileName: string
+    fileType: string
+    fileSize: number
+    tags?: ResourceCreatetagsInput | string[]
+    thumbnail?: string | null
+    status: $Enums.status
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -13614,9 +13913,15 @@ export namespace Prisma {
     OR?: ResourceScalarWhereInput[]
     NOT?: ResourceScalarWhereInput | ResourceScalarWhereInput[]
     id?: StringFilter<"Resource"> | string
-    title?: StringFilter<"Resource"> | string
+    title?: StringNullableFilter<"Resource"> | string | null
     description?: StringNullableFilter<"Resource"> | string | null
-    url?: StringFilter<"Resource"> | string
+    fileURL?: StringFilter<"Resource"> | string
+    fileName?: StringFilter<"Resource"> | string
+    fileType?: StringFilter<"Resource"> | string
+    fileSize?: IntFilter<"Resource"> | number
+    tags?: StringNullableListFilter<"Resource">
+    thumbnail?: StringNullableFilter<"Resource"> | string | null
+    status?: EnumstatusFilter<"Resource"> | $Enums.status
     createdAt?: DateTimeFilter<"Resource"> | Date | string
     updatedAt?: DateTimeFilter<"Resource"> | Date | string
     uploadedById?: StringFilter<"Resource"> | string
@@ -14589,9 +14894,15 @@ export namespace Prisma {
 
   export type ResourceCreateManyUploadedByInput = {
     id?: string
-    title: string
+    title?: string | null
     description?: string | null
-    url: string
+    fileURL: string
+    fileName: string
+    fileType: string
+    fileSize: number
+    tags?: ResourceCreatetagsInput | string[]
+    thumbnail?: string | null
+    status: $Enums.status
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -14691,27 +15002,45 @@ export namespace Prisma {
 
   export type ResourceUpdateWithoutUploadedByInput = {
     id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    url?: StringFieldUpdateOperationsInput | string
+    fileURL?: StringFieldUpdateOperationsInput | string
+    fileName?: StringFieldUpdateOperationsInput | string
+    fileType?: StringFieldUpdateOperationsInput | string
+    fileSize?: IntFieldUpdateOperationsInput | number
+    tags?: ResourceUpdatetagsInput | string[]
+    thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumstatusFieldUpdateOperationsInput | $Enums.status
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ResourceUncheckedUpdateWithoutUploadedByInput = {
     id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    url?: StringFieldUpdateOperationsInput | string
+    fileURL?: StringFieldUpdateOperationsInput | string
+    fileName?: StringFieldUpdateOperationsInput | string
+    fileType?: StringFieldUpdateOperationsInput | string
+    fileSize?: IntFieldUpdateOperationsInput | number
+    tags?: ResourceUpdatetagsInput | string[]
+    thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumstatusFieldUpdateOperationsInput | $Enums.status
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ResourceUncheckedUpdateManyWithoutUploadedByInput = {
     id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    url?: StringFieldUpdateOperationsInput | string
+    fileURL?: StringFieldUpdateOperationsInput | string
+    fileName?: StringFieldUpdateOperationsInput | string
+    fileType?: StringFieldUpdateOperationsInput | string
+    fileSize?: IntFieldUpdateOperationsInput | number
+    tags?: ResourceUpdatetagsInput | string[]
+    thumbnail?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumstatusFieldUpdateOperationsInput | $Enums.status
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

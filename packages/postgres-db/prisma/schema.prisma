@@ -85,11 +85,24 @@ model MCQ {
   @@map("mcqs")
 }
 
+enum status {
+  UPLOADED
+  PENDING
+  APPROVED
+  REJECTED
+}
+
 model Resource {
   id          String   @id @default(uuid())
-  title       String
+  title       String?
   description String?
-  url         String
+  fileURL     String
+  fileName    String
+  fileType    String
+  fileSize    Int
+  tags        String[] @default([])
+  thumbnail   String?
+  status      status
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
