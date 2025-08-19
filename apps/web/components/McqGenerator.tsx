@@ -64,21 +64,21 @@ export default function McqGeneratorUI({ setMcqData }: McqGeneratorUIProp) {
   });
 
   return (
-    <div className="flex flex-col p-8 z-10 h-[60vh] w-[28vw] bg-[#262626] rounded-lg shadow-lg">
-      <div className="text-start mb-6">
-        <h1 className="text-xl font-semibold mb-2 text-white">
+    <div className="flex flex-col z-10 bg-[#262626] rounded-lg shadow-lg w-[80vw] sm:w-[70vw] md:w-[60vw] lg:w-[50vw] xl:w-[28vw] p-4 sm:p-6 md:p-8 h-auto md:h-[60vh]">
+      <div className="text-start mb-4 sm:mb-5 md:mb-6">
+        <h1 className="text-lg sm:text-xl md:text-2xl font-semibold mb-1.5 sm:mb-2 text-white">
           Upload your PDF
         </h1>
-        <p className="text-sm text-white/60">
+        <p className="text-xs sm:text-sm md:text-sm text-white/60">
           Generate customized MCQs from your files to test your knowledge.
           Please use PDF format.
         </p>
       </div>
-      <div className="flex w-full mb-6 p-2 rounded-lg bg-gradient-to-tr from-blue-200 to-indigo-200 relative">
+      <div className="flex w-full mb-4 sm:mb-5 md:mb-6 p-2 sm:p-2.5 rounded-lg bg-gradient-to-tr from-blue-200 to-indigo-200 relative">
         <div className="mr-2">
-          <Info color="blue" size="18px" />
+          <Info className="text-blue-700 h-4 w-4 sm:h-4 sm:w-4 md:h-5 md:w-5" />
         </div>
-        <p className="text-xs text-blue-800">
+        <p className="text-[11px] sm:text-xs md:text-sm text-blue-800">
           Please ensure the PDF is not larger than 10MB and contains text data
           for optimal results.
         </p>
@@ -86,17 +86,17 @@ export default function McqGeneratorUI({ setMcqData }: McqGeneratorUIProp) {
       <div
         {...getRootProps({
           className:
-            "w-full h-40 border-2 border-dashed border-white/40 rounded-lg flex items-center justify-center cursor-pointer hover:border-blue-500 transition-colors",
+            "w-full h-36 sm:h-40 md:h-44 border-2 border-dashed border-white/40 rounded-lg flex items-center justify-center cursor-pointer hover:border-blue-500 transition-colors",
         })}
       >
         <input {...getInputProps()} />
         <>
           <div className="flex flex-col items-center">
-            <CloudUpload size={24} color="white" />
-            <p className="text-white/90 text-sm mt-2">
+            <CloudUpload className="text-white h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8" />
+            <p className="text-white/90 text-xs sm:text-sm mt-2">
               Drag and drop your PDF here or
             </p>
-            <button className="text-blue-300 text-sm underline mt-1">
+            <button className="text-blue-300 text-xs sm:text-sm underline mt-1">
               click to upload
             </button>
           </div>
@@ -105,7 +105,7 @@ export default function McqGeneratorUI({ setMcqData }: McqGeneratorUIProp) {
       <button
         type="submit"
         disabled={true}
-        className="mt-4 w-full px-6 py-2 rounded-xl bg-blue-600 text-white font-semibold shadow hover:bg-blue-700 transition disabled:opacity-50"
+        className="mt-3 sm:mt-4 w-full px-4 sm:px-5 md:px-6 py-2 sm:py-2.5 rounded-xl bg-blue-600 text-white text-sm sm:text-base font-semibold shadow hover:bg-blue-700 transition disabled:opacity-50"
       >
         {uploading ? "Uploading..." : "Generate MCQs"}
       </button>

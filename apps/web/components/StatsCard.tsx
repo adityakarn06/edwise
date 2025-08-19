@@ -18,7 +18,7 @@ export default function StatsCard() {
   });
 
     return (
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
           <div className="bg-white/5 border border-white/10 rounded-xl p-6 text-center">
             <div className="inline-flex items-center justify-center w-12 h-12 bg-blue-500/10 rounded-lg mb-3">
               <Users className="h-6 w-6 text-blue-400" />

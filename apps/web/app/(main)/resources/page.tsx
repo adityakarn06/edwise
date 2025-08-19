@@ -49,36 +49,36 @@ export default function Page() {
         />
       </div>
       <div className="flex flex-col items-center h-[92%] bg-black/90">
-        <h1 className="text-white/90 text-5xl font-medium mt-16">
+        <h1 className="text-white/90 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium mt-8 sm:mt-12 md:mt-16 px-4 text-center">
           Browse Resources
         </h1>
-        <div className="mt-8 space-y-4">
+        <div className="mt-6 sm:mt-8 space-y-3 sm:space-y-4 w-full max-w-2xl px-4">
           <SearchBar placeholder="find resources, notes, etc." />
           {resourceOptions.map((option, index) => (
             <button
               key={index}
-              className="mx-2 px-6 py-2 w-38 text-md bg-white/6 text-white rounded-lg cursor-pointer hover:bg-white/10 transition-colors"
+              className="mx-2 px-4 sm:px-5 md:px-6 py-2 sm:py-2.5 md:py-3 w-full sm:w-auto text-sm sm:text-base bg-white/6 text-white rounded-lg cursor-pointer hover:bg-white/10 transition-colors"
               onClick={option.onClick}
             >
               <div className="flex items-center justify-center">
                 {option.icon}
-                <span className="ml-2">{option.label}</span>
+                <span className="ml-2 text-sm sm:text-base md:text-lg">{option.label}</span>
               </div>
             </button>
           ))}
         </div>
-        <div className="mt-12 w-full max-w-4xl px-4">
-          <div className="flex items-center justify-between">
-            <h2 className="text-white/90 text-xl">Book Recommendation</h2>
+        <div className="mt-10 sm:mt-12 w-full max-w-4xl px-4">
+          <div className="flex items-center justify-between gap-2 flex-wrap">
+            <h2 className="text-white/90 text-lg sm:text-xl">Book Recommendation</h2>
             <button
-              className="px-2 py-1 text-sm bg-white/90 text-black/90 rounded-md cursor-pointer hover:bg-white transition-colors"
+              className="px-2 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm bg-white/90 text-black/90 rounded-md cursor-pointer hover:bg-white transition-colors"
               onClick={() =>
                 toast.success("This button has no functionality yet!")
               }
             >
               <div className="flex items-center justify-center">
                 <span className="ml-2">View all</span>
-                <ChevronRight className="size-4 color-white" />
+                <ChevronRight className="h-3 w-3 sm:h-4 sm:w-4 color-white" />
               </div>
             </button>
           </div>

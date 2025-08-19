@@ -3,10 +3,8 @@ import Sidebar from "@/components/Sidebar";
 const Layout = ({ children }: { children: React.ReactNode }) => {
     return (
         <div className="flex h-screen w-screen">
-            <div className="w-[18%]">
-                <Sidebar />
-            </div>
-            <div className="w-[82%] h-screen flex flex-col">
+            <Sidebar />
+            <div className="flex-1 h-screen flex flex-col overflow-hidden">
                 {children}
             </div>
         </div>

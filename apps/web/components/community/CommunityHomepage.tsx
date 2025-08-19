@@ -73,11 +73,11 @@ export default function CommunityHomepage() {
 
   return (
     <div>
-      <div className="m-8">
-        <h1 className="text-4xl text-semibold text-white/90">
+      <div className="m-4 sm:m-6 md:m-8">
+        <h1 className="text-white/90 text-2xl sm:text-3xl md:text-4xl font-semibold w-full max-w-2xl px-4">
           Explore Communities
         </h1>
-        <div className="w-3/5 mt-4">
+        <div className="mt-4 sm:mt-6 md:mt-8 space-y-3 sm:space-y-4 w-full max-w-2xl px-4">
           <SearchBar placeholder="search for study groups..." />
         </div>
       </div>
@@ -87,20 +87,20 @@ export default function CommunityHomepage() {
           <p className="text-white/70">Loading communities...</p>
         </div>
       ) : (
-        <div className="flex gap-6 w-full mx-8 mt-16">
+        <div className="flex gap-3 sm:gap-4 md:gap-6 w-full px-4 mx-4 sm:mx-6 md:mx-8 mt-8 sm:mt-12 md:mt-16">
           {allCommunities.length > 0 ? (
             <>
                 {userCommunities.length > 0 && (
-                    <div className="flex flex-col items-center gap-2 h-72 w-52 p-4 text-black/90 bg-white/90 rounded-lg overflow-hidden">
-                        <h2 className="text-lg">Your Communities</h2>
+                    <div className="flex flex-col items-center gap-2 h-60 sm:h-64 md:h-72 w-40 sm:w-48 md:w-52 p-3 sm:p-4 text-black/90 bg-white/90 rounded-lg overflow-hidden">
+                        <h2 className="text-base sm:text-lg">Your Communities</h2>
                         {userCommunities.map((community) => (
                             <button 
                                 key={community.id}
                                 onClick={() => router.push(`/community/chat/${community.slug}/${community.id}`)}
-                                className="bg-black/90 text-xs min-h-10 w-full flex justify-center text-white/90 px-1 py-1 rounded-md hover:bg-black transition-colors cursor-pointer">
+                                className="bg-black/90 text-xs sm:text-sm min-h-9 sm:min-h-10 w-full flex justify-center text-white/90 px-1.5 py-1.5 sm:px-2 sm:py-2 rounded-md hover:bg-black transition-colors cursor-pointer">
                                 <div className="flex items-center">
                                     <span className="mr-1">
-                                        <MessageSquareShare className="h-4 w-4" />
+                                        <MessageSquareShare className="h-3 w-3 sm:h-4 sm:w-4" />
                                     </span>
                                     <span>Open {community.slug}</span>
                                 </div>
@@ -110,72 +110,72 @@ export default function CommunityHomepage() {
                     </div>
                 )}
                 {allCommunities.map((community) => (
-                <div key={community.id} className="flex flex-col items-center gap-2 h-72 w-52 p-4 text-white/90 bg-white/15 rounded-lg overflow-hidden">
-                    <h2 className="text-lg">{community.slug}</h2>
+                <div key={community.id} className="flex flex-col items-center gap-2 h-60 sm:h-64 md:h-72 w-40 sm:w-48 md:w-52 p-3 sm:p-4 text-white/90 bg-white/15 rounded-lg overflow-hidden">
+                    <h2 className="text-base sm:text-lg">{community.slug}</h2>
                     <button 
                         onClick={() => handleJoinCommunityClick(community.slug, community.id)}
-                        className="bg-white/90 text-xs text-black/90 px-3 py-1 rounded-md hover:bg-white transition-colors cursor-pointer">
+                        className="bg-white/90 text-xs sm:text-sm text-black/90 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-md hover:bg-white transition-colors cursor-pointer">
                         <div className="flex items-center">
                             <span>Join Community</span>
                             <span className="ml-1">
-                            <ArrowUpRight className="h-4 w-4" />
+                            <ArrowUpRight className="h-3 w-3 sm:h-4 sm:w-4" />
                             </span>
                         </div>
                     </button>
                     <Image
                     src="/bookImage1.png"
                     alt={community.slug}
-                    width={150}
-                    height={200}
-                    className="object-cover rounded-xl mt-16 ml-22 blur-xs"
+                    width={140}
+                    height={190}
+                    className="object-cover rounded-xl mt-12 sm:mt-14 md:mt-16 ml-22 blur-xs"
                     />
                 </div>
                 ))}
             
-                <div className="flex flex-col items-center gap-2 h-72 w-52 p-4 text-white/90 border border-white/60 rounded-lg overflow-hidden">
-                    <h2 className="text-lg">Create Your Own</h2>
+                <div className="flex flex-col items-center gap-2 h-60 sm:h-64 md:h-72 w-40 sm:w-48 md:w-52 p-3 sm:p-4 text-white/90 border border-white/60 rounded-lg overflow-hidden">
+                    <h2 className="text-base sm:text-lg">Create Your Own</h2>
                     <button
                         onClick={() => router.push("/community/create-room")}
-                        className="bg-white/90 text-xs text-black/90 px-3 py-1 rounded-md hover:bg-white transition-colors cursor-pointer">
+                        className="bg-white/90 text-xs sm:text-sm text-black/90 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-md hover:bg-white transition-colors cursor-pointer">
                         <div className="flex items-center">
                             <span>Create now</span>
                             <span className="ml-1">
-                            <Plus className="h-4 w-4" />
+                            <Plus className="h-3 w-3 sm:h-4 sm:w-4" />
                             </span>
                         </div>
                     </button>
                     <Image
                     src="/bookImage1.png"
                     alt=""
-                    width={150}
-                    height={200}
-                    className="object-cover rounded-xl mt-16 ml-22 blur-xs"
+                    width={140}
+                    height={190}
+                    className="object-cover rounded-xl mt-12 sm:mt-14 md:mt-16 ml-22 blur-xs"
                     />
                 </div>
             </>
           ) : (
             <>
-                <div className="flex items-center justify-center h-72 w-52 p-4 text-white/90 bg-white/15 rounded-lg overflow-hidden">
-                    <h2 className="text-lg">No community found</h2>
+                <div className="flex items-center justify-center h-60 sm:h-64 md:h-72 w-40 sm:w-48 md:w-52 p-3 sm:p-4 text-white/90 bg-white/15 rounded-lg overflow-hidden">
+                    <h2 className="text-base sm:text-lg">No community found</h2>
                 </div>
-              <div className="flex flex-col items-center gap-2 h-72 w-52 p-4 text-white/90 bg-white/15 rounded-lg overflow-hidden">
-                <h2 className="text-lg">Create Your Own</h2>
+              <div className="flex flex-col items-center gap-2 h-60 sm:h-64 md:h-72 w-40 sm:w-48 md:w-52 p-3 sm:p-4 text-white/90 bg-white/15 rounded-lg overflow-hidden">
+                <h2 className="text-base sm:text-lg">Create Your Own</h2>
                 <button
                     onClick={() => router.push("/community/create-room")}
-                    className="bg-white/90 text-xs text-black/90 px-3 py-1 rounded-md hover:bg-white transition-colors cursor-pointer">
+                    className="bg-white/90 text-xs sm:text-sm text-black/90 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-md hover:bg-white transition-colors cursor-pointer">
                     <div className="flex items-center">
                         <span>Create now</span>
                         <span className="ml-1">
-                        <Plus className="h-4 w-4" />
+                        <Plus className="h-3 w-3 sm:h-4 sm:w-4" />
                         </span>
                     </div>
                 </button>
                 <Image
                   src="/bookImage1.png"
                   alt=""
-                  width={150}
-                  height={200}
-                  className="object-cover rounded-xl mt-16 ml-22 blur-xs"
+                  width={140}
+                  height={190}
+                  className="object-cover rounded-xl mt-12 sm:mt-14 md:mt-16 ml-22 blur-xs"
                 />
               </div>
             </>
