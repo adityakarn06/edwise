@@ -1,13 +1,13 @@
 "use client";
 import Navbar from "@/components/Navbar";
 import DocumentView from "@/components/DocumentView";
-import ChatComponent from "@/components/ChatComponent";
 import { Bot, Plus } from "lucide-react";
 import { useState } from "react";
 import FileUpload from "@/components/FileUpload";
 import { useEffect } from "react";
 import { getAllDoc } from "@/utils/getDoc";
 import toast from "react-hot-toast";
+import ChatComponent from "@/components/ChatComponent";
 
 export default function AskPdf() {
   const [currentPdfUrl, setCurrentPdfUrl] = useState<string>("");
@@ -58,11 +58,18 @@ export default function AskPdf() {
           />
         </div>
       ) : (
-        <div className="flex flex-row h-[92%]">
-          <div className="w-[50%] border-l border-r border-white/20 bg-black">
+        <div className="flex flex-row h-[92%] relative">
+          {/* for mobile */}
+          <div className="absolute left-2 top-2 md:hidden bg-black/90 border border-white/20 rounded-md overflow-hidden shadow-lg w-[20vw] h-[25vw] z-10">
+
+            <DocumentView pdfUrl={currentPdfUrl} interactive={false} />
+          </div>
+          {/* for desktop */}
+          <div className="hidden md:flex w-[50%] border-l border-r border-white/20 bg-black">
             <DocumentView pdfUrl={currentPdfUrl} />
           </div>
-          <div className="w-[50%]">
+
+          <div className="w-full md:w-[50%]">
             <ChatComponent currentPdfUrl={currentPdfUrl} />
           </div>
         </div>

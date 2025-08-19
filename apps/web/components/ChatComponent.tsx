@@ -6,6 +6,7 @@ import { TypeAnimation } from 'react-type-animation';
 import SummaryGenComponent from "./SummaryGen";
 import GenImpQuesComponent from "./ImpQuestions";
 import { useEffect, useState } from "react";
+import { EllipsisVertical, History, MoveLeft } from "lucide-react";
 
 interface IMessages {
   role: "assistant" | "user";
@@ -57,6 +58,9 @@ const ChatComponent: React.FC<ChatComponentProps> = ({currentPdfUrl}) => {
   const [showQuestions, setShowQuestions] = useState<boolean>(false);
   const [summary, setSummary] = useState<Summary[]>([]);
   const [showSumnmary, setShowSummary] = useState<boolean>(false);
+  const [showOptions, setShowOptions] = useState<boolean>(false);
+  const [selectedOption, setSelectedOption] = useState<string>("");
+  const [showChat, setShowChat] = useState<boolean>(false);
 
   useEffect(() => {
     getChatHistory().then((history) => {
@@ -98,6 +102,8 @@ const ChatComponent: React.FC<ChatComponentProps> = ({currentPdfUrl}) => {
 
   const handleSendChatMessage = async () => {
     if (!message.trim()) return;
+
+    setShowChat(true);
     
     setMessages((prev) => [
       ...prev,
@@ -256,74 +262,83 @@ const ChatComponent: React.FC<ChatComponentProps> = ({currentPdfUrl}) => {
 
   return (
     <div className="flex flex-col h-full bg-black/90">
-      {messages.length === 0 ? (
-        <div className="flex flex-col gap-2 items-center justify-center h-full p-4">
-          <p className="text-3xl text-gray-500">Welcome, {session?.user?.name || session?.user?.email}! 👋</p>
-          <p className="text-lg text-gray-500">How can I help you today?</p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-4">
-            <SummaryGenComponent
-              currentPdfUrl={currentPdfUrl} 
-              onSummaryGenerated={handleSummaryGenerated}
-            />
-            <GenImpQuesComponent 
-              currentPdfUrl={currentPdfUrl} 
-              onQuestionsGenerated={handleImportantQuestionsGenerated}
-            />
+      {!showChat && (
+        <div className="flex flex-col gap-2 items-center justify-center h-full p-4 relative">
+          <div className="absolute z-50 w-fit px-4 py-2 top-2 right-2 flex gap-2 items-center justify-center cursor-pointer rounded-full bg-black/90 text-white/90 hover:text-white  hover:bg-black shadow-md" onClick={() => setShowChat(true)}>
+            <History className="w-4 h-4" /> 
+            <p className="text-sm">History</p>
           </div>
-
-          {showSumnmary && summary.length > 0 && (
-            <div className="mt-6 w-full max-w-4xl max-h-96 overflow-y-auto">
-              <button 
-                onClick={toggleSummary}
-                className="text-sm text-blue-400 hover:text-blue-300 mb-2"
-              >
-                {showSumnmary ? "Hide Summary" : "Show Summary"}
-              </button>
-              
-              {showSumnmary && (
-                <div className="space-y-4 mt-2">
-                  {summary.map((sec, index) => (
-                    <div 
-                      key={index} 
-                      className="border border-white/15 rounded-lg p-4 bg-white/5 cursor-pointer hover:bg-white/10 transition-colors"
-                    >
-                      <h3 className="font-medium text-white/90 mb-2">{sec.section}</h3>
-                      <p className="text-white/70 text-sm">{sec.text}</p>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          )}
-
-          {importantQuestions.length > 0 && (
-            <div className="mt-6 w-full max-w-4xl max-h-96 overflow-y-auto">
-              <button 
-                onClick={toggleQuestions}
-                className="text-sm text-blue-400 hover:text-blue-300 mb-2"
-              >
-                {showQuestions ? "Hide Questions" : "Show Questions"}
-              </button>
-              
-              {showQuestions && (
-                <div className="space-y-4 mt-2">
-                  {importantQuestions.map((question, index) => (
-                    <div 
-                      key={index} 
-                      className="border border-white/15 rounded-lg p-4 bg-white/5 cursor-pointer hover:bg-white/10 transition-colors"
-                      onClick={() => handleImportantQuestionClick(question.question)}
-                    >
-                      <h3 className="font-medium text-white/90 mb-2">Q{index + 1}: {question.question}</h3>
-                      <p className="text-white/70 text-sm">{question.answer}</p>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          )}
+        <p className="text-3xl text-gray-500">Welcome, {session?.user?.name || session?.user?.email}! 👋</p>
+        <p className="text-lg text-gray-500">How can I help you today?</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-4">
+          <SummaryGenComponent
+            currentPdfUrl={currentPdfUrl} 
+            onSummaryGenerated={handleSummaryGenerated}
+          />
+          <GenImpQuesComponent 
+            currentPdfUrl={currentPdfUrl} 
+            onQuestionsGenerated={handleImportantQuestionsGenerated}
+          />
         </div>
-      ) : (
-        <div className="flex-1 overflow-y-auto p-4">
+
+        {showSumnmary && summary.length > 0 && (
+          <div className="mt-6 w-full max-w-4xl max-h-96 overflow-y-auto">
+            <button 
+              onClick={toggleSummary}
+              className="text-sm text-blue-400 hover:text-blue-300 mb-2"
+            >
+              {showSumnmary ? "Hide Summary" : "Show Summary"}
+            </button>
+            
+            {showSumnmary && (
+              <div className="space-y-4 mt-2">
+                {summary.map((sec, index) => (
+                  <div 
+                    key={index} 
+                    className="border border-white/15 rounded-lg p-4 bg-white/5 cursor-pointer hover:bg-white/10 transition-colors"
+                  >
+                    <h3 className="font-medium text-white/90 mb-2">{sec.section}</h3>
+                    <p className="text-white/70 text-sm">{sec.text}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
+        {importantQuestions.length > 0 && (
+          <div className="mt-6 w-full max-w-4xl max-h-96 overflow-y-auto">
+            <button 
+              onClick={toggleQuestions}
+              className="text-sm text-blue-400 hover:text-blue-300 mb-2"
+            >
+              {showQuestions ? "Hide Questions" : "Show Questions"}
+            </button>
+            
+            {showQuestions && (
+              <div className="space-y-4 mt-2">
+                {importantQuestions.map((question, index) => (
+                  <div 
+                    key={index} 
+                    className="border border-white/15 rounded-lg p-4 bg-white/5 cursor-pointer hover:bg-white/10 transition-colors"
+                    onClick={() => handleImportantQuestionClick(question.question)}
+                  >
+                    <h3 className="font-medium text-white/90 mb-2">Q{index + 1}: {question.question}</h3>
+                    <p className="text-white/70 text-sm">{question.answer}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+      )}
+      
+      {showChat && (
+        <div className="flex-1 overflow-y-auto p-4 relative">
+          <div className="z-20 sticky w-fit px-4 py-2 top-0 left-0 flex gap-2 items-center justify-center cursor-pointer rounded-full bg-black/90 text-white/90 hover:text-white  hover:bg-black shadow-md" onClick={() => setShowChat(false)}>
+            <MoveLeft className="w-4 h-4" />  <p className="text-sm">Back</p>
+          </div>
           {messages.map((msg, index) => (
             <div
               key={index}
@@ -361,59 +376,9 @@ const ChatComponent: React.FC<ChatComponentProps> = ({currentPdfUrl}) => {
               </div>
             </div>
           )}
-
-          {importantQuestions.length > 0 && (
-            <div className="mt-4 max-h-96 overflow-y-auto">
-              <button 
-                onClick={toggleQuestions}
-                className="text-sm text-blue-400 hover:text-blue-300 mb-2"
-              >
-                {showQuestions ? "Hide Questions" : "Show Questions"}
-              </button>
-              
-              {showQuestions && (
-                <div className="space-y-4 mt-2">
-                  {importantQuestions.map((question, index) => (
-                    <div 
-                      key={index} 
-                      className="border border-white/15 rounded-lg p-4 bg-white/5 cursor-pointer hover:bg-white/10 transition-colors"
-                      onClick={() => handleImportantQuestionClick(question.question)}
-                    >
-                      <h3 className="font-medium text-white/90 mb-2">Q{index + 1}: {question.question}</h3>
-                      <p className="text-white/70 text-sm">{question.answer}</p>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          )}
-
-          {summary.length > 0 && (
-            <div className="mt-4 max-h-96 overflow-y-auto">
-              <button 
-                onClick={toggleSummary}
-                className="text-sm text-blue-400 hover:text-blue-300 mb-2"
-              >
-                {showSumnmary ? "Hide Summary" : "Show Summary"}
-              </button>
-              
-              {showSumnmary && (
-                <div className="space-y-4 mt-2">
-                  {summary.map((sec, index) => (
-                    <div 
-                      key={index} 
-                      className="border border-white/15 rounded-lg p-4 bg-white/5 cursor-pointer hover:bg-white/10 transition-colors"
-                    >
-                      <h3 className="font-medium text-white/90 mb-2">{sec.section}</h3>
-                      <p className="text-white/70 text-sm">{sec.text}</p>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          )}
         </div>
       )}
+        
       
       <div className="p-4">
         <div className="flex items-center w-full">

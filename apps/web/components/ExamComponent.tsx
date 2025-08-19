@@ -23,6 +23,7 @@ export default function ExamComponent({ mcqData }: ExamComponentProps) {
     );
     const [answeredQuestions, setAnsweredQuestions] = useState<Set<number>>(new Set());
     const [timeRemaining, setTimeRemaining] = useState<number>(10 * 60); // 10 min in seconds
+    const [isOverviwOpen, setIsOverviewOpen] = useState<boolean>(false);
     
     useEffect(() => {
         const timer = setInterval(() => {
@@ -189,8 +190,8 @@ export default function ExamComponent({ mcqData }: ExamComponentProps) {
     };
 
     return (
-        <div className="w-full space-y-6 relative h-full">
-            <div className="flex items-center justify-between p-6 fixed left-[18vw] right-0 z-10 mb-4 bg-[#131313]">
+        <div className="w-full relative h-full">
+            <div className="flex items-center justify-between p-6 z-10 bg-[#131313]">
                 <div className="flex items-center justify-between">
                     <div className="pr-4">
                         <Clock className="h-7 w-7 text-white" />
@@ -200,15 +201,54 @@ export default function ExamComponent({ mcqData }: ExamComponentProps) {
                         <p className="text-md text-white/90">{formatTime(timeRemaining)}</p>    
                     </div>
                 </div>
-                <div>
+                <div className="flex items-center gap-2">
+                    <div className="flex md:hidden">
+                        {isOverviwOpen ? (
+                            <div className="relative">
+                                <button
+                                    onClick={() => setIsOverviewOpen(false)}
+                                    className="px-4 py-2 text-md bg-white/90 text-black/90 rounded-lg hover:bg-white cursor-pointer transition-colors"
+                                >
+                                    Hide Overview
+                                </button>
+                                <div className="z-50 absolute mt-4 space-y-6 p-4 flex flex-col items-center bg-white/12 border border-white/50 backdrop-blur-md rounded-lg shadow-lg">
+                                    <div className="bg-none size-40 rounded-full border-12 border-white/20 flex items-center justify-center">
+                                        <h2 className="text-4xl font-medium text-white">
+                                            {getTotalCorrectAnswer()}/{mcqData.length}
+                                        </h2>
+                                    </div>
+                                    <div className="p-6 bg-[#131313] rounded-lg border border-white/20 w-full">
+                                        <h2 className="text-lg font-medium text-white mb-4">Summary</h2>
+                                        <p className="text-sm text-white/70 mb-2">
+                                            Total Questions: {mcqData.length}
+                                        </p>
+                                        <p className="text-sm text-white/70 mb-2">
+                                            Answered Questions: {answeredQuestions.size}
+                                        </p>
+                                        <p className="text-sm text-white/70">
+                                            Unanswered Questions: {mcqData.length - answeredQuestions.size}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        ) : (
+                            <button
+                                onClick={() => setIsOverviewOpen(true)}
+                                className="px-4 py-2 text-md text-white/90 border border-white/90 rounded-lg hover:bg-white/80 hover:text-black/80 cursor-pointer transition-colors"
+                            >
+                                Show Overview
+                            </button>
+                        )}
+                    </div>
+                    
                     <button
                         onClick={() => toast.success("This button has no purpose buddy!")}
-                        className="px-8 py-2 text-md bg-white/90 text-black/90 rounded-lg hover:bg-white cursor-pointer transition">
+                        className="px-8 py-2 text-md bg-white/90 text-black/90 rounded-lg hover:bg-[#E63838] hover:text-white cursor-pointer transition-colors">
                         Submit
                     </button>
                 </div>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mt-18">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
                 <div className="space-y-4 p-6 col-span-2">
                     {mcqData.map((mcq, questionIndex) => (
                         <div 
@@ -250,7 +290,7 @@ export default function ExamComponent({ mcqData }: ExamComponentProps) {
                     </div>
                     ))}
                 </div>
-                <div className="mt-18 space-y-6 w-1/4 p-4 mr-4 flex flex-col items-center fixed right-0 h-full">
+                <div className="mt-18 space-y-6 p-4 mr-4 flex-col items-center h-full hidden sm:flex">
                     <div className="bg-none size-[14vw] rounded-full border-12 border-white/20 flex items-center justify-center">
                         <h2 className="text-4xl font-medium text-white">
                             {getTotalCorrectAnswer()}/{mcqData.length}

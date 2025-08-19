@@ -1,13 +1,30 @@
 "use client";
 
-export default function DocumentView({ pdfUrl }: { pdfUrl: string }) {
+import { useState } from "react";
+
+type DocumentViewProps = {
+  pdfUrl: string;
+  interactive?: boolean; // for mobile, set to false
+};
+
+export default function DocumentView({ pdfUrl, interactive = true }: DocumentViewProps) {
+  const [isLoaded, setIsLoaded] = useState(false);
+  const src = interactive
+    ? `https://docs.google.com/gview?url=${encodeURIComponent(pdfUrl)}&embedded=true`
+    : `${pdfUrl}#toolbar=0&navpanes=0&scrollbar=0&view=FitH`;   //for mobile, show preview only
+
   return (
-    <div className="h-full w-full">
+    <div className="h-full w-full relative overflow-hidden">
+      {!isLoaded && <div className="absolute inset-0 bg-black/80 animate-pulse" />}
       <iframe
-        src={`https://docs.google.com/gview?url=${pdfUrl}&embedded=true`}
-        className="w-full h-full"
+        key={src}
+        src={src}
+        className={`w-full h-full transition-opacity duration-200 ${
+          interactive ? "" : "pointer-events-none"
+        } ${isLoaded ? "opacity-100" : "opacity-0"}`}
         title="PDF Document"
-        loading="lazy"
+        loading="eager"
+        onLoad={() => setIsLoaded(true)}
       ></iframe>
     </div>
   );

@@ -74,7 +74,7 @@ export default function Navbar({
               )}
             </div>
             {isOptionOpen && (
-              <div className="absolute flex flex-col gap-2 top-full left-0 mt-4 bg-white p-2 rounded-md border-3 border-black z-10 min-w-[120px]">
+              <div className="z-50 absolute flex flex-col gap-2 top-full left-0 mt-4 bg-white p-2 rounded-md border-3 border-black min-w-[120px]">
                 {pdfs && pdfs.length > 0 && 
                   pdfs.map((pdf: string, index: number) => (
                     <div
