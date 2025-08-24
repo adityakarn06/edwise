@@ -163,6 +163,10 @@ const ChatComponent: React.FC<ChatComponentProps> = ({currentPdfUrl}) => {
 
   const handleImportantQuestionClick = (question: string) => {
     setMessage(question);
+
+    if (!question.trim()) return;
+
+    setShowChat(true);
     
     // add user message immediately
     setMessages((prev) => [
@@ -175,7 +179,7 @@ const ChatComponent: React.FC<ChatComponentProps> = ({currentPdfUrl}) => {
     
     setIsLoading(true);
     
-    api.get(`/chat/ai?message=${encodeURIComponent(question)}`)
+    api.get(`/chat/ai?message=${encodeURIComponent(question)}&fileUrl=${encodeURIComponent(currentPdfUrl)}`)
       .then(({ data }) => {
         const references = data?.sources
           ? data.sources.map((source: any) => {

@@ -1,7 +1,7 @@
 "use client";
 import Navbar from "@/components/Navbar";
 import DocumentView from "@/components/DocumentView";
-import { Bot, SquareArrowOutUpRight } from "lucide-react";
+import { Bot, SquareArrowOutUpRight, X } from "lucide-react";
 import { useState } from "react";
 import FileUpload from "@/components/FileUpload";
 import { useEffect } from "react";
@@ -13,6 +13,7 @@ export default function AskPdf() {
   const [currentPdfUrl, setCurrentPdfUrl] = useState<string>("");
   const [pdfUrls, setPdfUrls] = useState<string[]>([]);
   const [isUploadOpen, setIsUploadOpen] = useState(false);
+  const [isPdfOpen, setIsPdfOpen] = useState(false);
 
   useEffect(() => {
     getAllDoc()
@@ -60,9 +61,28 @@ export default function AskPdf() {
       ) : (
         <div className="flex flex-row h-[92%] relative">
           {/* for mobile */}
-          <div className="absolute left-2 top-2 md:hidden bg-black/90 border border-white/20 rounded-md overflow-hidden shadow-lg w-[20vw] h-[25vw] z-10">
-            <DocumentView pdfUrl={currentPdfUrl} interactive={false} />
-          </div>
+          {isPdfOpen ? (
+            <div className="fixed inset-0 z-100 bg-black/90 flex items-center justify-center p-8">
+              <div className="bg-white/10 p-6 rounded-lg shadow-lg max-w-2xl w-full h-full relative">
+                <DocumentView pdfUrl={currentPdfUrl} interactive={true} />
+                <button
+                  onClick={() => {
+                    setIsPdfOpen(false);
+                  }}
+                  className="absolute top-2 left-2 text-white hover:text-gray-300 cursor-pointer"
+                >
+                  <X className="h-8 w-8" />
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div
+             onClick={() => setIsPdfOpen(true)}
+             className="absolute left-2 top-2 md:hidden bg-black/90 border border-white/20 rounded-md overflow-hidden shadow-lg w-[20vw] h-[25vw] z-10 cursor-pointer">
+              <DocumentView pdfUrl={currentPdfUrl} interactive={false} />
+            </div>
+          )}
+
           {/* for desktop */}
           <div className="hidden md:flex w-[50%] border-l border-r border-white/20 bg-black">
             <DocumentView pdfUrl={currentPdfUrl} />

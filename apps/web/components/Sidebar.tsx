@@ -1,5 +1,5 @@
 "use client";
-import { BookCheck, BookOpen, BotMessageSquare, ChevronLeft, FileText, HandCoins, House, Library, MessageCircleQuestionMark, MessageSquare, PanelRight, Plus, Search, Menu, X } from "lucide-react";
+import { BookCheck, BookOpen, BotMessageSquare, ChevronLeft, FileText, HandCoins, House, Library, MessageCircleQuestionMark, MessageSquare, PanelRight, Plus, Search, Menu, X, PanelLeft } from "lucide-react";
 import SidebarItem from "./SidebarItem";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
@@ -173,7 +173,7 @@ const Sidebar = () => {
           className="rounded-md p-1 cursor-pointer hover:bg-slate-700 ml-auto"
           onClick={toggleSidebar}
         >
-          {isCollapsed ? <PanelRight size={20} /> : <ChevronLeft size={20} />}
+          {isCollapsed ? <PanelRight size={20} /> : <PanelLeft size={20} />}
         </button>
       </div>
       <div className="flex flex-col h-full justify-between p-2">

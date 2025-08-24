@@ -1,6 +1,10 @@
 import { useState, useEffect } from "react";
-import { CircleCheckBig, Circle, XCircle, Clock } from "lucide-react";
+import { Clock } from "lucide-react";
 import toast from "react-hot-toast";
+import MCQQuestionCard from "./mcq/MCQQuestionCard";
+import PaginationNavigation from "./mcq/PaginationNavigation";
+import ProgressOverview from "./mcq/ProgressOverview";
+import ExamResults from "./mcq/ExamResults";
 
 interface ExamComponentProps {
     mcqData: {
@@ -11,6 +15,15 @@ interface ExamComponentProps {
 }
 
 export default function ExamComponent({ mcqData }: ExamComponentProps) {
+    const [selectedOptions, setSelectedOptions] = useState<Map<number, Set<number>>>(
+        new Map()
+    );
+    const [answeredQuestions, setAnsweredQuestions] = useState<Set<number>>(new Set());
+    const [timeRemaining, setTimeRemaining] = useState<number>(10 * 60); // 10 min in seconds
+    const [isOverviewOpen, setIsOverviewOpen] = useState<boolean>(false);
+    const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
+    const [isExamSubmitted, setIsExamSubmitted] = useState<boolean>(false);
+    
     if (!mcqData || mcqData.length === 0) {
         return (
             <div className="flex items-center justify-center w-full h-full text-white">
@@ -18,18 +31,13 @@ export default function ExamComponent({ mcqData }: ExamComponentProps) {
             </div>
         );
     }
-    const [selectedOptions, setSelectedOptions] = useState<Map<number, Set<number>>>(
-        new Map()
-    );
-    const [answeredQuestions, setAnsweredQuestions] = useState<Set<number>>(new Set());
-    const [timeRemaining, setTimeRemaining] = useState<number>(10 * 60); // 10 min in seconds
-    const [isOverviwOpen, setIsOverviewOpen] = useState<boolean>(false);
     
     useEffect(() => {
         const timer = setInterval(() => {
             setTimeRemaining(prevTime => {
                 if (prevTime <= 0) {
                     clearInterval(timer);
+                    handleSubmitExam();
                     return 0;
                 }
                 return prevTime - 1;
@@ -107,90 +115,51 @@ export default function ExamComponent({ mcqData }: ExamComponentProps) {
             }
         });
         return correctCount;
+    };
+
+    const handlePrevious = () => {
+        if (currentQuestionIndex > 0) {
+            setCurrentQuestionIndex(currentQuestionIndex - 1);
+        }
+    };
+
+    const handleNext = () => {
+        if (currentQuestionIndex < mcqData.length - 1) {
+            setCurrentQuestionIndex(currentQuestionIndex + 1);
+        }
+    };
+
+    const handleSubmitExam = () => {
+        setIsExamSubmitted(true);
+        toast.success("Exam submitted successfully!");
+    };
+
+    const currentQuestion = mcqData[currentQuestionIndex];
+    const isCurrentQuestionAnswered = isQuestionAnswered(currentQuestionIndex);
+
+    if (!currentQuestion) {
+        return (
+            <div className="flex items-center justify-center w-full h-full text-white">
+                Question not found. Please try again.
+            </div>
+        );
     }
 
-    const getOptionIcon = (questionIndex: number, optionIndex: number) => {
-        const isSelected = isOptionSelected(questionIndex, optionIndex);
-        const isAnswered = isQuestionAnswered(questionIndex);
-        const isCorrect = isCorrectAnswer(questionIndex, optionIndex);
-
-        if (isAnswered && isCorrect) {
-            return (
-                <CircleCheckBig 
-                    size={20} 
-                    className="text-green-400" 
-                />
-            );
-        }
-
-        if (isSelected && isAnswered && !isCorrect) {
-            return (
-                <XCircle 
-                    size={20} 
-                    className="text-red-400" 
-                />
-            );
-        }
-
-        if (isSelected && !isAnswered) {
-            return (
-                <CircleCheckBig 
-                    size={20} 
-                    className="text-blue-400" 
-                />
-            );
-        }
-
+    if (isExamSubmitted) {
         return (
-            <Circle 
-                size={20} 
-                className="text-white/40 group-hover:text-white/60" 
+            <ExamResults
+                mcqData={mcqData}
+                selectedOptions={selectedOptions}
+                answeredQuestions={answeredQuestions}
+                totalCorrect={getTotalCorrectAnswer()}
+                totalQuestions={mcqData.length}
+                answeredCount={answeredQuestions.size}
             />
         );
-    };
-
-    const getOptionStyles = (questionIndex: number, optionIndex: number) => {
-        const isSelected = isOptionSelected(questionIndex, optionIndex);
-        const isAnswered = isQuestionAnswered(questionIndex);
-        const isCorrect = isCorrectAnswer(questionIndex, optionIndex);
-
-        if (isAnswered && isCorrect) {
-            return "border-green-400/50 bg-green-400/10";
-        }
-
-        if (isSelected && isAnswered && !isCorrect) {
-            return "border-red-400/50 bg-red-400/10";
-        }
-
-        if (isSelected && !isAnswered) {
-            return "border-blue-400/50 bg-blue-400/10";
-        }
-
-        return "border-white/10 hover:border-white/30 hover:bg-white/5";
-    };
-
-    const getOptionTextStyles = (questionIndex: number, optionIndex: number) => {
-        const isSelected = isOptionSelected(questionIndex, optionIndex);
-        const isAnswered = isQuestionAnswered(questionIndex);
-        const isCorrect = isCorrectAnswer(questionIndex, optionIndex);
-
-        if (isAnswered && isCorrect) {
-            return "text-green-400 font-medium";
-        }
-
-        if (isSelected && isAnswered && !isCorrect) {
-            return "text-red-400 font-medium";
-        }
-
-        if (isSelected) {
-            return "text-white font-medium";
-        }
-
-        return "text-white/80";
-    };
+    }
 
     return (
-        <div className="w-full relative h-full">
+        <div className="w-full relative h-full flex flex-col">
             <div className="flex items-center justify-between p-6 z-10 bg-[#131313]">
                 <div className="flex items-center justify-between">
                     <div className="pr-4">
@@ -203,32 +172,20 @@ export default function ExamComponent({ mcqData }: ExamComponentProps) {
                 </div>
                 <div className="flex items-center gap-2">
                     <div className="flex md:hidden">
-                        {isOverviwOpen ? (
+                        {isOverviewOpen ? (
                             <div className="relative">
                                 <button
                                     onClick={() => setIsOverviewOpen(false)}
                                     className="px-4 py-2 text-md bg-white/90 text-black/90 rounded-lg hover:bg-white cursor-pointer transition-colors"
                                 >
-                                    Hide Overview
+                                    Hide
                                 </button>
                                 <div className="z-50 absolute mt-4 space-y-6 p-4 flex flex-col items-center bg-white/12 border border-white/50 backdrop-blur-md rounded-lg shadow-lg">
-                                    <div className="bg-none size-40 rounded-full border-12 border-white/20 flex items-center justify-center">
-                                        <h2 className="text-4xl font-medium text-white">
-                                            {getTotalCorrectAnswer()}/{mcqData.length}
-                                        </h2>
-                                    </div>
-                                    <div className="p-6 bg-[#131313] rounded-lg border border-white/20 w-full">
-                                        <h2 className="text-lg font-medium text-white mb-4">Summary</h2>
-                                        <p className="text-sm text-white/70 mb-2">
-                                            Total Questions: {mcqData.length}
-                                        </p>
-                                        <p className="text-sm text-white/70 mb-2">
-                                            Answered Questions: {answeredQuestions.size}
-                                        </p>
-                                        <p className="text-sm text-white/70">
-                                            Unanswered Questions: {mcqData.length - answeredQuestions.size}
-                                        </p>
-                                    </div>
+                                    <ProgressOverview 
+                                        totalQuestions={mcqData.length}
+                                        answeredQuestions={answeredQuestions.size}
+                                        showCorrectAnswers={false}
+                                    />
                                 </div>
                             </div>
                         ) : (
@@ -236,80 +193,51 @@ export default function ExamComponent({ mcqData }: ExamComponentProps) {
                                 onClick={() => setIsOverviewOpen(true)}
                                 className="px-4 py-2 text-md text-white/90 border border-white/90 rounded-lg hover:bg-white/80 hover:text-black/80 cursor-pointer transition-colors"
                             >
-                                Show Overview
+                                Overview
                             </button>
                         )}
                     </div>
                     
                     <button
-                        onClick={() => toast.success("This button has no purpose buddy!")}
+                        onClick={handleSubmitExam}
                         className="px-8 py-2 text-md bg-white/90 text-black/90 rounded-lg hover:bg-[#E63838] hover:text-white cursor-pointer transition-colors">
-                        Submit
+                        Submit Exam
                     </button>
                 </div>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-                <div className="space-y-4 p-6 col-span-2">
-                    {mcqData.map((mcq, questionIndex) => (
-                        <div 
-                            key={questionIndex} 
-                            className="p-6 border border-white/20 rounded-lg bg-white/5 backdrop-blur-sm"
-                        >
-                            <h3 className="text-sm font-normal text-white mb-4">
-                                Question {questionIndex + 1} of {mcqData.length}
-                            </h3>
 
-                            <h1 className="text-lg font-medium text-white mb-4 word-wrap">
-                                {mcq.question}
-                            </h1>
-                            
-                            <div className="space-y-3 mb-4">
-                                {mcq.options.map((option, optionIndex) => (
-                                    <button
-                                        key={optionIndex}
-                                        onClick={() => handleOptionToggle(questionIndex, optionIndex)}
-                                        className={`flex items-center w-full p-3 text-left rounded-lg border transition-all duration-200 group ${getOptionStyles(questionIndex, optionIndex)}`}
-                                    >
-                                        <div className="flex-shrink-0 mr-3">
-                                            {getOptionIcon(questionIndex, optionIndex)}
-                                        </div>
-                                        <span className={`text-sm ${getOptionTextStyles(questionIndex, optionIndex)} word-wrap`}>
-                                            {String.fromCharCode(65 + optionIndex)}. {option}
-                                        </span>
-                                    </button>
-                                ))}
-                            </div>
-                            
-                            {isQuestionAnswered(questionIndex) && (
-                                <div className="pt-3 border-t border-white/10">
-                                    <p className="text-green-400 text-sm font-medium">
-                                        Correct Answer: {mcq.answer}
-                                    </p>
-                                </div>
-                            )}
-                    </div>
-                    ))}
+            <div className="flex-1 flex">
+                <div className="flex-1 p-6">
+                    <MCQQuestionCard
+                        mcq={currentQuestion}
+                        questionIndex={currentQuestionIndex}
+                        totalQuestions={mcqData.length}
+                        selectedOptions={selectedOptions}
+                        answeredQuestions={answeredQuestions}
+                        onOptionToggle={handleOptionToggle}
+                        isOptionSelected={isOptionSelected}
+                        isQuestionAnswered={isQuestionAnswered}
+                        isCorrectAnswer={isCorrectAnswer}
+                        showAnswers={false}
+                    />
                 </div>
-                <div className="mt-18 space-y-6 p-4 mr-4 flex-col items-center h-full hidden sm:flex">
-                    <div className="bg-none size-[14vw] rounded-full border-12 border-white/20 flex items-center justify-center">
-                        <h2 className="text-4xl font-medium text-white">
-                            {getTotalCorrectAnswer()}/{mcqData.length}
-                        </h2>
-                    </div>
-                    <div className="p-6 bg-[#131313] rounded-lg border border-white/20 w-full">
-                        <h2 className="text-lg font-medium text-white mb-4">Summary</h2>
-                        <p className="text-sm text-white/70 mb-2">
-                            Total Questions: {mcqData.length}
-                        </p>
-                        <p className="text-sm text-white/70 mb-2">
-                            Answered Questions: {answeredQuestions.size}
-                        </p>
-                        <p className="text-sm text-white/70">
-                            Unanswered Questions: {mcqData.length - answeredQuestions.size}
-                        </p>
-                    </div>
+
+                <div className="hidden md:block w-80">
+                    <ProgressOverview 
+                        totalQuestions={mcqData.length}
+                        answeredQuestions={answeredQuestions.size}
+                        showCorrectAnswers={false}
+                    />
                 </div>
             </div>
+
+            <PaginationNavigation
+                currentQuestion={currentQuestionIndex}
+                totalQuestions={mcqData.length}
+                onPrevious={handlePrevious}
+                onNext={handleNext}
+                isAnswered={isCurrentQuestionAnswered}
+            />
         </div>
     );
 }

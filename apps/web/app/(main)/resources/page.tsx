@@ -1,5 +1,5 @@
 "use client";
-import { ChevronRight, CloudUpload, SquareArrowOutUpRight } from "lucide-react";
+import { ChevronRight, CloudUpload, SquareArrowOutUpRight, X } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import toast from "react-hot-toast";
 import SearchBar from "@/components/SearchBar";
@@ -58,6 +58,8 @@ interface Resource {
 export default function Page() {
     const [isUploadOpen, setIsUploadOpen] = useState<boolean>(false);
     const [resources, setResources] = useState<Resource[]>([]);
+    const [isPdfOpen, setIsPdfOpen] = useState<boolean>(false);
+    const [selectedPdf, setSelectedPdf] = useState<string | null>(null);
 
     const getAllResources = async() => {
         try {
@@ -150,7 +152,10 @@ export default function Page() {
             {resources.map((resource) => (
             <div
                 key={resource.id}
-                onClick={() => window.open(resource.fileURL, '_blank')}
+                onClick={() => {
+                    setSelectedPdf(resource.fileURL);
+                    setIsPdfOpen(true);
+                }}
                 className="rounded-lg overflow-hidden shadow-md shadow-white/20 cursor-pointer hover:shadow-white/30 hover:shadow-xl transition-shadow bg-white/5 border border-white/10"
             >
                 {resource.thumbnail ? (
@@ -201,6 +206,23 @@ export default function Page() {
         {resources.length === 0 && (
             <div className="mt-6 text-center text-white/60">
             <p>No resources found. Upload your first resource!</p>
+            </div>
+        )}
+        
+        {isPdfOpen && selectedPdf && (
+            <div className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-8">
+                <div className="bg-white/10 p-6 rounded-lg shadow-lg max-w-2xl w-full h-full relative">
+                <DocumentView pdfUrl={selectedPdf} interactive={true} />
+                <button
+                    onClick={() => {
+                        setIsPdfOpen(false);
+                        setSelectedPdf(null);
+                    }}
+                    className="absolute top-2 left-2 text-white hover:text-gray-300 cursor-pointer"
+                >
+                    <X className="h-8 w-8" />
+                </button>
+                </div>
             </div>
         )}
         </div>

@@ -109,7 +109,11 @@ export default function CreateRoomPage() {
       });
 
       toast.success("Room created successfully!");
-      router.push(`/room/${response.data.roomId}`);
+      const joined = await api.post("/community/join-room", { roomId: response.data.roomId });
+      if (joined.status !== 200) {
+          toast.error("Failed to join community");
+        }
+      router.push(`/community/chat/${formData.name.trim()}/${response.data.roomId}`);
     } catch (error: any) {
       console.error("Error creating room:", error);
       toast.error(error.response?.data?.message || "Failed to create room");
