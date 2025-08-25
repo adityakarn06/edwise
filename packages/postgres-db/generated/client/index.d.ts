@@ -5330,6 +5330,7 @@ export namespace Prisma {
     id: string | null
     userId: string | null
     fileUrl: string | null
+    fileName: string | null
     createdAt: Date | null
   }
 
@@ -5337,6 +5338,7 @@ export namespace Prisma {
     id: string | null
     userId: string | null
     fileUrl: string | null
+    fileName: string | null
     createdAt: Date | null
   }
 
@@ -5344,6 +5346,7 @@ export namespace Prisma {
     id: number
     userId: number
     fileUrl: number
+    fileName: number
     createdAt: number
     _all: number
   }
@@ -5353,6 +5356,7 @@ export namespace Prisma {
     id?: true
     userId?: true
     fileUrl?: true
+    fileName?: true
     createdAt?: true
   }
 
@@ -5360,6 +5364,7 @@ export namespace Prisma {
     id?: true
     userId?: true
     fileUrl?: true
+    fileName?: true
     createdAt?: true
   }
 
@@ -5367,6 +5372,7 @@ export namespace Prisma {
     id?: true
     userId?: true
     fileUrl?: true
+    fileName?: true
     createdAt?: true
     _all?: true
   }
@@ -5447,6 +5453,7 @@ export namespace Prisma {
     id: string
     userId: string
     fileUrl: string
+    fileName: string | null
     createdAt: Date
     _count: MCQSetCountAggregateOutputType | null
     _min: MCQSetMinAggregateOutputType | null
@@ -5471,6 +5478,7 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     fileUrl?: boolean
+    fileName?: boolean
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     mcqs?: boolean | MCQSet$mcqsArgs<ExtArgs>
@@ -5481,6 +5489,7 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     fileUrl?: boolean
+    fileName?: boolean
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["mCQSet"]>
@@ -5489,6 +5498,7 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     fileUrl?: boolean
+    fileName?: boolean
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["mCQSet"]>
@@ -5497,10 +5507,11 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     fileUrl?: boolean
+    fileName?: boolean
     createdAt?: boolean
   }
 
-  export type MCQSetOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "fileUrl" | "createdAt", ExtArgs["result"]["mCQSet"]>
+  export type MCQSetOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "fileUrl" | "fileName" | "createdAt", ExtArgs["result"]["mCQSet"]>
   export type MCQSetInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     mcqs?: boolean | MCQSet$mcqsArgs<ExtArgs>
@@ -5523,6 +5534,7 @@ export namespace Prisma {
       id: string
       userId: string
       fileUrl: string
+      fileName: string | null
       createdAt: Date
     }, ExtArgs["result"]["mCQSet"]>
     composites: {}
@@ -5952,6 +5964,7 @@ export namespace Prisma {
     readonly id: FieldRef<"MCQSet", 'String'>
     readonly userId: FieldRef<"MCQSet", 'String'>
     readonly fileUrl: FieldRef<"MCQSet", 'String'>
+    readonly fileName: FieldRef<"MCQSet", 'String'>
     readonly createdAt: FieldRef<"MCQSet", 'DateTime'>
   }
     
@@ -10951,6 +10964,7 @@ export namespace Prisma {
     id: 'id',
     userId: 'userId',
     fileUrl: 'fileUrl',
+    fileName: 'fileName',
     createdAt: 'createdAt'
   };
 
@@ -11382,6 +11396,7 @@ export namespace Prisma {
     id?: StringFilter<"MCQSet"> | string
     userId?: StringFilter<"MCQSet"> | string
     fileUrl?: StringFilter<"MCQSet"> | string
+    fileName?: StringNullableFilter<"MCQSet"> | string | null
     createdAt?: DateTimeFilter<"MCQSet"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     mcqs?: MCQListRelationFilter
@@ -11391,6 +11406,7 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     fileUrl?: SortOrder
+    fileName?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     user?: UserOrderByWithRelationInput
     mcqs?: MCQOrderByRelationAggregateInput
@@ -11403,6 +11419,7 @@ export namespace Prisma {
     NOT?: MCQSetWhereInput | MCQSetWhereInput[]
     userId?: StringFilter<"MCQSet"> | string
     fileUrl?: StringFilter<"MCQSet"> | string
+    fileName?: StringNullableFilter<"MCQSet"> | string | null
     createdAt?: DateTimeFilter<"MCQSet"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     mcqs?: MCQListRelationFilter
@@ -11412,6 +11429,7 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     fileUrl?: SortOrder
+    fileName?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     _count?: MCQSetCountOrderByAggregateInput
     _max?: MCQSetMaxOrderByAggregateInput
@@ -11425,6 +11443,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"MCQSet"> | string
     userId?: StringWithAggregatesFilter<"MCQSet"> | string
     fileUrl?: StringWithAggregatesFilter<"MCQSet"> | string
+    fileName?: StringNullableWithAggregatesFilter<"MCQSet"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"MCQSet"> | Date | string
   }
 
@@ -11969,6 +11988,7 @@ export namespace Prisma {
   export type MCQSetCreateInput = {
     id?: string
     fileUrl: string
+    fileName?: string | null
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutMcqSetsInput
     mcqs?: MCQCreateNestedManyWithoutMcqSetInput
@@ -11978,6 +11998,7 @@ export namespace Prisma {
     id?: string
     userId: string
     fileUrl: string
+    fileName?: string | null
     createdAt?: Date | string
     mcqs?: MCQUncheckedCreateNestedManyWithoutMcqSetInput
   }
@@ -11985,6 +12006,7 @@ export namespace Prisma {
   export type MCQSetUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     fileUrl?: StringFieldUpdateOperationsInput | string
+    fileName?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutMcqSetsNestedInput
     mcqs?: MCQUpdateManyWithoutMcqSetNestedInput
@@ -11994,6 +12016,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     fileUrl?: StringFieldUpdateOperationsInput | string
+    fileName?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     mcqs?: MCQUncheckedUpdateManyWithoutMcqSetNestedInput
   }
@@ -12002,12 +12025,14 @@ export namespace Prisma {
     id?: string
     userId: string
     fileUrl: string
+    fileName?: string | null
     createdAt?: Date | string
   }
 
   export type MCQSetUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     fileUrl?: StringFieldUpdateOperationsInput | string
+    fileName?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -12015,6 +12040,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     fileUrl?: StringFieldUpdateOperationsInput | string
+    fileName?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -12661,6 +12687,7 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     fileUrl?: SortOrder
+    fileName?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -12668,6 +12695,7 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     fileUrl?: SortOrder
+    fileName?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -12675,6 +12703,7 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     fileUrl?: SortOrder
+    fileName?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -13763,6 +13792,7 @@ export namespace Prisma {
   export type MCQSetCreateWithoutUserInput = {
     id?: string
     fileUrl: string
+    fileName?: string | null
     createdAt?: Date | string
     mcqs?: MCQCreateNestedManyWithoutMcqSetInput
   }
@@ -13770,6 +13800,7 @@ export namespace Prisma {
   export type MCQSetUncheckedCreateWithoutUserInput = {
     id?: string
     fileUrl: string
+    fileName?: string | null
     createdAt?: Date | string
     mcqs?: MCQUncheckedCreateNestedManyWithoutMcqSetInput
   }
@@ -13986,6 +14017,7 @@ export namespace Prisma {
     id?: StringFilter<"MCQSet"> | string
     userId?: StringFilter<"MCQSet"> | string
     fileUrl?: StringFilter<"MCQSet"> | string
+    fileName?: StringNullableFilter<"MCQSet"> | string | null
     createdAt?: DateTimeFilter<"MCQSet"> | Date | string
   }
 
@@ -14508,6 +14540,7 @@ export namespace Prisma {
   export type MCQSetCreateWithoutMcqsInput = {
     id?: string
     fileUrl: string
+    fileName?: string | null
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutMcqSetsInput
   }
@@ -14516,6 +14549,7 @@ export namespace Prisma {
     id?: string
     userId: string
     fileUrl: string
+    fileName?: string | null
     createdAt?: Date | string
   }
 
@@ -14538,6 +14572,7 @@ export namespace Prisma {
   export type MCQSetUpdateWithoutMcqsInput = {
     id?: StringFieldUpdateOperationsInput | string
     fileUrl?: StringFieldUpdateOperationsInput | string
+    fileName?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutMcqSetsNestedInput
   }
@@ -14546,6 +14581,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     fileUrl?: StringFieldUpdateOperationsInput | string
+    fileName?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -14987,6 +15023,7 @@ export namespace Prisma {
   export type MCQSetCreateManyUserInput = {
     id?: string
     fileUrl: string
+    fileName?: string | null
     createdAt?: Date | string
   }
 
@@ -15082,6 +15119,7 @@ export namespace Prisma {
   export type MCQSetUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     fileUrl?: StringFieldUpdateOperationsInput | string
+    fileName?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     mcqs?: MCQUpdateManyWithoutMcqSetNestedInput
   }
@@ -15089,6 +15127,7 @@ export namespace Prisma {
   export type MCQSetUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     fileUrl?: StringFieldUpdateOperationsInput | string
+    fileName?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     mcqs?: MCQUncheckedUpdateManyWithoutMcqSetNestedInput
   }
@@ -15096,6 +15135,7 @@ export namespace Prisma {
   export type MCQSetUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     fileUrl?: StringFieldUpdateOperationsInput | string
+    fileName?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

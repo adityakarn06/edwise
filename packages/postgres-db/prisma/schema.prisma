@@ -69,6 +69,7 @@ model MCQSet {
   userId       String
   user         User      @relation("UserMCQSets", fields: [userId], references: [id])
   fileUrl      String
+  fileName     String?
   mcqs         MCQ[]     @relation("MCQsInSet")
   createdAt    DateTime  @default(now())
 }

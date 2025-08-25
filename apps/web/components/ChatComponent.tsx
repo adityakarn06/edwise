@@ -6,7 +6,7 @@ import { TypeAnimation } from 'react-type-animation';
 import SummaryGenComponent from "./SummaryGen";
 import GenImpQuesComponent from "./ImpQuestions";
 import { useEffect, useState } from "react";
-import { EllipsisVertical, History, MoveLeft } from "lucide-react";
+import { History, MoveLeft } from "lucide-react";
 
 interface IMessages {
   role: "assistant" | "user";

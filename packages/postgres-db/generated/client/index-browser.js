@@ -156,6 +156,7 @@ exports.Prisma.MCQSetScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   fileUrl: 'fileUrl',
+  fileName: 'fileName',
   createdAt: 'createdAt'
 };
 

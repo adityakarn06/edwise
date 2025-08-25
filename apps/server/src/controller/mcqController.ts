@@ -76,6 +76,7 @@ const McqController = async (req: AuthenticatedRequest, res: Response) => {
       data: {
         userId: req.user.id,
         fileUrl: fileUrl,
+        fileName: req.file.originalname || req.file.filename || 'Unknown File',
         mcqs: {
           create: MCQs.mcqs.map((mcq: any) => ({
             question: mcq.question,
@@ -98,6 +99,7 @@ const McqController = async (req: AuthenticatedRequest, res: Response) => {
     }
 
     return res.json({
+      fileUrl: fileUrl,
       MCQs: MCQs.mcqs.map((mcq: any) => ({
         question: mcq.question,
         options: mcq.options,
@@ -119,8 +121,18 @@ const getMCQData = async (req: AuthenticatedRequest, res: Response) => {
       return res.status(401).json({ error: "User not authenticated" });
     }
 
-    const mcqSets = await prisma.mCQSet.findMany({
-      where: { userId },
+    if (!req.query.fileUrl) {
+      return res.status(400).json({ error: "fileUrl query parameter is required" });
+    }
+
+    const fileUrl = req.query.fileUrl;
+
+    if (!fileUrl || typeof fileUrl !== "string") {
+      return res.status(400).json({ error: "fileUrl query parameter is required" });
+    }
+
+    const mcqSets = await prisma.mCQSet.findFirst({
+      where: { userId, fileUrl },
       include: {
         mcqs: {
           select: {
@@ -132,20 +144,16 @@ const getMCQData = async (req: AuthenticatedRequest, res: Response) => {
       },  
     });
 
-    if (!mcqSets || mcqSets.length === 0) {
+    if (!mcqSets) {
       return res.status(404).json({ error: "No MCQs found for this user" });
     }
 
-    // Transform data to match McqController response format
-    // Flatten all MCQs from all sets into a single array
     const transformedData = {
-      MCQs: mcqSets.flatMap(mcqSet => 
-      mcqSet.mcqs.map(mcq => ({
+      MCQs: mcqSets.mcqs.map(mcq => ({
         question: mcq.question,
         options: mcq.options,
         answer: mcq.answer,
       }))
-      )
     };
 
     return res.json(transformedData);
@@ -155,4 +163,31 @@ const getMCQData = async (req: AuthenticatedRequest, res: Response) => {
   }
 };
 
-export { McqController, getMCQData };
+const getMCQDocs = async (req: AuthenticatedRequest, res: Response) => {
+    try {
+        const userId = req.user?.id;
+        if (!userId) {
+            return res.status(401).json({ error: "User not authenticated" });
+        }
+
+        const mcqDocsDetails = await prisma.mCQSet.findMany({
+            where: { userId },
+            select: {
+                id: true,
+                fileUrl: true,
+                fileName: true,
+                createdAt: true,
+            },
+            orderBy: {
+                createdAt: 'desc',
+            },
+        });
+
+        return res.json(mcqDocsDetails);
+    } catch (error) {
+        console.error("Error fetching MCQ documents:", error);
+        return res.status(500).json({ error: "Failed to fetch MCQ documents" });
+    }
+};
+
+export { McqController, getMCQData, getMCQDocs };
