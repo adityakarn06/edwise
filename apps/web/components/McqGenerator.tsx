@@ -15,9 +15,11 @@ interface McqData {
 
 interface McqGeneratorUIProp {
   setMcqData: React.Dispatch<React.SetStateAction<McqData[]>>;
+  setIsUploadOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+  setCurrentPdfUrl: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export default function McqGeneratorUI({ setMcqData }: McqGeneratorUIProp) {
+export default function McqGeneratorUI({ setMcqData, setIsUploadOpen, setCurrentPdfUrl }: McqGeneratorUIProp) {
   const router = useRouter();
   const [uploading, setUploading] = useState(false);
 
@@ -30,7 +32,7 @@ export default function McqGeneratorUI({ setMcqData }: McqGeneratorUIProp) {
       const result = await api.post("/mcq", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
-      return result.data.MCQs;
+      return result.data;
     },
   });
 
@@ -49,9 +51,14 @@ export default function McqGeneratorUI({ setMcqData }: McqGeneratorUIProp) {
         return;
       }
       mutate(file, {
-        onSuccess: (mcqData) => {
+        onSuccess: async (data) => {
           setUploading(false);
+          const mcqData = data.MCQs;
+          const fileUrl = data.fileUrl;
           setMcqData(mcqData);
+          setCurrentPdfUrl(fileUrl);
+          console.log("setIsUploadOpen exists:", !!setIsUploadOpen);
+          setIsUploadOpen?.(false);
           toast.success("MCQ genarated successfully!");
           router.refresh();
         },

@@ -18,12 +18,10 @@ export default function AskPdf() {
   useEffect(() => {
     getAllDoc()
       .then((docs) => {
-        console.log("Fetched documents:", docs);
         if (docs && docs.length > 0) {
           const urls = docs.map((doc: { fileUrl: string }) => doc.fileUrl);
           setPdfUrls(urls);
           if (urls.length > 0 && urls[0]) {
-            console.log("Setting current PDF URL to:", urls[0]);
             setCurrentPdfUrl(urls[0]);
           }
         }

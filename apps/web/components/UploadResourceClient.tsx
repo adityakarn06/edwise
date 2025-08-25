@@ -133,7 +133,7 @@ export default function UploadResourceClientComponent({
             <div
                 {...getRootProps({
                 className:
-                    "w-full h-36 sm:h-40 md:h-44 border-2 border-dashed border-white/40 rounded-lg flex items-center justify-center cursor-pointer hover:border-blue-500 transition-colors",
+                    "w-full h-36 sm:h-40 md:h-44 border-2 border-dashed border-white/40 rounded-lg flex items-center justify-center cursor-pointer hover:border-white transition-colors",
                 })}
             >
                 <input {...getInputProps()} />
@@ -158,7 +158,7 @@ export default function UploadResourceClientComponent({
             </button>
             </div>        
         ) : (
-            <div className="flex flex-col z-10 bg-[#262626] rounded-lg shadow-lg w-[80vw] sm:w-[70vw] md:w-[60vw] lg:w-[50vw] xl:w-[28vw] p-4 sm:p-6 md:p-8 h-auto md:h-[60vh]">
+            <div className="flex flex-col z-10 bg-[#262626] rounded-lg shadow-lg w-[80vw] sm:w-[70vw] md:w-[60vw] lg:w-[50vw] xl:w-[28vw] p-4 sm:p-6 md:p-8 h-contain">
                 <h1 className="text-lg sm:text-xl md:text-2xl font-semibold mb-4 text-white">
                     Resource Metadata
                 </h1>
@@ -177,7 +177,7 @@ export default function UploadResourceClientComponent({
                             type="text"
                             name="title"
                             required
-                            className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                            className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent transition-colors"
                             placeholder="Enter resource title"
                         />
                     </div>
@@ -189,7 +189,7 @@ export default function UploadResourceClientComponent({
                             name="description"
                             required
                             rows={3}
-                            className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors resize-none"
+                            className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent transition-colors resize-none"
                             placeholder="Enter resource description"
                         />
                     </div>
@@ -201,13 +201,13 @@ export default function UploadResourceClientComponent({
                             type="text"
                             name="tags"
                             required
-                            className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                            className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent transition-colors"
                             placeholder="Enter tags for the resource"
                         />
                     </div>
                     <button
                         type="submit"
-                        className="w-full px-4 sm:px-5 md:px-6 py-2 sm:py-2.5 rounded-xl bg-blue-600 text-white text-sm sm:text-base font-semibold shadow hover:bg-blue-700 transition"
+                        className="w-full px-4 sm:px-5 md:px-6 py-2 sm:py-2.5 rounded-xl bg-white text-black text-sm sm:text-base shadow hover:white/90 transition"
                     >
                         Submit Metadata
                     </button>

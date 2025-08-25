@@ -343,6 +343,11 @@ const ChatComponent: React.FC<ChatComponentProps> = ({currentPdfUrl}) => {
           <div className="z-20 sticky w-fit px-4 py-2 top-0 left-0 flex gap-2 items-center justify-center cursor-pointer rounded-full bg-black/90 text-white/90 hover:text-white  hover:bg-black shadow-md" onClick={() => setShowChat(false)}>
             <MoveLeft className="w-4 h-4" />  <p className="text-sm">Back</p>
           </div>
+          {messages.length === 0 && !isLoading && (
+            <div className="flex flex-col gap-2 items-center justify-center h-full p-4">
+              <p className="text-lg text-gray-500">No messages yet. Chat to get started.</p>
+            </div>
+          )}
           {messages.map((msg, index) => (
             <div
               key={index}

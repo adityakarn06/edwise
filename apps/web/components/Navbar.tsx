@@ -77,30 +77,33 @@ export default function Navbar({
               <div className="z-50 absolute flex flex-col gap-2 top-full left-0 mt-4 bg-white p-2 rounded-md border-3 border-black min-w-[120px]">
                 {pdfs && pdfs.length > 0 && 
                   pdfs.map((pdf: string, index: number) => (
-                    <div
-                      key={index}
-                      className="flex gap-2 justify-center items-center"
-                    >
-                        <div 
-                          onClick={() => {
-                            if (setCurrentPdf) {
-                              setCurrentPdf(pdf);
-                            }
-                            setIsOptionOpen(false);
-                          }}
-                          className="p-1 rounded-md text-sm text-black hover:border hover:border-black transition-colors cursor-pointer w-[180px] overflow-hidden">
-                            {pdf.length > 20 ? `${pdf.slice(0, 20)}...` : pdf}
-                        </div>
-                        <div>
-                          <Trash 
+                    pdf && (
+                      <div
+                        key={index}
+                        className="flex gap-2 justify-center items-center"
+                      >
+                          <div 
                             onClick={() => {
-                              console.log(`Delete PDF: ${pdf}`);
-                              toast.success("This button has no functionality yet!");
+                              if (setCurrentPdf) {
+                                setCurrentPdf(pdf);
+                              }
+                              setIsOptionOpen(false);
+                              openFileUpload?.(false);
                             }}
-                            className="text-black p-1 rounded-full border-1 cursor-pointer hover:bg-black hover:text-white transition-color"
-                          />
-                        </div>
-                    </div>
+                            className="p-1 rounded-md text-sm text-black hover:border hover:border-black transition-colors cursor-pointer w-[180px] overflow-hidden">
+                              {pdf.length > 20 ? `${pdf.slice(0, 20)}...` : pdf}
+                          </div>
+                          <div>
+                            <Trash 
+                              onClick={() => {
+                                console.log(`Delete PDF: ${pdf}`);
+                                toast.success("This button has no functionality yet!");
+                              }}
+                              className="text-black p-1 rounded-full border-1 cursor-pointer hover:bg-black hover:text-white transition-color"
+                            />
+                          </div>
+                      </div>
+                    )
                   ))
                 }
                 

@@ -108,7 +108,7 @@ export default function MCQQuestionCard({
                     <button
                         key={optionIndex}
                         onClick={() => onOptionToggle(questionIndex, optionIndex)}
-                        className={`flex items-center w-full p-3 text-left rounded-lg border transition-all duration-200 group ${getOptionStyles(questionIndex, optionIndex)}`}
+                        className={`flex items-center w-full p-3 text-left rounded-lg border transition-all duration-200 group cursor-pointer ${getOptionStyles(questionIndex, optionIndex)}`}
                     >
                         <div className="flex-shrink-0 mr-3">
                             {getOptionIcon(questionIndex, optionIndex)}

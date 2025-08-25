@@ -184,14 +184,13 @@ export default function ExamComponent({ mcqData }: ExamComponentProps) {
                                     <ProgressOverview 
                                         totalQuestions={mcqData.length}
                                         answeredQuestions={answeredQuestions.size}
-                                        showCorrectAnswers={false}
                                     />
                                 </div>
                             </div>
                         ) : (
                             <button
                                 onClick={() => setIsOverviewOpen(true)}
-                                className="px-4 py-2 text-md text-white/90 border border-white/90 rounded-lg hover:bg-white/80 hover:text-black/80 cursor-pointer transition-colors"
+                                className="px-4 py-2 text-md text-white/80 border-1 border-white/60 hover:border-white/80 rounded-lg cursor-pointer transition-colors"
                             >
                                 Overview
                             </button>
@@ -222,17 +221,17 @@ export default function ExamComponent({ mcqData }: ExamComponentProps) {
                     />
                 </div>
 
-                <div className="hidden md:block w-80">
+                <div className="hidden md:block w-[30%] mx-[2vw] px-4">
                     <ProgressOverview 
                         totalQuestions={mcqData.length}
                         answeredQuestions={answeredQuestions.size}
-                        showCorrectAnswers={false}
                     />
                 </div>
             </div>
 
             <PaginationNavigation
                 currentQuestion={currentQuestionIndex}
+                setCurrentQuestionIndex={setCurrentQuestionIndex}
                 totalQuestions={mcqData.length}
                 onPrevious={handlePrevious}
                 onNext={handleNext}
