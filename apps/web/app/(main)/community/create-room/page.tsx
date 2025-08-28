@@ -4,64 +4,87 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import {
   Lock,
-  Users,
   Globe,
   Plus,
   ArrowLeft,
-  BookOpen,
-  Video,
-  FileText,
-  MessageSquare,
+  Upload,
+  X,
+  Image,
 } from "lucide-react";
 import toast from "react-hot-toast";
 import api from "@/lib/api";
 import Navbar from "@/components/Navbar";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 interface RoomFormData {
   name: string;
   description: string;
-  privacy: "public" | "private";
-  roomType: "study" | "discussion" | "project" | "exam-prep";
-  maxMembers: number;
+  thumbnail?: File | null;
+}
+
+interface CreateRoomResponse {
+  roomId: string;
+  slug: string;
+  description: string;
+  thumbnail?: string;
 }
 
 export default function CreateRoomPage() {
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(false);
+  const queryClient = useQueryClient();
+  const [thumbnailPreview, setThumbnailPreview] = useState<string | null>(null);
   const [formData, setFormData] = useState<RoomFormData>({
     name: "",
     description: "",
-    privacy: "public",
-    roomType: "study",
-    maxMembers: 10,
+    thumbnail: null,
   });
 
-  const roomTypes = [
-    {
-      id: "study",
-      name: "Study Group",
-      description: "Collaborative learning and note sharing",
-      icon: <BookOpen className="h-5 w-5" />,
+  const createRoomMutation = useMutation({
+    mutationFn: async (data: RoomFormData): Promise<CreateRoomResponse> => {
+      const formDataToSend = new FormData();
+      formDataToSend.append("slug", data.name.trim());
+      formDataToSend.append("description", data.description.trim());
+      
+      if (data.thumbnail) {
+        formDataToSend.append("thumbnail", data.thumbnail);
+      }
+
+      const response = await api.post("/community/create-room", formDataToSend, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      
+      return response.data;
     },
-    {
-      id: "discussion",
-      name: "Discussion Forum",
-      description: "Topic-based discussions and Q&A",
-      icon: <MessageSquare className="h-5 w-5" />,
+    onSuccess: (data) => {
+      toast.success("Room created successfully!");
+      queryClient.invalidateQueries({ queryKey: ["rooms"] });
+      queryClient.invalidateQueries({ queryKey: ["user-rooms"] });
+      
+      joinRoomMutation.mutate(data.roomId);
     },
-    {
-      id: "project",
-      name: "Project Team",
-      description: "Work together on assignments and projects",
-      icon: <FileText className="h-5 w-5" />,
+    onError: (error: any) => {
+      console.error("Error creating room:", error);
+      const errorMessage = error.response?.data?.error || "Failed to create room";
+      toast.error(errorMessage);
     },
-    {
-      id: "exam-prep",
-      name: "Exam Preparation",
-      description: "Practice tests and exam strategies",
-      icon: <Video className="h-5 w-5" />,
+  });
+
+  const joinRoomMutation = useMutation({
+    mutationFn: async (roomId: string) => {
+      const response = await api.post("/community/join-room", { roomId });
+      return response.data;
     },
-  ];
+    onSuccess: (_, roomId) => {
+      router.push(`/community/chat/${formData.name.trim()}/${roomId}`);
+    },
+    onError: (error: any) => {
+      console.error("Error joining room:", error);
+      toast.error("Failed to join the room, but room was created successfully");
+      router.push("/community");
+    },
+  });
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -73,18 +96,33 @@ export default function CreateRoomPage() {
     }));
   };
 
-  const handlePrivacyChange = (privacy: "public" | "private") => {
-    setFormData((prev) => ({
-      ...prev,
-      privacy,
-    }));
+  const handleThumbnailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (!file.type.startsWith('image/')) {
+        toast.error('Please select an image file');
+        return;
+      }
+      
+      if (file.size > 5 * 1024 * 1024) {
+        toast.error('Image must be less than 5MB');
+        return;
+      }
+
+      setFormData(prev => ({ ...prev, thumbnail: file }));
+      
+      // preview
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setThumbnailPreview(e.target?.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
-  const handleRoomTypeChange = (roomType: string) => {
-    setFormData((prev) => ({
-      ...prev,
-      roomType: roomType as RoomFormData["roomType"],
-    }));
+  const removeThumbnail = () => {
+    setFormData(prev => ({ ...prev, thumbnail: null }));
+    setThumbnailPreview(null);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -100,27 +138,10 @@ export default function CreateRoomPage() {
       return;
     }
 
-    setIsLoading(true);
-
-    try {
-      const response = await api.post("/community/create-room", {
-        slug: formData.name.trim(),
-        // description: formData.description.trim(),
-      });
-
-      toast.success("Room created successfully!");
-      const joined = await api.post("/community/join-room", { roomId: response.data.roomId });
-      if (joined.status !== 200) {
-          toast.error("Failed to join community");
-        }
-      router.push(`/community/chat/${formData.name.trim()}/${response.data.roomId}`);
-    } catch (error: any) {
-      console.error("Error creating room:", error);
-      toast.error(error.response?.data?.message || "Failed to create room");
-    } finally {
-      setIsLoading(false);
-    }
+    createRoomMutation.mutate(formData);
   };
+
+  const isLoading = createRoomMutation.isPending || joinRoomMutation.isPending;
 
   return (
     <>
@@ -161,8 +182,9 @@ export default function CreateRoomPage() {
                 value={formData.name}
                 onChange={handleInputChange}
                 placeholder="Enter room name"
-                className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-lg text-white placeholder:text-white/40 focus:outline-none focus:border-blue-400 focus:bg-white/10 transition-colors"
+                className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-lg text-white placeholder:text-white/40 focus:outline-none focus:border-border-white focus:bg-white/10 transition-colors"
                 maxLength={50}
+                required
               />
               <p className="text-xs text-white/40 mt-1">
                 {formData.name.length}/50 characters
@@ -183,8 +205,9 @@ export default function CreateRoomPage() {
                 onChange={handleInputChange}
                 placeholder="Describe what this room is for"
                 rows={4}
-                className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-lg text-white placeholder:text-white/40 focus:outline-none focus:border-blue-400 focus:bg-white/10 transition-colors resize-none"
+                className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-lg text-white placeholder:text-white/40 focus:outline-none focus:border-white focus:bg-white/10 transition-colors resize-none"
                 maxLength={200}
+                required
               />
               <p className="text-xs text-white/40 mt-1">
                 {formData.description.length}/200 characters
@@ -193,96 +216,55 @@ export default function CreateRoomPage() {
 
             <div>
               <label className="block text-sm font-medium text-white/80 mb-3">
-                Room Type *
-              </label>
-              <div className="grid grid-cols-2 gap-3">
-                {roomTypes.map((type) => (
-                  <button
-                    key={type.id}
-                    type="button"
-                    onClick={() => handleRoomTypeChange(type.id)}
-                    className={`p-4 border rounded-lg text-left transition-all duration-200 ${
-                      formData.roomType === type.id
-                        ? "border-blue-400 bg-blue-400/10 text-blue-400"
-                        : "border-white/20 bg-white/5 text-white/80 hover:border-white/30 hover:bg-white/10"
-                    }`}
-                  >
-                    <div className="flex items-center gap-3 mb-2">
-                      {type.icon}
-                      <span className="font-medium">{type.name}</span>
-                    </div>
-                    <p className="text-xs opacity-70">{type.description}</p>
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-white/80 mb-3">
-                Privacy *
+                Room Thumbnail
               </label>
               <div className="space-y-3">
-                <button
-                  type="button"
-                  onClick={() => handlePrivacyChange("public")}
-                  className={`w-full p-4 border rounded-lg text-left transition-all duration-200 ${
-                    formData.privacy === "public"
-                      ? "border-green-400 bg-green-400/10 text-green-400"
-                      : "border-white/20 bg-white/5 text-white/80 hover:border-white/30 hover:bg-white/10"
-                  }`}
-                >
-                  <div className="flex items-center gap-3 mb-2">
-                    <Globe className="h-5 w-5" />
-                    <span className="font-medium">Public</span>
+                {thumbnailPreview ? (
+                  <div className="relative">
+                    <div className="w-full h-48 bg-white/5 border border-white/20 rounded-lg overflow-hidden">
+                      <img
+                        src={thumbnailPreview}
+                        alt="Thumbnail preview"
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <button
+                      type="button"
+                      onClick={removeThumbnail}
+                      className="absolute top-2 right-2 p-1 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors"
+                    >
+                      <X className="h-4 w-4" />
+                    </button>
                   </div>
-                  <p className="text-xs opacity-70">
-                    Anyone can find and join this room
-                  </p>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => handlePrivacyChange("private")}
-                  className={`w-full p-4 border rounded-lg text-left transition-all duration-200 ${
-                    formData.privacy === "private"
-                      ? "border-orange-400 bg-orange-400/10 text-orange-400"
-                      : "border-white/20 bg-white/5 text-white/80 hover:border-white/30 hover:bg-white/10"
-                  }`}
-                >
-                  <div className="flex items-center gap-3 mb-2">
-                    <Lock className="h-5 w-5" />
-                    <span className="font-medium">Private</span>
-                  </div>
-                  <p className="text-xs opacity-70">
-                    Only invited members can join this room
-                  </p>
-                </button>
+                ) : (
+                  <label className="cursor-pointer">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleThumbnailChange}
+                      className="hidden"
+                    />
+                    <div className="w-full h-48 bg-white/5 border-2 border-dashed border-white/20 rounded-lg flex flex-col items-center justify-center hover:border-white/30 hover:bg-white/10 transition-colors">
+                      <div className="flex flex-col items-center gap-2">
+                        <div className="p-3 bg-white/10 rounded-full">
+                          <Image className="h-6 w-6 text-white/60" />
+                        </div>
+                        <div className="text-center">
+                          <p className="text-white/80 font-medium">Upload Thumbnail</p>
+                          <p className="text-xs text-white/40">PNG, JPG up to 2MB</p>
+                        </div>
+                        <div className="flex items-center gap-2 px-3 py-1 bg-white/90 text-black text-sm rounded-md">
+                          <Upload className="h-3 w-3" />
+                          Choose File
+                        </div>
+                      </div>
+                    </div>
+                  </label>
+                )}
+                <p className="text-xs text-white/40">
+                  Add a visual representation for your room to make it more appealing
+                </p>
               </div>
-            </div>
-
-            <div>
-              <label
-                htmlFor="maxMembers"
-                className="block text-sm font-medium text-white/80 mb-2"
-              >
-                Maximum Members
-              </label>
-              <div className="flex items-center gap-3">
-                <Users className="h-5 w-5 text-white/60" />
-                <input
-                  type="number"
-                  id="maxMembers"
-                  name="maxMembers"
-                  value={formData.maxMembers}
-                  onChange={handleInputChange}
-                  min="2"
-                  max="50"
-                  className="flex-1 px-4 py-3 bg-white/5 border border-white/20 rounded-lg text-white focus:outline-none focus:border-blue-400 focus:bg-white/10 transition-colors"
-                />
-              </div>
-              <p className="text-xs text-white/40 mt-1">
-                Between 2 and 50 members
-              </p>
             </div>
 
             <div className="flex gap-4 pt-6">
@@ -290,6 +272,7 @@ export default function CreateRoomPage() {
                 type="button"
                 onClick={() => router.back()}
                 className="flex-1 py-3 px-4 border border-white/20 text-white/80 rounded-lg hover:bg-white/5 hover:border-white/30 transition-colors"
+                disabled={isLoading}
               >
                 Cancel
               </button>
@@ -300,7 +283,7 @@ export default function CreateRoomPage() {
                   !formData.name.trim() ||
                   !formData.description.trim()
                 }
-                className="flex-1 py-3 px-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium"
+                className="flex-1 py-3 px-4 bg-white/90 text-black/90 hover:text-black rounded-lg hover:bg-white disabled:opacity-50 disabled:cursor-not-allowed transition-colors font-medium cursor-pointer"
               >
                 {isLoading ? "Creating..." : "Create Room"}
               </button>

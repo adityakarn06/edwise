@@ -8691,6 +8691,7 @@ export namespace Prisma {
     slug: string | null
     adminId: string | null
     description: string | null
+    thumbnail: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -8700,6 +8701,7 @@ export namespace Prisma {
     slug: string | null
     adminId: string | null
     description: string | null
+    thumbnail: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -8709,6 +8711,7 @@ export namespace Prisma {
     slug: number
     adminId: number
     description: number
+    thumbnail: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -8720,6 +8723,7 @@ export namespace Prisma {
     slug?: true
     adminId?: true
     description?: true
+    thumbnail?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -8729,6 +8733,7 @@ export namespace Prisma {
     slug?: true
     adminId?: true
     description?: true
+    thumbnail?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -8738,6 +8743,7 @@ export namespace Prisma {
     slug?: true
     adminId?: true
     description?: true
+    thumbnail?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -8819,7 +8825,8 @@ export namespace Prisma {
     id: string
     slug: string
     adminId: string
-    description: string | null
+    description: string
+    thumbnail: string
     createdAt: Date
     updatedAt: Date
     _count: CommunityRoomCountAggregateOutputType | null
@@ -8846,6 +8853,7 @@ export namespace Prisma {
     slug?: boolean
     adminId?: boolean
     description?: boolean
+    thumbnail?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     admin?: boolean | UserDefaultArgs<ExtArgs>
@@ -8859,6 +8867,7 @@ export namespace Prisma {
     slug?: boolean
     adminId?: boolean
     description?: boolean
+    thumbnail?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     admin?: boolean | UserDefaultArgs<ExtArgs>
@@ -8869,6 +8878,7 @@ export namespace Prisma {
     slug?: boolean
     adminId?: boolean
     description?: boolean
+    thumbnail?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     admin?: boolean | UserDefaultArgs<ExtArgs>
@@ -8879,11 +8889,12 @@ export namespace Prisma {
     slug?: boolean
     adminId?: boolean
     description?: boolean
+    thumbnail?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type CommunityRoomOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "slug" | "adminId" | "description" | "createdAt" | "updatedAt", ExtArgs["result"]["communityRoom"]>
+  export type CommunityRoomOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "slug" | "adminId" | "description" | "thumbnail" | "createdAt" | "updatedAt", ExtArgs["result"]["communityRoom"]>
   export type CommunityRoomInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     admin?: boolean | UserDefaultArgs<ExtArgs>
     members?: boolean | CommunityRoom$membersArgs<ExtArgs>
@@ -8908,7 +8919,8 @@ export namespace Prisma {
       id: string
       slug: string
       adminId: string
-      description: string | null
+      description: string
+      thumbnail: string
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["communityRoom"]>
@@ -9341,6 +9353,7 @@ export namespace Prisma {
     readonly slug: FieldRef<"CommunityRoom", 'String'>
     readonly adminId: FieldRef<"CommunityRoom", 'String'>
     readonly description: FieldRef<"CommunityRoom", 'String'>
+    readonly thumbnail: FieldRef<"CommunityRoom", 'String'>
     readonly createdAt: FieldRef<"CommunityRoom", 'DateTime'>
     readonly updatedAt: FieldRef<"CommunityRoom", 'DateTime'>
   }
@@ -11008,6 +11021,7 @@ export namespace Prisma {
     slug: 'slug',
     adminId: 'adminId',
     description: 'description',
+    thumbnail: 'thumbnail',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -11616,7 +11630,8 @@ export namespace Prisma {
     id?: StringFilter<"CommunityRoom"> | string
     slug?: StringFilter<"CommunityRoom"> | string
     adminId?: StringFilter<"CommunityRoom"> | string
-    description?: StringNullableFilter<"CommunityRoom"> | string | null
+    description?: StringFilter<"CommunityRoom"> | string
+    thumbnail?: StringFilter<"CommunityRoom"> | string
     createdAt?: DateTimeFilter<"CommunityRoom"> | Date | string
     updatedAt?: DateTimeFilter<"CommunityRoom"> | Date | string
     admin?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -11628,7 +11643,8 @@ export namespace Prisma {
     id?: SortOrder
     slug?: SortOrder
     adminId?: SortOrder
-    description?: SortOrderInput | SortOrder
+    description?: SortOrder
+    thumbnail?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     admin?: UserOrderByWithRelationInput
@@ -11643,7 +11659,8 @@ export namespace Prisma {
     OR?: CommunityRoomWhereInput[]
     NOT?: CommunityRoomWhereInput | CommunityRoomWhereInput[]
     adminId?: StringFilter<"CommunityRoom"> | string
-    description?: StringNullableFilter<"CommunityRoom"> | string | null
+    description?: StringFilter<"CommunityRoom"> | string
+    thumbnail?: StringFilter<"CommunityRoom"> | string
     createdAt?: DateTimeFilter<"CommunityRoom"> | Date | string
     updatedAt?: DateTimeFilter<"CommunityRoom"> | Date | string
     admin?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -11655,7 +11672,8 @@ export namespace Prisma {
     id?: SortOrder
     slug?: SortOrder
     adminId?: SortOrder
-    description?: SortOrderInput | SortOrder
+    description?: SortOrder
+    thumbnail?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: CommunityRoomCountOrderByAggregateInput
@@ -11670,7 +11688,8 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"CommunityRoom"> | string
     slug?: StringWithAggregatesFilter<"CommunityRoom"> | string
     adminId?: StringWithAggregatesFilter<"CommunityRoom"> | string
-    description?: StringNullableWithAggregatesFilter<"CommunityRoom"> | string | null
+    description?: StringWithAggregatesFilter<"CommunityRoom"> | string
+    thumbnail?: StringWithAggregatesFilter<"CommunityRoom"> | string
     createdAt?: DateTimeWithAggregatesFilter<"CommunityRoom"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"CommunityRoom"> | Date | string
   }
@@ -12227,7 +12246,8 @@ export namespace Prisma {
   export type CommunityRoomCreateInput = {
     id?: string
     slug: string
-    description?: string | null
+    description: string
+    thumbnail: string
     createdAt?: Date | string
     updatedAt?: Date | string
     admin: UserCreateNestedOneWithoutAdminRoomsInput
@@ -12239,7 +12259,8 @@ export namespace Prisma {
     id?: string
     slug: string
     adminId: string
-    description?: string | null
+    description: string
+    thumbnail: string
     createdAt?: Date | string
     updatedAt?: Date | string
     members?: UserUncheckedCreateNestedManyWithoutRoomsInput
@@ -12249,7 +12270,8 @@ export namespace Prisma {
   export type CommunityRoomUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    thumbnail?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     admin?: UserUpdateOneRequiredWithoutAdminRoomsNestedInput
@@ -12261,7 +12283,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     adminId?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    thumbnail?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     members?: UserUncheckedUpdateManyWithoutRoomsNestedInput
@@ -12272,7 +12295,8 @@ export namespace Prisma {
     id?: string
     slug: string
     adminId: string
-    description?: string | null
+    description: string
+    thumbnail: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -12280,7 +12304,8 @@ export namespace Prisma {
   export type CommunityRoomUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    thumbnail?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -12289,7 +12314,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     adminId?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    thumbnail?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -12843,6 +12869,7 @@ export namespace Prisma {
     slug?: SortOrder
     adminId?: SortOrder
     description?: SortOrder
+    thumbnail?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -12852,6 +12879,7 @@ export namespace Prisma {
     slug?: SortOrder
     adminId?: SortOrder
     description?: SortOrder
+    thumbnail?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -12861,6 +12889,7 @@ export namespace Prisma {
     slug?: SortOrder
     adminId?: SortOrder
     description?: SortOrder
+    thumbnail?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -13883,7 +13912,8 @@ export namespace Prisma {
   export type CommunityRoomCreateWithoutMembersInput = {
     id?: string
     slug: string
-    description?: string | null
+    description: string
+    thumbnail: string
     createdAt?: Date | string
     updatedAt?: Date | string
     admin: UserCreateNestedOneWithoutAdminRoomsInput
@@ -13894,7 +13924,8 @@ export namespace Prisma {
     id?: string
     slug: string
     adminId: string
-    description?: string | null
+    description: string
+    thumbnail: string
     createdAt?: Date | string
     updatedAt?: Date | string
     messages?: MessageUncheckedCreateNestedManyWithoutCommunityRoomInput
@@ -13908,7 +13939,8 @@ export namespace Prisma {
   export type CommunityRoomCreateWithoutAdminInput = {
     id?: string
     slug: string
-    description?: string | null
+    description: string
+    thumbnail: string
     createdAt?: Date | string
     updatedAt?: Date | string
     members?: UserCreateNestedManyWithoutRoomsInput
@@ -13918,7 +13950,8 @@ export namespace Prisma {
   export type CommunityRoomUncheckedCreateWithoutAdminInput = {
     id?: string
     slug: string
-    description?: string | null
+    description: string
+    thumbnail: string
     createdAt?: Date | string
     updatedAt?: Date | string
     members?: UserUncheckedCreateNestedManyWithoutRoomsInput
@@ -14107,7 +14140,8 @@ export namespace Prisma {
     id?: StringFilter<"CommunityRoom"> | string
     slug?: StringFilter<"CommunityRoom"> | string
     adminId?: StringFilter<"CommunityRoom"> | string
-    description?: StringNullableFilter<"CommunityRoom"> | string | null
+    description?: StringFilter<"CommunityRoom"> | string
+    thumbnail?: StringFilter<"CommunityRoom"> | string
     createdAt?: DateTimeFilter<"CommunityRoom"> | Date | string
     updatedAt?: DateTimeFilter<"CommunityRoom"> | Date | string
   }
@@ -14903,7 +14937,8 @@ export namespace Prisma {
   export type CommunityRoomCreateWithoutMessagesInput = {
     id?: string
     slug: string
-    description?: string | null
+    description: string
+    thumbnail: string
     createdAt?: Date | string
     updatedAt?: Date | string
     admin: UserCreateNestedOneWithoutAdminRoomsInput
@@ -14914,7 +14949,8 @@ export namespace Prisma {
     id?: string
     slug: string
     adminId: string
-    description?: string | null
+    description: string
+    thumbnail: string
     createdAt?: Date | string
     updatedAt?: Date | string
     members?: UserUncheckedCreateNestedManyWithoutRoomsInput
@@ -14984,7 +15020,8 @@ export namespace Prisma {
   export type CommunityRoomUpdateWithoutMessagesInput = {
     id?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    thumbnail?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     admin?: UserUpdateOneRequiredWithoutAdminRoomsNestedInput
@@ -14995,7 +15032,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     adminId?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    thumbnail?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     members?: UserUncheckedUpdateManyWithoutRoomsNestedInput
@@ -15053,7 +15091,8 @@ export namespace Prisma {
   export type CommunityRoomCreateManyAdminInput = {
     id?: string
     slug: string
-    description?: string | null
+    description: string
+    thumbnail: string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -15210,7 +15249,8 @@ export namespace Prisma {
   export type CommunityRoomUpdateWithoutMembersInput = {
     id?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    thumbnail?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     admin?: UserUpdateOneRequiredWithoutAdminRoomsNestedInput
@@ -15221,7 +15261,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     adminId?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    thumbnail?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     messages?: MessageUncheckedUpdateManyWithoutCommunityRoomNestedInput
@@ -15231,7 +15272,8 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
     adminId?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    thumbnail?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -15239,7 +15281,8 @@ export namespace Prisma {
   export type CommunityRoomUpdateWithoutAdminInput = {
     id?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    thumbnail?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     members?: UserUpdateManyWithoutRoomsNestedInput
@@ -15249,7 +15292,8 @@ export namespace Prisma {
   export type CommunityRoomUncheckedUpdateWithoutAdminInput = {
     id?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    thumbnail?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     members?: UserUncheckedUpdateManyWithoutRoomsNestedInput
@@ -15259,7 +15303,8 @@ export namespace Prisma {
   export type CommunityRoomUncheckedUpdateManyWithoutAdminInput = {
     id?: StringFieldUpdateOperationsInput | string
     slug?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: StringFieldUpdateOperationsInput | string
+    thumbnail?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

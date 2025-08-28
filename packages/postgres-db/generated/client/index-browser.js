@@ -191,6 +191,7 @@ exports.Prisma.CommunityRoomScalarFieldEnum = {
   slug: 'slug',
   adminId: 'adminId',
   description: 'description',
+  thumbnail: 'thumbnail',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };

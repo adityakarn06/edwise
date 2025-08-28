@@ -5,6 +5,7 @@ import MCQQuestionCard from "./mcq/MCQQuestionCard";
 import PaginationNavigation from "./mcq/PaginationNavigation";
 import ProgressOverview from "./mcq/ProgressOverview";
 import ExamResults from "./mcq/ExamResults";
+import { formatTime } from "@/utils/formatTime";
 
 interface ExamComponentProps {
     mcqData: {
@@ -46,14 +47,6 @@ export default function ExamComponent({ mcqData }: ExamComponentProps) {
         
         return () => clearInterval(timer);
     }, []);
-    
-    const formatTime = (seconds: number): string => {
-        const hours = Math.floor(seconds / 3600);
-        const minutes = Math.floor((seconds % 3600) / 60);
-        const secs = seconds % 60;
-        
-        return `${hours.toString().padStart(2, '0')} : ${minutes.toString().padStart(2, '0')} : ${secs.toString().padStart(2, '0')}`;
-    };
 
     const handleOptionToggle = (questionIndex: number, optionIndex: number) => {
         setSelectedOptions(prev => {

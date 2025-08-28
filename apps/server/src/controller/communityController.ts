@@ -2,6 +2,8 @@ import { Response } from 'express';
 import { PrismaClient } from "@repo/postgres-db/client";
 import { AuthenticatedRequest } from '../middleware/auth';
 import { CreateRoomSchema } from "@repo/common-zod/types"
+import { uploadFileToCloudinary } from '../lib/cloudinary';
+import fs from 'fs';
 
 const prisma = new PrismaClient();
 
@@ -9,31 +11,61 @@ const createRoomController = async (req: AuthenticatedRequest, res: Response) =>
     if (!req.user) {
         return res.status(401).json({ error: "User not authenticated" });
     }
-    const parsedData = CreateRoomSchema.safeParse(req.body);
-    if (!parsedData.success) {
-        res.json({
-          msg: "incorrect inputs"
-        })
-        return;
-    }
-
-    const userId = req.user.id;
 
     try {
+        const { slug, description } = req.body;
+        
+        if (!slug || !description) {
+            return res.status(400).json({ error: "Room name and description are required" });
+        }
+
+        const userId = req.user.id;
+        let thumbnailUrl = '';
+
+        if (req.file) {
+            try {
+                const cloudinaryResult = await uploadFileToCloudinary(req.file.path, {
+                    folder: `community-rooms/${userId}`,
+                    resource_type: "image",
+                });
+                thumbnailUrl = cloudinaryResult.secure_url;
+
+                if (fs.existsSync(req.file.path)) {
+                    fs.unlinkSync(req.file.path);
+                }
+            } catch (uploadError) {
+                console.error("Error uploading thumbnail:", uploadError);
+                return res.status(500).json({ error: "Failed to upload thumbnail" });
+            }
+        }
+
         const room = await prisma.communityRoom.create({
-          data: {
-              slug: parsedData.data.slug,
-              adminId: userId,
-          }
-        })
-    
+            data: {
+                slug: slug.trim(),
+                adminId: userId,
+                description: description.trim(),
+                thumbnail: thumbnailUrl,
+            }
+        });
+
         res.status(200).json({
-            roomId: room.id
-        })
-    } catch (error) {
-        res.json({
-            msg: "room need to be unique"
-        })
+            roomId: room.id,
+            slug: room.slug,
+            description: room.description,
+            thumbnail: room.thumbnail,
+        });
+    } catch (error: any) {
+        console.error("Error creating room:", error);
+        
+        if (req.file && fs.existsSync(req.file.path)) {
+            fs.unlinkSync(req.file.path);
+        }
+        
+        if (error.code === 'P2002') {
+            return res.status(400).json({ error: "Room name already exists" });
+        }
+        
+        res.status(500).json({ error: "Failed to create room" });
     }
 };
 
@@ -88,8 +120,16 @@ const getUserRoomsController = async (req: AuthenticatedRequest, res: Response) 
             where: {
                 members: {
                     some: {
-                        id: req.user.id
+                    id: req.user.id
                     }
+                }
+            },
+            include: {
+                messages: {
+                    orderBy: {
+                        timestamp: 'desc'
+                    },
+                    take: 1
                 }
             }
         });
@@ -97,6 +137,29 @@ const getUserRoomsController = async (req: AuthenticatedRequest, res: Response) 
         res.status(200).json(rooms);
     } catch (error) {
         console.error("Error fetching rooms:", error);
+        res.status(500).json({ error: "An error occurred while fetching rooms." });
+    }
+};
+
+const getRoomsExceptUserController = async (req: AuthenticatedRequest, res: Response) => {
+    if (!req.user) {
+        return res.status(401).json({ error: "User not authenticated" });
+    }
+    try {
+        const rooms = await prisma.communityRoom.findMany({
+            where: {
+                NOT: {
+                    members: {
+                        some: {
+                            id: req.user.id
+                        }
+                    }
+                }
+            }
+        });
+        res.status(200).json(rooms);
+    } catch (error) {
+        console.error("Error fetching rooms except user:", error);
         res.status(500).json({ error: "An error occurred while fetching rooms." });
     }
 };
@@ -156,4 +219,4 @@ const getRoomHistoryController = async (req: AuthenticatedRequest, res: Response
     }
 };
 
-export { createRoomController, getUserRoomsController, getAllRoomsController, joinRoomController, getRoomHistoryController };
+export { createRoomController, getUserRoomsController, getAllRoomsController, joinRoomController, getRoomHistoryController, getRoomsExceptUserController };

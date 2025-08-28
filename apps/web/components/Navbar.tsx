@@ -1,5 +1,5 @@
 "use client";
-import { User, LogOut, ChevronDown, ChevronUp, Trash, CloudUpload, Plus } from "lucide-react";
+import { User, LogOut, ChevronDown, ChevronUp, Trash, CloudUpload, Plus, Bell } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
@@ -136,16 +136,23 @@ export default function Navbar({
       </div>
 
       <div className="flex items-center gap-4">
-        <button
-          onClick={onCtaClick}
-          className="flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-white text-sm py-1.5 px-3 rounded-lg border border-slate-700"
-        >
-          {ctaIcon}
-          {ctaText}
-        </button>
+        <div className="flex items-center gap-2">
+          <Bell className="h-5 w-5 text-white/90" />
+          <button
+            onClick={onCtaClick}
+            className="flex items-center gap-2 text-white/90 text-sm py-1.5 px-3 rounded-lg border-1 border-white/60 hover:bg-white/90 hover:text-black/90"
+          >
+            {ctaIcon}
+            {ctaText}
+          </button>  
+        </div>
+        
+
+        <div className="w-px h-5 bg-white/20"></div>
+
         <div className="relative" ref={dropdownRef}>
           <div
-            className="h-8 w-8 rounded-4xl bg-white/90 flex items-center justify-center cursor-pointer hover:bg-white/80 transition-colors"
+            className="rounded-4xl flex gap-2 items-center justify-center cursor-pointer hover:scale-105 transition-transform"
             onClick={() => setIsOpen(!isOpen)}
           >
             {session?.user?.image ? (
@@ -159,6 +166,19 @@ export default function Navbar({
             ) : (
               <User className="h-4 w-4 text-black/80" />
             )}
+            <div className="hidden md:flex items-center justify-between gap-1">
+              {
+                session?.user?.name && (
+                  <span className="text-white/80">{session.user.name}</span>
+                )
+              }
+              {isOpen ? (
+                <ChevronUp className="h-4 w-4 text-white/90" />
+              ) : (
+                <ChevronDown className="h-4 w-4 text-white/90" />
+              )}  
+            </div>
+            
           </div>
 
           {isOpen && (

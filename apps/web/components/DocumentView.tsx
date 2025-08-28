@@ -23,7 +23,7 @@ export default function DocumentView({ pdfUrl, interactive = true }: DocumentVie
           interactive ? "" : "pointer-events-none"
         } ${isLoaded ? "opacity-100" : "opacity-0"}`}
         title="PDF Document"
-        loading="eager"
+        loading="lazy"
         onLoad={() => setIsLoaded(true)}
       ></iframe>
     </div>

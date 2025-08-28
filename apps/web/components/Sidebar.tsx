@@ -198,7 +198,7 @@ const Sidebar = () => {
   // Desktop sidebar
   return (
     <div
-      className={`flex h-screen flex-col bg-black/95 text-white/80 transition-all duration-300 ${isCollapsed ? "w-20" : "w-64"}`}
+      className={`flex h-screen flex-col bg-black/95 border-r-1 border-white/8 text-white/80 transition-all duration-300 ${isCollapsed ? "w-20" : "w-64"}`}
     >
       <div className="h-[8%] flex items-center justify-between border-b border-white/10 p-3">
         {!isCollapsed && (

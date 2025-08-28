@@ -36,6 +36,7 @@ export default function Chat({ roomId }: { roomId: string }) {
         setMessages([]);
         return;
       }
+      console.log("Fetched room history:", data);
       setMessages(data);
     } catch (error) {
       console.error("Error fetching room history:", error);
@@ -92,55 +93,61 @@ export default function Chat({ roomId }: { roomId: string }) {
         style={{ backgroundImage: "url('/chatBackground.png')" }}
       ></div>
       <div className="flex-1 overflow-y-auto p-4 space-y-3 relative z-10">
-        {messages.map((msg, i) => (
-          <div
-            key={i}
-            className={`flex ${
-              (msg.sender === session?.user?.id) || (msg?.user?.id === session?.user?.id)
-                ? "justify-end"
-                : "justify-start"
-            }`}
-          >
-            <div className="flex items-start space-x-2">
-              {(msg.sender !== session?.user?.id) && (msg?.user?.id !== session?.user?.id) ? (
-                msg?.user?.avatarUrl ? (
-                  <Image
-                    src={msg?.user?.avatarUrl}
-                    alt="User Avatar"
-                    width={24}
-                    height={24}
-                    className="h-6 w-6 rounded-full"
-                  />
-                ) : (
-                  <div className="flex-shrink-0">
-                    <User className="h-6 w-6 p-1 text-gray-100 bg-gray-800 rounded-full" />
-                  </div>
-                )
-              ) : null}
+        {messages.length != 0 ? (
+          messages.map((msg: Message, i: number) => (
+            <div
+              key={i}
+              className={`flex ${
+                (msg.sender === session?.user?.id) || (msg?.user?.id === session?.user?.id)
+                  ? "justify-end"
+                  : "justify-start"
+              }`}
+            >
+              <div className="flex items-start space-x-2">
+                {(msg.sender !== session?.user?.id) && (msg?.user?.id !== session?.user?.id) ? (
+                  msg?.user?.avatarUrl ? (
+                    <Image
+                      src={msg?.user?.avatarUrl}
+                      alt="User Avatar"
+                      width={24}
+                      height={24}
+                      className="h-6 w-6 rounded-full"
+                    />
+                  ) : (
+                    <div className="flex-shrink-0">
+                      <User className="h-6 w-6 p-1 text-gray-100 bg-gray-800 rounded-full" />
+                    </div>
+                  )
+                ) : null}
 
-              <div
-                className={`max-w-xs px-4 py-2 rounded-xl shadow-md text-sm ${
-                  (msg.sender === session?.user?.id) || (msg?.user?.id === session?.user?.id)
-                    ? "bg-white/20 text-white rounded-br-none mr-2"
-                    : "bg-white/10 text-gray-200 rounded-tl-none"
-                }`}
-              >
-                {(msg.sender === session?.user?.id) || (msg?.user?.id === session?.user?.id) ? (
-                  <p className="text-xs text-gray-400 mb-1">You</p>
-                ) : (
-                  <p className="text-xs text-gray-400 mb-1">{msg?.user?.name || msg?.user?.email}</p>
-                )}
-                <p className="text-md">{msg.message}</p>
-                <span className="block text-xs text-gray-400 mt-1">
-                  {new Date(msg.timestamp).toLocaleTimeString([], {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                  })}
-                </span>
+                <div
+                  className={`max-w-xs px-4 py-2 rounded-xl shadow-md text-sm ${
+                    (msg.sender === session?.user?.id) || (msg?.user?.id === session?.user?.id)
+                      ? "bg-white/20 text-white rounded-br-none mr-2"
+                      : "bg-white/10 text-gray-200 rounded-tl-none"
+                  }`}
+                >
+                  {(msg.sender === session?.user?.id) || (msg?.user?.id === session?.user?.id) ? (
+                    <p className="text-xs text-gray-400 mb-1">You</p>
+                  ) : (
+                    <p className="text-xs text-gray-400 mb-1">{msg?.user?.name || msg?.user?.email}</p>
+                  )}
+                  <p className="text-md">{msg.message}</p>
+                  <span className="block text-xs text-gray-400 mt-1">
+                    {new Date(msg.timestamp).toLocaleTimeString([], {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}
+                  </span>
+                </div>
               </div>
             </div>
+          ))
+        ) : (
+          <div className="flex items-center justify-center h-full">
+            <p className="text-center text-white/50 p-2 border border-white/50">No messages yet. Start the conversation!</p> 
           </div>
-        ))}
+        )}
       </div>
 
       <div className="p-4 border-t border-gray-800 flex items-center gap-2 relative z-10">

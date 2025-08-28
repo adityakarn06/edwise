@@ -125,7 +125,8 @@ model CommunityRoom {
   id          String    @id @default(uuid())
   slug        String    @unique
   adminId     String
-  description String?
+  description String
+  thumbnail   String
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
   admin       User      @relation("RoomAdmin", fields: [adminId], references: [id])
