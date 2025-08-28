@@ -1,5 +1,5 @@
 import express, { Router } from "express";
-import { createRoomController, getAllRoomsController, getRoomHistoryController, getUserRoomsController, joinRoomController, getRoomsExceptUserController } from "../controller/communityController";
+import { createRoomController, getAllRoomsController, getRoomHistoryController, getUserRoomsController, joinRoomController, getRoomsExceptUserController, getCommunityMembersController } from "../controller/communityController";
 import { createMulterUpload } from "../lib/multer";
 
 const communityRouter: Router = express.Router();
@@ -11,5 +11,6 @@ communityRouter.get("/user-rooms", getUserRoomsController);
 communityRouter.get("/rooms-except-user", getRoomsExceptUserController);
 communityRouter.get("/rooms", getAllRoomsController);
 communityRouter.get("/history/:roomId", getRoomHistoryController);
+communityRouter.get("/members/:roomId", getCommunityMembersController);
 
 export default communityRouter;

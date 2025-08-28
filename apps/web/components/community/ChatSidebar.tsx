@@ -80,7 +80,7 @@ export default function ChatSidebar() {
     }, [userCommunities, communities]);
 
     return (
-        <div className="w-full h-full border-r border-white/10 bg-black/95 text-white/95 flex flex-col p-4">
+        <div className="w-full h-full border-r border-white/10 bg-black/93 text-white/95 flex flex-col p-4">
             <nav className="flex justify-between items-center">
                 <h1 className="font-medium text-xl">Communities</h1>
                 <Link href="/community/create-room" prefetch={false}>
@@ -96,11 +96,11 @@ export default function ChatSidebar() {
                 </div>
                 <div className="flex flex-col gap-2">
                     <h3 className="text-sm text-white/60">Explore</h3>
-                    <div className="flex flex-row gap-2 h-full overflow-x-auto scrollbar-hide">
+                    <div className="flex flex-row gap-3 h-full overflow-x-scroll hide-scrollbar">
                         {communities && communities.length > 0 ? communities.map((item) => (
                                 <Image
                                     key={item.id}
-                                    src={item.thumbnail || '/default-community.png'}
+                                    src={item.thumbnail || '/communityDefaultThumbnail.png'}
                                     alt={item.slug}
                                     width={50}
                                     height={50}
@@ -108,13 +108,13 @@ export default function ChatSidebar() {
                                     className="h-12 w-12 rounded-full object-cover cursor-pointer hover:scale-105 transition-transform duration-200"
                                 />
                         )) : (
-                            <p className="text-white/50 text-xs">No communities to explore</p>
+                            <p className="text-white/40 text-xs">No communities to explore</p>
                         )}
                     </div>
                 </div>
                 <div className="flex flex-col gap-2">
                     <h3 className="text-sm text-white/60">Your Communities</h3>
-                    <div className="flex flex-col gap-2 overflow-y-auto scrollbar-hide">
+                    <div className="flex flex-col gap-2 overflow-y-auto hide-scrollbar">
                         {userCommunities && userCommunities.map((item) => (
                             <Link href={`/community/chat/${item.slug}/${item.id}`} key={item.id} prefetch={false}>
                                 <div 
@@ -137,8 +137,12 @@ export default function ChatSidebar() {
                                             )}
                                         </div>
                                          
-                                        {item?.messages && item.messages.length > 0 && (
-                                            <p className="text-xs text-white/50 overflow-hidden max-w-[90%] whitespace-nowrap text-ellipsis">{item.messages[0]?.message}</p>
+                                        {item?.messages && item.messages.length > 0  && (
+                                            item.messages[0]?.message && item.messages[0]?.message.length > 30 ? (
+                                                <p className="text-xs text-white/50 overflow-hidden max-w-[90%] whitespace-nowrap text-ellipsis">{item.messages[0]?.message.slice(0, 30)}...</p>
+                                            ) : (
+                                                <p className="text-xs text-white/50 overflow-hidden max-w-[90%] whitespace-nowrap text-ellipsis">{item.messages[0]?.message}</p>
+                                            )
                                         )}
                                     </div>
                                 </div>
