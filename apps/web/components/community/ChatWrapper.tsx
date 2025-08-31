@@ -2,7 +2,6 @@
 import { MessageCircleMore, Option, SquareArrowOutUpRight, Users } from "lucide-react";
 import Navbar from "../Navbar";
 import Chat from "./Chat";
-import { useRouter } from "next/navigation";
 import ChatSidebar from "./ChatSidebar";
 import { useState } from "react";
 import CommunityMembers from "./Members";
@@ -10,7 +9,6 @@ import CommunityMembers from "./Members";
 
 export default function CommunityWrapper({ slug, roomId }: { slug: string, roomId: string }) {
     const [showMembers, setShowMembers] = useState(false);
-    const router = useRouter();
     return (
         <div className="h-screen w-full flex flex-row">
                 <div className="h-full w-[25%]">

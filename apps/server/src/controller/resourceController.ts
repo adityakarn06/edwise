@@ -86,12 +86,18 @@ const updateMetadataOfPdf = async (
           return res.status(401).json({ error: "User not authenticated" });
         }
 
-        if (!req.body.title || !req.body.description || !req.body.fileUrl) {
-            return res.status(400).json({ error: "Missing required data: title, description, and fileUrl are required"});
+        if (!req.body.title || !req.body.description || !req.body.fileUrl || !req.body.category) {
+            return res.status(400).json({ error: "Missing required data: title, description, category, and fileUrl are required"});
         }
 
         if (req.body.tags && !Array.isArray(req.body.tags)) {
             return res.status(400).json({ error: "Tags must be an array" });
+        }
+
+        // Validate category enum
+        const validCategories = ['Books', 'Notes', 'Organisers', 'PYQs'];
+        if (!validCategories.includes(req.body.category)) {
+            return res.status(400).json({ error: "Invalid category. Must be one of: Books, Notes, Organisers, PYQs" });
         }
 
         const existingResource = await prisma.resource.findFirst({
@@ -113,6 +119,7 @@ const updateMetadataOfPdf = async (
                 title: req.body.title,
                 description: req.body.description,
                 tags: req.body.tags,
+                categories: req.body.category,
                 status: "PENDING"
             }
         });

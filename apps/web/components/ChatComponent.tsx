@@ -5,8 +5,9 @@ import { useSession } from "next-auth/react";
 import { TypeAnimation } from 'react-type-animation';
 import SummaryGenComponent from "./SummaryGen";
 import GenImpQuesComponent from "./ImpQuestions";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { History, MoveLeft } from "lucide-react";
+import toast from "react-hot-toast";
 
 interface IMessages {
   role: "assistant" | "user";
@@ -58,21 +59,12 @@ const ChatComponent: React.FC<ChatComponentProps> = ({currentPdfUrl}) => {
   const [showQuestions, setShowQuestions] = useState<boolean>(false);
   const [summary, setSummary] = useState<Summary[]>([]);
   const [showSumnmary, setShowSummary] = useState<boolean>(false);
-  const [showOptions, setShowOptions] = useState<boolean>(false);
-  const [selectedOption, setSelectedOption] = useState<string>("");
   const [showChat, setShowChat] = useState<boolean>(false);
+  const chatContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     getChatHistory().then((history) => {
       if (history && history.history && history.history.length > 0) {
-        const formattedMessages = history.history.map((msg: any) => ({
-          role: msg.userQuery ? "user" : "assistant",
-          content: msg.userQuery || msg.response,
-          refference: msg.sources || [],
-          sources: msg.sources || []
-        }));
-        
-        // Create pairs of messages (user query followed by assistant response)
         const messagePairs: IMessages[] = [];
         history.history.forEach((msg: any) => {
           if (msg.userQuery) {
@@ -99,6 +91,12 @@ const ChatComponent: React.FC<ChatComponentProps> = ({currentPdfUrl}) => {
       setMessages([]);
     })
   }, []);
+
+  useEffect(() => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
+  }, [messages]);
 
   const handleSendChatMessage = async () => {
     if (!message.trim()) return;
@@ -339,7 +337,7 @@ const ChatComponent: React.FC<ChatComponentProps> = ({currentPdfUrl}) => {
       )}
       
       {showChat && (
-        <div className="flex-1 overflow-y-auto p-4 relative">
+        <div ref={chatContainerRef} className="flex-1 overflow-y-auto p-4 relative">
           <div className="z-20 sticky w-fit px-4 py-2 top-0 left-0 flex gap-2 items-center justify-center cursor-pointer rounded-full bg-black/90 text-white/90 hover:text-white  hover:bg-black shadow-md" onClick={() => setShowChat(false)}>
             <MoveLeft className="w-4 h-4" />  <p className="text-sm">Back</p>
           </div>
@@ -391,11 +389,21 @@ const ChatComponent: React.FC<ChatComponentProps> = ({currentPdfUrl}) => {
       
       <div className="p-4">
         <div className="flex items-center w-full">
-          <PlaceholdersAndVanishInput
+          {!isLoading ? (
+            <PlaceholdersAndVanishInput
             placeholders={["Hello", "How are you?", "What is your name?"]}
             onChange={(e) => setMessage(e.target.value)}
             onSubmit={handleSendChatMessage}
-          />
+            />
+          ) : (
+            <PlaceholdersAndVanishInput
+            placeholders={["Hello", "How are you?", "What is your name?"]}
+            onChange={(e) => setMessage(e.target.value)}
+            onSubmit={() => {
+              toast.error("Please wait for the response to be generated.");
+            }}
+            />
+          )}
         </div>
       </div>
     </div>

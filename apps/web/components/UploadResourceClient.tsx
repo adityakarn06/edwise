@@ -65,6 +65,7 @@ export default function UploadResourceClientComponent({
     title: string;
     description: string;
     tags: string[];
+    category: string;
     fileUrl: string
   }) => {
     try {
@@ -86,7 +87,8 @@ export default function UploadResourceClientComponent({
     const title = formData.get("title") as string;
     const description = formData.get("description") as string;
     const tags = formData.get("tags") as string;
-    if (!title || !description || !tags) {
+    const category = formData.get("category") as string;
+    if (!title || !description || !tags || !category) {
       toast.error("Please fill in all fields");
       return;
     }
@@ -100,7 +102,7 @@ export default function UploadResourceClientComponent({
         return;
     }
     try {
-        await updateMetadataOfPdf({ title, description, tags: tagsArray, fileUrl });
+        await updateMetadataOfPdf({ title, description, tags: tagsArray, category, fileUrl });
     } catch (error) {
       console.error("Error updating metadata:", error);
       toast.error("Failed to update metadata");
@@ -192,6 +194,22 @@ export default function UploadResourceClientComponent({
                             className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent transition-colors resize-none"
                             placeholder="Enter resource description"
                         />
+                    </div>
+                    <div>
+                        <label className="block text-xs sm:text-sm text-white mb-1">
+                            Category
+                        </label>
+                        <select
+                            name="category"
+                            required
+                            className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent transition-colors"
+                        >
+                            <option value="" className="bg-gray-800 text-white">Select a category</option>
+                            <option value="Books" className="bg-gray-800 text-white">Books</option>
+                            <option value="Notes" className="bg-gray-800 text-white">Notes</option>
+                            <option value="Organisers" className="bg-gray-800 text-white">Organisers</option>
+                            <option value="PYQs" className="bg-gray-800 text-white">PYQs (Previous Year Questions)</option>
+                        </select>
                     </div>
                     <div>
                         <label className="block text-xs sm:text-sm text-white mb-1">

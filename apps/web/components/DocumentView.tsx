@@ -19,7 +19,7 @@ export default function DocumentView({ pdfUrl, interactive = true }: DocumentVie
       <iframe
         key={src}
         src={src}
-        className={`w-full h-full transition-opacity duration-200 ${
+        className={`w-full h-full transition-opacity duration-200 rounded-lg ${
           interactive ? "" : "pointer-events-none"
         } ${isLoaded ? "opacity-100" : "opacity-0"}`}
         title="PDF Document"

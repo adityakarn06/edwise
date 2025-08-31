@@ -1,11 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import useSocket from "@/hooks/useSocket";
 import { Send, User } from "lucide-react";
 import api from "@/lib/api";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
+import toast from "react-hot-toast";
 
 interface Message {
   sender: string;
@@ -24,6 +25,7 @@ export default function Chat({ roomId }: { roomId: string }) {
   const socketRef = useSocket();
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
+  const chatContainerRef = useRef<HTMLDivElement>(null);
 
   const fetchRoomHistory = async () => {
     if (!roomId) {
@@ -36,7 +38,6 @@ export default function Chat({ roomId }: { roomId: string }) {
         setMessages([]);
         return;
       }
-      console.log("Fetched room history:", data);
       setMessages(data);
     } catch (error) {
       console.error("Error fetching room history:", error);
@@ -60,7 +61,7 @@ export default function Chat({ roomId }: { roomId: string }) {
     });
 
     socketRef.current.on("error_message", (msg) => {
-      alert(msg);
+      toast.error(msg);
     });
 
     return () => {
@@ -70,12 +71,8 @@ export default function Chat({ roomId }: { roomId: string }) {
   }, [socketRef]);
 
   useEffect(() => {
-    const chatContainer = document.getElementById("chat-container");
-    if (chatContainer) {
-      chatContainer.scrollTo({
-        top: chatContainer.scrollHeight,
-        behavior: "smooth", 
-      })
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
     }
   }, [messages]);
 
@@ -92,7 +89,7 @@ export default function Chat({ roomId }: { roomId: string }) {
         className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-30"
         style={{ backgroundImage: "url('/chatBackground.png')" }}
       ></div>
-      <div className="flex-1 overflow-y-auto p-4 space-y-3 relative z-10">
+      <div ref={chatContainerRef} className="flex-1 overflow-y-auto p-4 space-y-3 relative z-10">
         {messages.length != 0 ? (
           messages.map((msg: Message, i: number) => (
             <div

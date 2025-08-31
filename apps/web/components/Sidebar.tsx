@@ -7,10 +7,7 @@ import {
   House,
   Library,
   MessageCircleQuestionMark,
-  MessageSquare,
   PanelRight,
-  Plus,
-  Search,
   Menu,
   X,
   PanelLeft,
@@ -50,7 +47,6 @@ const Sidebar = () => {
     setIsMobileMenuOpen(false);
   };
 
-  // Mobile hamburger menu
   if (isMobile) {
     return (
       <>
@@ -107,15 +103,6 @@ const Sidebar = () => {
                   />
                   <SidebarItem
                     onClickFn={() => {
-                      router.push("/resources");
-                      closeMobileMenu();
-                    }}
-                    text="Your resources"
-                    icon={<Library className="h-4 w-4 text-white/60" />}
-                    isCollapsed={false}
-                  />
-                  <SidebarItem
-                    onClickFn={() => {
                       router.push("/ask-pdf");
                       closeMobileMenu();
                     }}
@@ -141,6 +128,15 @@ const Sidebar = () => {
                     }}
                     text="Study groups"
                     icon={<BookOpen className="h-4 w-4 text-white/60" />}
+                    isCollapsed={false}
+                  />
+                  <SidebarItem
+                    onClickFn={() => {
+                      router.push("/resources");
+                      closeMobileMenu();
+                    }}
+                    text="Your resources"
+                    icon={<Library className="h-4 w-4 text-white/60" />}
                     isCollapsed={false}
                   />
                   <SidebarItem
@@ -227,12 +223,6 @@ const Sidebar = () => {
             isCollapsed={isCollapsed}
           />
           <SidebarItem
-            onClickFn={() => router.push("/resources")}
-            text="Your resources"
-            icon={<Library className="h-4 w-4 text-white/60" />}
-            isCollapsed={isCollapsed}
-          />
-          <SidebarItem
             onClickFn={() => router.push("/ask-pdf")}
             text="Ask your pdf"
             icon={<BotMessageSquare className="h-4 w-4 text-white/60" />}
@@ -248,6 +238,12 @@ const Sidebar = () => {
             onClickFn={() => router.push("/community")}
             text="Study groups"
             icon={<BookOpen className="h-4 w-4 text-white/60" />}
+            isCollapsed={isCollapsed}
+          />
+          <SidebarItem
+            onClickFn={() => router.push("/resources")}
+            text="Your resources"
+            icon={<Library className="h-4 w-4 text-white/60" />}
             isCollapsed={isCollapsed}
           />
           <SidebarItem

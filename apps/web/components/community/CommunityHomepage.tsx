@@ -13,7 +13,6 @@ interface Community {
   slug: string;
   description: string;
   thumbnail?: string;
-  privacy?: string;
   adminId?: string;
 }
 
@@ -22,7 +21,6 @@ interface UserCommunity {
   slug: string;
   description: string;
   thumbnail?: string;
-  privacy?: string;
   adminId?: string;
   messages?: {
       id: string;
@@ -37,7 +35,14 @@ export default function CommunityHomepage() {
   const [allCommunities, setAllCommunities] = useState<Community[]>([]);
   const [userCommunities, setUserCommunities] = useState<UserCommunity[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [searchValue, setSearchValue] = useState("");
   const router = useRouter();
+
+  const filteredCommunities = allCommunities.filter((community) => {
+    if (!searchValue.trim()) return true;
+    return community.slug.toLowerCase().includes(searchValue.toLowerCase()) ||
+           community.description.toLowerCase().includes(searchValue.toLowerCase());
+  });
 
   const handleJoinCommunityClick = async( slug: string, roomId: string ) => {
     try {
@@ -85,7 +90,11 @@ export default function CommunityHomepage() {
                   </div>
         </div>
         <div className="max-w-lg">
-          <SearchBar placeholder="search for study groups..." />
+          <SearchBar 
+            placeholder="search for study groups..." 
+            searchValue={searchValue}
+            onSearchChange={setSearchValue}
+          />
         </div>
       </div>
 
@@ -95,9 +104,14 @@ export default function CommunityHomepage() {
         </div>
       ) : (
         <div className="space-y-4 max-h-[70vh] pb-8 overflow-y-auto scrollbar-hide">
-          {allCommunities.length > 0 ? (
+          {filteredCommunities.length > 0 ? (
             <>
-              {allCommunities.map((community) => (
+              {searchValue.trim() && (
+                <div className="text-gray-400 text-sm mb-4">
+                  Found {filteredCommunities.length} communities matching "{searchValue}"
+                </div>
+              )}
+              {filteredCommunities.map((community) => (
                 <div key={community.id} className="bg-white/6 rounded-xl p-4 transition-colors border border-white/10 hover:border-white/20">
                   <div className="flex items-center gap-4">
                     <div className="flex-shrink-0">
@@ -138,6 +152,20 @@ export default function CommunityHomepage() {
               ))}
               
             </>
+          ) : searchValue.trim() ? (
+            <div className="bg-white/5 rounded-xl p-8 text-center">
+              <h3 className="text-white text-lg font-semibold mb-2">
+                No Communities Found
+              </h3>
+              <p className="text-gray-400 text-sm mb-4">
+                No communities match your search for "{searchValue}". Try different keywords or create your own!
+              </p>
+              <button
+                onClick={() => setSearchValue("")}
+                className="text-white font-semibold hover:font-bold text-sm underline cursor-pointer">
+                Clear search
+              </button>
+            </div>
           ) : (
             <>
               <div className="bg-gray-800 rounded-xl p-8 text-center">
@@ -147,32 +175,6 @@ export default function CommunityHomepage() {
                 <p className="text-gray-400 text-sm mb-4">
                   Be the first to create a learning community!
                 </p>
-              </div>
-              
-              {/* Create Your Own Card */}
-              <div className="bg-gray-800 rounded-xl p-4 border border-gray-700 border-dashed hover:bg-gray-750 transition-colors">
-                <div className="flex items-center gap-4">
-                  <div className="flex-shrink-0">
-                    <div className="w-20 h-20 bg-white/10 rounded-lg flex items-center justify-center">
-                      <Plus className="h-8 w-8 text-gray-400" />
-                    </div>
-                  </div>
-                  <div className="flex-grow">
-                    <h3 className="text-white text-lg font-semibold mb-1">
-                      Create Your Own Group
-                    </h3>
-                    <p className="text-gray-400 text-sm mb-3 leading-relaxed">
-                      Start your own learning community and connect with like-minded students.
-                    </p>
-                  </div>
-                  <div className="flex-shrink-0">
-                    <button
-                      onClick={() => router.push("/community/create-room")}
-                      className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-lg transition-colors font-medium">
-                      Create Group
-                    </button>
-                  </div>
-                </div>
               </div>
             </>
           )}
