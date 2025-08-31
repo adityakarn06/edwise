@@ -108,7 +108,7 @@ io.use(async (socket, next) => {
       id: session.user.id,
       name: session.user.name || '',
       email: session.user.email || '',
-      image: session.user.image || ''
+      image: session.user.image || '',
     };
   
     if (!user.id) {
@@ -126,6 +126,10 @@ io.use(async (socket, next) => {
 io.on("connection", (socket: Socket) => {
   const user = (socket as any).user;
   console.log(`User connected: ${user.id}`);
+  prisma.user.update({
+    where: { id: user.id },
+    data: { status: 'ONLINE' }
+  }).catch(err => console.error('Error updating user status on connect:', err));
 
   socket.on("join_room", async (roomId: string) => {
     console.log(`User ${user.id} joining room: ${roomId}`);
@@ -175,6 +179,12 @@ io.on("connection", (socket: Socket) => {
       io.to(roomId).emit("receive_message", {
         sender: user.id,
         message,
+        user: {
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          avatarUrl: user.image,
+        },
         timestamp: new Date(),
         messageId: savedMessage.id
       });
@@ -187,6 +197,10 @@ io.on("connection", (socket: Socket) => {
 
   socket.on("disconnect", () => {
     console.log(`User disconnected: ${user.id}`);
+    prisma.user.update({
+      where: { id: user.id },
+      data: { status: 'OFFLINE' }
+    }).catch(err => console.error('Error updating user status on disconnect:', err));
   });
 });
 

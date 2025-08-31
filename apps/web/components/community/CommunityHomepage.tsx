@@ -1,8 +1,8 @@
 "use client";
 import Image from "next/image";
 import SearchBar from "../SearchBar";
-import { ArrowUpRight, MessageSquareShare, Plus, Users } from "lucide-react";
-import { use, useEffect, useState } from "react";
+import { Users } from "lucide-react";
+import { useEffect, useState } from "react";
 import api from "@/lib/api";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
@@ -14,6 +14,7 @@ interface Community {
   description: string;
   thumbnail?: string;
   adminId?: string;
+  memberCount?: number;
 }
 
 interface UserCommunity {
@@ -22,6 +23,7 @@ interface UserCommunity {
   description: string;
   thumbnail?: string;
   adminId?: string;
+  memberCount?: number;
   messages?: {
       id: string;
       message: string;
@@ -36,7 +38,19 @@ export default function CommunityHomepage() {
   const [userCommunities, setUserCommunities] = useState<UserCommunity[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [searchValue, setSearchValue] = useState("");
+  const [isMobile, setIsMobile] = useState(false);
   const router = useRouter();
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    handleResize();
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const filteredCommunities = allCommunities.filter((community) => {
     if (!searchValue.trim()) return true;
@@ -54,7 +68,12 @@ export default function CommunityHomepage() {
             toast.error("Failed to join community");
         }
         toast.success("Joined community successfully!");
-        router.push(`/community/chat/${slug}/${roomId}`);
+        !isMobile ? (
+          router.push(`/community/chat/${slug}/${roomId}`)
+        ) : (
+          router.push(`/community/home`)
+        );
+        
     } catch (error) {
         console.error("Error joining community:", error);
         toast.error("Failed to join community");
@@ -69,9 +88,11 @@ export default function CommunityHomepage() {
   }, []);
 
   useEffect(() => {
-    {userCommunities && userCommunities.length > 0 && userCommunities[0] &&
+    !isMobile && userCommunities && userCommunities.length > 0 && userCommunities[0] ? (
       router.push(`/community/chat/${userCommunities[0].slug}/${userCommunities[0].id}`)
-    }
+    ) : (
+      router.push(`/community/home`)
+    );
   }, [userCommunities]);
 
   return (
@@ -136,7 +157,7 @@ export default function CommunityHomepage() {
                       </p>
                       <div className="flex items-center text-gray-400 text-sm">
                         <Users className="h-4 w-4 mr-1" />
-                        <span>{Math.floor(Math.random() * 5000) + 1000} members</span>
+                        <span>{community.memberCount} members</span>
                       </div>
                     </div>
 
@@ -168,7 +189,7 @@ export default function CommunityHomepage() {
             </div>
           ) : (
             <>
-              <div className="bg-gray-800 rounded-xl p-8 text-center">
+              <div className="bg-white/5 rounded-xl p-8 text-center">
                 <h3 className="text-white text-lg font-semibold mb-2">
                   No Communities Found
                 </h3>

@@ -40,6 +40,7 @@ export default function AskPdf() {
           pdfs={pdfUrls}
           setCurrentPdf={setCurrentPdfUrl}
           giveOptions={true}
+          optionType="pdf"
           headingIcon={<Bot className="h-4 w-4 text-white" />}
           headingText="Chat with pdf"
           ctaIcon={<SquareArrowOutUpRight className="h-4 w-4" />}

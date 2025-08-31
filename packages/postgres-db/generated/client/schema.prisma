@@ -8,15 +8,23 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum UserStatus {
+  ONLINE
+  OFFLINE
+  STREAMING
+  BANNED
+}
+
 model User {
-  id        String   @id @default(uuid())
-  email     String?  @unique
+  id        String     @id @default(uuid())
+  email     String?    @unique
   name      String?
   password  String?
   avatarUrl String?
-  role      UserRole @default(STUDENT)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  status    UserStatus @default(OFFLINE)
+  role      UserRole   @default(STUDENT)
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
 
   uploadedDocs    UploadedDocs[]  @relation("UserDocs")
   aiChatHistories AiChatHistory[] @relation("UserChats")
@@ -127,6 +135,7 @@ model CommunityRoom {
   adminId     String
   description String
   thumbnail   String
+  memberCount Int       @default(0)
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
   admin       User      @relation("RoomAdmin", fields: [adminId], references: [id])

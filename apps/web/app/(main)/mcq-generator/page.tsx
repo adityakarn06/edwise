@@ -65,6 +65,7 @@ export default function Page() {
           pdfs={pdfs}
           setCurrentPdf={setCurrentPdfUrl}
           giveOptions={true}
+          optionType="pdf"
           headingIcon={<BookOpenCheck className="h-4 w-4 text-white" />}
           headingText="MCQ from PDF"
           ctaIcon={<Plus className="h-4 w-4" />}

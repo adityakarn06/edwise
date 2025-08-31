@@ -6,6 +6,7 @@ interface Community {
     description: string;
     thumbnail?: string;
     adminId?: string;
+    memberCount?: number;
 }
 
 interface UserCommunity {
@@ -14,6 +15,7 @@ interface UserCommunity {
     description: string;
     thumbnail?: string;
     adminId?: string;
+    memberCount?: number;
     messages?: {
         id: string;
         message: string;

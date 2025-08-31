@@ -43,6 +43,7 @@ const createRoomController = async (req: AuthenticatedRequest, res: Response) =>
             data: {
                 slug: slug.trim(),
                 adminId: userId,
+                memberCount: 1,
                 description: description.trim(),
                 thumbnail: thumbnailUrl,
             }
@@ -51,6 +52,7 @@ const createRoomController = async (req: AuthenticatedRequest, res: Response) =>
         res.status(200).json({
             roomId: room.id,
             slug: room.slug,
+            memberCount: room.memberCount,
             description: room.description,
             thumbnail: room.thumbnail,
         });
@@ -97,6 +99,7 @@ const joinRoomController = async (req: AuthenticatedRequest, res: Response) => {
         await prisma.communityRoom.update({
             where: { id: room.id },
             data: {
+                memberCount: room.memberCount + 1,
                 members: {
                     connect: { id: req.user.id }
                 }
@@ -107,6 +110,48 @@ const joinRoomController = async (req: AuthenticatedRequest, res: Response) => {
     } catch (error: any) {
         console.error("Error joining room:", error);
         return res.status(500).json({ error: "An error occurred while joining the room.", errorDetails: error.message });
+    }
+};
+
+const leaveRoomController = async (req: AuthenticatedRequest, res: Response) => {
+    if (!req.user) {
+        return res.status(401).json({ error: "User not authenticated" });
+    }
+
+    const { roomId } = req.body;
+
+    if (!roomId) {
+        return res.status(400).json({ error: "Room ID is required" });
+    }
+
+    try {
+        const room = await prisma.communityRoom.findUnique({
+            where: { id: roomId },
+            include: { members: true }
+        });
+
+        if (!room) {
+            return res.status(404).json({ error: "Room not found" });
+        }
+
+        if (!room.members.some(member => member.id === req.user?.id)) {
+            return res.status(400).json({ error: "User is not a member of the room" });
+        }
+
+        await prisma.communityRoom.update({
+            where: { id: room.id },
+            data: {
+                memberCount: Math.max(0, room.memberCount - 1),
+                members: {
+                    disconnect: { id: req.user.id }
+                }
+            }
+        });
+
+        return res.status(200).json({ message: "Left room successfully" });
+    } catch (error: any) {
+        console.error("Error leaving room:", error);
+        return res.status(500).json({ error: "An error occurred while leaving the room.", errorDetails: error.message });
     }
 };
 
@@ -200,7 +245,8 @@ const getRoomHistoryController = async (req: AuthenticatedRequest, res: Response
                             id: true,
                             name: true,
                             email: true,
-                            avatarUrl: true
+                            avatarUrl: true,
+                            status: true
                         }
                     }
                 }
@@ -239,7 +285,8 @@ const getCommunityMembersController = async (req: AuthenticatedRequest, res: Res
                         id: true,
                         name: true,
                         email: true,
-                        avatarUrl: true
+                        avatarUrl: true,
+                        status: true
                     }
                 } 
             }
@@ -256,4 +303,4 @@ const getCommunityMembersController = async (req: AuthenticatedRequest, res: Res
     }
 };
 
-export { createRoomController, getUserRoomsController, getAllRoomsController, joinRoomController, getRoomHistoryController, getRoomsExceptUserController, getCommunityMembersController };
+export { createRoomController, getUserRoomsController, getAllRoomsController, joinRoomController, getRoomHistoryController, getRoomsExceptUserController, getCommunityMembersController, leaveRoomController };

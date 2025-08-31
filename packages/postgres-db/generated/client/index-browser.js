@@ -126,6 +126,7 @@ exports.Prisma.UserScalarFieldEnum = {
   name: 'name',
   password: 'password',
   avatarUrl: 'avatarUrl',
+  status: 'status',
   role: 'role',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -192,6 +193,7 @@ exports.Prisma.CommunityRoomScalarFieldEnum = {
   adminId: 'adminId',
   description: 'description',
   thumbnail: 'thumbnail',
+  memberCount: 'memberCount',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -218,6 +220,13 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
+exports.UserStatus = exports.$Enums.UserStatus = {
+  ONLINE: 'ONLINE',
+  OFFLINE: 'OFFLINE',
+  STREAMING: 'STREAMING',
+  BANNED: 'BANNED'
+};
+
 exports.UserRole = exports.$Enums.UserRole = {
   STUDENT: 'STUDENT',
   ADMIN: 'ADMIN'

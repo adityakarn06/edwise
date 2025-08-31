@@ -5,6 +5,7 @@ interface Member {
     name?: string;
     email?: string;
     avatarUrl?: string;
+    status?: "ONLINE" | "OFFLINE" | "STREAMING" | "BANNED";
 }
 
 export const getCommunityMembers = async ( roomId: string) => {
