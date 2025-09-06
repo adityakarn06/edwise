@@ -4,14 +4,13 @@ import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { CheckCircle, X } from 'lucide-react';
 import api from '@/lib/api';
-import { toast } from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
 
 interface SubscriptionData {
   subscriptionTier: 'FREE' | 'PREMIUM';
   subscription?: {
     status: string;
     currentPeriodEnd: string;
-    cancelAtPeriodEnd: boolean;
   };
 }
 
@@ -40,6 +39,7 @@ export default function UpgradePage() {
   const [usageStats, setUsageStats] = useState<UsageStats | null>(null);
   const [loading, setLoading] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const router = useRouter();
 
   useEffect(() => {
     if (session?.user) {
@@ -69,36 +69,7 @@ export default function UpgradePage() {
   };
 
   const handleUpgrade = async () => {
-    setLoading(true);
-    try {
-      const { data } = await api.post('/payment/create-checkout-session', {
-        priceId: process.env.NEXT_PUBLIC_RAZORPAY_ID 
-      });
-      
-      if (data.url) {
-        window.location.href = data.url;
-      }
-    } catch (error) {
-      console.error('Error creating checkout session:', error);
-      toast.error('Failed to start checkout process');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleCancelSubscription = async () => {
-    if (!confirm('Are you sure you want to cancel your subscription? You will still have access until the end of your current billing period.')) {
-      return;
-    }
-
-    try {
-      await api.post('/payment/cancel-subscription');
-      toast.success('Subscription cancelled successfully');
-      // fetchSubscriptionData();
-    } catch (error) {
-      console.error('Error cancelling subscription:', error);
-      toast.error('Failed to cancel subscription');
-    }
+    router.push('/upgrade/process');
   };
 
   if (isLoading) {
@@ -220,7 +191,7 @@ export default function UpgradePage() {
             </div>
             <div className="text-center">
               <h3 className="text-2xl font-bold text-white mb-2">Premium</h3>
-              <div className="text-4xl font-bold text-white mb-4">$9.99<span className="text-lg">/month</span></div>
+              <div className="text-4xl font-bold text-white mb-4">₹99<span className="text-lg">/month</span></div>
               <ul className="text-left space-y-3 mb-8">
                 <li className="flex items-center text-gray-300">
                   <CheckCircle className="w-5 h-5 text-green-400 mr-3" />
@@ -251,18 +222,12 @@ export default function UpgradePage() {
                 {isPremium ? (
                   <div>
                     <span className="bg-green-600 text-white px-6 py-3 rounded-lg mb-4 block">Current Plan</span>
-                    {subscriptionData?.subscription?.cancelAtPeriodEnd ? (
+                    {subscriptionData?.subscription?.currentPeriodEnd && (
                       <p className="text-yellow-400 text-sm">
                         Subscription will end on {new Date(subscriptionData.subscription.currentPeriodEnd).toLocaleDateString()}
-                      </p>
-                    ) : (
-                      <button
-                        onClick={handleCancelSubscription}
-                        className="text-red-400 hover:text-red-300 text-sm underline"
-                      >
-                        Cancel Subscription
-                      </button>
+                      </p>  
                     )}
+                    
                   </div>
                 ) : (
                   <button
@@ -284,10 +249,6 @@ export default function UpgradePage() {
             <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6">
               <h3 className="text-lg font-semibold text-white mb-2">What happens when I reach my daily limit?</h3>
               <p className="text-gray-300">Free users can make up to 10 requests per day for each feature (chat messages, MCQ generations, summary generations, and important questions). Once you reach any limit, you'll need to wait until the next day or upgrade to premium for unlimited access.</p>
-            </div>
-            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6">
-              <h3 className="text-lg font-semibold text-white mb-2">Can I cancel my subscription anytime?</h3>
-              <p className="text-gray-300">Yes, you can cancel your premium subscription at any time. You'll continue to have premium access until the end of your current billing period.</p>
             </div>
             <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6">
               <h3 className="text-lg font-semibold text-white mb-2">What payment methods do you accept?</h3>

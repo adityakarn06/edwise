@@ -46,6 +46,10 @@ const verifyPayment = async (req: AuthenticatedRequest, res: Response) => {
         return res.status(401).json({ error: "User not authenticated" });
     }
 
+    if (!req.body) {
+        return res.status(400).json({ success: false, message: "Invalid request" });
+    }
+
     const { orderId, razorpayPaymentId, razorpaySignature } = req.body;
     if (!orderId || !razorpayPaymentId || !razorpaySignature) {
         return res.status(400).json({ success: false, message: "Missing required fields" });
@@ -82,4 +86,43 @@ const verifyPayment = async (req: AuthenticatedRequest, res: Response) => {
     res.status(200).json({ isOK: true, message: "Payment Verified Successfully" });
 }
 
-export { createOrder, verifyPayment };
+const subscriptionStatus = async (req: AuthenticatedRequest, res: Response) => {
+    if (!req.user) {
+        return res.status(401).json({ error: "User not authenticated" });
+    }
+
+    try {
+        const user = await prisma.user.findUnique({
+            where: { id: req.user.id },
+            include: { subscription: true }
+        });
+
+        if (!user) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
+        const subscription = user.subscription;
+
+        if (!subscription) {
+            return res.status(200).json({ subscriptionStatus: "FREE", message: "No active subscription found." });
+        }
+
+        const currentDate = new Date();
+        if (subscription.currentPeriodEnd && subscription.currentPeriodEnd < currentDate) {
+            return res.status(200).json({ subscriptionStatus: "EXPIRED", message: "Your subscription has expired." });
+        }
+
+        return res.status(200).json({
+            subscriptionTier: subscription.tier || "FREE",
+            subscription: {
+                status: subscription.status,
+                currentPeriodEnd: subscription.currentPeriodEnd,
+            }
+        });
+    } catch (error) {
+        console.error("Error fetching subscription status:", error);
+        return res.status(500).json({ error: "Internal server error" });
+    }
+}
+
+export { createOrder, verifyPayment, subscriptionStatus };
