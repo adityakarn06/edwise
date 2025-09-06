@@ -41,6 +41,7 @@
     "multer": "^2.0.2",
     "pdf-parse": "^1.1.1",
     "peggy": "^5.0.5",
+    "razorpay": "^2.9.6",
     "ts-node": "^10.9.2"
   },
   "devDependencies": {
