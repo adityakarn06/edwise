@@ -47,9 +47,20 @@ export default function GenImpQuesComponent({
             } else {
                 toast.error("Failed to generate important questions");
             }
-        } catch (error) {
+        } catch (error: any) {
             console.error("Error in ImpQues generation:", error);
-            toast.error("Failed to generate important questions");
+            
+            // usage limit exceeded
+            if (error.response?.status === 429) {
+                const errorData = error.response.data;
+                if (errorData.usageType === 'totalRequests') {
+                    toast.error(`Daily total request limit exceeded (${errorData.currentUsage}/${errorData.limit}). Upgrade to premium for unlimited access.`);
+                } else {
+                    toast.error(`Daily important questions generation limit exceeded (${errorData.currentUsage}/${errorData.limit}). Upgrade to premium for unlimited access.`);
+                }
+            } else {
+                toast.error("Failed to generate important questions");
+            }
         } finally {
             setIsLoading(false);
         }

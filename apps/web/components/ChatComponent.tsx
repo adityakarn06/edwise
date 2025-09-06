@@ -8,10 +8,11 @@ import GenImpQuesComponent from "./ImpQuestions";
 import { useEffect, useRef, useState } from "react";
 import { History, MoveLeft } from "lucide-react";
 import toast from "react-hot-toast";
+import Link from 'next/link';
 
 interface IMessages {
   role: "assistant" | "user";
-  content?: string;
+  content?: string | React.ReactNode;
   refference?: string[];
   sources?: any[];
 }
@@ -134,25 +135,59 @@ const ChatComponent: React.FC<ChatComponentProps> = ({currentPdfUrl}) => {
             sources: data.sources,
           },
         ];
-        // Set the latest assistant message index
         setLatestAssistantMessageId(newMessages.length - 1);
         return newMessages;
       });
 
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error fetching response:", error);
-      setMessages((prev) => {
-        const newMessages = [
-          ...prev,
-          {
-            role: "assistant" as const,
-            content:
-              "Sorry, I encountered an error while processing your request.",
-          },
-        ];
-        setLatestAssistantMessageId(newMessages.length - 1);
-        return newMessages;
-      });
+      
+      // usage limit exceeded
+      if (error.response?.status === 429) {
+        const errorData = error.response.data;
+        const limitMessage = errorData.usageType === 'totalRequests' 
+          ? `You've reached your daily total request limit (${errorData.currentUsage}/${errorData.limit}).`
+          : `You've reached your daily limit of ${errorData.limit} chat messages.`;
+        
+        setMessages((prev) => {
+          const newMessages = [
+            ...prev,
+            {
+              role: "assistant" as const,
+              content: (
+                <div className="space-y-3">
+                  <p>{limitMessage}</p>
+                  <Link href="/upgrade">
+                    <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm">
+                      Upgrade to Premium for unlimited access
+                    </button>
+                  </Link>
+                </div>
+              ),
+            },
+          ];
+          setLatestAssistantMessageId(newMessages.length - 1);
+          return newMessages;
+        });
+        
+        const toastMessage = errorData.usageType === 'totalRequests'
+          ? 'Daily total request limit exceeded. Upgrade to premium for unlimited access.'
+          : 'Daily chat limit exceeded. Upgrade to premium for unlimited access.';
+        toast.error(toastMessage);
+      } else {
+        setMessages((prev) => {
+          const newMessages = [
+            ...prev,
+            {
+              role: "assistant" as const,
+              content:
+                "Sorry, I encountered an error while processing your request.",
+            },
+          ];
+          setLatestAssistantMessageId(newMessages.length - 1);
+          return newMessages;
+        });
+      }
     } finally {
       setIsLoading(false);
       setMessage("");
@@ -201,19 +236,56 @@ const ChatComponent: React.FC<ChatComponentProps> = ({currentPdfUrl}) => {
           return newMessages;
         });
       })
-      .catch((error) => {
+      .catch((error: any) => {
         console.error("Error fetching response:", error);
-        setMessages((prev) => {
-          const newMessages = [
-            ...prev,
-            {
-              role: "assistant" as const,
-              content: "Sorry, I encountered an error while processing your request.",
-            },
-          ];
-          setLatestAssistantMessageId(newMessages.length - 1);
-          return newMessages;
-        });
+
+        // handle daily limit exceeded
+        if (error.response?.status === 429) {
+          const errorData = error.response.data;
+          const limitMessage = errorData.usageType === 'totalRequests' 
+            ? `You've reached your daily total request limit (${errorData.currentUsage}/${errorData.limit}).`
+            : `You've reached your daily limit of ${errorData.limit} chat messages.`;
+          
+          setMessages((prev) => {
+            const newMessages = [
+              ...prev,
+              {
+                role: "assistant" as const,
+                content: (
+                  <div className="space-y-3">
+                    <p>{limitMessage}</p>
+                    <Link href="/upgrade">
+                      <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm">
+                        Upgrade to Premium for unlimited access
+                      </button>
+                    </Link>
+                  </div>
+                ),
+              },
+            ];
+            setLatestAssistantMessageId(newMessages.length - 1);
+            return newMessages;
+          });
+          
+          const toastMessage = errorData.usageType === 'totalRequests'
+            ? 'Daily total request limit exceeded. Upgrade to premium for unlimited access.'
+            : 'Daily chat limit exceeded. Upgrade to premium for unlimited access.';
+          toast.error(toastMessage);
+
+        } else {
+            setMessages((prev) => {
+            const newMessages = [
+              ...prev,
+              {
+                role: "assistant" as const,
+                content: "Sorry, I encountered an error while processing your request.",
+              },
+            ];
+            setLatestAssistantMessageId(newMessages.length - 1);
+            return newMessages;
+          });  
+          }
+        
       })
       .finally(() => {
         setIsLoading(false);
@@ -225,6 +297,11 @@ const ChatComponent: React.FC<ChatComponentProps> = ({currentPdfUrl}) => {
     if (msg.role === "user") {
       return <div>{msg.content}</div>;
     } else {
+      // If content is JSX, render it directly
+      if (typeof msg.content !== 'string') {
+        return <div>{msg.content}</div>;
+      }
+      
       if (index === latestAssistantMessageId) {
         return (
           <TypeAnimation

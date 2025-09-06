@@ -12,17 +12,21 @@ import {
   X,
   PanelLeft,
   Zap,
+  Crown,
 } from "lucide-react";
 import SidebarItem from "./SidebarItem";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { useState, useEffect } from "react";
+import { useUsageStats } from "@/hooks/useUsageStats";
+import UsageDisplay from "./UsageDisplay";
 
 const Sidebar = () => {
   const router = useRouter();
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const { isPremium } = useUsageStats();
 
   useEffect(() => {
     const checkMobile = () => {
@@ -47,10 +51,11 @@ const Sidebar = () => {
     setIsMobileMenuOpen(false);
   };
 
+
   if (isMobile) {
     return (
       <>
-        {/* Hamburger button */}
+        {/* hamburger button */}
         {!isMobileMenuOpen && (
           <button
             className="fixed top-3 left-4 z-50 p-2 bg-black/95 rounded-md text-white/80 hover:bg-black/50 transition-colors cursor-pointer"
@@ -60,16 +65,15 @@ const Sidebar = () => {
           </button>
         )}
 
-        {/* Mobile sidebar overlay */}
+        {/* mobile sidebar */}
         {isMobileMenuOpen && (
           <div className="fixed inset-0 z-40">
-            {/* Backdrop */}
+            {/* backdrop */}
             <div
               className="absolute inset-0 bg-black/50"
               onClick={closeMobileMenu}
             />
 
-            {/* Sidebar */}
             <div className="absolute left-0 top-0 h-full w-64 bg-black/95 text-white/80 transform transition-transform duration-300 ease-in-out">
               <div className="h-[8%] flex items-center justify-between border-b border-white/10 p-3">
                 <Image
@@ -153,15 +157,7 @@ const Sidebar = () => {
                 </div>
                 <div className="m-2 flex flex-col gap-2 mb-16">
                   <hr className="border-white/10 mb-2" />
-                  {isCollapsed ? null : (
-                    <div className="flex flex-col gap-1 p-4 border border-white/10 bg-white/6 rounded-md mb-2">
-                      <h2 className="text-md text-white/90">Free Plan</h2>
-                      <p className="text-xs text-white/50">
-                        0 / 10 messages used
-                      </p>
-                      <div className="h-2 bg-white/40 rounded mt-2"></div>
-                    </div>
-                  )}
+                  <UsageDisplay />
                   <button
                     onClick={() => {
                       router.push("/upgrade");
@@ -169,8 +165,8 @@ const Sidebar = () => {
                     }}
                     className="flex items-center justify-center gap-2 bg-white hover:bg-white/90 text-black text-sm py-2 rounded-lg w-full cursor-pointer"
                   >
-                    <Zap size={16} />
-                    <p>Upgrade Plan</p>
+                    {isPremium ? <Crown size={16} /> : <Zap size={16} />}
+                    <p>{isPremium ? "Manage Plan" : "Upgrade Plan"}</p>
                   </button>
                   <button
                     onClick={() => {
@@ -257,19 +253,13 @@ const Sidebar = () => {
         </div>
         <div className="m-2 flex flex-col gap-2">
           <hr className="border-white/10 mb-2" />
-          {isCollapsed ? null : (
-            <div className="flex flex-col gap-1 p-4 border border-white/10 bg-white/6 rounded-md mb-2">
-              <h2 className="text-md text-white/90">Free Plan</h2>
-              <p className="text-xs text-white/50">0 / 10 messages used</p>
-              <div className="h-2 bg-white/40 rounded mt-2"></div>
-            </div>
-          )}
+          {isCollapsed ? null : <UsageDisplay />}
           <button
             onClick={() => router.push("/upgrade")}
             className="flex items-center justify-center gap-2 bg-white hover:bg-white/90 text-black text-sm py-2 rounded-lg w-full cursor-pointer"
           >
-            <Zap size={16} />
-            {isCollapsed ? null : <p>Upgrade to pro</p>}
+            {isPremium ? <Crown size={16} /> : <Zap size={16} />}
+            {isCollapsed ? null : <p>{isPremium ? "Manage Plan" : "Upgrade to pro"}</p>}
           </button>
           <button
             onClick={() => router.push("/invite")}

@@ -88,12 +88,12 @@ export default function CommunityHomepage() {
   }, []);
 
   useEffect(() => {
-    !isMobile && userCommunities && userCommunities.length > 0 && userCommunities[0] ? (
-      router.push(`/community/chat/${userCommunities[0].slug}/${userCommunities[0].id}`)
-    ) : (
-      router.push(`/community/home`)
-    );
-  }, [userCommunities]);
+    if (!isMobile && userCommunities && userCommunities.length > 0 && userCommunities[0]) {
+      router.push(`/community/chat/${userCommunities[0].slug}/${userCommunities[0].id}`);
+    } else if (isMobile) {
+      router.push(`/community/home`);
+    }
+  }, [userCommunities, isMobile]);
 
   return (
     <div className="bg-black/10 h-full p-6">

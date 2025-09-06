@@ -1,5 +1,4 @@
 import { Request, Response, NextFunction } from 'express';
-import { jwtVerify, JWTPayload } from 'jose';
 
 interface AuthenticatedRequest extends Request {
     user?: {
@@ -78,37 +77,6 @@ export const authenticateToken = async (
             error: 'Authentication failed',
             details: err?.message || 'Unknown error'
         });
-    }
-};
-
-// Optional middleware for routes that can work with or without auth
-export const optionalAuth = async (
-    req: AuthenticatedRequest, 
-    res: Response, 
-    next: NextFunction
-) => {
-    try {
-        const token = req.cookies?.['next-auth.session-token'] || 
-                     req.cookies?.['__Secure-next-auth.session-token'] || 
-                     null;
-
-        if (token) {
-            const session = await validateSessionWithNextAuth(token);
-            
-            if (session?.user) {
-                req.user = {
-                    id: session.user.id,
-                    name: session.user.name || '',
-                    email: session.user.email || '',
-                    image: session.user.image || ''
-                };
-            }
-        }
-        
-        next();
-    } catch (error) {
-        // Continue without user info if token is invalid
-        next();
     }
 };
 

@@ -67,27 +67,26 @@ const ImpQuesController = async (req: AuthenticatedRequest, res: Response) => {
             jsonText = jsonMatch[1] || response.text;
         }
 
-        const importantQuesWithAns = JSON.parse(jsonText);
-        // if (req.user?.id) {
-        //     try {
-        //         await prisma.aiChatHistory.create({
-        //             data: {
-        //                 userId: req.user.id,
-        //                 userQuery: 'Important Questions',
-        //                 resourceId: document.id,
-        //                 response: importantQuesWithAns,
-        //                 sources: [document.fileName],
-        //                 timestamp: new Date()
-        //             },
-        //         });
-        //     } catch (error) {
-        //         console.error("Error saving chat history:", error);
-        //     }
-        // }
+        let importantQuesWithAns;
+        try {
+            importantQuesWithAns = JSON.parse(jsonText);
+        } catch (parseError) {
+            console.error("JSON parsing error:", parseError);
+            console.error("Raw LLM response:", response.text);
+            console.error("Extracted JSON text:", jsonText);
+            return res.status(500).json({ error: "Failed to parse LLM response as JSON" });
+        }
+        
+        // Validate the parsed response
+        if (!importantQuesWithAns || !importantQuesWithAns.questions || !Array.isArray(importantQuesWithAns.questions)) {
+            console.error("Invalid questions format:", importantQuesWithAns);
+            return res.status(500).json({ error: "Invalid response format from LLM" });
+        }
+
         return res.json({
             importantQuestions: importantQuesWithAns.questions.map((q: any) => ({
-                question: q.question,
-                answer: q.answer
+                question: q.question || "No question available",
+                answer: q.answer || "No answer available"
             }))
         });
     } catch (error) {

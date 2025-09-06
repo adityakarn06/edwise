@@ -44,8 +44,20 @@ export default function SummaryGenComponent({ currentPdfUrl, onSummaryGenerated 
                     toast.error("Failed to generate summary");
                 }
             }
-        } catch (error) {
+        } catch (error: any) {
             console.error("Error in SummaryGenComponent:", error);
+            
+            // usage limit exceeded
+            if (error.response?.status === 429) {
+                const errorData = error.response.data;
+                if (errorData.usageType === 'totalRequests') {
+                    toast.error(`Daily total request limit exceeded (${errorData.currentUsage}/${errorData.limit}). Upgrade to premium for unlimited access.`);
+                } else {
+                    toast.error(`Daily summary generation limit exceeded (${errorData.currentUsage}/${errorData.limit}). Upgrade to premium for unlimited access.`);
+                }
+            } else {
+                toast.error("Failed to generate summary");
+            }
             setIsLoading(false);
         } finally {
             setIsLoading(false);

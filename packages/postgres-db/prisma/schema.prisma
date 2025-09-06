@@ -8,11 +8,28 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum UserRole {
+  STUDENT
+  ADMIN
+}
+
 enum UserStatus {
   ONLINE
   OFFLINE
   STREAMING
   BANNED
+}
+
+enum SubscriptionTier {
+  FREE
+  PREMIUM
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  CANCELLED
+  EXPIRED
+  PENDING
 }
 
 model User {
@@ -23,6 +40,14 @@ model User {
   avatarUrl String?
   status    UserStatus @default(OFFLINE)
   role      UserRole @default(STUDENT)
+  subscriptionTier SubscriptionTier @default(FREE)
+
+  pdfChatMessagesLimit         Int @default(10)
+  mcqGenerationsLimit          Int @default(10)
+  summaryGenerationsLimit      Int @default(10)
+  impQuestionsGenerationsLimit Int @default(10)
+  totalRequestsLimit           Int @default(10)
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -33,13 +58,44 @@ model User {
   messages       Message[]      @relation("UserMessages")
   rooms          CommunityRoom[] @relation("RoomMembers")
   adminRooms     CommunityRoom[] @relation("RoomAdmin")
+  subscription   Subscription?   @relation("UserSubscription")
+  dailyUsage     DailyUsage[]    @relation("UserDailyUsage")
 
   @@map("users")
 }
 
-enum UserRole {
-  STUDENT
-  ADMIN
+model Subscription {
+  id                String             @id @default(uuid())
+  userId            String             @unique
+  user              User               @relation("UserSubscription", fields: [userId], references: [id], onDelete: Cascade)
+  paymentId         String?            @unique
+  orderId           String?         @unique
+  status            SubscriptionStatus @default(PENDING)
+  tier              SubscriptionTier   @default(FREE)
+  currentPeriodStart DateTime?
+  currentPeriodEnd   DateTime?
+  cancelAtPeriodEnd  Boolean           @default(false)
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+
+  @@map("subscriptions")
+}
+
+model DailyUsage {
+  id              String   @id @default(uuid())
+  userId          String
+  user            User     @relation("UserDailyUsage", fields: [userId], references: [id], onDelete: Cascade)
+  date            DateTime @default(now()) @db.Date
+  pdfChatMessages Int      @default(0)
+  mcqGenerations  Int      @default(0)
+  summaryGenerations Int   @default(0)
+  impQuestionsGenerations Int @default(0)
+  totalRequests   Int      @default(0)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@unique([userId, date])
+  @@map("daily_usage")
 }
 
 model UploadedDocs {

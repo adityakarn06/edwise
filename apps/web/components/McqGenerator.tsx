@@ -57,14 +57,36 @@ export default function McqGeneratorUI({ setMcqData, setIsUploadOpen, setCurrent
           const fileUrl = data.fileUrl;
           setMcqData(mcqData);
           setCurrentPdfUrl(fileUrl);
-          console.log("setIsUploadOpen exists:", !!setIsUploadOpen);
           setIsUploadOpen?.(false);
           toast.success("MCQ genarated successfully!");
           router.refresh();
         },
         onError: (error: any) => {
           console.error("Generation error:", error);
-          toast.error("Error generating MCQs");
+          setUploading(false);
+          
+          // usage limit exceeded
+          if (error.response?.status === 429) {
+            const errorData = error.response.data;
+            if (errorData.usageType === 'totalRequests') {
+              toast.error(`Daily total request limit exceeded (${errorData.currentUsage}/${errorData.limit})`);
+            } else {
+              toast.error(`Daily MCQ generation limit exceeded (${errorData.currentUsage}/${errorData.limit})`);
+            }
+            
+            // upgrade alert
+            setTimeout(() => {
+              const message = errorData.usageType === 'totalRequests'
+                ? 'You\'ve reached your daily total request limit. Would you like to upgrade to premium for unlimited access?'
+                : 'You\'ve reached your daily MCQ generation limit. Would you like to upgrade to premium for unlimited access?';
+              
+              if (confirm(message)) {
+                router.push('/upgrade');
+              }
+            }, 1000);
+          } else {
+            toast.error("Error generating MCQs");
+          }
         },
       });
     },

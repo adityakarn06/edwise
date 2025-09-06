@@ -66,11 +66,26 @@ const summaryController = async (req: AuthenticatedRequest, res: Response) => {
             jsonText = jsonMatch[1] || response.text;
         }
 
-        const summary = JSON.parse(jsonText);
+        let summary;
+        try {
+            summary = JSON.parse(jsonText);
+        } catch (parseError) {
+            console.error("JSON parsing error:", parseError);
+            console.error("Raw LLM response:", response.text);
+            console.error("Extracted JSON text:", jsonText);
+            return res.status(500).json({ error: "Failed to parse LLM response as JSON" });
+        }
+        
+        // Validate the parsed response
+        if (!summary || !summary.summary || !Array.isArray(summary.summary)) {
+            console.error("Invalid summary format:", summary);
+            return res.status(500).json({ error: "Invalid response format from LLM" });
+        }
+
         return res.json({
             summary: summary.summary.map((s: any) => ({
-                section: s.section,
-                text: s.text
+                section: s.section || "Untitled Section",
+                text: s.text || "No summary available"
             }))
         });
     } catch (error) {

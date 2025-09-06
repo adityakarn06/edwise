@@ -128,6 +128,39 @@ exports.Prisma.UserScalarFieldEnum = {
   avatarUrl: 'avatarUrl',
   status: 'status',
   role: 'role',
+  subscriptionTier: 'subscriptionTier',
+  pdfChatMessagesLimit: 'pdfChatMessagesLimit',
+  mcqGenerationsLimit: 'mcqGenerationsLimit',
+  summaryGenerationsLimit: 'summaryGenerationsLimit',
+  impQuestionsGenerationsLimit: 'impQuestionsGenerationsLimit',
+  totalRequestsLimit: 'totalRequestsLimit',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SubscriptionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  paymentId: 'paymentId',
+  orderId: 'orderId',
+  status: 'status',
+  tier: 'tier',
+  currentPeriodStart: 'currentPeriodStart',
+  currentPeriodEnd: 'currentPeriodEnd',
+  cancelAtPeriodEnd: 'cancelAtPeriodEnd',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.DailyUsageScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  date: 'date',
+  pdfChatMessages: 'pdfChatMessages',
+  mcqGenerations: 'mcqGenerations',
+  summaryGenerations: 'summaryGenerations',
+  impQuestionsGenerations: 'impQuestionsGenerations',
+  totalRequests: 'totalRequests',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -232,6 +265,18 @@ exports.UserRole = exports.$Enums.UserRole = {
   ADMIN: 'ADMIN'
 };
 
+exports.SubscriptionTier = exports.$Enums.SubscriptionTier = {
+  FREE: 'FREE',
+  PREMIUM: 'PREMIUM'
+};
+
+exports.SubscriptionStatus = exports.$Enums.SubscriptionStatus = {
+  ACTIVE: 'ACTIVE',
+  CANCELLED: 'CANCELLED',
+  EXPIRED: 'EXPIRED',
+  PENDING: 'PENDING'
+};
+
 exports.categories = exports.$Enums.categories = {
   Books: 'Books',
   Notes: 'Notes',
@@ -248,6 +293,8 @@ exports.status = exports.$Enums.status = {
 
 exports.Prisma.ModelName = {
   User: 'User',
+  Subscription: 'Subscription',
+  DailyUsage: 'DailyUsage',
   UploadedDocs: 'UploadedDocs',
   AiChatHistory: 'AiChatHistory',
   MCQSet: 'MCQSet',
