@@ -50,17 +50,19 @@ export default function ReferCodeCard() {
       ];
       
     return (
-        <div className="bg-white/5 border border-white/10 rounded-xl p-6">
-            <h2 className="text-xl font-semibold text-white/90 mb-4">Your Referral Code</h2>
-            <div className="space-y-4">
+        <div className="flex flex-col gap-2 items-start justify-start p-5 sm:p-6 border border-white/10 bg-white/6 rounded-lg text-white/90 hover:bg-white/10 hover:shadow-lg hover:shadow-white/10 transition-all">
+            <div className="mb-2">
+                <h2 className="text-white/90 text-lg sm:text-xl font-medium">Your Referral Code</h2>
+            </div>
+            <div className="w-full space-y-4">
               <div className="bg-black/50 border border-white/20 rounded-lg p-4">
-                <p className="text-sm text-white/60 mb-2">Referral Code</p>
-                <div className="flex items-center justify-between">
-                  <code className="text-lg font-mono text-green-400">{referralCode || "Loading..."}</code>
+                <p className="text-xs sm:text-sm text-white/60 mb-2 font-light">Referral Code</p>
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                  <code className="text-base sm:text-lg font-mono text-green-400 break-all">{referralCode || "Loading..."}</code>
                   <button
                     onClick={copyToClipboard}
                     disabled={!referralCode}
-                    className="flex items-center gap-2 bg-green-600 hover:bg-green-700 disabled:bg-gray-600 text-white px-3 py-1.5 rounded-lg text-sm transition-colors"
+                    className="flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 disabled:bg-gray-600 text-white px-3 py-2 rounded-lg text-xs sm:text-sm transition-colors whitespace-nowrap"
                   >
                     {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
                     {copied ? "Copied!" : "Copy Link"}
@@ -68,13 +70,13 @@ export default function ReferCodeCard() {
                 </div>
               </div>
               <div className="space-y-2">
-                <p className="text-sm text-white/60">Share your referral link:</p>
-                <div className="flex gap-2">
+                <p className="text-xs sm:text-sm text-white/60 font-light">Share your referral link:</p>
+                <div className="flex flex-col sm:flex-row gap-2">
                   {shareOptions.map((option, index) => (
                     <button
                       key={index}
                       onClick={option.action}
-                      className="flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white/80 px-3 py-2 rounded-lg text-sm transition-colors"
+                      className="flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white/80 px-3 py-2 rounded-lg text-xs sm:text-sm transition-colors"
                     >
                       {option.icon}
                       {option.name}

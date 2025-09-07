@@ -2,6 +2,7 @@
 import api from "@/lib/api";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { useUsageStats } from '@/hooks/useUsageStats';
 
 interface Summary {
     section: string;
@@ -15,6 +16,7 @@ interface SummaryGenComponentProps {
 
 export default function SummaryGenComponent({ currentPdfUrl, onSummaryGenerated }: SummaryGenComponentProps) {
     const [isLoading, setIsLoading] = useState(false);
+    const { isPremium } = useUsageStats();
     const [summary, setSummary] = useState<Summary[]>([]);
     const [showSumnmary, setShowSummary] = useState<boolean>(false);
 
@@ -50,10 +52,14 @@ export default function SummaryGenComponent({ currentPdfUrl, onSummaryGenerated 
             // usage limit exceeded
             if (error.response?.status === 429) {
                 const errorData = error.response.data;
-                if (errorData.usageType === 'totalRequests') {
-                    toast.error(`Daily total request limit exceeded (${errorData.currentUsage}/${errorData.limit}). Upgrade to premium for unlimited access.`);
+                if (isPremium) {
+                    toast.error('Usage limit reached. Please contact support if this issue persists.');
                 } else {
-                    toast.error(`Daily summary generation limit exceeded (${errorData.currentUsage}/${errorData.limit}). Upgrade to premium for unlimited access.`);
+                    if (errorData.usageType === 'totalRequests') {
+                        toast.error(`Daily total request limit exceeded (${errorData.currentUsage}/${errorData.limit}). Upgrade to premium for unlimited access.`);
+                    } else {
+                        toast.error(`Daily summary generation limit exceeded (${errorData.currentUsage}/${errorData.limit}). Upgrade to premium for unlimited access.`);
+                    }
                 }
             } else {
                 toast.error("Failed to generate summary");

@@ -3,7 +3,8 @@ import FeatureComponent from "./featureComponent"
 import { useRouter } from "next/navigation";
 
 const Dashboard = () => {
-    const router = useRouter();
+  const router = useRouter();
+
   return (
     <div className="flex flex-col justify-center items-center h-full p-4 sm:p-6 md:px-[8vw] md:py-8 lg:px-[11vw] bg-black/90 w-full">
           <div className="flex flex-col items-center justify-center text-center w-full">

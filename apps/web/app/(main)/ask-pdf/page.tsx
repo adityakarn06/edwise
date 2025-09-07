@@ -1,19 +1,23 @@
 "use client";
 import Navbar from "@/components/Navbar";
 import DocumentView from "@/components/DocumentView";
-import { Bot, SquareArrowOutUpRight, X } from "lucide-react";
+import { Bot, Crown, SquareArrowOutUpRight, X } from "lucide-react";
 import { useState } from "react";
 import FileUpload from "@/components/FileUpload";
 import { useEffect } from "react";
 import { getAllDoc } from "@/utils/getDoc";
 import toast from "react-hot-toast";
 import ChatComponent from "@/components/ChatComponent";
+import { useRouter } from "next/navigation";
+import { useUsageStats } from "@/hooks/useUsageStats";
 
 export default function AskPdf() {
   const [currentPdfUrl, setCurrentPdfUrl] = useState<string>("");
   const [pdfUrls, setPdfUrls] = useState<string[]>([]);
   const [isUploadOpen, setIsUploadOpen] = useState(false);
   const [isPdfOpen, setIsPdfOpen] = useState(false);
+  const router = useRouter();
+  const { isPremium } = useUsageStats();
 
   useEffect(() => {
     getAllDoc()
@@ -43,10 +47,10 @@ export default function AskPdf() {
           optionType="pdf"
           headingIcon={<Bot className="h-4 w-4 text-white" />}
           headingText="Chat with pdf"
-          ctaIcon={<SquareArrowOutUpRight className="h-4 w-4" />}
-          ctaText="Upgrade"
+          ctaIcon={isPremium ? <Crown className="h-4 w-4" /> : <SquareArrowOutUpRight className="h-4 w-4" />}
+          ctaText={isPremium ? "Premium" : "Upgrade"}
           onCtaClick={() =>
-            toast.success("This button has no functionality yet!")
+            router.push("/upgrade")
           }
         />
       </div>

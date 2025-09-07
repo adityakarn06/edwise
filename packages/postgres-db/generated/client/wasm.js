@@ -134,6 +134,37 @@ exports.Prisma.UserScalarFieldEnum = {
   summaryGenerationsLimit: 'summaryGenerationsLimit',
   impQuestionsGenerationsLimit: 'impQuestionsGenerationsLimit',
   totalRequestsLimit: 'totalRequestsLimit',
+  referralCode: 'referralCode',
+  referredBy: 'referredBy',
+  totalEarnings: 'totalEarnings',
+  withdrawableAmount: 'withdrawableAmount',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ReferralScalarFieldEnum = {
+  id: 'id',
+  referrerId: 'referrerId',
+  referredUserId: 'referredUserId',
+  status: 'status',
+  completedAt: 'completedAt',
+  rewardedAt: 'rewardedAt',
+  creditsAwarded: 'creditsAwarded',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.RewardScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  type: 'type',
+  description: 'description',
+  creditsAwarded: 'creditsAwarded',
+  cashAmount: 'cashAmount',
+  premiumMonths: 'premiumMonths',
+  isWithdrawn: 'isWithdrawn',
+  withdrawnAt: 'withdrawnAt',
+  referralCount: 'referralCount',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -270,6 +301,18 @@ exports.SubscriptionTier = exports.$Enums.SubscriptionTier = {
   PREMIUM: 'PREMIUM'
 };
 
+exports.ReferralStatus = exports.$Enums.ReferralStatus = {
+  PENDING: 'PENDING',
+  COMPLETED: 'COMPLETED',
+  REWARDED: 'REWARDED'
+};
+
+exports.RewardType = exports.$Enums.RewardType = {
+  DAILY_CREDIT_BONUS: 'DAILY_CREDIT_BONUS',
+  PREMIUM_MONTH: 'PREMIUM_MONTH',
+  CASH_REWARD: 'CASH_REWARD'
+};
+
 exports.SubscriptionStatus = exports.$Enums.SubscriptionStatus = {
   ACTIVE: 'ACTIVE',
   CANCELLED: 'CANCELLED',
@@ -293,6 +336,8 @@ exports.status = exports.$Enums.status = {
 
 exports.Prisma.ModelName = {
   User: 'User',
+  Referral: 'Referral',
+  Reward: 'Reward',
   Subscription: 'Subscription',
   DailyUsage: 'DailyUsage',
   UploadedDocs: 'UploadedDocs',

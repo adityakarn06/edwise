@@ -6,6 +6,7 @@ import { toast } from "react-hot-toast";
 import { useDropzone } from "react-dropzone";
 import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
+import { useUsageStats } from '@/hooks/useUsageStats';
 
 interface McqData {
     question: string;
@@ -21,6 +22,7 @@ interface McqGeneratorUIProp {
 
 export default function McqGeneratorUI({ setMcqData, setIsUploadOpen, setCurrentPdfUrl }: McqGeneratorUIProp) {
   const router = useRouter();
+  const { isPremium } = useUsageStats();
   const [uploading, setUploading] = useState(false);
 
   const { mutate } = useMutation({
@@ -74,16 +76,18 @@ export default function McqGeneratorUI({ setMcqData, setIsUploadOpen, setCurrent
               toast.error(`Daily MCQ generation limit exceeded (${errorData.currentUsage}/${errorData.limit})`);
             }
             
-            // upgrade alert
-            setTimeout(() => {
-              const message = errorData.usageType === 'totalRequests'
-                ? 'You\'ve reached your daily total request limit. Would you like to upgrade to premium for unlimited access?'
-                : 'You\'ve reached your daily MCQ generation limit. Would you like to upgrade to premium for unlimited access?';
-              
-              if (confirm(message)) {
-                router.push('/upgrade');
-              }
-            }, 1000);
+            // upgrade alert for free users only
+            if (!isPremium) {
+              setTimeout(() => {
+                const message = errorData.usageType === 'totalRequests'
+                  ? 'You\'ve reached your daily total request limit. Would you like to upgrade to premium for unlimited access?'
+                  : 'You\'ve reached your daily MCQ generation limit. Would you like to upgrade to premium for unlimited access?';
+                
+                if (confirm(message)) {
+                  router.push('/upgrade');
+                }
+              }, 1000);
+            }
           } else {
             toast.error("Error generating MCQs");
           }

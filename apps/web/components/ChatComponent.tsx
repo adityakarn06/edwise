@@ -9,6 +9,7 @@ import { useEffect, useRef, useState } from "react";
 import { History, MoveLeft } from "lucide-react";
 import toast from "react-hot-toast";
 import Link from 'next/link';
+import { useUsageStats } from '@/hooks/useUsageStats';
 
 interface IMessages {
   role: "assistant" | "user";
@@ -52,6 +53,7 @@ const getChatHistory = async () => {
 
 const ChatComponent: React.FC<ChatComponentProps> = ({currentPdfUrl}) => {
   const { data: session, status } = useSession();
+  const { isPremium } = useUsageStats();
   const [message, setMessage] = useState<string>("");
   const [messages, setMessages] = useState<IMessages[]>([]);
   const [latestAssistantMessageId, setLatestAssistantMessageId] = useState<number | null>(null);
@@ -154,7 +156,11 @@ const ChatComponent: React.FC<ChatComponentProps> = ({currentPdfUrl}) => {
             ...prev,
             {
               role: "assistant" as const,
-              content: (
+              content: isPremium ? (
+                <div className="space-y-3">
+                  <p>You've reached your usage limit. As a Premium user, this shouldn't happen. Please contact support if this issue persists.</p>
+                </div>
+              ) : (
                 <div className="space-y-3">
                   <p>{limitMessage}</p>
                   <Link href="/upgrade">
@@ -170,10 +176,14 @@ const ChatComponent: React.FC<ChatComponentProps> = ({currentPdfUrl}) => {
           return newMessages;
         });
         
-        const toastMessage = errorData.usageType === 'totalRequests'
-          ? 'Daily total request limit exceeded. Upgrade to premium for unlimited access.'
-          : 'Daily chat limit exceeded. Upgrade to premium for unlimited access.';
-        toast.error(toastMessage);
+        if (!isPremium) {
+          const toastMessage = errorData.usageType === 'totalRequests'
+            ? 'Daily total request limit exceeded. Upgrade to premium for unlimited access.'
+            : 'Daily chat limit exceeded. Upgrade to premium for unlimited access.';
+          toast.error(toastMessage);
+        } else {
+          toast.error('Usage limit reached. Please contact support if this issue persists.');
+        }
       } else {
         setMessages((prev) => {
           const newMessages = [
@@ -251,7 +261,11 @@ const ChatComponent: React.FC<ChatComponentProps> = ({currentPdfUrl}) => {
               ...prev,
               {
                 role: "assistant" as const,
-                content: (
+                content: isPremium ? (
+                  <div className="space-y-3">
+                    <p>You've reached your usage limit. As a Premium user, this shouldn't happen. Please contact support if this issue persists.</p>
+                  </div>
+                ) : (
                   <div className="space-y-3">
                     <p>{limitMessage}</p>
                     <Link href="/upgrade">
@@ -267,10 +281,14 @@ const ChatComponent: React.FC<ChatComponentProps> = ({currentPdfUrl}) => {
             return newMessages;
           });
           
-          const toastMessage = errorData.usageType === 'totalRequests'
-            ? 'Daily total request limit exceeded. Upgrade to premium for unlimited access.'
-            : 'Daily chat limit exceeded. Upgrade to premium for unlimited access.';
-          toast.error(toastMessage);
+          if (!isPremium) {
+            const toastMessage = errorData.usageType === 'totalRequests'
+              ? 'Daily total request limit exceeded. Upgrade to premium for unlimited access.'
+              : 'Daily chat limit exceeded. Upgrade to premium for unlimited access.';
+            toast.error(toastMessage);
+          } else {
+            toast.error('Usage limit reached. Please contact support if this issue persists.');
+          }
 
         } else {
             setMessages((prev) => {

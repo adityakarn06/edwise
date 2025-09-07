@@ -32,6 +32,19 @@ enum SubscriptionStatus {
   PENDING
 }
 
+enum ReferralStatus {
+  PENDING
+  COMPLETED
+  REWARDED
+}
+
+enum RewardType {
+  DAILY_CREDIT_BONUS    // 20 credits for free users
+  PREMIUM_MONTH         // 1 month free premium for 10 successful referrals
+  CASH_REWARD           // 100 rupees for 10 paid subscription referrals
+}
+
+
 model User {
   id        String   @id @default(uuid())
   email     String?  @unique
@@ -48,6 +61,13 @@ model User {
   impQuestionsGenerationsLimit Int @default(10)
   totalRequestsLimit           Int @default(10)
 
+  referralCode     String?   @unique
+  referredBy       String?
+  referrer         User?     @relation("UserReferrals", fields: [referredBy], references: [id])
+  referrals        User[]    @relation("UserReferrals")
+  totalEarnings    Int       @default(0)
+  withdrawableAmount Float   @default(0)
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -61,7 +81,46 @@ model User {
   subscription   Subscription?   @relation("UserSubscription")
   dailyUsage     DailyUsage[]    @relation("UserDailyUsage")
 
+  sentReferrals      Referral[] @relation("ReferrerUser")
+  receivedReferrals  Referral[] @relation("ReferredUser")
+  rewards           Reward[]   @relation("UserRewards")
+
   @@map("users")
+}
+
+model Referral {
+  id               String          @id @default(uuid())
+  referrerId       String
+  referredUserId   String
+  referrer         User            @relation("ReferrerUser", fields: [referrerId], references: [id], onDelete: Cascade)
+  referredUser     User            @relation("ReferredUser", fields: [referredUserId], references: [id], onDelete: Cascade)
+  status           ReferralStatus  @default(PENDING)
+  completedAt      DateTime?
+  rewardedAt       DateTime?
+  creditsAwarded   Int            @default(0)
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+
+  @@unique([referrerId, referredUserId])
+  @@map("referrals")
+}
+
+model Reward {
+  id              String      @id @default(uuid())
+  userId          String
+  user            User        @relation("UserRewards", fields: [userId], references: [id], onDelete: Cascade)
+  type            RewardType
+  description     String
+  creditsAwarded  Int?        @default(0)
+  cashAmount      Float?      @default(0)
+  premiumMonths   Int?        @default(0)
+  isWithdrawn     Boolean     @default(false)
+  withdrawnAt     DateTime?
+  referralCount   Int         @default(0) 
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  @@map("rewards")
 }
 
 model Subscription {

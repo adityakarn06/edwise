@@ -14,6 +14,8 @@ import {
   getUserCommunities,
 } from "@/utils/getCommunity";
 import toast from "react-hot-toast";
+import { useUsageStats } from '@/hooks/useUsageStats';
+import { useRouter } from "next/navigation";
 
 interface Community {
   id: string;
@@ -50,7 +52,9 @@ export default function CommunityWrapper({
   const [userCommunities, setUserCommunities] = useState<UserCommunity[]>([]);
   const [communities, setCommunities] = useState<Community[]>([]);
   const [showMembers, setShowMembers] = useState(false);
+  const { isPremium } = useUsageStats();
   const roomName = decodeURI(slug);
+  const router = useRouter();
 
   const refreshCommunities = () => {
     getUserCommunities(setUserCommunities);
@@ -73,9 +77,9 @@ export default function CommunityWrapper({
             ctaLeftButton={true}
             ctaLeftIcon={<Users className="h-5 w-5 text-white/90 cursor-pointer" />}
             ctaLeftButtonClick={() => setShowMembers(!showMembers)}
-            ctaIcon={<Zap className="h-4 w-4" />}
-            onCtaClick={() => toast.success("This button has no functionality yet!")}
-            ctaText={"Upgrade"}
+            ctaIcon={isPremium ? <MessageCircleMore className="h-4 w-4" /> : <Zap className="h-4 w-4" />}
+            onCtaClick={() => router.push('/upgrade')}
+            ctaText={isPremium ? "Premium" : "Upgrade"}
           />
         </div>
         <div className="h-[92%] bg-black/85">

@@ -15,7 +15,7 @@ import resourceRouter from './routes/resourceRouter';
 import communityRouter from './routes/communityRouter';
 import usageRouter from './routes/usageRouter';
 import paymentRouter from './routes/paymentRoute';
-
+import referralRouter from './routes/referralRouter';
 const app = express();
 const PORT = process.env.PORT || 3001;
 
@@ -43,6 +43,7 @@ app.use('/resources', authenticateToken, resourceRouter);
 app.use('/community', authenticateToken, communityRouter);
 app.use('/usage', authenticateToken, usageRouter);
 app.use('/payment', authenticateToken, paymentRouter);
+app.use('/referral', authenticateToken, referralRouter);
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);

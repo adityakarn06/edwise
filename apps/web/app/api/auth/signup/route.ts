@@ -6,7 +6,7 @@ const prisma = new PrismaClient();
 
 export async function POST(request: NextRequest) {
     try {
-        const { name, email, password } = await request.json();
+        const { name, email, password, referralCode } = await request.json();
 
         if (!name || !email || !password) {
             return NextResponse.json(
@@ -28,13 +28,66 @@ export async function POST(request: NextRequest) {
 
         const hashedPassword = await bcrypt.hash(password, 12);
 
+        const newUserReferralCode = `EDW${btoa(email).slice(0, 8).toUpperCase()}`;
+
         const user = await prisma.user.create({
             data: {
                 name,
                 email,
                 password: hashedPassword,
+                referralCode: newUserReferralCode,
             },
         });
+
+        if (referralCode) {
+            try {
+                const referrer = await prisma.user.findUnique({
+                    where: { referralCode },
+                    include: { subscription: true }
+                });
+
+                if (referrer) {
+                    await prisma.referral.create({
+                        data: {
+                            referrerId: referrer.id,
+                            referredUserId: user.id,
+                            status: 'COMPLETED',
+                            completedAt: new Date(),
+                            creditsAwarded: 20
+                        }
+                    });
+
+                    await prisma.user.update({
+                        where: { id: user.id },
+                        data: { referredBy: referrer.id }
+                    });
+
+                    // Award 20 credits to free users instantly (add to daily limit)
+                    if (referrer.subscriptionTier === 'FREE') {
+                        await prisma.user.update({
+                            where: { id: referrer.id },
+                            data: {
+                                totalRequestsLimit: referrer.totalRequestsLimit + 20,
+                                totalEarnings: referrer.totalEarnings + 20
+                            }
+                        });
+
+                        // Create reward record
+                        await prisma.reward.create({
+                            data: {
+                                userId: referrer.id,
+                                type: 'DAILY_CREDIT_BONUS',
+                                description: `20 bonus credits for referring ${user.name || user.email}`,
+                                creditsAwarded: 20,
+                                referralCount: 1
+                            }
+                        });
+                    }
+                }
+            } catch (referralError) {
+                console.error("Error applying referral code:", referralError);
+            }
+        }
 
         // Remove password from response
         const { password: _, ...userWithoutPassword } = user;
