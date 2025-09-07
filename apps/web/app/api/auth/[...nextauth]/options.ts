@@ -77,6 +77,7 @@ export const authOptions: NextAuthOptions = {
                             name: profile.name || "No Name",
                             email: profile.email,
                             avatarUrl: (profile as any).picture || null,
+                            referralCode: `EDW${btoa(profile.email).slice(0, 8).toUpperCase()}`,
                         },
                         update: {
                             name: profile.name || "No Name",

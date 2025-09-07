@@ -234,6 +234,105 @@ export const getReferralStats = async (req: AuthenticatedRequest, res: Response)
     }
 };
 
+export const processReferral = async (req: AuthenticatedRequest, res: Response) => {
+    try {
+        if (!req.user) {
+            return res.status(401).json({ error: "User not authenticated" });
+        }
+
+        const { referralCode } = req.body;
+
+        if (!referralCode) {
+            return res.status(400).json({ error: "Referral code is required" });
+        }
+
+        // Single query to get both users with all needed data
+        const [currentUser, referrer] = await prisma.$transaction([
+            prisma.user.findUnique({
+                where: { id: req.user.id },
+                select: { referredBy: true, email: true, name: true }
+            }),
+            prisma.user.findUnique({
+                where: { referralCode },
+                select: { 
+                    id: true, 
+                    name: true, 
+                    subscriptionTier: true, 
+                    totalRequestsLimit: true, 
+                    totalEarnings: true 
+                }
+            })
+        ]);
+
+        if (!currentUser) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
+        if (currentUser.referredBy) {
+            return res.status(400).json({ error: "User already has a referrer" });
+        }
+
+        if (!referrer) {
+            return res.status(404).json({ error: "Invalid referral code" });
+        }
+
+        if (referrer.id === req.user.id) {
+            return res.status(400).json({ error: "Cannot refer yourself" });
+        }
+
+        // Single transaction to handle all database operations
+        await prisma.$transaction(async (tx) => {
+            // Create referral record and update referred user
+            await Promise.all([
+                tx.referral.create({
+                    data: {
+                        referrerId: referrer.id,
+                        referredUserId: req.user!.id,
+                        status: 'COMPLETED',
+                        completedAt: new Date(),
+                        creditsAwarded: 20
+                    }
+                }),
+                tx.user.update({
+                    where: { id: req.user!.id },
+                    data: { referredBy: referrer.id }
+                })
+            ]);
+
+            // Award credits to free users
+            if (referrer.subscriptionTier === 'FREE') {
+                await Promise.all([
+                    tx.user.update({
+                        where: { id: referrer.id },
+                        data: {
+                            totalRequestsLimit: referrer.totalRequestsLimit + 20,
+                            totalEarnings: referrer.totalEarnings + 20
+                        }
+                    }),
+                    tx.reward.create({
+                        data: {
+                            userId: referrer.id,
+                            type: 'DAILY_CREDIT_BONUS',
+                            description: `20 bonus credits for referring ${currentUser.name || currentUser.email}`,
+                            creditsAwarded: 20,
+                            referralCount: 1
+                        }
+                    })
+                ]);
+            }
+        });
+
+        res.json({ 
+            message: "Referral processed successfully",
+            referrerName: referrer.name
+        });
+
+    } catch (error) {
+        console.error('Error processing referral:', error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+};
+
 export const withdrawCashReward = async (req: AuthenticatedRequest, res: Response) => {
     try {
         if (!req.user) {

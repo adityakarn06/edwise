@@ -1,12 +1,12 @@
 "use client"
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import toast from "react-hot-toast";
 import { Gift } from "lucide-react";
 
-export default function SignUp() {
+function SignUpContent() {
     const searchParams = useSearchParams();
     const referralCode = searchParams.get('ref');
     
@@ -92,7 +92,7 @@ export default function SignUp() {
     const handleGoogleSignUp = async () => {
         try {
             const callbackUrl = formData.referralCode 
-                ? `/dashboard?ref=${formData.referralCode}` 
+                ? `/dashboard?ref=${encodeURIComponent(formData.referralCode)}` 
                 : "/dashboard";
             await signIn("google", { callbackUrl });
         } catch (error) {
@@ -258,5 +258,13 @@ export default function SignUp() {
                 </form>
             </div>
         </div>
+    );
+}
+
+export default function SignUp() {
+    return (
+        <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-black/90"><div className="text-white">Loading...</div></div>}>
+            <SignUpContent />
+        </Suspense>
     );
 }
