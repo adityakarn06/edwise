@@ -1,20 +1,11 @@
 import { v2 as cloudinary } from "cloudinary";
 
-// Validate required environment variables
-const requiredEnvVars = {
-  CLOUDINARY_CLOUD_NAME: process.env.CLOUDINARY_CLOUD_NAME,
-  CLOUDINARY_API_KEY: process.env.CLOUDINARY_API_KEY,
-  CLOUDINARY_API_SECRET: process.env.CLOUDINARY_API_SECRET,
-};
-
-// Configure Cloudinary
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-// Define the Cloudinary upload result type
 export interface CloudinaryUploadResult {
   secure_url: string;
   public_id: string;
@@ -38,7 +29,6 @@ export const uploadToCloudinary = async (file: File): Promise<CloudinaryUploadRe
   });
 };
 
-// Upload file from server path to Cloudinary
 export const uploadFileToCloudinary = async (filePath: string, options?: {
   folder?: string;
   resource_type?: "image" | "video" | "raw" | "auto";

@@ -1,7 +1,6 @@
 "use client";
 import { Crown, SquareArrowOutUpRight } from "lucide-react";
 import Navbar from "@/components/Navbar";
-import toast from "react-hot-toast";
 import Feedback from "@/components/Feedback";
 import { useUsageStats } from "@/hooks/useUsageStats";
 import { useRouter } from "next/navigation";

@@ -4,7 +4,6 @@ import { signIn, getSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import toast from "react-hot-toast";
-import { LockKeyhole } from "lucide-react";
 
 export default function SignIn() {
     const [formData, setFormData] = useState({

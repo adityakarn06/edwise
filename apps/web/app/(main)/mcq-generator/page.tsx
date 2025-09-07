@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import McqGeneratorUI from "@/components/McqGenerator";
 import ExamComponent from "@/components/ExamComponent";
 import api from "@/lib/api";
-import toast from "react-hot-toast";
 import { getMcqDocs } from "@/utils/getDoc";
 
 interface McqData {

@@ -3,8 +3,6 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import {
-  Lock,
-  Globe,
   Plus,
   ArrowLeft,
   Upload,

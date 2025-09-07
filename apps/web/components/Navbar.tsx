@@ -1,5 +1,5 @@
 "use client";
-import { User, LogOut, ChevronDown, ChevronUp, Trash, CloudUpload, Plus, Bell, UserMinus } from "lucide-react";
+import { User, LogOut, ChevronDown, ChevronUp, Trash, Plus, Bell, UserMinus } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";

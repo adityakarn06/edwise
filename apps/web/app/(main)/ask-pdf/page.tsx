@@ -6,7 +6,6 @@ import { useState } from "react";
 import FileUpload from "@/components/FileUpload";
 import { useEffect } from "react";
 import { getAllDoc } from "@/utils/getDoc";
-import toast from "react-hot-toast";
 import ChatComponent from "@/components/ChatComponent";
 import { useRouter } from "next/navigation";
 import { useUsageStats } from "@/hooks/useUsageStats";

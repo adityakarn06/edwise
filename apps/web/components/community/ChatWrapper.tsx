@@ -13,7 +13,6 @@ import {
   getCommunitiesExceptUser,
   getUserCommunities,
 } from "@/utils/getCommunity";
-import toast from "react-hot-toast";
 import { useUsageStats } from '@/hooks/useUsageStats';
 import { useRouter } from "next/navigation";
 

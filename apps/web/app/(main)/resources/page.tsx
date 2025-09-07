@@ -1,7 +1,6 @@
 "use client";
-import { ChevronRight, CloudUpload, SquareArrowOutUpRight, X } from "lucide-react";
+import { CloudUpload, X } from "lucide-react";
 import Navbar from "@/components/Navbar";
-import toast from "react-hot-toast";
 import SearchBar from "@/components/SearchBar";
 import Image from "next/image";
 import { useEffect, useState } from "react";

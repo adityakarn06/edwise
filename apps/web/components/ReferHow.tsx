@@ -1,4 +1,4 @@
-import { Crown, DollarSign, Gift, Users } from "lucide-react";
+import { Crown, DollarSign, Gift } from "lucide-react";
 
 export default function ReferHow() {
     return (

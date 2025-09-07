@@ -1,7 +1,6 @@
 import { Response } from 'express';
 import { PrismaClient } from "@repo/postgres-db/client";
 import { AuthenticatedRequest } from '../middleware/auth';
-import { CreateRoomSchema } from "@repo/common-zod/types"
 import { uploadFileToCloudinary } from '../lib/cloudinary';
 import fs from 'fs';
 
