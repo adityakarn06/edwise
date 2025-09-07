@@ -4,7 +4,7 @@ import { checkUsageLimit, UsageType } from "../middleware/usageTracking";
 
 const chatRouter: Router = express.Router();
 
-chatRouter.get("/ai", checkUsageLimit(UsageType.CHAT_MESSAGE), aiChatController);
+chatRouter.post("/ai", checkUsageLimit(UsageType.CHAT_MESSAGE), aiChatController);
 chatRouter.get("/history", getChatHistoryController);
 
 export default chatRouter;

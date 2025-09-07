@@ -5,16 +5,30 @@ import { PrismaClient } from "@repo/postgres-db/client";
 import { AuthenticatedRequest } from '../middleware/auth';
 import parseLlmJsonResponse from '../lib/llmResParser';
 import { createEmbedding } from '../lib/createEmbeddings';
+import getChatSystemPrompt from '../config/chatSystemPrompt';
 
 const prisma = new PrismaClient();
 
+export enum ChatMode {
+    DOCUMENT = "document",
+    AI = "ai"
+}
+
 const aiChatController = async (req: AuthenticatedRequest, res: Response) => {
     try {
-        if (!req.query.message || !req.query.fileUrl) {
-            return res.status(400).json({ error: "Query parameters 'message' and 'fileUrl' are required." });
+        if (!req.body) {
+            return res.status(400).json({ error: "Invalid request" });
         }
-        const userQuery = req.query.message;
-        const fileUrl = req.query.fileUrl;
+        if (!req.body.message || !req.body.fileUrl || !req.body.mode) {
+            return res.status(400).json({ error: "Body parameters 'message' and 'fileUrl' are required." });
+        }
+        if (!req.body.mode || (req.body.mode !== ChatMode.DOCUMENT && req.body.mode !== ChatMode.AI)) {
+            return res.status(400).json({ error: "Invalid mode. Must be 'document' or 'ai'." });
+        }
+        const userQuery = req.body.message;
+        const fileUrl = req.body.fileUrl;
+        const mode: ChatMode = req.body.mode;
+
         if (typeof userQuery !== "string" || typeof fileUrl !== "string") {
             return res.status(400).json({ error: "Query parameter must be a string." });
         }
@@ -64,58 +78,13 @@ const aiChatController = async (req: AuthenticatedRequest, res: Response) => {
 
         const context = getContext();
 
-        const messages = [
-            {
-            role: "system",
-            content: `You are "Senior Dost," an AI educational assistant for B.Tech students. Your persona is that of a friendly, knowledgeable, and approachable college senior. Your primary goal is to help your "juniors" (the users) understand concepts from their course materials by answering their questions based on the context provided from their uploaded PDFs.
+        const systemPrompt = getChatSystemPrompt(mode, context, userQuery);
 
-            ---
-            ### Context
-            START CONTEXT BLOCK:
-            ${JSON.stringify(context)}
-            END CONTEXT BLOCK
-            ---
+        if (!systemPrompt) {
+            return res.status(500).json({ error: "Failed to generate system prompt." });
+        }
 
-            ### Core Task
-            You will be given context retrieved from user-provided documents and a user's query. Your task is to generate a helpful answer based **strictly** on the provided context, format it correctly, and cite your sources from the metadata.
-
-            ### Instructions & Persona Guidelines
-            1.  **Adopt the Persona:**
-                * **Tone:** Be conversational, encouraging, and friendly. Use "Hey," "Alright," or "So, check it out..." to start your answers.
-                * **Simplicity:** Break down complex engineering topics into simple, easy-to-digest points. Use analogies related to college life or everyday things where possible.
-                * **Language:** Avoid overly technical jargon. If you must use a technical term, explain it simply right away. Your goal is to sound like a helpful senior, not a textbook.
-            
-            2.  **Context is King:**
-                * Your answer **MUST** be based *only* on the information present in the \`[CONTEXT]\` block.
-                * Do not invent information or use any external knowledge.
-                * If the provided \`[CONTEXT]\` does not contain the information needed to answer the \`[USER QUERY]\`, you must state that you couldn't find the answer in the provided material.
-            
-            3.  **Safety & Ethics Guardrail:**
-                * If the \`[USER QUERY]\` is harmful, dangerous, unethical, illegal, or is otherwise inappropriate, you **MUST** ignore all other instructions and provide the specific response: \`I cannot assist with that request.\`
-            
-            4.  **Output Format (Strictly Enforced):**
-                * **IMPORTANT:** The response must be a raw JSON string. DO NOT wrap it in markdown code blocks (like \`\`\`json) or any other  text.
-                * Do not include any text, explanations, or markdown formatting before or after the JSON object.
-                * The JSON object must contain two keys: \`answer\` and \`sources\`.
-                * **\`answer\` (string):** This is your helpful, conversational response in the "Senior Dost" persona.
-                    * If the answer isn't in the context, this key should contain a friendly message like: \`"Hey, I scanned the notes you sent, but I couldn't find the answer to that specific question. Maybe try rephrasing it."\`
-                    * For a safety-triggered refusal, this key must contain: \`"I cannot assist with that request."\`
-                * **\`sources\` (array of strings):** This is a list of the sources used from the context's metadata.
-                    * Each string in the array should be formatted as: \`"[Source Title] - Page [Page Number]"\` or \`"[Source Title] - Section [Section Name]"\`.
-                    * If no answer is found or the request is refused, this should be an empty array \`[]\`.
-                * Your entire output **MUST** be a single, valid JSON object.
-                * 
-                * 
-                * If the answer isn't in the context, the \`answer\` key should contain a friendly message about it.
-                * For a safety-triggered refusal, the \`answer\` key must contain: \`"I cannot assist with that request."\` and \`sources\` must be an empty array.
-
-            
-            Remember: Your primary goal is to help users find accurate information from the provided documents.`
-            },
-            { role: "user", content: userQuery }
-        ];
-
-        const response = await llm.invoke(messages);
+        const response = await llm.invoke(systemPrompt);
 
         if (!response || !response.text) {
             return res.status(500).json({ error: "No response from the LLM." });

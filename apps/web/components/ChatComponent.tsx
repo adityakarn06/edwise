@@ -1,5 +1,4 @@
 "use client";
-import { PlaceholdersAndVanishInput } from "./ui/placeholders-and-vanish-input";
 import api from "@/lib/api";
 import { useSession } from "next-auth/react";
 import { TypeAnimation } from 'react-type-animation';
@@ -10,6 +9,7 @@ import { History, MoveLeft } from "lucide-react";
 import toast from "react-hot-toast";
 import Link from 'next/link';
 import { useUsageStats } from '@/hooks/useUsageStats';
+import ChatBox from "./ui/ChatBox";
 
 interface IMessages {
   role: "assistant" | "user";
@@ -63,6 +63,7 @@ const ChatComponent: React.FC<ChatComponentProps> = ({currentPdfUrl}) => {
   const [summary, setSummary] = useState<Summary[]>([]);
   const [showSumnmary, setShowSummary] = useState<boolean>(false);
   const [showChat, setShowChat] = useState<boolean>(false);
+  const [chatMode, setChatMode] = useState<"document" | "ai">("document");
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -117,7 +118,11 @@ const ChatComponent: React.FC<ChatComponentProps> = ({currentPdfUrl}) => {
     setIsLoading(true);
     
     try {
-      const { data } = await api.get(`/chat/ai?message=${encodeURIComponent(message)}&fileUrl=${encodeURIComponent(currentPdfUrl)}`);
+      const { data } = await api.post(`/chat/ai`, {
+        message: message,
+        fileUrl: currentPdfUrl,
+        mode: chatMode
+      });
 
       const references = data?.sources
         ? data.sources.map((source: any) => {
@@ -222,7 +227,11 @@ const ChatComponent: React.FC<ChatComponentProps> = ({currentPdfUrl}) => {
     
     setIsLoading(true);
     
-    api.get(`/chat/ai?message=${encodeURIComponent(question)}&fileUrl=${encodeURIComponent(currentPdfUrl)}`)
+    api.post(`/chat/ai`, {
+      message: message,
+      fileUrl: currentPdfUrl,
+      mode: chatMode
+    })
       .then(({ data }) => {
         const references = data?.sources
           ? data.sources.map((source: any) => {
@@ -483,23 +492,7 @@ const ChatComponent: React.FC<ChatComponentProps> = ({currentPdfUrl}) => {
         
       
       <div className="p-4">
-        <div className="flex items-center w-full">
-          {!isLoading ? (
-            <PlaceholdersAndVanishInput
-            placeholders={["Hello", "How are you?", "What is your name?"]}
-            onChange={(e) => setMessage(e.target.value)}
-            onSubmit={handleSendChatMessage}
-            />
-          ) : (
-            <PlaceholdersAndVanishInput
-            placeholders={["Hello", "How are you?", "What is your name?"]}
-            onChange={(e) => setMessage(e.target.value)}
-            onSubmit={() => {
-              toast.error("Please wait for the response to be generated.");
-            }}
-            />
-          )}
-        </div>
+        <ChatBox isLoading={isLoading} handleSendChatMessage={handleSendChatMessage} setMessage={setMessage} chatMode={chatMode} setChatMode={setChatMode} />
       </div>
     </div>
   );
