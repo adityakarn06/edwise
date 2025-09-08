@@ -206,7 +206,7 @@ export default function Navbar({
                 className="h-8 w-8 rounded-full"
               />
             ) : (
-              <User className="h-4 w-4 text-black/80" />
+              <User className="h-4 w-4 text-white/80" />
             )}
             <div className="hidden md:flex items-center justify-between gap-1">
               {

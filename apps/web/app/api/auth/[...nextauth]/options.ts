@@ -2,6 +2,7 @@ import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import bcrypt from "bcryptjs";
+import { v4 as uuidv4 } from "uuid";
 
 import { PrismaClient } from "@repo/postgres-db/client";
 const prisma = new PrismaClient();
@@ -70,6 +71,10 @@ export const authOptions: NextAuthOptions = {
                 if (!profile?.email) {
                     throw new Error("Email not found in Google profile");
                 }
+                const emailHash = btoa(profile.email).slice(0, 6).toUpperCase().replace(/[^A-Z0-9]/g, '');
+                const timestamp = Date.now().toString().slice(-3);
+                const uniqueId = `EDW${uuidv4().replace(/-/g, '').slice(0, 5).toUpperCase()}`;
+                const newUserReferralCode = `EDW${emailHash}${uniqueId}${timestamp}`;
                 try {
                     const existingUser = await prisma.user.upsert({
                         where: { email: profile.email },
@@ -77,7 +82,7 @@ export const authOptions: NextAuthOptions = {
                             name: profile.name || "No Name",
                             email: profile.email,
                             avatarUrl: (profile as any).picture || null,
-                            referralCode: `EDW${btoa(profile.email).slice(0, 8).toUpperCase()}`,
+                            referralCode: newUserReferralCode,
                         },
                         update: {
                             name: profile.name || "No Name",

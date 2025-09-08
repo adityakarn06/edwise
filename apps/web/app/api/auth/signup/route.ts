@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { PrismaClient } from "@repo/postgres-db/client";
+import { v4 as uuidv4 } from "uuid";
 
 const prisma = new PrismaClient();
 
@@ -28,7 +29,10 @@ export async function POST(request: NextRequest) {
 
         const hashedPassword = await bcrypt.hash(password, 12);
 
-        const newUserReferralCode = `EDW${btoa(email).slice(0, 8).toUpperCase()}`;
+        const emailHash = btoa(email).slice(0, 6).toUpperCase().replace(/[^A-Z0-9]/g, '');
+        const timestamp = Date.now().toString().slice(-3);
+        const uniqueId = `EDW${uuidv4().replace(/-/g, '').slice(0, 5).toUpperCase()}`;
+        const newUserReferralCode = `EDW${emailHash}${uniqueId}${timestamp}`;
 
         const user = await prisma.user.create({
             data: {
