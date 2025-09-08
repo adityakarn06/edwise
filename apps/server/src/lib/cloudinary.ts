@@ -52,3 +52,19 @@ export const uploadFileToCloudinary = async (filePath: string, options?: {
     );
   });
 };
+
+export const deleteFromCloudinary = async (publicId: string, resourceType: "image" | "video" | "raw" | "auto" = "auto"): Promise<void> => {
+  return new Promise<void>((resolve, reject) => {
+    cloudinary.uploader.destroy(
+      publicId,
+      { resource_type: resourceType },
+      (error) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve();
+        }
+      }
+    );
+  });
+};

@@ -10,9 +10,10 @@ import { useMutation } from "@tanstack/react-query";
 interface FileUploadProp {
   setCurrentPdfUrl: React.Dispatch<React.SetStateAction<string>>;
   setUploadOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+  onUploadComplete?: () => void;
 }
 
-export default function FileUpload({ setCurrentPdfUrl, setUploadOpen }: FileUploadProp) {
+export default function FileUpload({ setCurrentPdfUrl, setUploadOpen, onUploadComplete }: FileUploadProp) {
   const router = useRouter();
   const [uploading, setUploading] = useState(false);
 
@@ -49,6 +50,7 @@ export default function FileUpload({ setCurrentPdfUrl, setUploadOpen }: FileUplo
           setCurrentPdfUrl(fileUrl);
           toast.success("Upload successful!");
           setUploadOpen && setUploadOpen(false);
+          onUploadComplete && onUploadComplete();
           router.refresh();
         },
         onError: (error: any) => {

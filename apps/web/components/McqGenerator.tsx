@@ -18,9 +18,10 @@ interface McqGeneratorUIProp {
   setMcqData: React.Dispatch<React.SetStateAction<McqData[]>>;
   setIsUploadOpen?: React.Dispatch<React.SetStateAction<boolean>>;
   setCurrentPdfUrl: React.Dispatch<React.SetStateAction<string>>;
+  onUploadComplete?: () => void;
 }
 
-export default function McqGeneratorUI({ setMcqData, setIsUploadOpen, setCurrentPdfUrl }: McqGeneratorUIProp) {
+export default function McqGeneratorUI({ setMcqData, setIsUploadOpen, setCurrentPdfUrl, onUploadComplete }: McqGeneratorUIProp) {
   const router = useRouter();
   const { isPremium } = useUsageStats();
   const [uploading, setUploading] = useState(false);
@@ -60,7 +61,8 @@ export default function McqGeneratorUI({ setMcqData, setIsUploadOpen, setCurrent
           setMcqData(mcqData);
           setCurrentPdfUrl(fileUrl);
           setIsUploadOpen?.(false);
-          toast.success("MCQ genarated successfully!");
+          onUploadComplete && onUploadComplete();
+          toast.success("MCQ generated successfully!");
           router.refresh();
         },
         onError: (error: any) => {

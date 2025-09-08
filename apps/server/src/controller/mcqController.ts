@@ -21,7 +21,6 @@ const McqController = async (req: AuthenticatedRequest, res: Response) => {
     return res.status(400).json({ error: "Only PDF files are allowed" });
   }
 
-  // upload the file to Cloudinary
   try {
     const cloudinaryResult = await uploadFileToCloudinary(req.file.path, {
       folder: `pdfs/${req.user.id}`,

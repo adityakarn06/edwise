@@ -1,68 +1,35 @@
 "use client";
 import Navbar from "@/components/Navbar";
 import { BookOpenCheck, Plus } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import McqGeneratorUI from "@/components/McqGenerator";
 import ExamComponent from "@/components/ExamComponent";
-import api from "@/lib/api";
-import { getMcqDocs } from "@/utils/getDoc";
-
-interface McqData {
-  question: string;
-  options: string[];
-  answer: string;
-}
-
-const getMCQData = async (currentPdfUrl: string): Promise<McqData[]> => {
-  try {
-    const result = await api.get(`/mcq/data?fileUrl=${currentPdfUrl}`);
-    if (!result.data || !Array.isArray(result.data.MCQs)) {
-      return [];
-    }
-    return result.data.MCQs;
-  } catch (error) {
-    return [];
-  }
-};
+import { useMcqDocuments } from "@/hooks/useMcqDocuments";
 
 export default function Page() {
-  const [mcqData, setMcqData] = useState<McqData[]>([]);
-  const [pdfs, setPdfs] = useState<string[]>([]);
   const [isUploadOpen, setIsUploadOpen] = useState<boolean>(false);
-  const [currentPdfUrl, setCurrentPdfUrl] = useState<string>("");
-
-  useEffect(() => {
-    if (currentPdfUrl) {
-      getMCQData(currentPdfUrl)
-      .then((data) => setMcqData(data))
-      .catch((error) => console.error("Error fetching MCQ data:", error));
-    }
-  }, [currentPdfUrl]);
-
-  useEffect(() => {
-    getMcqDocs()
-        .then((docs) => {
-          if (docs && docs.length > 0) {
-            const urls = docs.map((doc: { fileUrl: string }) => doc.fileUrl);
-            setPdfs(urls);
-            if (urls.length > 0 && urls[0]) {
-              setCurrentPdfUrl(urls[0]);
-            }
-          }
-        })
-        .catch((error) => {
-          console.error("Error fetching documents:", error);
-          setPdfs([]);
-        });
-    }, []);
+  
+  const { 
+    currentPdfUrl, 
+    fileNames, 
+    fileIds,
+    fileUrls, 
+    mcqData,
+    setCurrentPdfUrl, 
+    setMcqData,
+    refreshDocuments 
+  } = useMcqDocuments();
 
   return (
     <>
       <div className="h-[8%]">
         <Navbar
           openFileUpload={setIsUploadOpen}
-          pdfs={pdfs}
+          pdfs={fileNames}
+          pdfIds={fileIds}
+          pdfUrls={fileUrls}
           setCurrentPdf={setCurrentPdfUrl}
+          onDocumentDeleted={refreshDocuments}
           giveOptions={true}
           optionType="pdf"
           headingIcon={<BookOpenCheck className="h-4 w-4 text-white" />}
@@ -77,12 +44,12 @@ export default function Page() {
 
       {isUploadOpen ? (
         <div className="flex items-center justify-center h-[92%] w-full bg-[#131313]">
-        <McqGeneratorUI setCurrentPdfUrl={setCurrentPdfUrl} setIsUploadOpen={setIsUploadOpen} setMcqData={setMcqData} />
+        <McqGeneratorUI setCurrentPdfUrl={setCurrentPdfUrl} setIsUploadOpen={setIsUploadOpen} setMcqData={setMcqData} onUploadComplete={refreshDocuments} />
       </div>
       ) : (
         !mcqData || mcqData.length === 0 ? (
           <div className="flex items-center justify-center h-[92%] w-full bg-[#131313]">
-            <McqGeneratorUI setCurrentPdfUrl={setCurrentPdfUrl} setIsUploadOpen={setIsUploadOpen} setMcqData={setMcqData} />
+            <McqGeneratorUI setCurrentPdfUrl={setCurrentPdfUrl} setIsUploadOpen={setIsUploadOpen} setMcqData={setMcqData} onUploadComplete={refreshDocuments} />
           </div>
         ) : (
           <div className="flex flex-row h-[92%] overflow-y-auto bg-[#131313]">

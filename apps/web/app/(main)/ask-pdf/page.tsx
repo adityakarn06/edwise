@@ -4,44 +4,35 @@ import DocumentView from "@/components/DocumentView";
 import { Bot, Crown, SquareArrowOutUpRight, X } from "lucide-react";
 import { useState } from "react";
 import FileUpload from "@/components/FileUpload";
-import { useEffect } from "react";
-import { getAllDoc } from "@/utils/getDoc";
 import ChatComponent from "@/components/ChatComponent";
 import { useRouter } from "next/navigation";
 import { useUsageStats } from "@/hooks/useUsageStats";
+import { useDocuments } from "@/hooks/useDocuments";
 
 export default function AskPdf() {
-  const [currentPdfUrl, setCurrentPdfUrl] = useState<string>("");
-  const [pdfUrls, setPdfUrls] = useState<string[]>([]);
   const [isUploadOpen, setIsUploadOpen] = useState(false);
   const [isPdfOpen, setIsPdfOpen] = useState(false);
   const router = useRouter();
   const { isPremium } = useUsageStats();
-
-  useEffect(() => {
-    getAllDoc()
-      .then((docs) => {
-        if (docs && docs.length > 0) {
-          const urls = docs.map((doc: { fileUrl: string }) => doc.fileUrl);
-          setPdfUrls(urls);
-          if (urls.length > 0 && urls[0]) {
-            setCurrentPdfUrl(urls[0]);
-          }
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching documents:", error);
-        setPdfUrls([]);
-      });
-  }, []);
+  const { 
+    currentPdfUrl, 
+    fileNames, 
+    fileIds,
+    fileUrls,
+    setCurrentPdfUrl, 
+    refreshDocuments 
+  } = useDocuments();
 
   return (
     <>
       <div className="h-[8%]">
         <Navbar
           openFileUpload={setIsUploadOpen}
-          pdfs={pdfUrls}
+          pdfs={fileNames}
+          pdfIds={fileIds}
+          pdfUrls={fileUrls}
           setCurrentPdf={setCurrentPdfUrl}
+          onDocumentDeleted={refreshDocuments}
           giveOptions={true}
           optionType="pdf"
           headingIcon={<Bot className="h-4 w-4 text-white" />}
@@ -58,6 +49,7 @@ export default function AskPdf() {
           <FileUpload
             setUploadOpen={setIsUploadOpen}
             setCurrentPdfUrl={setCurrentPdfUrl}
+            onUploadComplete={refreshDocuments}
           />
         </div>
       ) : (

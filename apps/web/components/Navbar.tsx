@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import toast from "react-hot-toast";
+import api from "@/lib/api";
 
 interface NavbarProps {
   headingIcon?: React.ReactNode;
@@ -12,8 +13,11 @@ interface NavbarProps {
   optionType?: "community" | "pdf";
   memberCount?: number;
   pdfs?: string[];
+  pdfIds?: string[];
+  pdfUrls?: string[]; // Add PDF URLs
   setCurrentPdf?: React.Dispatch<React.SetStateAction<string>>;
   openFileUpload?: React.Dispatch<React.SetStateAction<boolean>>;
+  onDocumentDeleted?: () => void;
   ctaLeftButton?: boolean;
   ctaLeftIcon?: React.ReactNode;
   ctaLeftButtonClick?: () => void;
@@ -29,8 +33,11 @@ export default function Navbar({
   optionType,
   memberCount,
   pdfs,
+  pdfIds,
+  pdfUrls,
   setCurrentPdf,
   openFileUpload,
+  onDocumentDeleted,
   ctaLeftButton,
   ctaLeftIcon,
   ctaLeftButtonClick,
@@ -99,8 +106,8 @@ export default function Navbar({
                       >
                           <div 
                             onClick={() => {
-                              if (setCurrentPdf) {
-                                setCurrentPdf(pdf);
+                              if (setCurrentPdf && pdfUrls && pdfUrls[index]) {
+                                setCurrentPdf(pdfUrls[index]); // Use the URL instead of filename
                               }
                               setIsOptionOpen(false);
                               openFileUpload?.(false);
@@ -111,8 +118,21 @@ export default function Navbar({
                           <div>
                             <Trash 
                               onClick={() => {
-                                console.log(`Delete PDF: ${pdf}`);
-                                toast.success("This button has no functionality yet!");
+                                if (pdfIds && pdfIds[index]) {
+                                  api.delete(`/document/${pdfIds[index]}`)
+                                  .then(() => {
+                                    toast.success("Document deleted successfully");
+                                    setIsOptionOpen(false);
+                                    if (setCurrentPdf) {
+                                      setCurrentPdf("");
+                                    }
+                                    if (onDocumentDeleted) {
+                                      onDocumentDeleted();
+                                    }
+                                  }).catch(() => {
+                                    toast.error("Error deleting document");
+                                  });
+                                }
                               }}
                               className="text-black p-1 rounded-full border-1 cursor-pointer hover:bg-black hover:text-white transition-color"
                             />
