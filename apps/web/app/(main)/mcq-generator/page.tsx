@@ -1,62 +1,39 @@
 "use client";
+import ExamHomepage from "@/components/mcq/ExamHomepage";
 import Navbar from "@/components/Navbar";
-import { BookOpenCheck, Plus } from "lucide-react";
-import { useState } from "react";
-import McqGeneratorUI from "@/components/McqGenerator";
-import ExamComponent from "@/components/ExamComponent";
-import { useMcqDocuments } from "@/hooks/useMcqDocuments";
+import { useUsageStats } from "@/hooks/useUsageStats";
+import {
+  BookOpenCheck,
+  Crown,
+  SquareArrowOutUpRight,
+} from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
-  const [isUploadOpen, setIsUploadOpen] = useState<boolean>(false);
-  
-  const { 
-    currentPdfUrl, 
-    fileNames, 
-    fileIds,
-    fileUrls, 
-    mcqData,
-    setCurrentPdfUrl, 
-    setMcqData,
-    refreshDocuments 
-  } = useMcqDocuments();
+  const { isPremium } = useUsageStats();
+  const router = useRouter();
 
   return (
     <>
       <div className="h-[8%]">
         <Navbar
-          openFileUpload={setIsUploadOpen}
-          pdfs={fileNames}
-          pdfIds={fileIds}
-          pdfUrls={fileUrls}
-          setCurrentPdf={setCurrentPdfUrl}
-          onDocumentDeleted={refreshDocuments}
-          giveOptions={true}
-          optionType="pdf"
           headingIcon={<BookOpenCheck className="h-4 w-4 text-white" />}
-          headingText="MCQ from PDF"
-          ctaIcon={<Plus className="h-4 w-4" />}
-          ctaText="New Exam"
-          onCtaClick={() =>
-            setIsUploadOpen(true)
+          headingText="Generate MCQs"
+          ctaIcon={
+            isPremium ? (
+              <Crown className="h-4 w-4" />
+            ) : (
+              <SquareArrowOutUpRight className="h-4 w-4" />
+            )
           }
+          ctaText={isPremium ? "Premium" : "Upgrade"}
+          onCtaClick={() => router.push("/upgrade")}
         />
       </div>
 
-      {isUploadOpen ? (
-        <div className="flex items-center justify-center h-[92%] w-full bg-[#131313]">
-        <McqGeneratorUI setCurrentPdfUrl={setCurrentPdfUrl} setIsUploadOpen={setIsUploadOpen} setMcqData={setMcqData} onUploadComplete={refreshDocuments} />
+      <div className="h-[92%] w-full">
+        <ExamHomepage />
       </div>
-      ) : (
-        !mcqData || mcqData.length === 0 ? (
-          <div className="flex items-center justify-center h-[92%] w-full bg-[#131313]">
-            <McqGeneratorUI setCurrentPdfUrl={setCurrentPdfUrl} setIsUploadOpen={setIsUploadOpen} setMcqData={setMcqData} onUploadComplete={refreshDocuments} />
-          </div>
-        ) : (
-          <div className="flex flex-row h-[92%] overflow-y-auto bg-[#131313]">
-            <ExamComponent mcqData={mcqData} />
-          </div>
-        )
-      )}   
     </>
   );
 }
