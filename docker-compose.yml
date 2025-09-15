@@ -4,3 +4,57 @@ services:
     container_name: valkey_instance
     ports:
       - 6379:6379
+    restart: unless-stopped
+
+  frontend:
+    image: adityakarn06/edwise-fe:latest
+    container_name: edwise-fe
+    ports:
+      - 3000:3000
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - NEXT_PUBLIC_BACKEND_URL=${NEXT_PUBLIC_BACKEND_URL}
+      - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
+      - DATABASE_URL=${DATABASE_URL}
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+      - NEXTAUTH_URL=${NEXTAUTH_URL}
+      - NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
+      - NEXT_PUBLIC_RAZORPAY_KEY_ID=${NEXT_PUBLIC_RAZORPAY_KEY_ID}
+      - RAZORPAY_KEY_SECRET=${RAZORPAY_KEY_SECRET}
+    restart: unless-stopped
+    
+  backend:
+    image: adityakarn06/edwise-be:latest
+    container_name: edwise-be
+    ports:
+      - 3001:3001
+    environment:
+      - NODE_ENV=production
+      - PORT=3001
+      - QDRANT_URL=${QDRANT_URL}
+      - DATABASE_URL=${DATABASE_URL}
+      - NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
+      - FRONTEND_URL=${FRONTEND_URL}
+      - REDIS_HOST=valkey
+      - REDIS_PORT=6379
+      - CLOUDINARY_CLOUD_NAME=${CLOUDINARY_CLOUD_NAME}
+      - CLOUDINARY_API_KEY=${CLOUDINARY_API_KEY}
+      - CLOUDINARY_API_SECRET=${CLOUDINARY_API_SECRET}
+    restart: unless-stopped
+    depends_on:
+      - valkey
+  
+  socket:
+    image: adityakarn06/edwise-ws:latest
+    container_name: edwise-ws
+    ports:
+      - 3002:3002
+    environment:
+      - NODE_ENV=production
+      - PORT=3002
+      - NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
+      - FRONTEND_URL=${FRONTEND_URL}
+      - DATABASE_URL=${DATABASE_URL}
+    restart: unless-stopped

@@ -1,0 +1,71 @@
+name: Continuous Deployment
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Checkout Source
+        uses: actions/checkout@v4
+        
+      - name: Setup Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+        
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./docker/Dockerfile.be
+          push: true
+          tags: adityakarn06/edwise-be:latest
+  deploy:
+    needs: build
+    runs-on: self-hosted
+    steps:
+      - name: Pull image from docker hub
+        run: docker pull adityakarn06/edwise-be:latest
+        
+      - name: Start Valkey Redis container
+        run: |
+          docker stop valkey_instance || true
+          docker rm valkey_instance --force || true
+          docker run -d \
+            --name valkey_instance \
+            -p 6379:6379 \
+            --restart unless-stopped \
+            valkey/valkey
+        
+      - name: Stop and remove old backend container
+        run: |
+          docker stop edwise-be-container || true
+          docker rm edwise-be-container --force || true
+          
+      - name: Run docker container
+        run: |
+          docker run -d \
+            -p 3001:3001 \
+            --name edwise-be-container \
+            --restart unless-stopped \
+            --link valkey_instance:redis \
+            -e DATABASE_URL="${{ secrets.DATABASE_URL }}" \
+            -e NEXTAUTH_SECRET="${{ secrets.NEXTAUTH_SECRET }}" \
+            -e PORT=3001 \
+            -e FRONTEND_URL="${{ secrets.FRONTEND_URL }}" \
+            -e REDIS_HOST="valkey_instance" \
+            -e REDIS_PORT="6379" \
+            -e CLOUDINARY_CLOUD_NAME="${{ secrets.CLOUDINARY_CLOUD_NAME }}" \
+            -e CLOUDINARY_API_KEY="${{ secrets.CLOUDINARY_API_KEY }}" \
+            -e CLOUDINARY_API_SECRET="${{ secrets.CLOUDINARY_API_SECRET }}" \
+            -e PINECONE_API_KEY="${{ secrets.PINECONE_API_KEY }}" \
+            -e PINECONE_HOST="${{ secrets.PINECONE_HOST }}" \
+            -e PINECONE_ENVIRONMENT="${{ secrets.PINECONE_ENVIRONMENT }}"
+            -e PINECONE_INDEX_NAME="${{ secrets.PINECONE_INDEX_NAME }}" \
+            adityakarn06/edwise-be:latest
