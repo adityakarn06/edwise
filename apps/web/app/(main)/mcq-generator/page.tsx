@@ -8,10 +8,25 @@ import {
   SquareArrowOutUpRight,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import Page from "@/components/mcq/McqWrapper";
 
-export default function Page() {
+enum OptionType {
+  PDF = "pdf",
+  YOUTUBE = "youtube",
+}
+
+export default function ExamPage() {
   const { isPremium } = useUsageStats();
   const router = useRouter();
+  const [selectedOption, setSelectedOption] = useState<OptionType | null>(null);
+  const onOptionClickHandler = (option: OptionType) => {
+    setSelectedOption(option);
+  }
+
+  if (selectedOption) {
+    return <Page />
+  }
 
   return (
     <>
@@ -32,7 +47,7 @@ export default function Page() {
       </div>
 
       <div className="h-[92%] w-full">
-        <ExamHomepage />
+        <ExamHomepage onOptionClickHandler={onOptionClickHandler} />
       </div>
     </>
   );

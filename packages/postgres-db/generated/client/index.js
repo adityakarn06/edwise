@@ -332,7 +332,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/Users/adityaraj/Desktop/projects/edwise/packages/postgres-db/generated/client",
+      "value": "/Users/adityaraj/Desktop/my-websites/edwise/packages/postgres-db/generated/client",
       "fromEnvVar": null
     },
     "config": {
@@ -346,7 +346,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/Users/adityaraj/Desktop/projects/edwise/packages/postgres-db/prisma/schema.prisma",
+    "sourceFilePath": "/Users/adityaraj/Desktop/my-websites/edwise/packages/postgres-db/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {

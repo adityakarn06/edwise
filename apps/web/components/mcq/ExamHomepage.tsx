@@ -1,19 +1,14 @@
 import { ArrowUpRight } from "lucide-react";
 import ChooseComponent from "./ChooseOption";
 import { useState } from "react";
+import Page from "./McqWrapper";
 
 enum OptionType {
   PDF = "pdf",
   YOUTUBE = "youtube",
 }
 
-export default function ExamHomepage() {
-  const [selectedOption, setSelectedOption] = useState<OptionType>(OptionType.PDF);
-
-  const onOptionClickHandler = (option: OptionType) => {
-    setSelectedOption(option);
-  }
-
+export default function ExamHomepage({onOptionClickHandler}: {onOptionClickHandler: (option: OptionType) => void}) {
   return (
     <div className="flex flex-col h-full w-full bg-[#131313] text-white/90 p-8 overflow-scroll">
       <h2 className="text-xl md:text-xl font-semibold">
